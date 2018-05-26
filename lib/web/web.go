@@ -237,7 +237,7 @@ func doServe(c *cli.Context) error {
 	http.HandleFunc("/", index) // ハンドラを登録してウェブページを表示させる
 	http.HandleFunc("/register_training_data", registerTrainingData)
 	http.HandleFunc("/show_recent_added_examples", showRecentAddedExamples)
-	return http.ListenAndServe(":7777", nil)
+	return http.ListenAndServe("localhost:7777", nil)
 }
 
 var CommandServe = cli.Command{
