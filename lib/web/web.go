@@ -17,42 +17,6 @@ import (
 	"github.com/syou6162/go-active-learning/lib/example"
 )
 
-const templateIndexContent = `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Recommended entries</title>
-</head>
-<body>
-<h2>General</h2>
-<ul>{{range .GeneralList}}
-  <li><a href="{{.Url}}">{{or .Title .Url}}</a></li>{{end}}
-</ul>
-<h2>Twitter</h2>
-<ul>{{range .TwitterList}}
-  <li><a href="{{.Url}}">{{or .Title .Url}}</a></li>{{end}}
-</ul>
-<h2>Github</h2>
-<ul>{{range .GithubList}}
-  <li><a href="{{.Url}}">{{or .Title .Url}}</a></li>{{end}}
-</ul>
-<h2>Arxiv</h2>
-<ul>{{range .ArxivList}}
-  <li><a href="{{.Url}}">{{or .Title .Url}}</a></li>{{end}}
-</ul>
-<h2>Slideshare</h2>
-<ul>{{range .SlideShareList}}
-  <li><a href="{{.Url}}">{{or .Title .Url}}</a></li>{{end}}
-</ul>
-<h2>Speaker Deck</h2>
-<ul>{{range .SpeakerDeckList}}
-  <li><a href="{{.Url}}">{{or .Title .Url}}</a></li>{{end}}
-</ul>
-</body>
-</html>
-`
-
 const templateRecentAddedExamplesContent = `
 <!DOCTYPE html>
 <html>
@@ -217,7 +181,12 @@ func index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	t = template.Must(template.New("index").Parse(templateIndexContent))
+	t, err = template.ParseFiles("templates/index.tmpl")
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
 	err = t.Execute(w, recommendation{
 		GeneralList:     generalExamples,
 		GithubList:      githubExamples,
