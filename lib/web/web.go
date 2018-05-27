@@ -46,30 +46,6 @@ func registerTrainingData(w http.ResponseWriter, r *http.Request) {
 func showRecentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	var t *template.Template
 
-	cache, err := cache.NewCache()
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-	defer cache.Close()
-
-	conn, err := db.CreateDBConnection()
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-	defer conn.Close()
-
-	examples, err := db.ReadLabeledExamples(conn, 100)
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-	cache.AttachMetaData(examples)
-
 	indexTemplate, err := readAssetTemplate("/templates/recent_added_examples.tmpl")
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
@@ -85,7 +61,7 @@ func showRecentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	t = template.Must(template.New("recent_added_examples").Parse(indexTemplate))
 	t = template.Must(t.Parse(headerTemplate))
 
-	err = t.Execute(w, examples)
+	err = t.Execute(w, nil)
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprintln(w, err.Error())
