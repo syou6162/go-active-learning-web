@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Examples recently annotated</title>
+</head>
+<style>
+li {list-style-type: none;}
+</style>
+<body>
+<ul>{{range .}}
+  <li><a href="{{.Url}}">{{or .Title .Url}}</a><dd>Label: {{.Label}}</dd></li>{{end}}
+</ul>
+</body>
+</html>

@@ -17,24 +17,6 @@ import (
 	"github.com/syou6162/go-active-learning/lib/example"
 )
 
-const templateRecentAddedExamplesContent = `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Examples recently annotated</title>
-</head>
-<style>
-li {list-style-type: none;}
-</style>
-<body>
-<ul>{{range .}}
-  <li><a href="{{.Url}}">{{or .Title .Url}}</a><dd>Label: {{.Label}}</dd></li>{{end}}
-</ul>
-</body>
-</html>
-`
-
 func checkAuth(r *http.Request) bool {
 	username, password, ok := r.BasicAuth()
 	if ok == false {
@@ -85,7 +67,12 @@ func showRecentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	}
 	cache.AttachMetaData(examples)
 
-	t = template.Must(template.New("body").Parse(templateRecentAddedExamplesContent))
+	t, err = template.ParseFiles("templates/recent_added_examples.tmpl")
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
 	err = t.Execute(w, examples)
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
