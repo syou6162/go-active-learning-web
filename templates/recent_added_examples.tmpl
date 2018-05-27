@@ -4,15 +4,19 @@
   <body>
     {{ template "header" }}
     <div id="app">
+      <select v-model="filter_label">
+        <option value=1>Positive</option>
+        <option value=-1>Negative</option>
+      </select>
+      <span>Selected: ${ filter_label }</span>
       <ul>
-        <li v-for="item in results">
+        <li v-for="item in examplesFilterByLabel(filter_label)">
           <a v-bind:href="item.Url" v-if="item.Title">
             ${ item.Title }
           </a>
           <a v-bind:href="item.Url" v-else>
             ${ item.Url }
           </a>
-          <dd>Label: ${ item.Label }</dd>
         </li>
       </ul>
     </div>
@@ -21,6 +25,7 @@
         delimiters: ['${', '}'],
         el: '#app',
         data: {
+          filter_label: 1,
           results: []
         },
         mounted() {
@@ -28,6 +33,13 @@
             .then(response => {
               this.results = response.data;
             });
+        },
+        methods: {
+          examplesFilterByLabel: function(label) {
+            return this.results.filter(function(e) {
+              return e.Label == label;
+            })
+          }
         }
       })
     </script>
