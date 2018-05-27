@@ -1,13 +1,16 @@
 {{ define "header" }}
 
-<head>
-  <meta charset="UTF-8">
-  <title>Recommended entries</title>
-  <style>
-  li {list-style-type: none;}
-  </style>
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-</head>
+<div class="header">
+  <ul>
+    <li><a href="/">index</a></li>
+    <li><a href="#general">general</a></li>
+    <li><a href="#twitter">twitter</a></li>
+    <li><a href="#github">github</a></li>
+    <li><a href="#arxiv">arxiv</a></li>
+    <li><a href="#slideshare">slideshare</a></li>
+    <li><a href="#speakerdeck">speakerdeck</a></li>
+    <li><a href="show_recent_added_examples">recent_added_examples</a></li>
+  </ul>
+</div>
 
 {{ end }}

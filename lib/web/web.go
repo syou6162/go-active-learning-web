@@ -52,6 +52,12 @@ func showRecentAddedExamples(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, err.Error())
 		return
 	}
+	headTemplate, err := readAssetTemplate("/templates/head.tmpl")
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
 	headerTemplate, err := readAssetTemplate("/templates/header.tmpl")
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
@@ -59,6 +65,7 @@ func showRecentAddedExamples(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	t = template.Must(template.New("recent_added_examples").Parse(indexTemplate))
+	t = template.Must(t.Parse(headTemplate))
 	t = template.Must(t.Parse(headerTemplate))
 
 	err = t.Execute(w, nil)
@@ -131,6 +138,12 @@ func index(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, err.Error())
 		return
 	}
+	headTemplate, err := readAssetTemplate("/templates/head.tmpl")
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
 	headerTemplate, err := readAssetTemplate("/templates/header.tmpl")
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
@@ -138,6 +151,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	t = template.Must(template.New("index").Parse(indexTemplate))
+	t = template.Must(t.Parse(headTemplate))
 	t = template.Must(t.Parse(headerTemplate))
 
 	err = t.Execute(w, nil)
@@ -196,8 +210,14 @@ func getExamplesFromList(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 
+	// clear feature vector
+	for _, example := range examples {
+		example.Fv = make([]string, 0)
+	}
+
 	json.NewEncoder(w).Encode(examples)
 }
+
 func doServe(c *cli.Context) error {
 	http.HandleFunc("/", index) // ハンドラを登録してウェブページを表示させる
 	http.HandleFunc("/register_training_data", registerTrainingData)

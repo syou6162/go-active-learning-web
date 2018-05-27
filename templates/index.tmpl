@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
-  {{ template "header" }}
+  {{ template "head" }}
   <body>
+    {{ template "header" }}
     <div id="app">
       <div v-for="listname in listnames">
-        <h2>${ listname }</h2>
+        <h2 v-bind:id="listname">${ listname }</h2>
         <ul>
           <li v-for="item in examples_by_listname[listname]">
             <a v-bind:href="item.Url" v-if="item.Title">
@@ -27,7 +28,9 @@
             general: [],
             twitter: [],
             github: [],
-            arxiv: []
+            arxiv: [],
+            slideshare: [],
+            speakerdeck: []
           },
         },
         mounted() {
