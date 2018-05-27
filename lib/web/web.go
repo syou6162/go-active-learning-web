@@ -10,6 +10,8 @@ import (
 
 	"html/template"
 
+	"encoding/json"
+
 	"github.com/codegangsta/cli"
 	_ "github.com/lib/pq"
 	"github.com/syou6162/go-active-learning-web/lib/assets"
@@ -68,18 +70,57 @@ func showRecentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	}
 	cache.AttachMetaData(examples)
 
-	t, err = template.ParseFiles("templates/recent_added_examples.tmpl")
+	indexTemplate, err := readAssetTemplate("/templates/recent_added_examples.tmpl")
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprintln(w, err.Error())
 		return
 	}
+	headerTemplate, err := readAssetTemplate("/templates/header.tmpl")
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+	t = template.Must(template.New("recent_added_examples").Parse(indexTemplate))
+	t = template.Must(t.Parse(headerTemplate))
+
 	err = t.Execute(w, examples)
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprintln(w, err.Error())
 		return
 	}
+}
+
+func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
+	cache, err := cache.NewCache()
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+	defer cache.Close()
+
+	conn, err := db.CreateDBConnection()
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+	defer conn.Close()
+
+	examples, err := db.ReadLabeledExamples(conn, 100)
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+	cache.AttachMetaData(examples)
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8") // <- Added
+	w.WriteHeader(http.StatusOK)                                      // <- Added
+
+	json.NewEncoder(w).Encode(examples)
 }
 
 type recommendation struct {
@@ -89,6 +130,20 @@ type recommendation struct {
 	SlideShareList  example.Examples
 	ArxivList       example.Examples
 	SpeakerDeckList example.Examples
+}
+
+func readAssetTemplate(p string) (string, error) {
+	f, err := templates.Assets.Open(p)
+	if err != nil {
+		return "", err
+	}
+	defer f.Close()
+
+	templateByte, err := ioutil.ReadAll(f)
+	if err != nil {
+		return "", err
+	}
+	return string(templateByte), nil
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
@@ -169,21 +224,21 @@ func index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	f, err := templates.Assets.Open("/templates/index.tmpl")
+	indexTemplate, err := readAssetTemplate("/templates/index.tmpl")
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprintln(w, err.Error())
 		return
 	}
-	defer f.Close()
+	headerTemplate, err := readAssetTemplate("/templates/header.tmpl")
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+	t = template.Must(template.New("index").Parse(indexTemplate))
+	t = template.Must(t.Parse(headerTemplate))
 
-	templateByte, err := ioutil.ReadAll(f)
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-	t = template.Must(template.New("index").Parse(string(templateByte)))
 	err = t.Execute(w, recommendation{
 		GeneralList:     generalExamples,
 		GithubList:      githubExamples,

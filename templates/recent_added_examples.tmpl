@@ -1,15 +1,34 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Examples recently annotated</title>
-</head>
-<style>
-li {list-style-type: none;}
-</style>
-<body>
-<ul>{{range .}}
-  <li><a href="{{.Url}}">{{or .Title .Url}}</a><dd>Label: {{.Label}}</dd></li>{{end}}
-</ul>
-</body>
+  {{ template "header" }}
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="item in results">
+          <a v-bind:href="item.Url" v-if="item.Title">
+            ${ item.Title }
+          </a>
+          <a v-bind:href="item.Url" v-else>
+            ${ item.Url }
+          </a>
+          <dd>Label: ${ item.Label }</dd>
+        </li>
+      </ul>
+    </div>
+    <script>
+      var app = new Vue({
+        delimiters: ['${', '}'],
+        el: '#app',
+        data: {
+          results: []
+        },
+        mounted() {
+          axios.get("/api/recent_added_examples")
+            .then(response => {
+              this.results = response.data;
+            });
+        }
+      })
+    </script>
+  </body>
 </html>
