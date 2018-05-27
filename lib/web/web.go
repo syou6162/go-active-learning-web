@@ -93,8 +93,8 @@ func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	cache.AttachMetaData(examples)
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8") // <- Added
-	w.WriteHeader(http.StatusOK)                                      // <- Added
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
 
 	json.NewEncoder(w).Encode(examples)
 }
