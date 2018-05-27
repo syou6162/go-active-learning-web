@@ -12,6 +12,7 @@ import (
 
 	"github.com/codegangsta/cli"
 	_ "github.com/lib/pq"
+	"github.com/syou6162/go-active-learning-web/lib/assets"
 	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/db"
 	"github.com/syou6162/go-active-learning/lib/example"
@@ -168,12 +169,21 @@ func index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	t, err = template.ParseFiles("templates/index.tmpl")
+	f, err := templates.Assets.Open("/templates/index.tmpl")
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprintln(w, err.Error())
 		return
 	}
+	defer f.Close()
+
+	templateByte, err := ioutil.ReadAll(f)
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+	t = template.Must(template.New("index").Parse(string(templateByte)))
 	err = t.Execute(w, recommendation{
 		GeneralList:     generalExamples,
 		GithubList:      githubExamples,
