@@ -1,30 +1,44 @@
 <!DOCTYPE html>
 <html>
   {{ template "header" }}
-<body>
-<h2>General</h2>
-<ul>{{range .GeneralList}}
-  <li><a href="{{.Url}}">{{or .Title .Url}}</a></li>{{end}}
-</ul>
-<h2>Twitter</h2>
-<ul>{{range .TwitterList}}
-  <li><a href="{{.Url}}">{{or .Title .Url}}</a></li>{{end}}
-</ul>
-<h2>Github</h2>
-<ul>{{range .GithubList}}
-  <li><a href="{{.Url}}">{{or .Title .Url}}</a></li>{{end}}
-</ul>
-<h2>Arxiv</h2>
-<ul>{{range .ArxivList}}
-  <li><a href="{{.Url}}">{{or .Title .Url}}</a></li>{{end}}
-</ul>
-<h2>Slideshare</h2>
-<ul>{{range .SlideShareList}}
-  <li><a href="{{.Url}}">{{or .Title .Url}}</a></li>{{end}}
-</ul>
-<h2>Speaker Deck</h2>
-<ul>{{range .SpeakerDeckList}}
-  <li><a href="{{.Url}}">{{or .Title .Url}}</a></li>{{end}}
-</ul>
-</body>
+  <body>
+    <div id="app">
+      <div v-for="listname in listnames">
+        <h2>${ listname }</h2>
+        <ul>
+          <li v-for="item in examples_by_listname[listname]">
+            <a v-bind:href="item.Url" v-if="item.Title">
+              ${ item.Title }
+            </a>
+            <a v-bind:href="item.Url" v-else>
+              ${ item.Url }
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script>
+      var app = new Vue({
+        delimiters: ['${', '}'],
+        el: '#app',
+        data: {
+          listnames: ["general", "twitter", "github", "arxiv", "slideshare", "speakerdeck"],
+          examples_by_listname: {
+            general: [],
+            twitter: [],
+            github: [],
+            arxiv: []
+          },
+        },
+        mounted() {
+          for (let listname of this.listnames) {
+            axios.get("/api/examples?listName=" + listname)
+              .then(response => {
+                this.examples_by_listname[listname] = response.data;
+              });
+          }
+        }
+      })
+    </script>
+  </body>
 </html>

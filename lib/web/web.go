@@ -125,6 +125,33 @@ func readAssetTemplate(p string) (string, error) {
 func index(w http.ResponseWriter, r *http.Request) {
 	var t *template.Template
 
+	indexTemplate, err := readAssetTemplate("/templates/index.tmpl")
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+	headerTemplate, err := readAssetTemplate("/templates/header.tmpl")
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+	t = template.Must(template.New("index").Parse(indexTemplate))
+	t = template.Must(t.Parse(headerTemplate))
+
+	err = t.Execute(w, nil)
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+}
+
+func getExamplesFromList(w http.ResponseWriter, r *http.Request) {
+	queryValues := r.URL.Query()
+	listName := queryValues.Get("listName")
+
 	cache, err := cache.NewCache()
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
@@ -159,81 +186,25 @@ func index(w http.ResponseWriter, r *http.Request) {
 		return examples, nil
 	}
 
-	generalExamples, err := getUrlsFromList("general")
+	examples, err := getUrlsFromList(listName)
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprintln(w, err.Error())
 		return
 	}
 
-	githubExamples, err := getUrlsFromList("github")
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
 
-	slideshareExamples, err := getUrlsFromList("slideshare")
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-
-	twitterExamples, err := getUrlsFromList("twitter")
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-
-	arxivExamples, err := getUrlsFromList("arxiv")
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-	speakerdeckExamples, err := getUrlsFromList("speakerdeck")
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-
-	indexTemplate, err := readAssetTemplate("/templates/index.tmpl")
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-	headerTemplate, err := readAssetTemplate("/templates/header.tmpl")
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-	t = template.Must(template.New("index").Parse(indexTemplate))
-	t = template.Must(t.Parse(headerTemplate))
-
-	err = t.Execute(w, recommendation{
-		GeneralList:     generalExamples,
-		GithubList:      githubExamples,
-		SlideShareList:  slideshareExamples,
-		TwitterList:     twitterExamples,
-		ArxivList:       arxivExamples,
-		SpeakerDeckList: speakerdeckExamples,
-	})
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
+	json.NewEncoder(w).Encode(examples)
 }
-
 func doServe(c *cli.Context) error {
 	http.HandleFunc("/", index) // ハンドラを登録してウェブページを表示させる
 	http.HandleFunc("/register_training_data", registerTrainingData)
 	http.HandleFunc("/show_recent_added_examples", showRecentAddedExamples)
+	http.HandleFunc("/api/recent_added_examples", recentAddedExamples)
+	http.HandleFunc("/api/examples", getExamplesFromList)
+	// return http.ListenAndServe(":7777", nil)
 	return http.ListenAndServe("localhost:7777", nil)
 }
 
