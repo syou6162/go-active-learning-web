@@ -8,9 +8,9 @@
         <h2 v-bind:id="listname">${ listname }</h2>
         <ul id="list-examples">
           <list-example 
-            v-for="item in examples_by_listname[listname]"
-            v-bind:key="item.Url"
-            v-bind:item="item"
+            v-for="example in examples_by_listname[listname]"
+            v-bind:key="example.Url"
+            v-bind:example="example"
             ></list-example>
         </ul>
       </div>

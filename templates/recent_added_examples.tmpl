@@ -11,9 +11,9 @@
       <span>Selected: ${ filter_label }</span>
       <ul>
         <list-example 
-          v-for="item in examplesFilterByLabel(filter_label)"
-          v-bind:key="item.Url"
-          v-bind:item="item"
+          v-for="example in examplesFilterByLabel(filter_label)"
+          v-bind:key="example.Url"
+          v-bind:example="example"
           ></list-example>
       </ul>
     </div>

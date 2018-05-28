@@ -16,17 +16,17 @@
 <script>
   Vue.component('list-example', {
     delimiters: ['${', '}'],
-    props: ['item'],
+    props: ['example'],
     template: '#list-example'
   });
 </script>
 <template id="list-example">
   <li>
-    <a v-bind:href="item.Url" v-if="item.Title">
-      ${ item.Title }
+    <a v-bind:href="example.Url" v-if="example.Title">
+      ${ example.Title }
     </a>
-    <a v-bind:href="item.Url" v-else>
-      ${ item.Url }
+    <a v-bind:href="example.Url" v-else>
+      ${ example.Url }
     </a>
   </li>
 </template>
