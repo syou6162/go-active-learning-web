@@ -10,14 +10,11 @@
       </select>
       <span>Selected: ${ filter_label }</span>
       <ul>
-        <li v-for="item in examplesFilterByLabel(filter_label)">
-          <a v-bind:href="item.Url" v-if="item.Title">
-            ${ item.Title }
-          </a>
-          <a v-bind:href="item.Url" v-else>
-            ${ item.Url }
-          </a>
-        </li>
+        <list-example 
+          v-for="item in examplesFilterByLabel(filter_label)"
+          v-bind:key="item.Url"
+          v-bind:item="item"
+          ></list-example>
       </ul>
     </div>
     <script>
