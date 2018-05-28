@@ -6,15 +6,12 @@
     <div id="app">
       <div v-for="listname in listnames">
         <h2 v-bind:id="listname">${ listname }</h2>
-        <ul>
-          <li v-for="item in examples_by_listname[listname]">
-            <a v-bind:href="item.Url" v-if="item.Title">
-              ${ item.Title }
-            </a>
-            <a v-bind:href="item.Url" v-else>
-              ${ item.Url }
-            </a>
-          </li>
+        <ul id="list-examples">
+          <list-example 
+            v-for="item in examples_by_listname[listname]"
+            v-bind:key="item.Url"
+            v-bind:item="item"
+            ></list-example>
         </ul>
       </div>
     </div>
@@ -41,7 +38,7 @@
               });
           }
         }
-      })
+      });
     </script>
   </body>
 </html>

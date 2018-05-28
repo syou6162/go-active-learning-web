@@ -13,4 +13,21 @@
   </ul>
 </div>
 
+<script>
+  Vue.component('list-example', {
+    delimiters: ['${', '}'],
+    props: ['item'],
+    template: '#list-example'
+  });
+</script>
+<template id="list-example">
+  <li>
+    <a v-bind:href="item.Url" v-if="item.Title">
+      ${ item.Title }
+    </a>
+    <a v-bind:href="item.Url" v-else>
+      ${ item.Url }
+    </a>
+  </li>
+</template>
 {{ end }}
