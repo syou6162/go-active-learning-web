@@ -3,42 +3,9 @@
   {{ template "head" }}
   <body>
     {{ template "header" }}
-    <div id="app">
-      <div v-for="listname in listnames">
-        <h2 v-bind:id="listname">${ listname }</h2>
-        <ul id="list-examples">
-          <list-example 
-            v-for="example in examples_by_listname[listname]"
-            v-bind:key="example.Url"
-            v-bind:example="example"
-            ></list-example>
-        </ul>
-      </div>
+    <div id="index">
+      <index></index>
     </div>
-    <script>
-      var app = new Vue({
-        delimiters: ['${', '}'],
-        el: '#app',
-        data: {
-          listnames: ["general", "twitter", "github", "arxiv", "slideshare", "speakerdeck"],
-          examples_by_listname: {
-            general: [],
-            twitter: [],
-            github: [],
-            arxiv: [],
-            slideshare: [],
-            speakerdeck: []
-          },
-        },
-        mounted() {
-          for (let listname of this.listnames) {
-            axios.get("/api/examples?listName=" + listname)
-              .then(response => {
-                this.examples_by_listname[listname] = response.data;
-              });
-          }
-        }
-      });
-    </script>
+    {{ template "footer" }}
   </body>
 </html>

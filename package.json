@@ -1,0 +1,33 @@
+{
+  "name": "go-active-learning-web",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/syou6162/go-active-learning-web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/syou6162/go-active-learning-web/issues"
+  },
+  "homepage": "https://github.com/syou6162/go-active-learning-web#readme",
+  "devDependencies": {
+    "prettier": "^1.12.1",
+    "vue": "^2.5.16",
+    "vue-loader": "^14.2.2",
+    "vue-template-compiler": "^2.5.16",
+    "webpack": "^4.10.0",
+    "webpack-cli": "^2.1.4",
+    "webpack-command": "^0.2.0"
+  },
+  "dependencies": {},
+  "description": ""
+}

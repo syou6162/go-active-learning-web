@@ -64,9 +64,16 @@ func showRecentAddedExamples(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, err.Error())
 		return
 	}
+	footerTemplate, err := readAssetTemplate("/templates/footer.tmpl")
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
 	t = template.Must(template.New("recent_added_examples").Parse(indexTemplate))
 	t = template.Must(t.Parse(headTemplate))
 	t = template.Must(t.Parse(headerTemplate))
+	t = template.Must(t.Parse(footerTemplate))
 
 	err = t.Execute(w, nil)
 	if err != nil {
@@ -150,9 +157,16 @@ func index(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, err.Error())
 		return
 	}
+	footerTemplate, err := readAssetTemplate("/templates/footer.tmpl")
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
 	t = template.Must(template.New("index").Parse(indexTemplate))
 	t = template.Must(t.Parse(headTemplate))
 	t = template.Must(t.Parse(headerTemplate))
+	t = template.Must(t.Parse(footerTemplate))
 
 	err = t.Execute(w, nil)
 	if err != nil {
@@ -224,6 +238,7 @@ func doServe(c *cli.Context) error {
 	http.HandleFunc("/show_recent_added_examples", showRecentAddedExamples)
 	http.HandleFunc("/api/recent_added_examples", recentAddedExamples)
 	http.HandleFunc("/api/examples", getExamplesFromList)
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(templates.Assets)))
 	// return http.ListenAndServe(":7777", nil)
 	return http.ListenAndServe("localhost:7777", nil)
 }
