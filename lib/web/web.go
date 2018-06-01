@@ -184,13 +184,17 @@ func getExamplesFromList(w http.ResponseWriter, r *http.Request) {
 }
 
 func doServe(c *cli.Context) error {
+	addr := c.String("addr")
+	if addr == "" {
+		addr = ":7777"
+	}
+
 	http.HandleFunc("/", index) // ハンドラを登録してウェブページを表示させる
 	http.HandleFunc("/register_training_data", registerTrainingData)
 	http.HandleFunc("/api/recent_added_examples", recentAddedExamples)
 	http.HandleFunc("/api/examples", getExamplesFromList)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(templates.Assets)))
-	// return http.ListenAndServe(":7777", nil)
-	return http.ListenAndServe("localhost:7777", nil)
+	return http.ListenAndServe(addr, nil)
 }
 
 var CommandServe = cli.Command{
@@ -200,5 +204,7 @@ var CommandServe = cli.Command{
 Run a web server.
 `,
 	Action: doServe,
-	Flags:  []cli.Flag{},
+	Flags: []cli.Flag{
+		cli.StringFlag{Name: "addr"},
+	},
 }
