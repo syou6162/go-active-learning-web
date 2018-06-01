@@ -1,7 +1,9 @@
 <template>
   <a v-bind:href="example.Url">
-    <b-card>
-      {{ example | getTitle(100, '...') }}
+    <b-card v-bind:title="example | getTitle(100, '...')">
+      <b-card-footer>
+        {{ example | getDomain }}
+      </b-card-footer>
     </b-card>
   </a>
 </template>
@@ -21,6 +23,10 @@ export default {
       else {
         return title.substring(0, length) + ommision;
       }
+    },
+    getDomain: function(example) {
+      var url = example.Url;
+      return url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
     }
   }
 }
