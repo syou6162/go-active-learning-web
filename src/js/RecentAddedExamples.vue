@@ -5,15 +5,13 @@
       <option value=-1>Negative</option>
     </select>
     <span>Selected: {{ filter_label }}</span>
-    <b-container>
-      <b-row>
-        <list-example 
-          v-for="example in examplesFilterByLabel(filter_label)"
-          v-bind:key="example.Url"
-          v-bind:example="example"
-          ></list-example>
-      </b-row>
-    </b-container>
+    <b-card-group columns>
+      <list-example 
+        v-for="example in examplesFilterByLabel(filter_label)"
+        v-bind:key="example.Url"
+        v-bind:example="example"
+        ></list-example>
+    </b-card-group>
   </div>
 </template>
 

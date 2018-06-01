@@ -3,15 +3,13 @@
     <b-tabs card>
       <div v-for="listname in listnames">
         <b-tab v-bind:title="listname">
-          <b-container>
-            <b-row>
-              <list-example 
-                v-for="example in examples_by_listname[listname]"
-                v-bind:key="example.Url"
-                v-bind:example="example"
-                ></list-example>
-            </b-row>
-          </b-container>
+          <b-card-group columns>
+            <list-example 
+              v-for="example in examples_by_listname[listname]"
+              v-bind:key="example.Url"
+              v-bind:example="example"
+              ></list-example>
+          </b-card-group>
         </b-tab>
       </div>
       <b-tab v-bind:id="recent-added-examples" title="recent-added-examples">
