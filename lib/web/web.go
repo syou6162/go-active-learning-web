@@ -102,12 +102,6 @@ func index(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, err.Error())
 		return
 	}
-	headerTemplate, err := readAssetTemplate("/templates/header.tmpl")
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
 	footerTemplate, err := readAssetTemplate("/templates/footer.tmpl")
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
@@ -116,7 +110,6 @@ func index(w http.ResponseWriter, r *http.Request) {
 	}
 	t = template.Must(template.New("index").Parse(indexTemplate))
 	t = template.Must(t.Parse(headTemplate))
-	t = template.Must(t.Parse(headerTemplate))
 	t = template.Must(t.Parse(footerTemplate))
 
 	err = t.Execute(w, nil)
