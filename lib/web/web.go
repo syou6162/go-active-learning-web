@@ -43,46 +43,6 @@ func registerTrainingData(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func showRecentAddedExamples(w http.ResponseWriter, r *http.Request) {
-	var t *template.Template
-
-	indexTemplate, err := readAssetTemplate("/templates/recent_added_examples.tmpl")
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-	headTemplate, err := readAssetTemplate("/templates/head.tmpl")
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-	headerTemplate, err := readAssetTemplate("/templates/header.tmpl")
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-	footerTemplate, err := readAssetTemplate("/templates/footer.tmpl")
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-	t = template.Must(template.New("recent_added_examples").Parse(indexTemplate))
-	t = template.Must(t.Parse(headTemplate))
-	t = template.Must(t.Parse(headerTemplate))
-	t = template.Must(t.Parse(footerTemplate))
-
-	err = t.Execute(w, nil)
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-}
-
 func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	cache, err := cache.NewCache()
 	if err != nil {
@@ -111,15 +71,6 @@ func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 
 	json.NewEncoder(w).Encode(examples)
-}
-
-type recommendation struct {
-	GeneralList     example.Examples
-	TwitterList     example.Examples
-	GithubList      example.Examples
-	SlideShareList  example.Examples
-	ArxivList       example.Examples
-	SpeakerDeckList example.Examples
 }
 
 func readAssetTemplate(p string) (string, error) {
@@ -235,7 +186,6 @@ func getExamplesFromList(w http.ResponseWriter, r *http.Request) {
 func doServe(c *cli.Context) error {
 	http.HandleFunc("/", index) // ハンドラを登録してウェブページを表示させる
 	http.HandleFunc("/register_training_data", registerTrainingData)
-	http.HandleFunc("/show_recent_added_examples", showRecentAddedExamples)
 	http.HandleFunc("/api/recent_added_examples", recentAddedExamples)
 	http.HandleFunc("/api/examples", getExamplesFromList)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(templates.Assets)))

@@ -14,6 +14,9 @@
           </b-container>
         </b-tab>
       </div>
+      <b-tab v-bind:id="recent-added-examples" title="recent-added-examples">
+        <recent-added-examples></recent-added-examples>
+      </b-tab>
     </b-tabs>
   </b-card>
 </template>
@@ -21,6 +24,7 @@
 <script>
 import axios from 'axios';
 import ListExample from './ListExample.vue';
+import RecentAddedExamples from './RecentAddedExamples.vue';
 
 export default {
   data () {
@@ -45,7 +49,8 @@ export default {
     }
   },
   components: {
-    "list-example": ListExample
+    "list-example": ListExample,
+    "recent-added-examples": RecentAddedExamples
   }
 }
 </script>
