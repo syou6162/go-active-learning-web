@@ -1,12 +1,12 @@
 <template>
-  <li>
-    <a v-bind:href="example.Url" v-if="example.Title">
+  <b-col md=4>
+    <b-card v-bind:href="example.Url" v-if="example.Title">
       {{ example.Title }}
-    </a>
-    <a v-bind:href="example.Url" v-else>
+    </b-card>
+    <b-card v-bind:href="example.Url" v-else>
       {{ example.Url }}
-    </a>
-  </li>
+    </b-card>
+  </b-col>
 </template>
 
 <script>

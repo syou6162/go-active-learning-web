@@ -21,7 +21,9 @@
   "homepage": "https://github.com/syou6162/go-active-learning-web#readme",
   "devDependencies": {
     "axios": "^0.18.0",
+    "css-loader": "^0.28.11",
     "prettier": "^1.12.1",
+    "style-loader": "^0.21.0",
     "vue": "^2.5.16",
     "vue-loader": "^14.2.2",
     "vue-template-compiler": "^2.5.16",
@@ -29,6 +31,7 @@
     "webpack-cli": "^2.1.4"
   },
   "dependencies": {
+    "bootstrap-vue": "^2.0.0-rc.11",
     "vue-axios": "^2.1.1"
   },
   "description": ""

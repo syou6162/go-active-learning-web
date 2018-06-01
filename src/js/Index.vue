@@ -1,16 +1,21 @@
 <template>
-  <div>
-    <div v-for="listname in listnames">
-      <h2 v-bind:id="listname">{{ listname }}</h2>
-      <ul>
-        <list-example 
-          v-for="example in examples_by_listname[listname]"
-          v-bind:key="example.Url"
-          v-bind:example="example"
-          ></list-example>
-      </ul>
-    </div>
-  </div>
+  <b-card no-body>
+    <b-tabs card>
+      <div v-for="listname in listnames">
+        <b-tab v-bind:title="listname">
+          <b-container class="bv-example-row">
+            <b-row>
+              <list-example 
+                v-for="example in examples_by_listname[listname]"
+                v-bind:key="example.Url"
+                v-bind:example="example"
+                ></list-example>
+            </b-row>
+          </b-container>
+        </b-tab>
+      </div>
+    </b-tabs>
+  </b-card>
 </template>
 
 <script>
