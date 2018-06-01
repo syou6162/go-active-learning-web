@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import ListExample from './ListExample.vue';
 
 export default {

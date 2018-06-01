@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from 'vue';
 import Index from './Index.vue';
 import RecentAddedExamples from './RecentAddedExamples.vue';
 
