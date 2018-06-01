@@ -3,6 +3,10 @@ import List from './List.vue';
 
 export default [
   {
+    path: '/',
+    redirect: '/list/general'
+  },
+  {
     path: '/list/:listname',
     component: List
   },
