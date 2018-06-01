@@ -1,5 +1,5 @@
 import RecentAddedExamples from './RecentAddedExamples.vue';
-import List from './List.vue';
+import ListExample from './ListExample.vue';
 
 export default [
   {
@@ -8,7 +8,7 @@ export default [
   },
   {
     path: '/list/:listname',
-    component: List
+    component: ListExample
   },
   {
     path: '/recent-added-examples',

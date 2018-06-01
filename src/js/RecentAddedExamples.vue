@@ -6,18 +6,18 @@
     </select>
     <span>Selected: {{ filter_label }}</span>
     <b-card-group columns>
-      <list-example 
+      <example 
         v-for="example in examplesFilterByLabel(filter_label)"
         v-bind:key="example.Url"
         v-bind:example="example"
-        ></list-example>
+        ></example>
     </b-card-group>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import ListExample from './ListExample.vue';
+import Example from './Example.vue';
 
 export default {
   data () {
@@ -40,7 +40,7 @@ export default {
     }
   },
   components: {
-    "list-example": ListExample
+    "example": Example
   }
 }
 </script>

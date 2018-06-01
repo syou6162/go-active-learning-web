@@ -1,33 +1,43 @@
 <template>
-  <a v-bind:href="example.Url">
-    <b-card v-bind:title="example | getTitle(100, '...')">
-      <b-card-footer>
-        {{ example | getDomain }}
-      </b-card-footer>
-    </b-card>
-  </a>
+  <b-card-group columns>
+    <example 
+      v-for="example in examples"
+      v-bind:key="example.Url"
+      v-bind:example="example"
+      ></example>
+  </b-card-group>
 </template>
 
 <script>
-export default {
-  props: ['example'],
-  filters: {
-    getTitle: function(example, length, omission) {
-      var title = example.Title ? example.Title : example.Url;
-      var length = length ? parseInt(length, 10) : 20;
-      var ommision = omission ? omission.toString() : '...';
+import axios from 'axios';
+import Example from './Example.vue';
 
-      if(title.length <= length) {
-        return title;
-      }
-      else {
-        return title.substring(0, length) + ommision;
-      }
-    },
-    getDomain: function(example) {
-      var url = example.Url;
-      return url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
+export default {
+  data () {
+    return {
+      listname: 'general',
+      examples: []
     }
+  },
+  mounted() {
+    this.fetchList(this.$route.params.listname)
+  },
+  watch: {
+    '$route' (to, from) {
+      this.fetchList(to.params.listname)
+    }
+  },
+  methods: {
+    fetchList(listname) {
+      this.examples = [];
+      axios.get("/api/examples?listName=" + listname)
+      .then(response => {
+        this.examples = response.data;
+      });
+    }
+  },
+  components: {
+    "example": Example,
   }
 }
 </script>
