@@ -3,7 +3,7 @@
     <b-tabs card>
       <div v-for="listname in listnames">
         <b-tab v-bind:title="listname">
-          <b-container class="bv-example-row">
+          <b-container>
             <b-row>
               <list-example 
                 v-for="example in examples_by_listname[listname]"
