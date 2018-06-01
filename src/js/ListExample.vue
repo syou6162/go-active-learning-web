@@ -1,8 +1,10 @@
 <template>
   <b-col md=4>
-    <b-card v-bind:href="example.Url">
-      {{ example | getTitle(100, '...') }}
-    </b-card>
+    <a v-bind:href="example.Url">
+      <b-card>
+        {{ example | getTitle(100, '...') }}
+      </b-card>
+    </a>
   </b-col>
 </template>
 
