@@ -2,13 +2,18 @@
   <a v-bind:href="example.Url">
     <b-card v-bind:title="example | getTitle(100, '...')">
       <b-card-footer>
-        {{ example | getDomain }}
+        {{ example | getDomain }} {{ example | getUserName }}
       </b-card-footer>
     </b-card>
   </a>
 </template>
 
 <script>
+function getDomain(example) {
+  var url = example.Url;
+  return url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
+}
+
 export default {
   props: ['example'],
   filters: {
@@ -24,9 +29,26 @@ export default {
         return title.substring(0, length) + ommision;
       }
     },
-    getDomain: function(example) {
+    getDomain: getDomain,
+    getUserName: function(example) {
+      var domain = getDomain(example);
       var url = example.Url;
-      return url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
+      var paths = url.replace('http://','').replace('https://','').split(/[/?#]/);
+      if (paths.length === 0) {
+        return;
+      } else if ('twitter.com' === domain) {
+        return '(@' + paths[1] + ')';
+      } else if ('github.com' === domain) {
+        return '(@' + paths[1] + ')';
+      } else if ('qiita.com' === domain) {
+        return '(@' + paths[1] + ')';
+      } else if ('www.slideshare.net' === domain) {
+        return '(id:' + paths[1] + ')';
+      } else if ('speakerdeck.com' === domain) {
+        return '(id:' + paths[1] + ')';
+      } else {
+        return;
+      }
     }
   }
 }
