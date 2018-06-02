@@ -12,6 +12,8 @@ import (
 
 	"encoding/json"
 
+	"sort"
+
 	"github.com/codegangsta/cli"
 	_ "github.com/lib/pq"
 	"github.com/syou6162/go-active-learning-web/lib/assets"
@@ -155,6 +157,7 @@ func getExamplesFromList(w http.ResponseWriter, r *http.Request) {
 			return nil, err
 		}
 		cache.AttachMetaData(examples)
+		sort.Sort(sort.Reverse(examples))
 		return examples, nil
 	}
 
