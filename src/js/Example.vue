@@ -17,7 +17,7 @@ export default {
       var length = length ? parseInt(length, 10) : 20;
       var ommision = omission ? omission.toString() : '...';
 
-      if(title.length <= length) {
+      if (title.length <= length) {
         return title;
       }
       else {
