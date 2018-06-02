@@ -3,15 +3,21 @@
   {{ template "head" }}
   <body>
     <div id="app">
-      <b-nav tabs>
-        <b-nav-item class="lead" to="/list/general">General</b-nav-item>
-        <b-nav-item class="lead" to="/list/twitter">Twitter</b-nav-item>
-        <b-nav-item class="lead" to="/list/github">Github</b-nav-item>
-        <b-nav-item class="lead" to="/list/arxiv">arXiv</b-nav-item>
-        <b-nav-item class="lead" to="/list/slideshare">SlideShare</b-nav-item>
-        <b-nav-item class="lead" to="/list/speakerdeck">Speaker Deck</b-nav-item>
-        <b-nav-item class="lead" to="/recent-added-examples">recent-added-examples</b-nav-item>
-      </b-nav>
+      <b-navbar toggleable="md" type="dark" variant="dark" fixed="top" sticky="true">
+        <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+        <b-navbar-brand href="#">ML News</b-navbar-brand>
+        <b-collapse is-nav id="nav_collapse">
+          <b-navbar-nav>
+            <b-nav-item to="/list/general">General</b-nav-item>
+            <b-nav-item to="/list/twitter">Twitter</b-nav-item>
+            <b-nav-item to="/list/github">Github</b-nav-item>
+            <b-nav-item to="/list/arxiv">arXiv</b-nav-item>
+            <b-nav-item to="/list/slideshare">SlideShare</b-nav-item>
+            <b-nav-item to="/list/speakerdeck">Speaker Deck</b-nav-item>
+            <b-nav-item to="/recent-added-examples">recent-added-examples</b-nav-item>
+          </b-navbar-nav>
+        </b-collapse>
+      </b-navbar>
       <router-view></router-view>
     </div>
     {{ template "footer" }}
