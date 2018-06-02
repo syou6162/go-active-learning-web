@@ -98,6 +98,7 @@ func doApply(c *cli.Context) error {
 	}
 
 	for _, e := range result {
+		cache.AddExample(*e)
 		if jsonOutput {
 			b, err := json.Marshal(e)
 			if err != nil {
