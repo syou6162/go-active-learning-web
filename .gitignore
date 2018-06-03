@@ -1,0 +1,6 @@
+.DS_Store
+node_modules/*
+.idea/*
+lib/assets/templates.go
+dist/js/bundle.js
+go-active-learning-web
