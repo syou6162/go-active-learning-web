@@ -1,10 +1,12 @@
 <template>
   <div>
-    <select v-model="filter_label">
-      <option value=1>Positive</option>
-      <option value=-1>Negative</option>
-    </select>
-    <span>Selected: {{ filter_label }}</span>
+    <b-form-group label="Please select a label">
+      <b-form-radio-group
+        buttons
+        v-model="filter_label"
+        button-variant="outline-primary"
+        :options="options" />
+    </b-form-group>
     <b-card-group columns>
       <example 
         v-for="example in examplesFilterByLabel(filter_label)"
@@ -23,6 +25,10 @@ export default {
   data () {
     return {
       filter_label: 1,
+      options: [
+        { text: 'Positive', value: 1 },
+        { text: 'Negative', value: -1 },
+      ],
       results: []
     }
   },
