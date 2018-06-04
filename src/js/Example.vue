@@ -14,20 +14,24 @@ function getDomain(example) {
   return url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
 }
 
+function truncate(str, length, omission) {
+  var length = length ? parseInt(length, 10) : 20;
+  var omission = omission ? omission.toString() : '...';
+
+  if (str.length <= length) {
+    return str;
+  }
+  else {
+    return str.substring(0, length) + omission;
+  }
+}
+
 export default {
   props: ['example'],
   filters: {
     getTitle: function(example, length, omission) {
       var title = example.Title ? example.Title : example.Url;
-      var length = length ? parseInt(length, 10) : 20;
-      var ommision = omission ? omission.toString() : '...';
-
-      if (title.length <= length) {
-        return title;
-      }
-      else {
-        return title.substring(0, length) + ommision;
-      }
+      return truncate(title, length, omission);
     },
     getDomain: getDomain,
     getUserName: function(example) {
