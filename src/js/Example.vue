@@ -15,6 +15,7 @@ function getDomain(example) {
 }
 
 function truncate(str, length, omission) {
+  str = str ? str : '';
   var length = length ? parseInt(length, 10) : 20;
   var omission = omission ? omission.toString() : '...';
 
