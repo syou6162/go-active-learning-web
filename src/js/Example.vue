@@ -1,7 +1,7 @@
 <template>
   <a v-bind:href="example.Url">
     <b-card v-bind:title="example | getTitle(100, '...')">
-      {{ example | getDescription(200, '...') }}
+      <p class="card-text">{{ example | getDescription(200, '...') }}</p>
       <b-card-footer>
         {{ example | getDomain }} {{ example | getUserName }}
       </b-card-footer>
@@ -37,6 +37,7 @@ export default {
     },
     getDescription: function(example, length, omission) {
       var desc = example.Description;
+      desc = "Card titles are adding via the title prop, and sub titles are added via the sub-title prop. Links can be added and placed next to each other by adding the .card-link class to a tag (or <b-link>).";
       return truncate(desc, length, omission);
     },
     getDomain: getDomain,
