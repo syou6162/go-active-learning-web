@@ -1,6 +1,7 @@
 <template>
   <a v-bind:href="example.Url">
     <b-card v-bind:title="example | getTitle(100, '...')">
+      {{ example | getDescription(200, '...') }}
       <b-card-footer>
         {{ example | getDomain }} {{ example | getUserName }}
       </b-card-footer>
@@ -33,6 +34,10 @@ export default {
     getTitle: function(example, length, omission) {
       var title = example.Title ? example.Title : example.Url;
       return truncate(title, length, omission);
+    },
+    getDescription: function(example, length, omission) {
+      var desc = example.Description;
+      return truncate(desc, length, omission);
     },
     getDomain: getDomain,
     getUserName: function(example) {
