@@ -32,7 +32,7 @@ export default {
       this.examples = [];
       axios.get("/api/examples?listName=" + listname)
       .then(response => {
-        this.examples = response.data;
+        this.examples = response.data.filter(example => example.Label !== -1);
       });
     }
   },
