@@ -20,6 +20,7 @@ import (
 	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/db"
 	"github.com/syou6162/go-active-learning/lib/example"
+	"github.com/syou6162/go-active-learning/lib/util"
 )
 
 func checkAuth(r *http.Request) bool {
@@ -162,7 +163,8 @@ func getExamplesFromList(w http.ResponseWriter, r *http.Request) {
 		}
 		cache.AttachMetaData(examples)
 		sort.Sort(sort.Reverse(examples))
-		return examples, nil
+		result := util.RemoveNegativeExamples(examples)
+		return result, nil
 	}
 
 	examples, err := getUrlsFromList(listName)
