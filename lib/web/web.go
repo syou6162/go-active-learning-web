@@ -72,6 +72,10 @@ func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 
+	// clear feature vector
+	for _, example := range examples {
+		example.Fv = make([]string, 0)
+	}
 	json.NewEncoder(w).Encode(examples)
 }
 
