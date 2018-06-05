@@ -1,7 +1,7 @@
 <template>
   <a v-bind:href="example.Url">
-    <b-card v-bind:title="example | getTitle(100, '...')">
-      <p class="card-text">{{ example | getDescription(200, '...') }}</p>
+    <b-card v-bind:title="example | getTitle(75, '...')">
+      <p class="card-text">{{ example | getDescription(250, '...') }}</p>
       <b-card-footer>
         {{ example | getDomain }} {{ example | getUserName }}
       </b-card-footer>
