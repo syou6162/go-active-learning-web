@@ -8,15 +8,12 @@ import (
 	"os"
 	"strings"
 
-	"html/template"
-
 	"encoding/json"
 
 	"sort"
 
 	"github.com/codegangsta/cli"
 	_ "github.com/lib/pq"
-	"github.com/syou6162/go-active-learning-web/lib/assets"
 	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/db"
 	"github.com/syou6162/go-active-learning/lib/example"
@@ -78,53 +75,6 @@ func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
 		example.Fv = make([]string, 0)
 	}
 	json.NewEncoder(w).Encode(examples)
-}
-
-func readAssetTemplate(p string) (string, error) {
-	f, err := templates.Assets.Open(p)
-	if err != nil {
-		return "", err
-	}
-	defer f.Close()
-
-	templateByte, err := ioutil.ReadAll(f)
-	if err != nil {
-		return "", err
-	}
-	return string(templateByte), nil
-}
-
-func index(w http.ResponseWriter, r *http.Request) {
-	var t *template.Template
-
-	indexTemplate, err := readAssetTemplate("/templates/index.tmpl")
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-	headTemplate, err := readAssetTemplate("/templates/head.tmpl")
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-	footerTemplate, err := readAssetTemplate("/templates/footer.tmpl")
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-	t = template.Must(template.New("index").Parse(indexTemplate))
-	t = template.Must(t.Parse(headTemplate))
-	t = template.Must(t.Parse(footerTemplate))
-
-	err = t.Execute(w, nil)
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
 }
 
 func getExamplesFromList(w http.ResponseWriter, r *http.Request) {
@@ -191,11 +141,9 @@ func doServe(c *cli.Context) error {
 		addr = ":7777"
 	}
 
-	http.HandleFunc("/", index) // ハンドラを登録してウェブページを表示させる
 	http.HandleFunc("/register_training_data", registerTrainingData)
 	http.HandleFunc("/api/recent_added_examples", recentAddedExamples)
 	http.HandleFunc("/api/examples", getExamplesFromList)
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(templates.Assets)))
 	return http.ListenAndServe(addr, nil)
 }
 
