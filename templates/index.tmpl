@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
-  {{ template "head" }}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ML News</title>
+  </head>
   <body>
     <div id="app">
       <b-navbar toggleable="md" type="dark" variant="dark" fixed="top" sticky="true">
@@ -20,6 +24,6 @@
       </b-navbar>
       <router-view></router-view>
     </div>
-    {{ template "footer" }}
+    <script src="/static/dist/js/bundle.js"></script>
   </body>
 </html>
