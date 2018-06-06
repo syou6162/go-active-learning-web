@@ -33,11 +33,19 @@ export default {
   filters: {
     getTitle: function(example, length, omission) {
       var title = example.Title ? example.Title : example.Url;
+      var domain = getDomain(example);
+      if ('arxiv.org' === domain) {
+        return title;
+      }
       return truncate(title, length, omission);
     },
     getDescription: function(example, length, omission) {
       var title = example.Title ? example.Title : example.Url;
-      var desc = example.Description ? example.Description : title;
+      var desc = example.OgDescription ? example.OgDescription : (example.Description ? example.Description : example.CleanedText);
+      var domain = getDomain(example);
+      if ('arxiv.org' === domain) {
+        desc = '';
+      }
       return truncate(desc, length, omission);
     },
     getDomain: getDomain,
