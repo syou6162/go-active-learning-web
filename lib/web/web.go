@@ -141,7 +141,7 @@ func doServe(c *cli.Context) error {
 		addr = ":7778"
 	}
 
-	http.HandleFunc("/register_training_data", registerTrainingData)
+	http.HandleFunc("/api/register_training_data", registerTrainingData)
 	http.HandleFunc("/api/recent_added_examples", recentAddedExamples)
 	http.HandleFunc("/api/examples", getExamplesFromList)
 	return http.ListenAndServe(addr, nil)
