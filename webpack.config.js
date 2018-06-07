@@ -26,11 +26,11 @@ module.exports = {
   },
   devServer: {
     host: 'localhost',
-    port: 7778,
+    port: 7777,
     contentBase: __dirname + '/static',
     proxy: {
       '/api': {
-        target: 'http://localhost:7777'
+        target: 'http://localhost:7778'
       }
     }
   },

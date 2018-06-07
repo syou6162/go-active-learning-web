@@ -138,7 +138,7 @@ func getExamplesFromList(w http.ResponseWriter, r *http.Request) {
 func doServe(c *cli.Context) error {
 	addr := c.String("addr")
 	if addr == "" {
-		addr = ":7777"
+		addr = ":7778"
 	}
 
 	http.HandleFunc("/register_training_data", registerTrainingData)
