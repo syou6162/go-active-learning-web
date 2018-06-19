@@ -43,6 +43,14 @@ func registerTrainingData(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func lightenExamples(examples example.Examples) {
+	for _, example := range examples {
+		example.Fv = make([]string, 0)
+		r := []rune(example.CleanedText)
+		example.CleanedText = string(r[0:500])
+	}
+}
+
 func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	cache, err := cache.NewCache()
 	if err != nil {
@@ -70,10 +78,7 @@ func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 
-	// clear feature vector
-	for _, example := range examples {
-		example.Fv = make([]string, 0)
-	}
+	lightenExamples(examples)
 	json.NewEncoder(w).Encode(examples)
 }
 
@@ -127,11 +132,7 @@ func getExamplesFromList(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 
-	// clear feature vector
-	for _, example := range examples {
-		example.Fv = make([]string, 0)
-	}
-
+	lightenExamples(examples)
 	json.NewEncoder(w).Encode(examples)
 }
 
