@@ -43,11 +43,18 @@ func registerTrainingData(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func Min(x, y int) int {
+	if x < y {
+		return x
+	}
+	return y
+}
+
 func lightenExamples(examples example.Examples) {
 	for _, example := range examples {
 		example.Fv = make([]string, 0)
 		r := []rune(example.CleanedText)
-		example.CleanedText = string(r[0:500])
+		example.CleanedText = string(r[0:Min(500, len(r))])
 	}
 }
 
