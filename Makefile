@@ -9,8 +9,6 @@ deps:
 
 .PHONY: build
 build:
-	npx webpack
-	go-assets-builder --package=templates templates dist > lib/assets/templates.go
 	go build -v
 
 .PHONY: fmt

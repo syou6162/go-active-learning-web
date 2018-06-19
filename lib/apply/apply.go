@@ -98,7 +98,9 @@ func doApply(c *cli.Context) error {
 	}
 
 	for _, e := range result {
-		cache.AddExample(*e)
+		if err := cache.AddExample(*e); err != nil {
+			return err
+		}
 		if jsonOutput {
 			b, err := json.Marshal(e)
 			if err != nil {

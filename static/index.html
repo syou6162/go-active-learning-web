@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html>
-  {{ template "head" }}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="ML Newsは機械学習で人気のエントリが分かるサービスです。">
+    <meta name="keywords" content="機械学習, Machine Learning, 自然言語処理">
+    <meta property="og:title" content="ML News">
+    <meta property="og:url" content="https://www.machine-learning.news">
+    <meta property="og:description" content="ML Newsは機械学習で人気のエントリが分かるサービスです。">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="google-site-verification" content="H2b0gd2dMVoTm8CCOpRmL9mZYBd9GlkqESRlH2cONhY" />
+    <title>ML News</title>
+  </head>
   <body>
     <div id="app">
       <b-navbar toggleable="md" type="dark" variant="dark" fixed="top" sticky="true">
@@ -20,6 +30,6 @@
       </b-navbar>
       <router-view></router-view>
     </div>
-    {{ template "footer" }}
+    <script src="bundle.js"></script>
   </body>
 </html>
