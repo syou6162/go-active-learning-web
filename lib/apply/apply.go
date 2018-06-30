@@ -10,7 +10,10 @@ import (
 
 	"regexp"
 
+	"os"
+
 	"github.com/codegangsta/cli"
+	mkr "github.com/mackerelio/mackerel-client-go"
 	"github.com/syou6162/go-active-learning-web/lib/submodular"
 	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/classifier"
@@ -70,6 +73,12 @@ func doApply(c *cli.Context) error {
 	if err != nil {
 		return err
 	}
+
+	err = postNumOfPositiveAndNegativeExamplesToMackerel(targetExamples)
+	if err != nil {
+		return err
+	}
+
 	targetExamples = util.RemoveNegativeExamples(targetExamples)
 	cache.AttachMetaData(targetExamples)
 	if filterStatusCodeOk {
@@ -113,6 +122,40 @@ func doApply(c *cli.Context) error {
 	}
 
 	return nil
+}
+
+func postNumOfPositiveAndNegativeExamplesToMackerel(examples example.Examples) error {
+	apiKey := os.Getenv("MACKEREL_API_KEY")
+	serviceName := os.Getenv("MACKEREL_SERVICE_NAME")
+	if apiKey == "" || serviceName == "" {
+		return nil
+	}
+
+	numPos := 0
+	numNeg := 0
+	for _, e := range examples {
+		if e.Label == example.POSITIVE {
+			numPos++
+		} else if e.Label == example.NEGATIVE {
+			numNeg++
+		}
+	}
+
+	client := mkr.NewClient(apiKey)
+	now := time.Now().Unix()
+	err := client.PostServiceMetricValues(serviceName, []*mkr.MetricValue{
+		{
+			Name:  "count.positive",
+			Time:  now,
+			Value: numPos,
+		},
+		{
+			Name:  "count.negative",
+			Time:  now,
+			Value: numNeg,
+		},
+	})
+	return err
 }
 
 var CommandApply = cli.Command{
