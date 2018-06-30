@@ -55,7 +55,7 @@ func doApply(c *cli.Context) error {
 	}
 	defer conn.Close()
 
-	examples, err := db.ReadLabeledExamples(conn, 10000)
+	examples, err := db.ReadLabeledExamples(conn, 100000)
 	if err != nil {
 		return err
 	}
