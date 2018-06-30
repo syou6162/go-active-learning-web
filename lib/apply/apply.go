@@ -62,6 +62,10 @@ func doApply(c *cli.Context) error {
 	if err != nil {
 		return err
 	}
+	err = postNumOfPositiveAndNegativeExamplesToMackerel(examples)
+	if err != nil {
+		return err
+	}
 
 	cache.AttachMetaData(examples)
 	if filterStatusCodeOk {
@@ -70,11 +74,6 @@ func doApply(c *cli.Context) error {
 	model := classifier.NewBinaryClassifier(examples)
 
 	targetExamples, err := db.ReadRecentExamples(conn, time.Now().Add(-time.Duration(24*durationDay)*time.Hour))
-	if err != nil {
-		return err
-	}
-
-	err = postNumOfPositiveAndNegativeExamplesToMackerel(targetExamples)
 	if err != nil {
 		return err
 	}
