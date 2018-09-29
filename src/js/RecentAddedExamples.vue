@@ -28,6 +28,7 @@ export default {
       options: [
         { text: 'Positive', value: 1 },
         { text: 'Negative', value: -1 },
+        { text: 'Unlabeled', value: 0 },
       ],
       results: []
     }
