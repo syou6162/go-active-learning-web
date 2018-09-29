@@ -90,6 +90,7 @@ func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	cache.AttachMetaData(unlabeledExamples, false)
+	unlabeledExamples = util.FilterStatusCodeOkExamples(unlabeledExamples)
 
 	examples := append(labeledExamples, unlabeledExamples...)
 	lightenExamples(examples)
