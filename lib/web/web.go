@@ -75,17 +75,27 @@ func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	}
 	defer conn.Close()
 
-	examples, err := db.ReadLabeledExamples(conn, 100)
+	labeledExamples, err := db.ReadLabeledExamples(conn, 100)
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprintln(w, err.Error())
 		return
 	}
-	cache.AttachMetaData(examples)
+	cache.AttachMetaData(labeledExamples)
+
+	unlabeledExamples, err := db.ReadUnabeledExamples(conn, 100)
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+	cache.AttachMetaData(unlabeledExamples)
+
+	examples := append(labeledExamples, unlabeledExamples...)
+	lightenExamples(examples)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 
-	lightenExamples(examples)
 	json.NewEncoder(w).Encode(examples)
 }
 
