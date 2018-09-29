@@ -27,6 +27,7 @@ var listName2Rule = map[string]*regexp.Regexp{
 	"github":      regexp.MustCompile(`https://github.com/.+`),
 	"slideshare":  regexp.MustCompile(`https://www.slideshare.net/.+`),
 	"speakerdeck": regexp.MustCompile(`https://speakerdeck.com/.+`),
+	"slide":       regexp.MustCompile(`https://(www.slideshare.net|speakerdeck.com)/.+`),
 	"twitter":     regexp.MustCompile(`https://twitter.com/.+`),
 	"arxiv":       regexp.MustCompile(`https://arxiv.org/abs/.+`),
 }
