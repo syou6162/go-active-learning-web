@@ -75,15 +75,23 @@ func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	}
 	defer conn.Close()
 
-	labeledExamples, err := db.ReadLabeledExamples(conn, 100)
+	positiveExamples, err := db.ReadPositiveExamples(conn, 30)
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprintln(w, err.Error())
 		return
 	}
-	cache.AttachMetaData(labeledExamples, false)
+	cache.AttachMetaData(positiveExamples, false)
 
-	unlabeledExamples, err := db.ReadUnabeledExamples(conn, 100)
+	negativeExamples, err := db.ReadNegativeExamples(conn, 30)
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+	cache.AttachMetaData(negativeExamples, false)
+
+	unlabeledExamples, err := db.ReadUnlabeledExamples(conn, 100)
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprintln(w, err.Error())
@@ -92,7 +100,10 @@ func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	cache.AttachMetaData(unlabeledExamples, false)
 	unlabeledExamples = util.FilterStatusCodeOkExamples(unlabeledExamples)
 
-	examples := append(labeledExamples, unlabeledExamples...)
+	var examples example.Examples
+	examples = append(examples, positiveExamples...)
+	examples = append(examples, negativeExamples...)
+	examples = append(examples, unlabeledExamples...)
 	lightenExamples(examples)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
