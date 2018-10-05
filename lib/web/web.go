@@ -116,12 +116,12 @@ func getExamplesFromList(w http.ResponseWriter, r *http.Request) {
 	defer cache.Close()
 
 	getUrlsFromList := func(listName string) (example.Examples, error) {
-		generalUrls, err := cache.GetUrlsFromList(listName, 0, 100)
+		urls, err := cache.GetUrlsFromList(listName, 0, 100)
 		if err != nil {
 			return nil, err
 		}
 
-		examples, err := db.SearchExamplesByUlrs(generalUrls)
+		examples, err := db.SearchExamplesByUlrs(urls)
 		if err != nil {
 			return nil, err
 		}
