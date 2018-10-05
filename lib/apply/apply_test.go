@@ -16,19 +16,19 @@ func TestDoApply(t *testing.T) {
 		t.Error(err)
 	}
 
-	conn, err := db.CreateDBConnection()
+	err = db.Init()
 	if err != nil {
 		t.Error(err)
 	}
-	defer conn.Close()
+	defer db.Close()
 
-	_, err = db.DeleteAllExamples(conn)
+	_, err = db.DeleteAllExamples()
 	if err != nil {
 		t.Error(err)
 	}
 
 	for _, example := range train {
-		_, err = db.InsertOrUpdateExample(conn, example)
+		_, err = db.InsertOrUpdateExample(example)
 		if err != nil {
 			t.Error(err)
 		}

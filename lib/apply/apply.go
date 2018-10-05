@@ -51,13 +51,13 @@ func doApply(c *cli.Context) error {
 	}
 	defer cache.Close()
 
-	conn, err := db.CreateDBConnection()
+	err = db.Init()
 	if err != nil {
 		return err
 	}
-	defer conn.Close()
+	defer db.Close()
 
-	examples, err := db.ReadLabeledExamples(conn, 100000)
+	examples, err := db.ReadLabeledExamples(100000)
 	if err != nil {
 		return err
 	}
@@ -72,7 +72,7 @@ func doApply(c *cli.Context) error {
 	}
 	model := classifier.NewBinaryClassifier(examples)
 
-	targetExamples, err := db.ReadRecentExamples(conn, time.Now().Add(-time.Duration(24*durationDay)*time.Hour))
+	targetExamples, err := db.ReadRecentExamples(time.Now().Add(-time.Duration(24*durationDay)*time.Hour))
 	if err != nil {
 		return err
 	}
