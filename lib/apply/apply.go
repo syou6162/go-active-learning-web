@@ -23,11 +23,11 @@ import (
 )
 
 var listName2Rule = map[string]*regexp.Regexp{
-	"general":     regexp.MustCompile(`.+`),
-	"github":      regexp.MustCompile(`https://github.com/.+`),
-	"slide":       regexp.MustCompile(`https://(www.slideshare.net|speakerdeck.com)/.+`),
-	"twitter":     regexp.MustCompile(`https://twitter.com/.+`),
-	"arxiv":       regexp.MustCompile(`https://arxiv.org/abs/.+`),
+	"general": regexp.MustCompile(`.+`),
+	"github":  regexp.MustCompile(`https://github.com/.+`),
+	"slide":   regexp.MustCompile(`https://(www.slideshare.net|speakerdeck.com)/.+`),
+	"twitter": regexp.MustCompile(`https://twitter.com/.+`),
+	"arxiv":   regexp.MustCompile(`https://arxiv.org/abs/.+`),
 }
 
 func doApply(c *cli.Context) error {
@@ -72,7 +72,7 @@ func doApply(c *cli.Context) error {
 	}
 	model := classifier.NewBinaryClassifier(examples)
 
-	targetExamples, err := db.ReadRecentExamples(time.Now().Add(-time.Duration(24*durationDay)*time.Hour))
+	targetExamples, err := db.ReadRecentExamples(time.Now().Add(-time.Duration(24*durationDay) * time.Hour))
 	if err != nil {
 		return err
 	}
