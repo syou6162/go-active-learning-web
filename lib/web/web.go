@@ -67,15 +67,7 @@ func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	}
 	defer cache.Close()
 
-	conn, err := db.CreateDBConnection()
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-	defer conn.Close()
-
-	positiveExamples, err := db.ReadPositiveExamples(conn, 30)
+	positiveExamples, err := db.ReadPositiveExamples(30)
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprintln(w, err.Error())
@@ -83,7 +75,7 @@ func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	}
 	cache.AttachMetaData(positiveExamples, false)
 
-	negativeExamples, err := db.ReadNegativeExamples(conn, 30)
+	negativeExamples, err := db.ReadNegativeExamples(30)
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprintln(w, err.Error())
@@ -91,7 +83,7 @@ func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	}
 	cache.AttachMetaData(negativeExamples, false)
 
-	unlabeledExamples, err := db.ReadUnlabeledExamples(conn, 100)
+	unlabeledExamples, err := db.ReadUnlabeledExamples(100)
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprintln(w, err.Error())
@@ -123,28 +115,17 @@ func getExamplesFromList(w http.ResponseWriter, r *http.Request) {
 	}
 	defer cache.Close()
 
-	conn, err := db.CreateDBConnection()
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-	defer conn.Close()
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-
 	getUrlsFromList := func(listName string) (example.Examples, error) {
-		generalUrls, err := cache.GetUrlsFromList(listName, 0, 100)
+		urls, err := cache.GetUrlsFromList(listName, 0, 100)
 		if err != nil {
 			return nil, err
 		}
-		examples, err := db.SearchExamplesByUlrs(conn, generalUrls)
+
+		examples, err := db.SearchExamplesByUlrs(urls)
 		if err != nil {
 			return nil, err
 		}
+
 		cache.AttachMetaData(examples, false)
 		sort.Sort(sort.Reverse(examples))
 		result := util.RemoveNegativeExamples(examples)
@@ -170,6 +151,12 @@ func doServe(c *cli.Context) error {
 	if addr == "" {
 		addr = ":7778"
 	}
+
+	err := db.Init()
+	if err != nil {
+		return err
+	}
+	defer db.Close()
 
 	http.HandleFunc("/api/register_training_data", registerTrainingData)
 	http.HandleFunc("/api/recent_added_examples", recentAddedExamples)

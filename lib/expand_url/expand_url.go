@@ -17,11 +17,11 @@ func doExpandURL(c *cli.Context) error {
 		return cli.NewExitError("`input-filename` is a required field.", 1)
 	}
 
-	conn, err := db.CreateDBConnection()
+	err := db.Init()
 	if err != nil {
 		return err
 	}
-	defer conn.Close()
+	defer db.Close()
 
 	cache, err := cache.NewCache()
 	if err != nil {
@@ -37,7 +37,7 @@ func doExpandURL(c *cli.Context) error {
 	cache.AttachMetaData(examples, true)
 
 	for _, e := range examples {
-		_, err = db.InsertOrUpdateExample(conn, e)
+		_, err = db.InsertOrUpdateExample(e)
 		if err != nil {
 			return err
 		}
