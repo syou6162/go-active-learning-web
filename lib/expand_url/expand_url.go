@@ -34,7 +34,7 @@ func doExpandURL(c *cli.Context) error {
 		return err
 	}
 
-	cache.AttachMetaData(examples, true)
+	cache.AttachMetadata(examples, true)
 
 	for _, e := range examples {
 		_, err = db.InsertOrUpdateExample(e)
