@@ -83,7 +83,7 @@ func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	}
 	cache.AttachMetadata(negativeExamples, false)
 
-	unlabeledExamples, err := db.ReadUnlabeledExamples(100)
+	unlabeledExamples, err := db.ReadUnlabeledExamples(30)
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprintln(w, err.Error())
