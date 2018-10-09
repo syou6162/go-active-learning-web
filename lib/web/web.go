@@ -53,8 +53,8 @@ func Min(x, y int) int {
 func lightenExamples(examples example.Examples) {
 	for _, example := range examples {
 		example.Fv = make([]string, 0)
-		r := []rune(example.CleanedText)
-		example.CleanedText = string(r[0:Min(500, len(r))])
+		r := []rune(example.Body)
+		example.Body = string(r[0:Min(500, len(r))])
 	}
 }
 
