@@ -73,7 +73,7 @@ func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, err.Error())
 		return
 	}
-	cache.AttachMetadata(positiveExamples, false)
+	cache.AttachMetadata(positiveExamples, false, true)
 
 	negativeExamples, err := db.ReadNegativeExamples(30)
 	if err != nil {
@@ -81,7 +81,7 @@ func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, err.Error())
 		return
 	}
-	cache.AttachMetadata(negativeExamples, false)
+	cache.AttachMetadata(negativeExamples, false, true)
 
 	unlabeledExamples, err := db.ReadUnlabeledExamples(30)
 	if err != nil {
@@ -89,7 +89,7 @@ func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, err.Error())
 		return
 	}
-	cache.AttachMetadata(unlabeledExamples, false)
+	cache.AttachMetadata(unlabeledExamples, false, true)
 	unlabeledExamples = util.FilterStatusCodeOkExamples(unlabeledExamples)
 
 	var examples example.Examples
@@ -126,7 +126,7 @@ func getExamplesFromList(w http.ResponseWriter, r *http.Request) {
 			return nil, err
 		}
 
-		cache.AttachMetadata(examples, false)
+		cache.AttachMetadata(examples, false, true)
 		sort.Sort(sort.Reverse(examples))
 		result := util.RemoveNegativeExamples(examples)
 		return result, nil
