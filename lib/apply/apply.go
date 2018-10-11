@@ -45,7 +45,7 @@ func doApply(c *cli.Context) error {
 		return cli.NewExitError("No matched rule", 1)
 	}
 
-	cache, err := cache.NewCache()
+	err := cache.Init()
 	if err != nil {
 		return err
 	}

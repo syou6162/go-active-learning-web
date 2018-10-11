@@ -61,14 +61,6 @@ func lightenExamples(examples example.Examples) {
 }
 
 func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
-	cache, err := cache.NewCache()
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-	defer cache.Close()
-
 	var wg sync.WaitGroup
 
 	positiveExamples, err := db.ReadPositiveExamples(30)
@@ -124,14 +116,6 @@ func getExamplesFromList(w http.ResponseWriter, r *http.Request) {
 	queryValues := r.URL.Query()
 	listName := queryValues.Get("listName")
 
-	cache, err := cache.NewCache()
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-	defer cache.Close()
-
 	getUrlsFromList := func(listName string) (example.Examples, error) {
 		urls, err := cache.GetUrlsFromList(listName, 0, 100)
 		if err != nil {
@@ -174,6 +158,12 @@ func doServe(c *cli.Context) error {
 		return err
 	}
 	defer db.Close()
+
+	err = cache.Init()
+	if err != nil {
+		return err
+	}
+	defer cache.Close()
 
 	http.HandleFunc("/api/register_training_data", registerTrainingData)
 	http.HandleFunc("/api/recent_added_examples", recentAddedExamples)
