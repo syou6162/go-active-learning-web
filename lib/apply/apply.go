@@ -66,7 +66,7 @@ func doApply(c *cli.Context) error {
 		return err
 	}
 
-	cache.AttachMetadata(examples, true)
+	cache.AttachMetadata(examples, true, false)
 	if filterStatusCodeOk {
 		examples = util.FilterStatusCodeOkExamples(examples)
 	}
@@ -78,7 +78,7 @@ func doApply(c *cli.Context) error {
 	}
 
 	targetExamples = util.RemoveNegativeExamples(targetExamples)
-	cache.AttachMetadata(targetExamples, true)
+	cache.AttachMetadata(targetExamples, true, false)
 	if filterStatusCodeOk {
 		targetExamples = util.FilterStatusCodeOkExamples(targetExamples)
 	}
