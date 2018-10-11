@@ -23,7 +23,7 @@ func doExpandURL(c *cli.Context) error {
 	}
 	defer db.Close()
 
-	cache, err := cache.NewCache()
+	err = cache.Init()
 	if err != nil {
 		return err
 	}
