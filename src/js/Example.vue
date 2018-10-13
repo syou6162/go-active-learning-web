@@ -41,7 +41,7 @@ export default {
     },
     getDescription: function(example, length, omission) {
       var title = example.Title ? example.Title : example.Url;
-      var desc = example.OgDescription ? example.OgDescription : (example.Description ? example.Description : example.Body);
+      var desc = example.OgDescription ? example.OgDescription : example.Description;
       var domain = getDomain(example);
       if ('arxiv.org' === domain) {
         desc = '';
