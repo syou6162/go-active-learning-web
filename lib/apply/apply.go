@@ -24,6 +24,7 @@ import (
 
 var listName2Rule = map[string]*regexp.Regexp{
 	"general": regexp.MustCompile(`.+`),
+	"article": regexp.MustCompile(`.+`), // あとでog:typeで絞り込む
 	"github":  regexp.MustCompile(`https://github.com/.+`),
 	"slide":   regexp.MustCompile(`https://(www.slideshare.net|speakerdeck.com)/.+`),
 	"twitter": regexp.MustCompile(`https://twitter.com/.+`),
@@ -86,6 +87,9 @@ func doApply(c *cli.Context) error {
 	result := example.Examples{}
 	for _, e := range targetExamples {
 		if !rule.MatchString(e.FinalUrl) {
+			continue
+		}
+		if listName == "article" && e.OgType != "article" {
 			continue
 		}
 		e.Score = model.PredictScore(e.Fv)
