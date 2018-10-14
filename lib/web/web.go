@@ -34,11 +34,18 @@ func registerTrainingData(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("401 Unauthorized\n"))
 		return
 	} else {
-		buf, _ := ioutil.ReadAll(r.Body)
-		err := db.InsertExamplesFromReader(strings.NewReader(string(buf)))
+		buf, err := ioutil.ReadAll(r.Body)
 		if err != nil {
 			w.WriteHeader(http.StatusBadGateway)
 			fmt.Fprintln(w, err.Error())
+			return
+		}
+		defer r.Body.Close()
+		err = db.InsertExamplesFromReader(strings.NewReader(string(buf)))
+		if err != nil {
+			w.WriteHeader(http.StatusBadGateway)
+			fmt.Fprintln(w, err.Error())
+			return
 		}
 	}
 }
