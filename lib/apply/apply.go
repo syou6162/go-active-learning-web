@@ -89,7 +89,7 @@ func doApply(c *cli.Context) error {
 		if !rule.MatchString(e.FinalUrl) {
 			continue
 		}
-		if listName == "article" && e.OgType != "article" {
+		if listName == "article" && !e.IsArticle() {
 			continue
 		}
 		e.Score = model.PredictScore(e.Fv)
