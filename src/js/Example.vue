@@ -34,18 +34,11 @@ export default {
     getTitle: function(example, length, omission) {
       var title = example.Title ? example.Title : example.Url;
       var domain = getDomain(example);
-      if ('arxiv.org' === domain) {
-        return title;
-      }
       return truncate(title, length, omission);
     },
     getDescription: function(example, length, omission) {
       var title = example.Title ? example.Title : example.Url;
       var desc = example.OgDescription ? example.OgDescription : example.Description;
-      var domain = getDomain(example);
-      if ('arxiv.org' === domain) {
-        desc = '';
-      }
       return truncate(desc, length, omission);
     },
     getDomain: getDomain,
