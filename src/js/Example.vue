@@ -1,9 +1,9 @@
 <template>
   <a v-bind:href="example.Url">
     <b-card no-body>
-      <b-card-body v-bind:title="example | getTitle(50, '...')" class="m-1 p-2">
+      <b-card-body v-bind:title="example | getTitle(75, '...')" class="m-1 p-2">
         <div v-if="example.OgImage === ''">
-          <p class="card-text">{{ example | getDescription(125, '...') }}</p>
+          <p class="card-text">{{ example | getDescription(250, '...') }}</p>
         </div>
         <div v-else class="d-flex justify-content-between">
           <p class="card-text">{{ example | getDescription(75, '...') }}</p>
