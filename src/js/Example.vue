@@ -1,10 +1,16 @@
 <template>
   <a v-bind:href="example.Url">
-    <b-card v-bind:title="example | getTitle(75, '...')">
-      <p class="card-text">{{ example | getDescription(250, '...') }}</p>
-      <b-card-footer>
-        {{ example | getDomain }} {{ example | getUserName }}
-      </b-card-footer>
+    <b-card no-body>
+      <b-card-body v-bind:title="example | getTitle(50, '...')" class="m-1 p-2">
+        <div class="d-flex justify-content-between">
+          <p class="card-text">{{ example | getDescription(75, '...') }}</p>
+          <img class="img-thumbnail img-responsive" style="width: 128px; height: 96px;" v-bind:src="example.OgImage" onerror="this.style.display='none'" />
+        </div>
+        <b-card-footer>
+          <img style="width: 16px; height: 16px;" v-bind:src="example.Favicon" onerror="this.style.display='none'" />
+          {{ example | getDomain }} {{ example | getUserName }}
+        </b-card-footer>
+      </b-card-body>
     </b-card>
   </a>
 </template>
