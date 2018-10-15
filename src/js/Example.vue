@@ -1,5 +1,5 @@
 <template>
-  <a v-bind:href="example.Url">
+  <a v-bind:href="example.FinalUrl">
     <b-card no-body>
       <b-card-body v-bind:title="example | getTitle(75, '...')" class="m-1 p-2">
         <div v-if="example.OgImage === ''">
@@ -20,7 +20,7 @@
 
 <script>
 function getDomain(example) {
-  var url = example.Url;
+  var url = example.FinalUrl;
   return url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
 }
 
@@ -53,7 +53,7 @@ export default {
     getDomain: getDomain,
     getUserName: function(example) {
       var domain = getDomain(example);
-      var url = example.Url;
+      var url = example.FinalUrl;
       var paths = url.replace('http://','').replace('https://','').split(/[/?#]/);
       if (paths.length === 0) {
         return;
