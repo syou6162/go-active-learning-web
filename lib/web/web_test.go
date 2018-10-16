@@ -69,6 +69,7 @@ func TestRecentAddedExamples(t *testing.T) {
 			t.Error(err)
 		}
 	}
+	cache.AttachMetadata(train, true, false)
 
 	req, err = http.NewRequest("GET", "/api/recent_added_examples", nil)
 	if err != nil {
@@ -84,6 +85,40 @@ func TestRecentAddedExamples(t *testing.T) {
 	json.Unmarshal(w.Body.Bytes(), &examples)
 
 	if len(examples) == 0 {
-		t.Errorf("Result must not be empty: returned %d", len(examples))
+		t.Error("Result must not be empty")
+	}
+}
+
+func TestGetExamplesFromList(t *testing.T) {
+	inputFilename := "../../tech_input_example.txt"
+	train, err := file.ReadExamples(inputFilename)
+	if err != nil {
+		t.Error(err)
+	}
+	for _, example := range train {
+		_, err = db.InsertOrUpdateExample(example)
+		if err != nil {
+			t.Error(err)
+		}
+	}
+	cache.AddExamplesToList("general", train)
+
+	req, err := http.NewRequest("GET", "/api/examples?listName=general", nil)
+	if err != nil {
+		t.Error(err)
+	}
+	w := httptest.NewRecorder()
+	http.HandlerFunc(web.GetExamplesFromList).ServeHTTP(w, req)
+
+	if status := w.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	examples := example.Examples{}
+	json.Unmarshal(w.Body.Bytes(), &examples)
+
+	if len(examples) == 0 {
+		t.Error("Result must not be empty")
 	}
 }
