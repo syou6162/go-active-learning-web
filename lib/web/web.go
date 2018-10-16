@@ -100,7 +100,7 @@ func RecentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(examples)
 }
 
-func getExamplesFromList(w http.ResponseWriter, r *http.Request) {
+func GetExamplesFromList(w http.ResponseWriter, r *http.Request) {
 	queryValues := r.URL.Query()
 	listName := queryValues.Get("listName")
 
@@ -155,7 +155,7 @@ func doServe(c *cli.Context) error {
 
 	http.HandleFunc("/api/register_training_data", registerTrainingData)
 	http.HandleFunc("/api/recent_added_examples", RecentAddedExamples)
-	http.HandleFunc("/api/examples", getExamplesFromList)
+	http.HandleFunc("/api/examples", GetExamplesFromList)
 	return http.ListenAndServe(addr, nil)
 }
 
