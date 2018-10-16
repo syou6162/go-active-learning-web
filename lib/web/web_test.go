@@ -1,0 +1,89 @@
+package web_test
+
+import (
+	"net/http"
+	"net/http/httptest"
+	"testing"
+
+	"encoding/json"
+	"log"
+	"os"
+
+	"github.com/syou6162/go-active-learning-web/lib/web"
+	"github.com/syou6162/go-active-learning/lib/cache"
+	"github.com/syou6162/go-active-learning/lib/db"
+	"github.com/syou6162/go-active-learning/lib/example"
+	"github.com/syou6162/go-active-learning/lib/util/file"
+)
+
+func TestMain(m *testing.M) {
+	err := db.Init()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	defer db.Close()
+
+	_, err = db.DeleteAllExamples()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	err = cache.Init()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	defer cache.Close()
+
+	ret := m.Run()
+	os.Exit(ret)
+}
+
+func TestRecentAddedExamples(t *testing.T) {
+	req, err := http.NewRequest("GET", "/api/recent_added_examples", nil)
+	if err != nil {
+		t.Error(err)
+	}
+	w := httptest.NewRecorder()
+	http.HandlerFunc(web.RecentAddedExamples).ServeHTTP(w, req)
+
+	if status := w.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	examples := example.Examples{}
+	json.Unmarshal(w.Body.Bytes(), &examples)
+
+	if len(examples) != 0 {
+		t.Errorf("handler returned wrong length of examples: got %v want %v", len(examples), 0)
+	}
+
+	inputFilename := "../../tech_input_example.txt"
+	train, err := file.ReadExamples(inputFilename)
+	if err != nil {
+		t.Error(err)
+	}
+	for _, example := range train {
+		_, err = db.InsertOrUpdateExample(example)
+		if err != nil {
+			t.Error(err)
+		}
+	}
+
+	req, err = http.NewRequest("GET", "/api/recent_added_examples", nil)
+	if err != nil {
+		t.Error(err)
+	}
+	w = httptest.NewRecorder()
+	http.HandlerFunc(web.RecentAddedExamples).ServeHTTP(w, req)
+	if status := w.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+	examples = example.Examples{}
+	json.Unmarshal(w.Body.Bytes(), &examples)
+
+	if len(examples) == 0 {
+		t.Errorf("Result must not be empty: returned %d", len(examples))
+	}
+}

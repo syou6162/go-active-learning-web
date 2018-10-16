@@ -65,7 +65,7 @@ func lightenExamples(examples example.Examples) {
 	}
 }
 
-func recentAddedExamples(w http.ResponseWriter, r *http.Request) {
+func RecentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	positiveExamples, err := db.ReadPositiveExamples(30)
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
@@ -154,7 +154,7 @@ func doServe(c *cli.Context) error {
 	defer cache.Close()
 
 	http.HandleFunc("/api/register_training_data", registerTrainingData)
-	http.HandleFunc("/api/recent_added_examples", recentAddedExamples)
+	http.HandleFunc("/api/recent_added_examples", RecentAddedExamples)
 	http.HandleFunc("/api/examples", getExamplesFromList)
 	return http.ListenAndServe(addr, nil)
 }
