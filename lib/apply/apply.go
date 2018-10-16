@@ -2,6 +2,7 @@ package apply
 
 import (
 	"fmt"
+	"log"
 	"strings"
 
 	"encoding/json"
@@ -79,11 +80,13 @@ func doApply(c *cli.Context) error {
 	}
 
 	targetExamples = util.RemoveNegativeExamples(targetExamples)
+	log.Println("Started to attach metadata to positive or unlabeled...")
 	cache.AttachMetadata(targetExamples, true, false)
 	if filterStatusCodeOk {
 		targetExamples = util.FilterStatusCodeOkExamples(targetExamples)
 	}
 
+	log.Println("Started to predict scores...")
 	result := example.Examples{}
 	for _, e := range targetExamples {
 		if !rule.MatchString(e.FinalUrl) {
@@ -99,10 +102,13 @@ func doApply(c *cli.Context) error {
 		}
 	}
 
+	log.Println("Started to filter by submodular...")
+	log.Println(fmt.Sprintf("Original result size: %d", len(result)))
 	if subsetSelection {
 		result = submodular.SelectSubExamplesBySubModular(result, sizeConstraint, alpha, r)
 	}
 
+	log.Println("Started to write result...")
 	err = cache.AddExamplesToList(listName, result)
 	if err != nil {
 		return err
