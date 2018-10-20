@@ -14,6 +14,7 @@ import (
 
 	"github.com/codegangsta/cli"
 	_ "github.com/lib/pq"
+	"github.com/syou6162/go-active-learning-web/lib/search"
 	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/db"
 	"github.com/syou6162/go-active-learning/lib/example"
@@ -136,6 +137,28 @@ func GetExamplesFromList(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(examples)
 }
 
+func Search(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "POST" {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	query := r.FormValue("query")
+	examples, err := search.Search(query)
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+
+	examples = util.FilterStatusCodeOkExamples(examples)
+	lightenExamples(examples)
+	json.NewEncoder(w).Encode(examples)
+}
+
 func doServe(c *cli.Context) error {
 	addr := c.String("addr")
 	if addr == "" {
@@ -154,9 +177,13 @@ func doServe(c *cli.Context) error {
 	}
 	defer cache.Close()
 
+	search.Init()
+	defer search.Close()
+
 	http.HandleFunc("/api/register_training_data", registerTrainingData)
 	http.HandleFunc("/api/recent_added_examples", RecentAddedExamples)
 	http.HandleFunc("/api/examples", GetExamplesFromList)
+	http.HandleFunc("/api/search", Search)
 	return http.ListenAndServe(addr, nil)
 }
 

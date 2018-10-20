@@ -7,10 +7,10 @@
         </div>
         <div v-else class="d-flex justify-content-between" style="overflow-x: auto;">
           <p class="card-text">{{ example | getDescription(75, '...') }}</p>
-          <img class="img-thumbnail img-responsive" style="width: 128px; height: 96px; margin: 3px;" v-bind:src="example.OgImage" onerror="this.style.display='none'" />
+          <img class="img-thumbnail img-responsive" style="width: 128px; height: 96px; margin: 3px;" v-lazy="example.OgImage" onerror="this.style.display='none'" />
         </div>
         <b-card-footer>
-          <img v-if="example.Favicon" style="width: 16px; height: 16px;" v-bind:src="example.Favicon" onerror="this.style.display='none'" />
+          <img v-if="example.Favicon" style="width: 16px; height: 16px;" v-lazy="example.Favicon" onerror="this.style.display='none'" />
           {{ example | getDomain }} {{ example | getUserName }}
         </b-card-footer>
       </b-card-body>
