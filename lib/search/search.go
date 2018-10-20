@@ -1,19 +1,20 @@
 package search
 
 import (
+	"hash/fnv"
+	"sync"
+
 	"github.com/go-ego/riot"
 	"github.com/go-ego/riot/types"
 	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/db"
-	"hash/fnv"
-	"sync"
 	"github.com/syou6162/go-active-learning/lib/example"
 )
 
 var (
-	once sync.Once
+	once     sync.Once
 	searcher = riot.Engine{}
-	id2url = map[uint64]string{}
+	id2url   = map[uint64]string{}
 )
 
 func hash(s string) uint64 {
@@ -26,7 +27,7 @@ func Init() error {
 	var err error
 	once.Do(func() {
 		searcher.Init(types.EngineOpts{
-			GseDict: "jp",
+			GseDict:  "jp",
 			UseStore: false,
 		})
 
@@ -57,10 +58,11 @@ func Init() error {
 
 func Search(query string) (example.Examples, error) {
 	urls := make([]string, 0)
-	for _, resp := range searcher.SearchDoc(types.SearchReq{
-		Text: query,
+	req := types.SearchReq{
+		Text:     query,
 		RankOpts: &types.RankOpts{MaxOutputs: 100},
-		}).Docs {
+	}
+	for _, resp := range searcher.SearchDoc(req).Docs {
 		url := id2url[resp.DocId]
 		urls = append(urls, url)
 	}
