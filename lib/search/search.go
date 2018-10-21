@@ -4,17 +4,21 @@ import (
 	"hash/fnv"
 	"sync"
 
+	"os"
+
 	"github.com/go-ego/riot"
 	"github.com/go-ego/riot/types"
 	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/db"
 	"github.com/syou6162/go-active-learning/lib/example"
+	"github.com/syou6162/go-active-learning/lib/util"
 )
 
 var (
-	once     sync.Once
-	searcher = riot.Engine{}
-	id2url   = map[uint64]string{}
+	once         sync.Once
+	riotDictPath string
+	searcher     = riot.Engine{}
+	id2url       = map[uint64]string{}
 )
 
 func hash(s string) uint64 {
@@ -23,11 +27,21 @@ func hash(s string) uint64 {
 	return h.Sum64()
 }
 
+func setDictPathFromEnv() {
+	dictPath, ok := os.LookupEnv("RIOT_DICT_PATH")
+	if !ok {
+		goPath := util.GetEnv("GOPATH", "~/go")
+		dictPath = goPath + "/src/github.com/go-ego/gse/data/dict/jp/dict.txt"
+	}
+	riotDictPath = dictPath
+}
+
 func Init() error {
 	var err error
 	once.Do(func() {
+		setDictPathFromEnv()
 		searcher.Init(types.EngineOpts{
-			GseDict:  "jp",
+			GseDict:  riotDictPath,
 			UseStore: false,
 		})
 
