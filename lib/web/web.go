@@ -19,7 +19,6 @@ import (
 	"syscall"
 
 	"github.com/codegangsta/cli"
-	_ "github.com/lib/pq"
 	"github.com/syou6162/go-active-learning-web/lib/search"
 	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/db"
