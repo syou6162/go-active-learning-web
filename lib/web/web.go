@@ -21,6 +21,7 @@ import (
 	"github.com/codegangsta/cli"
 	"github.com/fukata/golang-stats-api-handler"
 	"github.com/syou6162/go-active-learning-web/lib/search"
+	"github.com/syou6162/go-active-learning-web/lib/version"
 	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/db"
 	"github.com/syou6162/go-active-learning/lib/example"
@@ -193,6 +194,12 @@ func doServe(c *cli.Context) error {
 	}
 
 	mux := http.NewServeMux()
+	mux.HandleFunc("/api", func(resp http.ResponseWriter, req *http.Request) {
+		resp.Header().Set("Content-Type", "text/plain")
+		resp.Header().Set("X-Revision", version.GitCommit)
+		fmt.Fprintln(resp, "I'm ML-News.")
+	})
+
 	mux.HandleFunc("/api/register_training_data", registerTrainingData)
 	mux.HandleFunc("/api/recent_added_examples", RecentAddedExamples)
 	mux.HandleFunc("/api/examples", GetExamplesFromList)

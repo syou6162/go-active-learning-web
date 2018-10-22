@@ -1,3 +1,4 @@
+COMMIT ?= $$(git describe --always 2>/dev/null)
 COVERAGE = coverage.out
 
 all: build
@@ -13,7 +14,7 @@ deps:
 
 .PHONY: build
 build:
-	go build -v
+	go build -v -ldflags "-X github.com/syou6162/go-active-learning-web/lib/version.GitCommit=$(COMMIT)"
 
 .PHONY: fmt
 fmt:
