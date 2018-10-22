@@ -400,7 +400,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "666549209ec9ecaa0212ee67181b9a055853bf3f"
+  revision = "b3f270ab721acdea00402f57d9ea2a2eefe3e0f9"
 
 [[projects]]
   digest = "1:c28625428387b63dd7154eb857f51e700465cfbf7c06f619e71f2da33cefe47e"
@@ -427,14 +427,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:db09bef7e2c1a744c896d1f812eb7f08c1b13828edff7d7b6dd8a7f2e504e87f"
+  digest = "1:eb2ed765d17a2cedfc307cf8beda6f0857ad378431a4d8f2726c419f3d7105de"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "UT"
-  revision = "8b8824e799c8fc8e6d900615cc6c761ce6c26c67"
+  revision = "8a28ead16f52c8aaeffbf79239b251dfdf6c4f96"
 
 [[projects]]
   digest = "1:aa4d6967a3237f8367b6bf91503964a77183ecf696f1273e8ad3551bb4412b5f"
