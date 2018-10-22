@@ -19,6 +19,7 @@ import (
 	"syscall"
 
 	"github.com/codegangsta/cli"
+	"github.com/fukata/golang-stats-api-handler"
 	"github.com/syou6162/go-active-learning-web/lib/search"
 	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/db"
@@ -197,6 +198,7 @@ func doServe(c *cli.Context) error {
 	mux.HandleFunc("/api/examples", GetExamplesFromList)
 	mux.HandleFunc("/api/search", Search)
 	mux.HandleFunc("/api/server_avail", ServerAvail)
+	mux.HandleFunc("/api/stats", stats_api.Handler)
 
 	srv := http.Server{
 		Addr:    addr,

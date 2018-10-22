@@ -31,7 +31,7 @@
 
 [[constraint]]
   name = "github.com/go-ego/riot"
-  version = "0.10.0"
+  branch = "master"
 
 [[constraint]]
   branch = "master"
@@ -48,3 +48,7 @@
 [prune]
   go-tests = true
   unused-packages = true
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/fukata/golang-stats-api-handler"
