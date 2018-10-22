@@ -12,6 +12,7 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/fukata/golang-stats-api-handler"
 	"github.com/syou6162/go-active-learning-web/lib/search"
 	"github.com/syou6162/go-active-learning-web/lib/web"
 	"github.com/syou6162/go-active-learning/lib/cache"
@@ -169,5 +170,33 @@ func TestSearch(t *testing.T) {
 
 	if len(examples) == 0 {
 		t.Error("Result must not be empty")
+	}
+}
+
+func TestServerAvail(t *testing.T) {
+	req, err := http.NewRequest("GET", "/api/server_avail", nil)
+	if err != nil {
+		t.Error(err)
+	}
+	w := httptest.NewRecorder()
+	http.HandlerFunc(web.ServerAvail).ServeHTTP(w, req)
+
+	if status := w.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+}
+
+func TestStats(t *testing.T) {
+	req, err := http.NewRequest("GET", "/api/stats", nil)
+	if err != nil {
+		t.Error(err)
+	}
+	w := httptest.NewRecorder()
+	http.HandlerFunc(stats_api.Handler).ServeHTTP(w, req)
+
+	if status := w.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
 	}
 }
