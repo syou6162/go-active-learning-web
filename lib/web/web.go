@@ -164,6 +164,27 @@ func Search(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(examples)
 }
 
+func ServerAvail(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/plain; charset=UTF-8")
+	if err := db.Ping(); err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+	if err := cache.Ping(); err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+	if err := search.Ping(); err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintln(w, "OK, I'm fine")
+}
+
 func doServe(c *cli.Context) error {
 	addr := c.String("addr")
 	if addr == "" {
@@ -175,6 +196,7 @@ func doServe(c *cli.Context) error {
 	mux.HandleFunc("/api/recent_added_examples", RecentAddedExamples)
 	mux.HandleFunc("/api/examples", GetExamplesFromList)
 	mux.HandleFunc("/api/search", Search)
+	mux.HandleFunc("/api/server_avail", ServerAvail)
 
 	srv := http.Server{
 		Addr:    addr,
