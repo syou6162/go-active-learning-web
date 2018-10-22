@@ -1,6 +1,7 @@
 package search
 
 import (
+	"errors"
 	"hash/fnv"
 	"sync"
 
@@ -19,6 +20,7 @@ var (
 	riotDictPath string
 	searcher     = riot.Engine{}
 	id2url       = map[uint64]string{}
+	avail        = false
 )
 
 func hash(s string) uint64 {
@@ -66,6 +68,14 @@ func Init() error {
 	})
 	if err != nil {
 		return err
+	}
+	avail = true
+	return nil
+}
+
+func Ping() error {
+	if !avail {
+		return errors.New("searcher cannot be available")
 	}
 	return nil
 }

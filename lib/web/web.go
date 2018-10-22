@@ -1,8 +1,12 @@
 package web
 
 import (
+	"context"
 	"fmt"
+	"log"
 	"net/http"
+	"os/signal"
+	"time"
 
 	"io/ioutil"
 	"os"
@@ -12,8 +16,9 @@ import (
 
 	"sort"
 
+	"syscall"
+
 	"github.com/codegangsta/cli"
-	_ "github.com/lib/pq"
 	"github.com/syou6162/go-active-learning-web/lib/search"
 	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/db"
@@ -159,11 +164,50 @@ func Search(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(examples)
 }
 
+func ServerAvail(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/plain; charset=UTF-8")
+	if err := db.Ping(); err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+	if err := cache.Ping(); err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+	if err := search.Ping(); err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintln(w, "OK, I'm fine")
+}
+
 func doServe(c *cli.Context) error {
 	addr := c.String("addr")
 	if addr == "" {
 		addr = ":7778"
 	}
+
+	mux := http.NewServeMux()
+	mux.HandleFunc("/api/register_training_data", registerTrainingData)
+	mux.HandleFunc("/api/recent_added_examples", RecentAddedExamples)
+	mux.HandleFunc("/api/examples", GetExamplesFromList)
+	mux.HandleFunc("/api/search", Search)
+	mux.HandleFunc("/api/server_avail", ServerAvail)
+
+	srv := http.Server{
+		Addr:    addr,
+		Handler: mux,
+	}
+
+	go func() {
+		if err := srv.ListenAndServe(); err != nil {
+			log.Println(err.Error())
+		}
+	}()
 
 	err := db.Init()
 	if err != nil {
@@ -180,11 +224,17 @@ func doServe(c *cli.Context) error {
 	search.Init()
 	defer search.Close()
 
-	http.HandleFunc("/api/register_training_data", registerTrainingData)
-	http.HandleFunc("/api/recent_added_examples", RecentAddedExamples)
-	http.HandleFunc("/api/examples", GetExamplesFromList)
-	http.HandleFunc("/api/search", Search)
-	return http.ListenAndServe(addr, nil)
+	// SIGINTとSYSTERMが飛んできたらgraceful shutdown
+	stopChan := make(chan os.Signal, 1)
+	signal.Notify(stopChan, os.Interrupt, syscall.SIGTERM)
+	<-stopChan
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	if err := srv.Shutdown(ctx); err != nil {
+		log.Println(err)
+	}
+	return nil
 }
 
 var CommandServe = cli.Command{
