@@ -170,6 +170,23 @@ func doServe(c *cli.Context) error {
 		addr = ":7778"
 	}
 
+	mux := http.NewServeMux()
+	mux.HandleFunc("/api/register_training_data", registerTrainingData)
+	mux.HandleFunc("/api/recent_added_examples", RecentAddedExamples)
+	mux.HandleFunc("/api/examples", GetExamplesFromList)
+	mux.HandleFunc("/api/search", Search)
+
+	srv := http.Server{
+		Addr:    addr,
+		Handler: mux,
+	}
+
+	go func() {
+		if err := srv.ListenAndServe(); err != nil {
+			log.Println(err.Error())
+		}
+	}()
+
 	err := db.Init()
 	if err != nil {
 		return err
@@ -184,23 +201,6 @@ func doServe(c *cli.Context) error {
 
 	search.Init()
 	defer search.Close()
-
-	mux := http.NewServeMux()
-	mux.HandleFunc("/api/register_training_data", registerTrainingData)
-	mux.HandleFunc("/api/recent_added_examples", RecentAddedExamples)
-	mux.HandleFunc("/api/examples", GetExamplesFromList)
-	mux.HandleFunc("/api/search", Search)
-
-	srv := http.Server{
-		Addr:    addr,
-		Handler: mux,
-	}
-
-	go func() {
-		if err = srv.ListenAndServe(); err != nil {
-			log.Println(err.Error())
-		}
-	}()
 
 	// SIGINTとSYSTERMが飛んできたらgraceful shutdown
 	stopChan := make(chan os.Signal, 1)
