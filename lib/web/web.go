@@ -1,8 +1,12 @@
 package web
 
 import (
+	"context"
 	"fmt"
+	"log"
 	"net/http"
+	"os/signal"
+	"time"
 
 	"io/ioutil"
 	"os"
@@ -11,6 +15,8 @@ import (
 	"encoding/json"
 
 	"sort"
+
+	"syscall"
 
 	"github.com/codegangsta/cli"
 	_ "github.com/lib/pq"
@@ -180,11 +186,34 @@ func doServe(c *cli.Context) error {
 	search.Init()
 	defer search.Close()
 
-	http.HandleFunc("/api/register_training_data", registerTrainingData)
-	http.HandleFunc("/api/recent_added_examples", RecentAddedExamples)
-	http.HandleFunc("/api/examples", GetExamplesFromList)
-	http.HandleFunc("/api/search", Search)
-	return http.ListenAndServe(addr, nil)
+	mux := http.NewServeMux()
+	mux.HandleFunc("/api/register_training_data", registerTrainingData)
+	mux.HandleFunc("/api/recent_added_examples", RecentAddedExamples)
+	mux.HandleFunc("/api/examples", GetExamplesFromList)
+	mux.HandleFunc("/api/search", Search)
+
+	srv := http.Server{
+		Addr:    addr,
+		Handler: mux,
+	}
+
+	go func() {
+		if err = srv.ListenAndServe(); err != nil {
+			log.Println(err.Error())
+		}
+	}()
+
+	// SIGINTとSYSTERMが飛んできたらgraceful shutdown
+	stopChan := make(chan os.Signal, 1)
+	signal.Notify(stopChan, os.Interrupt, syscall.SIGTERM)
+	<-stopChan
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	if err := srv.Shutdown(ctx); err != nil {
+		log.Println(err)
+	}
+	return nil
 }
 
 var CommandServe = cli.Command{
