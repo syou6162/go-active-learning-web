@@ -80,6 +80,14 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:ebd53c015294371684ec2fa1bdc250bb7c625b453affe0af712fcaf0dafcd56d"
+  name = "github.com/fukata/golang-stats-api-handler"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "ab9f90f16caab828afda479fd34bfbbbba2efcee"
+
+[[projects]]
+  branch = "master"
   digest = "1:131e93e8b8f318c52b1666e5a8f3af7d236af62f5a477a11973e46af59bca7da"
   name = "github.com/gigawattio/window"
   packages = ["."]
@@ -395,6 +403,7 @@
   analyzer-version = 1
   input-imports = [
     "github.com/codegangsta/cli",
+    "github.com/fukata/golang-stats-api-handler",
     "github.com/go-ego/riot",
     "github.com/go-ego/riot/types",
     "github.com/jessevdk/go-assets",
