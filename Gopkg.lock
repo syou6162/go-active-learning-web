@@ -170,7 +170,8 @@
   version = "v1.2.1"
 
 [[projects]]
-  digest = "1:7c2fd446293ff7799cc496d3446e674ee67902d119f244de645caf95dff1bb98"
+  branch = "master"
+  digest = "1:bc09416a51b735809a1c9e4897d9196b278e2ea6740a8b94b4b845e154fb8bf7"
   name = "github.com/go-redis/redis"
   packages = [
     ".",
@@ -183,8 +184,7 @@
     "internal/util",
   ]
   pruneopts = "UT"
-  revision = "f3bba01df2026fc865f7782948845db9cf44cf23"
-  version = "v6.14.1"
+  revision = "fa76dd0e87967c95e6f7bef33a230ed2c263fe2d"
 
 [[projects]]
   branch = "master"
@@ -195,7 +195,7 @@
     "info",
   ]
   pruneopts = "UT"
-  revision = "50813417a5aee4015a15383809f29f15736b65e0"
+  revision = "a600f30f5eaff3d8ee9d14284dccb066f5dc1931"
 
 [[projects]]
   digest = "1:97df918963298c287643883209a2c3f642e6593379f97ab400c2a2e219ab647d"
@@ -214,6 +214,7 @@
   revision = "2e65f85255dbc3072edf28d6b5b8efc472979f5a"
 
 [[projects]]
+  branch = "master"
   digest = "1:309a5c81275fda7e234a6601cfbfea00b68e881d981d6c3229d562d9a67bde07"
   name = "github.com/ikawaha/kagome"
   packages = [
@@ -224,8 +225,7 @@
     "tokenizer",
   ]
   pruneopts = "UT"
-  revision = "f066253ac079561f78be9bbb04a5492aa61b6e29"
-  version = "v1.8.1"
+  revision = "9e66de1ea90c06f4af87a2ee953dac406d72f09b"
 
 [[projects]]
   branch = "master"
@@ -236,7 +236,8 @@
   revision = "57d518f124b0cf46ea2021f25a01396b3522e6fb"
 
 [[projects]]
-  digest = "1:a2acad6331d8efb16025e74a94fcb622532db4574e1b705a433abd52a8a1cf34"
+  branch = "master"
+  digest = "1:7d34b04ad5f5a88ab5f8437f084a8a7f505cd897931bd170c644ffd7c2d052cb"
   name = "github.com/jdkato/prose"
   packages = [
     "internal/model",
@@ -245,8 +246,7 @@
     "tokenize",
   ]
   pruneopts = "UT"
-  revision = "20d3663d4bc9dd10d75abcde9d92e04b4861c674"
-  version = "v1.1.0"
+  revision = "a179b97cfa6fc3949fe1bcd21e01011bc17f4c2f"
 
 [[projects]]
   branch = "master"
@@ -257,15 +257,15 @@
   revision = "4f4301a06e153ff90e17793577ab6bf79f8dc5c5"
 
 [[projects]]
-  digest = "1:8ef506fc2bb9ced9b151dafa592d4046063d744c646c1bbe801982ce87e4bc24"
+  branch = "master"
+  digest = "1:7cefc4f7f6a411c2598d3344563e4d23fd4e4d88fd1591831fe39cccff41ad28"
   name = "github.com/lib/pq"
   packages = [
     ".",
     "oid",
   ]
   pruneopts = "UT"
-  revision = "4ded0e9383f75c197b3a2aaa6d590ac52df6fd79"
-  version = "v1.0.0"
+  revision = "9eb73efc1fcc404148b56765b0d3f61d9a5ef8ee"
 
 [[projects]]
   digest = "1:0ae19862f4b212e1898917d37cfdd24f6676718f0dfb120665f450a83c2f1870"
@@ -400,7 +400,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "b3f270ab721acdea00402f57d9ea2a2eefe3e0f9"
+  revision = "21684274463a2744ae109554e9f042683f926264"
 
 [[projects]]
   digest = "1:c28625428387b63dd7154eb857f51e700465cfbf7c06f619e71f2da33cefe47e"
