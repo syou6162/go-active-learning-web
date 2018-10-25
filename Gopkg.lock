@@ -130,11 +130,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:7cb73f7c0e770820d5f825bf39a7a2e1639f2c36e083c4f5f7af9e430cc244a9"
+  digest = "1:74bffc37ad9a659782c4419eb329b05051fb511631b99664e58e511a645aa317"
   name = "github.com/go-ego/gse"
-  packages = ["."]
+  packages = [
+    ".",
+    "hmm",
+  ]
   pruneopts = "UT"
-  revision = "5ea5e8c67ac8918707773c6dfb706c29da249c21"
+  revision = "ff9cb9818dd764e7a4eeae03f967993bda42606b"
 
 [[projects]]
   branch = "master"
@@ -171,7 +174,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:bc09416a51b735809a1c9e4897d9196b278e2ea6740a8b94b4b845e154fb8bf7"
+  digest = "1:34a9a60fade37f8009ed4a19e02924198aba3eabfcc120ee5c6002b7de17212d"
   name = "github.com/go-redis/redis"
   packages = [
     ".",
@@ -184,7 +187,7 @@
     "internal/util",
   ]
   pruneopts = "UT"
-  revision = "fa76dd0e87967c95e6f7bef33a230ed2c263fe2d"
+  revision = "b3d9bf10f6666b2ee5100a6f3f84f4caf3b4e37d"
 
 [[projects]]
   branch = "master"
@@ -400,7 +403,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "21684274463a2744ae109554e9f042683f926264"
+  revision = "c139c19d0be114efae11051d1b2c932d189d73c3"
 
 [[projects]]
   digest = "1:c28625428387b63dd7154eb857f51e700465cfbf7c06f619e71f2da33cefe47e"
@@ -423,18 +426,18 @@
     "trace",
   ]
   pruneopts = "UT"
-  revision = "04a2e542c03f1d053ab3e4d6e5abcd4b66e2be8e"
+  revision = "9b4f9f5ad5197c79fd623a3638e70d8b26cef344"
 
 [[projects]]
   branch = "master"
-  digest = "1:eb2ed765d17a2cedfc307cf8beda6f0857ad378431a4d8f2726c419f3d7105de"
+  digest = "1:6c93c46c00889c28f5a105e7cb5ba56672fd4a2351375fa819acb44e66d427df"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "UT"
-  revision = "8a28ead16f52c8aaeffbf79239b251dfdf6c4f96"
+  revision = "d989b31c87461dc8ab2f1cac6792814e27fadea9"
 
 [[projects]]
   digest = "1:aa4d6967a3237f8367b6bf91503964a77183ecf696f1273e8ad3551bb4412b5f"
