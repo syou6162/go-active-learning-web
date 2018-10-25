@@ -16,7 +16,7 @@ func TestMain(m *testing.M) {
 	os.Exit(ret)
 }
 
-func TestRecentAddedExamples(t *testing.T) {
+func TestSearch(t *testing.T) {
 	err := db.Init()
 	if err != nil {
 		t.Error(err.Error())
