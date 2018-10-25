@@ -53,11 +53,6 @@ func Init() error {
 			return
 		}
 		examples = append(examples, positiveExamples...)
-		unlabeledExamples, err := db.ReadUnlabeledExamples(10000)
-		if err != nil {
-			return
-		}
-		examples = append(examples, unlabeledExamples...)
 		cache.AttachMetadata(examples, false, false)
 		for _, e := range examples {
 			id := hash(e.FinalUrl)
