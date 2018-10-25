@@ -14,7 +14,7 @@
 ```console
 % git clone https://github.com/syou6162/go-active-learning-web.git
 % cd go-active-learning-web
-% make build
+% make deps-cmd deps build
 ```
 
 # Usage
