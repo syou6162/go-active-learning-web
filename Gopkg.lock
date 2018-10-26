@@ -130,14 +130,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:74bffc37ad9a659782c4419eb329b05051fb511631b99664e58e511a645aa317"
+  digest = "1:828dc07346610d0c3f0ccdd5ac49eb8cbeff19dbe55bf1bd354ba3ac221273e5"
   name = "github.com/go-ego/gse"
   packages = [
     ".",
     "hmm",
   ]
   pruneopts = "UT"
-  revision = "ff9cb9818dd764e7a4eeae03f967993bda42606b"
+  revision = "c539b6c2f5ae7b9d7b3b316a838589834a93173e"
 
 [[projects]]
   branch = "master"
@@ -149,7 +149,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:23a5e87c18639a0e74e09000f9eda315a98c83c00633e0c2f4dbbd148f8e1099"
+  digest = "1:e1b7a948bddbc27d0be5ec4d9c5056fc09407784a9686cc7c3644cc3871cce58"
   name = "github.com/go-ego/riot"
   packages = [
     ".",
@@ -159,7 +159,7 @@
     "utils",
   ]
   pruneopts = "UT"
-  revision = "f8e25622be8d3edb575531c7dc68289a3e9fa6b0"
+  revision = "6e545ea012ced4666e8e6274b3438e9f6c5033e6"
 
 [[projects]]
   digest = "1:64a5a67c69b70c2420e607a8545d674a23778ed9c3e80607bfd17b77c6c87f6a"
@@ -296,11 +296,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:f611266e3ac01ab4adb6f1d67f6c1be82998d02f452faff450596658712d860b"
+  digest = "1:1263588f5d40c90d6d3b14b665e0e08d339c7663e4aa63c25ee32287d2b46af8"
   name = "github.com/olekukonko/tablewriter"
   packages = ["."]
   pruneopts = "UT"
-  revision = "be2c049b30ccd4d3fd795d6bf7dce74e42eeedaa"
+  revision = "f1b6297c9ba8513b43a14a78f045b5d41ce3e2b2"
 
 [[projects]]
   digest = "1:95741de3af260a92cc5c7f3f3061e85273f5a81b5db20d4bd68da74bd521675e"
@@ -389,7 +389,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:d78ffa9d702fb796f3583d5ba7ec593bd96658a0344e67fce71f77723a852e80"
+  digest = "1:f10821c5fc99af9d39cd932b3b784595d022109394c925de7883dde8179b6044"
   name = "github.com/syou6162/go-active-learning"
   packages = [
     "lib/cache",
@@ -403,7 +403,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "c139c19d0be114efae11051d1b2c932d189d73c3"
+  revision = "b6f7b25a521fcea2f0f85e1c8ae2d7bbb482db17"
 
 [[projects]]
   digest = "1:c28625428387b63dd7154eb857f51e700465cfbf7c06f619e71f2da33cefe47e"
