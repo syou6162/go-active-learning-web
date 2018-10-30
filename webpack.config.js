@@ -32,7 +32,8 @@ module.exports = {
       '/api': {
         target: 'http://localhost:7778'
       }
-    }
+    },
+    historyApiFallback: true
   },
   mode: 'production'
 };
