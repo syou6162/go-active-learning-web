@@ -12,6 +12,7 @@ Vue.use(VueLazyload)
 
 import routes from './routes'
 const router = new VueRouter({
+  mode: 'history',
   routes: routes
 });
 
