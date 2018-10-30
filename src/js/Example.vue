@@ -10,7 +10,7 @@
       </b-card-body>
     </b-card>
     <b-modal v-model="modalShow" hide-footer=true>
-      <img v-if="example.OgImage !== ''" class="img-thumbnail img-responsive" style="width: 128px; height: 96px; margin: 3px; float: right;" v-lazy="example.OgImage" onerror="this.style.display='none'" />
+      <img v-if="example.OgImage" class="img-thumbnail img-responsive" style="width: 128px; height: 96px; margin: 3px; float: right;" v-lazy="example.OgImage" onerror="this.style.display='none'" />
       <p class="card-text">{{ example | getDescription(750, '...') }}</p>
       <a v-bind:href="example.FinalUrl">Permalink</a>
     </b-modal>
