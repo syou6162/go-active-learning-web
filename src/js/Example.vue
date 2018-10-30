@@ -1,21 +1,20 @@
 <template>
-  <a v-bind:href="example.FinalUrl">
+  <div>
     <b-card no-body>
-      <b-card-body v-bind:title="example | getTitle(75, '...')" class="m-1 p-2">
-        <div v-if="example.OgImage === ''">
-          <p class="card-text">{{ example | getDescription(250, '...') }}</p>
-        </div>
-        <div v-else class="d-flex justify-content-between" style="overflow-x: auto;">
-          <p class="card-text">{{ example | getDescription(75, '...') }}</p>
-          <img class="img-thumbnail img-responsive" style="width: 128px; height: 96px; margin: 3px;" v-lazy="example.OgImage" onerror="this.style.display='none'" />
-        </div>
+      <b-card-body v-bind:title="example | getTitle(75, '...')" title-tag="h5" class="m-1 p-2">
         <b-card-footer>
           <img v-if="example.Favicon" style="width: 16px; height: 16px;" v-lazy="example.Favicon" onerror="this.style.display='none'" />
-          {{ example | getDomain }} {{ example | getUserName }}
+          <a v-bind:href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
+          <b-button @click="modalShow = !modalShow" class="float-right" size="sm">Read more</b-button>
         </b-card-footer>
       </b-card-body>
     </b-card>
-  </a>
+    <b-modal v-model="modalShow" hide-footer=true>
+      <img v-if="example.OgImage" class="img-thumbnail img-responsive" style="width: 128px; height: 96px; margin: 3px; float: right;" v-lazy="example.OgImage" onerror="this.style.display='none'" />
+      <p class="card-text">{{ example | getDescription(500, '...') }}</p>
+      <a v-bind:href="example.FinalUrl">Permalink</a>
+    </b-modal>
+  </div>
 </template>
 
 <script>
@@ -38,6 +37,11 @@ function truncate(str, length, omission) {
 }
 
 export default {
+  data () {
+    return {
+      modalShow: false
+    }
+  },
   props: ['example'],
   filters: {
     getTitle: function(example, length, omission) {
