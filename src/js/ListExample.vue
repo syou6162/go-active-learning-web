@@ -11,6 +11,7 @@
 <script>
 import axios from 'axios';
 import Example from './Example.vue';
+import NewExample from './util';
 
 export default {
   data () {
@@ -32,7 +33,7 @@ export default {
       this.examples = [];
       axios.get("/api/examples?listName=" + listname)
       .then(response => {
-        this.examples = response.data;
+        this.examples = response.data.map(e => NewExample(e));
       });
     }
   },
