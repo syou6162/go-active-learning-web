@@ -5,7 +5,7 @@
         <b-card-footer>
           <img v-if="example.Favicon" style="width: 16px; height: 16px;" v-lazy="example.Favicon" onerror="this.style.display='none'" />
           <a v-bind:href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
-          <b-button @click="modalShow = !modalShow" class="float-right" v-bind:class="{ btn-danger: example.IsNew }" size="sm">Read more</b-button>
+          <b-button @click="modalShow = !modalShow" class="float-right" v-bind:class="{ 'btn-danger': example.IsNew }" size="sm">Read more</b-button>
         </b-card-footer>
       </b-card-body>
     </b-card>
