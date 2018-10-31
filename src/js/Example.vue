@@ -51,7 +51,8 @@ export default {
     },
     getDescription: function(example, length, omission) {
       var title = example.Title ? example.Title : example.Url;
-      var desc = example.OgDescription ? example.OgDescription : example.Description;
+      var body = example.Body ? example.Body : title;
+      var desc = example.OgDescription ? example.OgDescription : (example.Description ? example.Description : body);
       return truncate(desc, length, omission);
     },
     getDomain: getDomain,
