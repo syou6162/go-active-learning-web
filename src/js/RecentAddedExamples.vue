@@ -20,6 +20,7 @@
 <script>
 import axios from 'axios';
 import Example from './Example.vue';
+import NewExample from './util';
 
 export default {
   data () {
@@ -36,7 +37,7 @@ export default {
   mounted() {
    axios.get("/api/recent_added_examples")
       .then(response => {
-        this.results = response.data;
+        this.results = response.data.map(e => NewExample(e));
       });
   },
   methods: {

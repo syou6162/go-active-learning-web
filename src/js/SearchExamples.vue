@@ -15,6 +15,7 @@
 import axios from 'axios';
 import _ from 'lodash';
 import Example from './Example.vue';
+import NewExample from './util';
 
 export default {
   data () {
@@ -37,7 +38,7 @@ export default {
       params.append('query', this.query);
       axios.post("/api/search", params)
         .then(response => {
-          this.results = response.data;
+          this.results = response.data.map(e => NewExample(e));
         });
     },
   },
