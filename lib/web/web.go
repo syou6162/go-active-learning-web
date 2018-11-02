@@ -20,6 +20,7 @@ import (
 
 	"github.com/codegangsta/cli"
 	"github.com/fukata/golang-stats-api-handler"
+	"github.com/mitchellh/go-server-timing"
 	"github.com/syou6162/go-active-learning-web/lib/search"
 	"github.com/syou6162/go-active-learning-web/lib/version"
 	"github.com/syou6162/go-active-learning/lib/cache"
@@ -74,32 +75,44 @@ func lightenExamples(examples example.Examples) {
 }
 
 func RecentAddedExamples(w http.ResponseWriter, r *http.Request) {
+	timing := servertiming.FromContext(r.Context())
+
+	m := timing.NewMetric("db-positive").WithDesc("db.ReadPositiveExamples").Start()
 	positiveExamples, err := db.ReadPositiveExamples(30)
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprintln(w, err.Error())
 		return
 	}
+	m.Stop()
 
+	m = timing.NewMetric("db-negative").WithDesc("db.ReadNegativeExamples").Start()
 	negativeExamples, err := db.ReadNegativeExamples(30)
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprintln(w, err.Error())
 		return
 	}
+	m.Stop()
 
+	m = timing.NewMetric("db-unlabeled").WithDesc("db.ReadUnlabeledExamples").Start()
 	unlabeledExamples, err := db.ReadUnlabeledExamples(30)
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprintln(w, err.Error())
 		return
 	}
+	m.Stop()
 
 	var examples example.Examples
 	examples = append(examples, positiveExamples...)
 	examples = append(examples, negativeExamples...)
 	examples = append(examples, unlabeledExamples...)
+
+	m = timing.NewMetric("cache").WithDesc("cache.AttachMetadata").Start()
 	cache.AttachMetadata(examples, false, true)
+	m.Stop()
+
 	examples = util.FilterStatusCodeOkExamples(examples)
 	lightenExamples(examples)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
@@ -109,21 +122,28 @@ func RecentAddedExamples(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetExamplesFromList(w http.ResponseWriter, r *http.Request) {
+	timing := servertiming.FromContext(r.Context())
 	queryValues := r.URL.Query()
 	listName := queryValues.Get("listName")
 
 	getUrlsFromList := func(listName string) (example.Examples, error) {
+		m := timing.NewMetric("cache-list").WithDesc("cache.GetUrlsFromList").Start()
 		urls, err := cache.GetUrlsFromList(listName, 0, 100)
 		if err != nil {
 			return nil, err
 		}
+		m.Stop()
 
+		m = timing.NewMetric("db").WithDesc("db.SearchExamplesByUlrs").Start()
 		examples, err := db.SearchExamplesByUlrs(urls)
 		if err != nil {
 			return nil, err
 		}
+		m.Stop()
 
+		m = timing.NewMetric("cache-metadata").WithDesc("cache.AttachMetadata").Start()
 		cache.AttachMetadata(examples, false, true)
+		m.Stop()
 		sort.Sort(sort.Reverse(examples))
 		result := util.RemoveNegativeExamples(examples)
 		return result, nil
@@ -145,13 +165,17 @@ func GetExamplesFromList(w http.ResponseWriter, r *http.Request) {
 }
 
 func Search(w http.ResponseWriter, r *http.Request) {
+	timing := servertiming.FromContext(r.Context())
 	if r.Method != "POST" {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
 	query := r.FormValue("query")
+
+	m := timing.NewMetric("search").WithDesc("search.Search").Start()
 	examples, err := search.Search(query)
+	m.Stop()
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprintln(w, err.Error())
@@ -209,7 +233,7 @@ func doServe(c *cli.Context) error {
 
 	srv := http.Server{
 		Addr:    addr,
-		Handler: mux,
+		Handler: servertiming.Middleware(mux, nil),
 	}
 
 	go func() {
