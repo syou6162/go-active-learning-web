@@ -1,6 +1,7 @@
 import RecentAddedExamples from './RecentAddedExamples.vue';
 import SearchExamples from './SearchExamples.vue';
 import ListExample from './ListExample.vue';
+import ExampleDetail from './ExampleDetail.vue';
 
 export default [
   {
@@ -18,5 +19,9 @@ export default [
   {
     path: '/recent-added-examples',
     component: RecentAddedExamples
+  },
+  {
+    path: '/example/:url',
+    component: ExampleDetail 
   }
 ]
