@@ -32,7 +32,7 @@ export default {
   methods: {
     fetchExample(url) {
       this.examples = [];
-      axios.get("/api/example?url=" + url)
+      axios.get("/api/example?url=" + encodeURI(url))
       .then(response => {
         this.example = NewExample(response.data);
       });
