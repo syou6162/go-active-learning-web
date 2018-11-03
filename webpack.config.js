@@ -33,7 +33,9 @@ module.exports = {
         target: 'http://localhost:7778'
       }
     },
-    historyApiFallback: true
+    historyApiFallback: {
+      disableDotRule: true
+    }
   },
   mode: 'production'
 };
