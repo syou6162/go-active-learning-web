@@ -164,6 +164,30 @@ func GetExamplesFromList(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(examples)
 }
 
+func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
+	queryValues := r.URL.Query()
+	url := queryValues.Get("url")
+
+	examples, err := db.SearchExamplesByUlrs([]string{url})
+	if err != nil || len(examples) != 1 {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, "No such url: " + url)
+		return
+	}
+
+	cache.AttachMetadata(examples, false, true)
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+
+	json.NewEncoder(w).Encode(examples[0])
+}
+
 func Search(w http.ResponseWriter, r *http.Request) {
 	timing := servertiming.FromContext(r.Context())
 	if r.Method != "POST" {
@@ -227,6 +251,7 @@ func doServe(c *cli.Context) error {
 	mux.HandleFunc("/api/register_training_data", registerTrainingData)
 	mux.HandleFunc("/api/recent_added_examples", RecentAddedExamples)
 	mux.HandleFunc("/api/examples", GetExamplesFromList)
+	mux.HandleFunc("/api/example", GetExampleByUrl)
 	mux.HandleFunc("/api/search", Search)
 	mux.HandleFunc("/api/server_avail", ServerAvail)
 	mux.HandleFunc("/api/stats", stats_api.Handler)
