@@ -171,7 +171,7 @@ func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
 	examples, err := db.SearchExamplesByUlrs([]string{url})
 	if err != nil || len(examples) != 1 {
 		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, "No such url: " + url)
+		fmt.Fprintln(w, "No such url: "+url)
 		return
 	}
 
