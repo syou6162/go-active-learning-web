@@ -7,6 +7,8 @@ import (
 
 	"os"
 
+	"sort"
+
 	"github.com/go-ego/riot"
 	"github.com/go-ego/riot/types"
 	"github.com/syou6162/go-active-learning/lib/cache"
@@ -116,19 +118,40 @@ func getUniqueWords(s string) []string {
 	return util.RemoveDuplicate(removeOneCharKeywords(searcher.Segment(s)))
 }
 
-func SearchSimilarExamples(query string) (example.Examples, error) {
+func GetKeywordsInQuery(query string) []string {
 	tokens := getUniqueWords(query)
-	tokenWithMinCount := "機械学習"
-	minCount := int(searcher.NumDocsIndexed())
+	type kv struct {
+		Key   string
+		Value int
+	}
+
+	var dfInQuery []kv
 	for _, k := range tokens {
-		if cnt, ok := documentFreqByword[k]; ok && cnt < minCount {
-			tokenWithMinCount = k
-			minCount = cnt
+		if cnt, ok := documentFreqByword[k]; ok {
+			dfInQuery = append(dfInQuery, kv{k, cnt})
 		}
 	}
 
+	sort.Slice(dfInQuery, func(i, j int) bool {
+		return dfInQuery[i].Value < dfInQuery[j].Value
+	})
+
+	result := make([]string, 0)
+	for idx, kv := range dfInQuery {
+		if idx > 2 {
+			break
+		}
+		result = append(result, kv.Key)
+	}
+
+	return result
+}
+
+func SearchSimilarExamples(query string) (example.Examples, []string, error) {
+	keywords := GetKeywordsInQuery(query)
 	req := types.SearchReq{
-		Text: tokenWithMinCount,
+		Tokens:   keywords,
+		Logic:    types.Logic{Should: true},
 		RankOpts: &types.RankOpts{MaxOutputs: 10},
 	}
 
@@ -139,10 +162,10 @@ func SearchSimilarExamples(query string) (example.Examples, error) {
 	}
 	examples, err := db.SearchExamplesByUlrs(urls)
 	if err != nil {
-		return nil, err
+		return nil, make([]string, 0), err
 	}
 	cache.AttachMetadata(examples, false, true)
-	return examples, nil
+	return examples, keywords, nil
 }
 
 func Close() {
