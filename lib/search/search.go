@@ -16,11 +16,12 @@ import (
 )
 
 var (
-	once         sync.Once
-	riotDictPath string
-	searcher     = riot.Engine{}
-	id2url       = map[uint64]string{}
-	avail        = false
+	once               sync.Once
+	riotDictPath       string
+	searcher           = riot.Engine{}
+	id2url             = map[uint64]string{}
+	avail              = false
+	documentFreqByword = map[string]int{}
 )
 
 func hash(s string) uint64 {
@@ -63,6 +64,9 @@ func Init() error {
 			id := hash(e.FinalUrl)
 			id2url[id] = e.FinalUrl
 			searcher.Index(id, types.DocData{Content: e.Title})
+			for _, w := range getUniqueWords(e.Title) {
+				documentFreqByword[w]++
+			}
 		}
 		searcher.Flush()
 	})
@@ -86,6 +90,49 @@ func Search(query string) (example.Examples, error) {
 		Text:     query,
 		RankOpts: &types.RankOpts{MaxOutputs: 100},
 	}
+	for _, resp := range searcher.SearchDoc(req).Docs {
+		url := id2url[resp.DocId]
+		urls = append(urls, url)
+	}
+	examples, err := db.SearchExamplesByUlrs(urls)
+	if err != nil {
+		return nil, err
+	}
+	cache.AttachMetadata(examples, false, true)
+	return examples, nil
+}
+
+func removeOneCharKeywords(keywords []string) []string {
+	result := make([]string, 0)
+	for _, k := range keywords {
+		if len([]rune(k)) > 1 {
+			result = append(result, k)
+		}
+	}
+	return result
+}
+
+func getUniqueWords(s string) []string {
+	return util.RemoveDuplicate(removeOneCharKeywords(searcher.Segment(s)))
+}
+
+func SearchSimilarExamples(query string) (example.Examples, error) {
+	tokens := getUniqueWords(query)
+	tokenWithMinCount := "機械学習"
+	minCount := int(searcher.NumDocsIndexed())
+	for _, k := range tokens {
+		if cnt, ok := documentFreqByword[k]; ok && cnt < minCount {
+			tokenWithMinCount = k
+			minCount = cnt
+		}
+	}
+
+	req := types.SearchReq{
+		Text: tokenWithMinCount,
+		RankOpts: &types.RankOpts{MaxOutputs: 10},
+	}
+
+	urls := make([]string, 0)
 	for _, resp := range searcher.SearchDoc(req).Docs {
 		url := id2url[resp.DocId]
 		urls = append(urls, url)
