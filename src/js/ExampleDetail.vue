@@ -43,7 +43,9 @@ export default {
       axios.get("/api/example?url=" + encodeURIComponent(url))
       .then(response => {
         this.example = NewExample(response.data.Example);
-        this.similarExamples = response.data.SimilarExamples;
+        this.similarExamples = response.data.SimilarExamples.filter(function(e) {
+          return e.Score > 0.0;
+        });
       });
     }
   },
