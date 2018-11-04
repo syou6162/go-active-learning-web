@@ -167,7 +167,7 @@
     "utils",
   ]
   pruneopts = "UT"
-  revision = "b5fd7cfdf47f80e9969a86f12a08967a3c9a8b52"
+  revision = "13300f75a2286775e5d9aa1869dfafff81fbf96f"
 
 [[projects]]
   digest = "1:64a5a67c69b70c2420e607a8545d674a23778ed9c3e80607bfd17b77c6c87f6a"
@@ -405,11 +405,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:56a755d0a6aa092a83ce4f9f6acfb9e21d8dd8ff24637138788f146ec0a6e37e"
+  digest = "1:7c257a930be3a60001196345b679565a03049af62203c14992f593bddf97a9bb"
   name = "github.com/syou6162/GoOse"
   packages = ["."]
   pruneopts = "UT"
-  revision = "978701bc26cca4f7f67ee458ad0aed08b7687f49"
+  revision = "5d5b97884480b22d724b68050c222cc427bc9e6a"
 
 [[projects]]
   branch = "master"
@@ -427,7 +427,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "b9958239d10fb8dcf87e68020497f38ffd558d47"
+  revision = "c18f9620df0630adca0868e8d22470be52eaf9ca"
 
 [[projects]]
   digest = "1:c28625428387b63dd7154eb857f51e700465cfbf7c06f619e71f2da33cefe47e"
