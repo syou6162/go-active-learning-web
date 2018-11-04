@@ -187,7 +187,7 @@ func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	ex := examples[0]
-	similarExamples, err := search.SearchSimilarExamples(ex.Title)
+	similarExamples, keywords, err := search.SearchSimilarExamples(ex.Title)
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprintln(w, err.Error())
@@ -201,6 +201,7 @@ func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.Header().Set("X-Keywords", strings.Join(keywords, ","))
 	w.WriteHeader(http.StatusOK)
 
 	json.NewEncoder(w).Encode(ExampleWithSimilarExamples{Example: ex, SimilarExamples: similarExamplesWithoutOriginal})
