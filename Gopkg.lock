@@ -405,11 +405,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:0184b624551d01f1158050e4831e3099be0ff2c331c8885e77c3d4ba5d31061f"
+  digest = "1:56a755d0a6aa092a83ce4f9f6acfb9e21d8dd8ff24637138788f146ec0a6e37e"
   name = "github.com/syou6162/GoOse"
   packages = ["."]
   pruneopts = "UT"
-  revision = "93b721f1bd4f5ef59521d8a90855d057f2a70a24"
+  revision = "978701bc26cca4f7f67ee458ad0aed08b7687f49"
 
 [[projects]]
   branch = "master"
@@ -427,7 +427,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "99fbbdef28cc7d57ce882aa537f926bb332037fc"
+  revision = "b9958239d10fb8dcf87e68020497f38ffd558d47"
 
 [[projects]]
   digest = "1:c28625428387b63dd7154eb857f51e700465cfbf7c06f619e71f2da33cefe47e"
