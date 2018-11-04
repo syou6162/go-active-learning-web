@@ -14,6 +14,7 @@ import (
 	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/db"
 	"github.com/syou6162/go-active-learning/lib/example"
+	"github.com/syou6162/go-active-learning/lib/feature"
 	"github.com/syou6162/go-active-learning/lib/util"
 )
 
@@ -65,7 +66,12 @@ func Init() error {
 		for _, e := range examples {
 			id := hash(e.FinalUrl)
 			id2url[id] = e.FinalUrl
-			searcher.Index(id, types.DocData{Content: e.Title})
+
+			keywords := make([]types.TokenData, 0)
+			for _, k := range feature.ExtractNounFeaturesWithoutPrefix(e.Title) {
+				keywords = append(keywords, types.TokenData{Text: k})
+			}
+			searcher.Index(id, types.DocData{Content: "", Tokens: keywords})
 			for _, w := range getUniqueWords(e.Title) {
 				documentFreqByword[w]++
 			}
@@ -115,7 +121,7 @@ func removeOneCharKeywords(keywords []string) []string {
 }
 
 func getUniqueWords(s string) []string {
-	return util.RemoveDuplicate(removeOneCharKeywords(searcher.Segment(s)))
+	return util.RemoveDuplicate(removeOneCharKeywords(feature.ExtractNounFeaturesWithoutPrefix(s)))
 }
 
 func GetKeywordsInQuery(query string) []string {
