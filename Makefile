@@ -10,6 +10,7 @@ deps-cmd:
 deps:
 	dep ensure
 	go get github.com/syou6162/go-active-learning
+	go get github.com/go-ego/gse
 	go get github.com/mattn/goveralls
 	go get github.com/haya14busa/goverage
 
