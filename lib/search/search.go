@@ -95,7 +95,7 @@ func Ping() error {
 func Search(query string) (example.Examples, error) {
 	urls := make([]string, 0)
 	req := types.SearchReq{
-		Tokens: feature.ExtractNounFeaturesWithoutPrefix(query),
+		Tokens:   feature.ExtractNounFeaturesWithoutPrefix(query),
 		RankOpts: &types.RankOpts{MaxOutputs: 100},
 	}
 	for _, resp := range searcher.SearchDoc(req).Docs {
