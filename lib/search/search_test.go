@@ -49,7 +49,7 @@ func TestSearch(t *testing.T) {
 	search.Init()
 	defer search.Close()
 
-	result, err := search.Search("機械学習")
+	result, err := search.Search("機械 学習")
 	if err != nil {
 		t.Error(err.Error())
 	}
