@@ -199,6 +199,7 @@ func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
 			similarExamplesWithoutOriginal = append(similarExamplesWithoutOriginal, e)
 		}
 	}
+	similarExamplesWithoutOriginal = util.FilterStatusCodeOkExamples(similarExamplesWithoutOriginal)
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.Header().Set("X-Keywords", strings.Join(keywords, ","))
