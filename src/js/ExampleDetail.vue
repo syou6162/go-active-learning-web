@@ -44,7 +44,7 @@ export default {
       .then(response => {
         this.example = NewExample(response.data.Example);
         this.similarExamples = response.data.SimilarExamples.filter(function(e) {
-          return e.Score > 0.0;
+          return e.Label === 1 || e.Score > 0.0;
         });
       });
     }
