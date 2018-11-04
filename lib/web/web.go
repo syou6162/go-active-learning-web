@@ -164,6 +164,11 @@ func GetExamplesFromList(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(examples)
 }
 
+type ExampleWithSimilarExamples struct {
+	Example         *example.Example
+	SimilarExamples example.Examples `json:"SimilarExamples"`
+}
+
 func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
 	queryValues := r.URL.Query()
 	url := queryValues.Get("url")
@@ -181,11 +186,26 @@ func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, err.Error())
 		return
 	}
+	ex := examples[0]
+	similarExamples, keywords, err := search.SearchSimilarExamples(ex.Title)
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+	similarExamplesWithoutOriginal := example.Examples{}
+	for _, e := range similarExamples {
+		if e.FinalUrl != ex.FinalUrl {
+			similarExamplesWithoutOriginal = append(similarExamplesWithoutOriginal, e)
+		}
+	}
+	similarExamplesWithoutOriginal = util.FilterStatusCodeOkExamples(similarExamplesWithoutOriginal)
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.Header().Set("X-Keywords", strings.Join(keywords, ","))
 	w.WriteHeader(http.StatusOK)
 
-	json.NewEncoder(w).Encode(examples[0])
+	json.NewEncoder(w).Encode(ExampleWithSimilarExamples{Example: ex, SimilarExamples: similarExamplesWithoutOriginal})
 }
 
 func Search(w http.ResponseWriter, r *http.Request) {

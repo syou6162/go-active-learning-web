@@ -1,11 +1,20 @@
 <template>
-  <b-card-group columns>
-    <example 
-      v-for="example in examples"
-      v-bind:key="example.Url"
-      v-bind:example="example"
-      ></example>
-  </b-card-group>
+  <div>
+    <b-form-group label="Please select a label">
+      <b-form-radio-group
+        buttons
+        v-model="isNew"
+        button-variant="outline-primary"
+        :options="options" />
+    </b-form-group>
+    <b-card-group columns>
+      <example 
+        v-for="example in examplesFilterByIsNew(isNew)"
+        v-bind:key="example.Url"
+        v-bind:example="example"
+        ></example>
+    </b-card-group>
+  </div>
 </template>
 
 <script>
@@ -17,7 +26,12 @@ export default {
   data () {
     return {
       listname: 'general',
-      examples: []
+      examples: [],
+      isNew: 0,
+      options: [
+        { text: 'All', value: 0 },
+        { text: 'Recent', value: 1 },
+      ],
     }
   },
   mounted() {
@@ -35,6 +49,15 @@ export default {
       .then(response => {
         this.examples = response.data.map(e => NewExample(e));
       });
+    },
+    examplesFilterByIsNew: function(isNew) {
+      return this.examples.filter(function(e) {
+        if (isNew == 0) {
+          return true;
+        } else {
+          return e.IsNew == isNew;
+        }
+      })
     }
   },
   components: {

@@ -97,6 +97,9 @@ func doApply(c *cli.Context) error {
 		}
 		e.Score = model.PredictScore(e.Fv)
 		e.Title = strings.Replace(e.Title, "\n", " ", -1)
+		if err := cache.SetExample(*e); err != nil {
+			return err
+		}
 		if e.Score > scoreThreshold {
 			result = append(result, e)
 		}
@@ -115,9 +118,6 @@ func doApply(c *cli.Context) error {
 	}
 
 	for _, e := range result {
-		if err := cache.SetExample(*e); err != nil {
-			return err
-		}
 		if jsonOutput {
 			b, err := json.Marshal(e)
 			if err != nil {
