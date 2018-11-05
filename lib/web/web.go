@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"net/url"
 	"os/signal"
 	"time"
 
@@ -20,6 +21,7 @@ import (
 
 	"github.com/codegangsta/cli"
 	"github.com/fukata/golang-stats-api-handler"
+	"github.com/ikeikeikeike/go-sitemap-generator/stm"
 	"github.com/mitchellh/go-server-timing"
 	"github.com/syou6162/go-active-learning-web/lib/search"
 	"github.com/syou6162/go-active-learning-web/lib/version"
@@ -121,33 +123,26 @@ func RecentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(examples)
 }
 
+func getUrlsFromList(listName string) (example.Examples, error) {
+	urls, err := cache.GetUrlsFromList(listName, 0, 100)
+	if err != nil {
+		return nil, err
+	}
+
+	examples, err := db.SearchExamplesByUlrs(urls)
+	if err != nil {
+		return nil, err
+	}
+
+	cache.AttachMetadata(examples, false, true)
+	sort.Sort(sort.Reverse(examples))
+	result := util.RemoveNegativeExamples(examples)
+	return result, nil
+}
+
 func GetExamplesFromList(w http.ResponseWriter, r *http.Request) {
-	timing := servertiming.FromContext(r.Context())
 	queryValues := r.URL.Query()
 	listName := queryValues.Get("listName")
-
-	getUrlsFromList := func(listName string) (example.Examples, error) {
-		m := timing.NewMetric("cache-list").WithDesc("cache.GetUrlsFromList").Start()
-		urls, err := cache.GetUrlsFromList(listName, 0, 100)
-		if err != nil {
-			return nil, err
-		}
-		m.Stop()
-
-		m = timing.NewMetric("db").WithDesc("db.SearchExamplesByUlrs").Start()
-		examples, err := db.SearchExamplesByUlrs(urls)
-		if err != nil {
-			return nil, err
-		}
-		m.Stop()
-
-		m = timing.NewMetric("cache-metadata").WithDesc("cache.AttachMetadata").Start()
-		cache.AttachMetadata(examples, false, true)
-		m.Stop()
-		sort.Sort(sort.Reverse(examples))
-		result := util.RemoveNegativeExamples(examples)
-		return result, nil
-	}
 
 	examples, err := getUrlsFromList(listName)
 	if err != nil {
@@ -255,6 +250,54 @@ func ServerAvail(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "OK, I'm fine")
 }
 
+func SitemapTop(w http.ResponseWriter, r *http.Request) {
+	sm := stm.NewSitemap()
+	sm.SetDefaultHost("https://machine-learning.news")
+	sm.SetCompress(true)
+	sm.SetVerbose(true)
+
+	sm.Create()
+
+	sm.Add(stm.URL{"loc": "/list/general", "changefreq": "daily"})
+	sm.Add(stm.URL{"loc": "/list/article", "changefreq": "daily"})
+	sm.Add(stm.URL{"loc": "/list/twitter", "changefreq": "daily"})
+	sm.Add(stm.URL{"loc": "/list/github", "changefreq": "daily"})
+	sm.Add(stm.URL{"loc": "/list/arxiv", "changefreq": "daily"})
+	sm.Add(stm.URL{"loc": "/list/slide", "changefreq": "daily"})
+
+	sm.Add(stm.URL{"loc": "/recent-added-examples", "changefreq": "daily"})
+
+	w.Header().Set("Content-Type", "application/xml; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	w.Write(sm.XMLContent())
+}
+
+func SitemapCategory(w http.ResponseWriter, r *http.Request) {
+	queryValues := r.URL.Query()
+	listName := queryValues.Get("category")
+
+	examples, err := getUrlsFromList(listName)
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+
+	sm := stm.NewSitemap()
+	sm.SetDefaultHost("https://machine-learning.news")
+	sm.SetCompress(true)
+	sm.SetVerbose(true)
+
+	sm.Create()
+	for _, e := range examples {
+		sm.Add(stm.URL{"loc": "/example/" + url.PathEscape(e.FinalUrl), "changefreq": "daily"})
+	}
+
+	w.Header().Set("Content-Type", "application/xml; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	w.Write(sm.XMLContent())
+}
+
 func doServe(c *cli.Context) error {
 	addr := c.String("addr")
 	if addr == "" {
@@ -275,6 +318,8 @@ func doServe(c *cli.Context) error {
 	mux.HandleFunc("/api/search", Search)
 	mux.HandleFunc("/api/server_avail", ServerAvail)
 	mux.HandleFunc("/api/stats", stats_api.Handler)
+	mux.HandleFunc("/sitemap", SitemapCategory)
+	mux.HandleFunc("/sitemap/top", SitemapTop)
 
 	srv := http.Server{
 		Addr:    addr,
