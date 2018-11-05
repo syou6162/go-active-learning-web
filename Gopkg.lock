@@ -50,6 +50,14 @@
   revision = "00e168d34895ce6682b546bc3914bcea611a6dbd"
 
 [[projects]]
+  digest = "1:f25dfe4538112147d22e4c8437efbc2e216112bec37277534ffe146935064ea8"
+  name = "github.com/beevik/etree"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "9d7e8feddccb4ed1b8afb54e368bd323d2ff652c"
+  version = "v1.0.1"
+
+[[projects]]
   digest = "1:b24d38b282bacf9791408a080f606370efa3d364e4b5fd9ba0f7b87786d3b679"
   name = "github.com/codegangsta/cli"
   packages = ["."]
@@ -87,6 +95,14 @@
   pruneopts = "UT"
   revision = "2c768e3c5489976167bfc42b5c7c92ca783f4389"
   version = "v0.2.1"
+
+[[projects]]
+  digest = "1:af43bdaaf86655a2343f113e9b293bbc16b12099eaeb223982bbe4d4c22ba14d"
+  name = "github.com/fatih/structs"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "4966fc68f5b7593aafa6cbbba2d65ec6e1416047"
+  version = "v1.1.0"
 
 [[projects]]
   digest = "1:296cda2c4a6a7a54964d7b3b0815e2aed215da75217b72033060ffb1c4e4b6ae"
@@ -247,6 +263,14 @@
   revision = "9e66de1ea90c06f4af87a2ee953dac406d72f09b"
 
 [[projects]]
+  digest = "1:010dd6916c64ae02c7082d27a7b76a2586a577cdd6ba46aea466ff18e8ac3c7e"
+  name = "github.com/ikeikeikeike/go-sitemap-generator"
+  packages = ["stm"]
+  pruneopts = "UT"
+  revision = "c68941e30f7a3292afef82ed2f8800bd47fde3d1"
+  version = "v2.0.0"
+
+[[projects]]
   branch = "master"
   digest = "1:8bacc2118e6cc6a207eb144656537ff7ee0397f8bc8c1f7639519b0de2bb949a"
   name = "github.com/jaytaylor/html2text"
@@ -384,7 +408,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:9d92635711456b1e98677911ec79d6b7824481a8870d76b1298a34ed15f36830"
+  digest = "1:9ff9e1808adfc43f788f1c1e9fd2660c285b522243da985a4c043ec6f2a2d736"
   name = "github.com/syndtr/goleveldb"
   packages = [
     "leveldb",
@@ -401,7 +425,7 @@
     "leveldb/util",
   ]
   pruneopts = "UT"
-  revision = "a4119e27a65dc634683dd798846ce8ee09620ae9"
+  revision = "f9080354173f192dfc8821931eacf9cfd6819253"
 
 [[projects]]
   branch = "master"
@@ -508,6 +532,7 @@
     "github.com/fukata/golang-stats-api-handler",
     "github.com/go-ego/riot",
     "github.com/go-ego/riot/types",
+    "github.com/ikeikeikeike/go-sitemap-generator/stm",
     "github.com/jessevdk/go-assets",
     "github.com/mackerelio/mackerel-client-go",
     "github.com/mitchellh/go-server-timing",

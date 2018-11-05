@@ -251,21 +251,21 @@ func ServerAvail(w http.ResponseWriter, r *http.Request) {
 }
 
 func SitemapTop(w http.ResponseWriter, r *http.Request) {
-	sm := stm.NewSitemap()
+	sm := stm.NewSitemap(1)
 	sm.SetDefaultHost("https://machine-learning.news")
 	sm.SetCompress(true)
 	sm.SetVerbose(true)
 
 	sm.Create()
 
-	sm.Add(stm.URL{"loc": "/list/general", "changefreq": "daily"})
-	sm.Add(stm.URL{"loc": "/list/article", "changefreq": "daily"})
-	sm.Add(stm.URL{"loc": "/list/twitter", "changefreq": "daily"})
-	sm.Add(stm.URL{"loc": "/list/github", "changefreq": "daily"})
-	sm.Add(stm.URL{"loc": "/list/arxiv", "changefreq": "daily"})
-	sm.Add(stm.URL{"loc": "/list/slide", "changefreq": "daily"})
+	sm.Add(stm.URL{{"loc", "/list/general"}, {"changefreq", "daily"}})
+	sm.Add(stm.URL{{"loc", "/list/article"}, {"changefreq", "daily"}})
+	sm.Add(stm.URL{{"loc", "/list/twitter"}, {"changefreq", "daily"}})
+	sm.Add(stm.URL{{"loc", "/list/github"}, {"changefreq", "daily"}})
+	sm.Add(stm.URL{{"loc", "/list/arxiv"}, {"changefreq", "daily"}})
+	sm.Add(stm.URL{{"loc", "/list/slide"}, {"changefreq", "daily"}})
 
-	sm.Add(stm.URL{"loc": "/recent-added-examples", "changefreq": "daily"})
+	sm.Add(stm.URL{{"loc", "/recent-added-examples"}, {"changefreq", "daily"}})
 
 	w.Header().Set("Content-Type", "application/xml; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
@@ -283,14 +283,14 @@ func SitemapCategory(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	sm := stm.NewSitemap()
+	sm := stm.NewSitemap(1)
 	sm.SetDefaultHost("https://machine-learning.news")
 	sm.SetCompress(true)
 	sm.SetVerbose(true)
 
 	sm.Create()
 	for _, e := range examples {
-		sm.Add(stm.URL{"loc": "/example/" + url.PathEscape(e.FinalUrl), "changefreq": "daily"})
+		sm.Add(stm.URL{{"loc", "/example/" + url.PathEscape(e.FinalUrl)}, {"changefreq", "daily"}})
 	}
 
 	w.Header().Set("Content-Type", "application/xml; charset=UTF-8")
