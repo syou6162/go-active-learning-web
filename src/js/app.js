@@ -5,10 +5,12 @@ import VueAnalytics from 'vue-analytics'
 import VueLazyload from 'vue-lazyload'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import vueHeadful from 'vue-headful';
 
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 Vue.use(VueLazyload)
+Vue.component('vue-headful', vueHeadful);
 
 import routes from './routes'
 const router = new VueRouter({

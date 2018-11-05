@@ -1,5 +1,8 @@
 <template>
   <div>
+    <vue-headful 
+      v-bind:title="title" 
+      />
     <b-form-group label="Please select a label">
       <b-form-radio-group
         buttons
@@ -25,6 +28,7 @@ import NewExample from './util';
 export default {
   data () {
     return {
+      title: "ML News",
       listname: 'general',
       examples: [],
       isNew: 0,
@@ -48,6 +52,8 @@ export default {
       axios.get("/api/examples?listName=" + listname)
       .then(response => {
         this.examples = response.data.map(e => NewExample(e));
+        this.listname = this.$route.params.listname;
+        this.title = `ML News - ${this.listname}`;
       });
     },
     examplesFilterByIsNew: function(isNew) {

@@ -1,5 +1,8 @@
 <template>
   <div class="mx-auto" style="max-width: 40rem;">
+    <vue-headful 
+      v-bind:title="title" 
+      />
     <b-card v-if="example" v-bind:title="example | getTitle(1000, '...')" tag="article">
       <img v-if="example.OgImage" class="img-thumbnail img-responsive" style="width: 128px; height: 96px; margin: 3px; float: right;" v-lazy="example.OgImage" onerror="this.style.display='none'" />
       <p class="card-text">
@@ -29,13 +32,14 @@ import NewExample from './util';
 export default {
   data () {
     return {
+      title: "ML News",
       url: this.$route.params.url,
       example: null,
       similarExamples: []
     }
   },
   mounted() {
-    this.fetchExample(this.$route.params.url)
+    this.fetchExample(this.$route.params.url);
   },
   methods: {
     fetchExample(url) {
@@ -46,6 +50,7 @@ export default {
         this.similarExamples = response.data.SimilarExamples.filter(function(e) {
           return e.Label === 1 || e.Score > 0.0;
         });
+        this.title = `ML News - ${this.example.Title}`;
       });
     }
   },
