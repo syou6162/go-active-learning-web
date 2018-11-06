@@ -1,19 +1,27 @@
 <template>
   <div>
-    <b-form-group label="Please select a label">
-      <b-form-radio-group
-        buttons
-        v-model="filter_label"
-        button-variant="outline-primary"
-        :options="options" />
-    </b-form-group>
-    <b-card-group columns>
-      <example 
-        v-for="example in examplesFilterByLabel(filter_label)"
-        v-bind:key="example.Url"
-        v-bind:example="example"
-        ></example>
-    </b-card-group>
+    <div v-if="loading">
+      Now loading...
+    </div>
+    <div v-else-if="error">
+      Fail to retrieve from API server. Error: {{ error }}
+    </div>
+    <div v-else>
+      <b-form-group label="Please select a label">
+        <b-form-radio-group
+          buttons
+          v-model="filter_label"
+          button-variant="outline-primary"
+          :options="options" />
+      </b-form-group>
+      <b-card-group columns>
+        <example 
+          v-for="example in examplesFilterByLabel(filter_label)"
+          v-bind:key="example.Url"
+          v-bind:example="example"
+          ></example>
+      </b-card-group>
+    </div>
   </div>
 </template>
 
@@ -31,13 +39,24 @@ export default {
         { text: 'Negative', value: -1 },
         { text: 'Unlabeled', value: 0 },
       ],
-      results: []
+      results: [],
+      error: null,
+      loading: true,
     }
   },
   mounted() {
-   axios.get("/api/recent_added_examples")
+    let self = this;
+    this.loading = true;
+    this.error = null;
+    
+    axios.get("/api/recent_added_examples")
       .then(response => {
         this.results = response.data.map(e => NewExample(e));
+        this.loading = false;
+      }).catch(function (error) {
+        if (error.response) {
+          self.error = error.response.statusText;
+        }
       });
   },
   methods: {
