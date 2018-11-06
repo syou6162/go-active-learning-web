@@ -8,7 +8,7 @@
       Fail to retrieve from API server. Error: {{ error }}
     </div>
     <div v-else-if="query && results.length == 0">
-      No search result for {{ query }}
+      No search result for '{{ query }}'
     </div>
     <div v-else>
       <b-card-group columns>
