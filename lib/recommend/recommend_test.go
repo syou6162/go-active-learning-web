@@ -39,7 +39,6 @@ func TestDoRecommend(t *testing.T) {
 	args := []string{
 		"go-active-learning-web",
 		"recommend",
-		"--filter-status-code-ok",
 		"--subset-selection",
 		"-r=0.75",
 		"--size-constraint=20",

@@ -5,8 +5,6 @@ import (
 	"log"
 	"strings"
 
-	"encoding/json"
-
 	"time"
 
 	"regexp"
@@ -33,8 +31,6 @@ var listName2Rule = map[string]*regexp.Regexp{
 }
 
 func doRecommend(c *cli.Context) error {
-	filterStatusCodeOk := c.Bool("filter-status-code-ok")
-	jsonOutput := c.Bool("json-output")
 	subsetSelection := c.Bool("subset-selection")
 	sizeConstraint := c.Int("size-constraint")
 	alpha := c.Float64("alpha")
@@ -69,9 +65,7 @@ func doRecommend(c *cli.Context) error {
 	}
 
 	cache.AttachMetadata(examples, true, false)
-	if filterStatusCodeOk {
-		examples = util.FilterStatusCodeOkExamples(examples)
-	}
+	examples = util.FilterStatusCodeOkExamples(examples)
 	model := classifier.NewBinaryClassifier(examples)
 
 	targetExamples, err := db.ReadRecentExamples(time.Now().Add(-time.Duration(24*durationDay) * time.Hour))
@@ -82,9 +76,7 @@ func doRecommend(c *cli.Context) error {
 	targetExamples = util.RemoveNegativeExamples(targetExamples)
 	log.Println("Started to attach metadata to positive or unlabeled...")
 	cache.AttachMetadata(targetExamples, true, false)
-	if filterStatusCodeOk {
-		targetExamples = util.FilterStatusCodeOkExamples(targetExamples)
-	}
+	targetExamples = util.FilterStatusCodeOkExamples(targetExamples)
 
 	log.Println("Started to predict scores...")
 	result := example.Examples{}
@@ -118,15 +110,7 @@ func doRecommend(c *cli.Context) error {
 	}
 
 	for _, e := range result {
-		if jsonOutput {
-			b, err := json.Marshal(e)
-			if err != nil {
-				return err
-			}
-			fmt.Println(string(b))
-		} else {
-			fmt.Println(fmt.Sprintf("%0.03f\t%s", e.Score, e.Url))
-		}
+		fmt.Println(fmt.Sprintf("%0.03f\t%s", e.Score, e.Url))
 	}
 
 	return nil
@@ -174,8 +158,6 @@ Get recommendation list and store them.
 `,
 	Action: doRecommend,
 	Flags: []cli.Flag{
-		cli.BoolFlag{Name: "filter-status-code-ok", Usage: "Use only examples with status code = 200"},
-		cli.BoolFlag{Name: "json-output", Usage: "Make output with json format or not (tsv format)."},
 		cli.BoolFlag{Name: "subset-selection", Usage: "Use subset selection algorithm (maximizing submodular function) to filter entries"},
 		cli.Int64Flag{Name: "size-constraint", Value: 10, Usage: "Budget constraint. Max number of entries to be contained"},
 		cli.Float64Flag{Name: "alpha", Value: 1.0},
