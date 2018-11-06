@@ -55,6 +55,7 @@ export default {
         this.loading = false;
       }).catch(function (error) {
         if (error.response) {
+          self.loading = false;
           self.error = error.response.statusText;
         }
       });
