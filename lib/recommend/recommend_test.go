@@ -40,7 +40,6 @@ func TestDoRecommend(t *testing.T) {
 		"go-active-learning-web",
 		"recommend",
 		"--filter-status-code-ok",
-		"--json-output",
 		"--subset-selection",
 		"-r=0.75",
 		"--size-constraint=20",
