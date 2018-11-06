@@ -44,6 +44,11 @@ func TestMain(m *testing.M) {
 }
 
 func TestRecentAddedExamples(t *testing.T) {
+	_, err := db.DeleteAllExamples()
+	if err != nil {
+		t.Error("Cannot delete examples")
+	}
+
 	req, err := http.NewRequest("GET", "/api/recent_added_examples", nil)
 	if err != nil {
 		t.Error(err)
