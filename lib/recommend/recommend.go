@@ -1,4 +1,4 @@
-package apply
+package recommend
 
 import (
 	"fmt"
@@ -32,7 +32,7 @@ var listName2Rule = map[string]*regexp.Regexp{
 	"arxiv":   regexp.MustCompile(`https://arxiv.org/abs/.+`),
 }
 
-func doApply(c *cli.Context) error {
+func doRecommend(c *cli.Context) error {
 	filterStatusCodeOk := c.Bool("filter-status-code-ok")
 	jsonOutput := c.Bool("json-output")
 	subsetSelection := c.Bool("subset-selection")
@@ -166,13 +166,13 @@ func postNumOfPositiveAndNegativeExamplesToMackerel(examples example.Examples) e
 	return err
 }
 
-var CommandApply = cli.Command{
-	Name:  "apply",
-	Usage: "Apply classifier to unlabeled examples",
+var CommandRecommend = cli.Command{
+	Name:  "recommend",
+	Usage: "Get recommendation list and store them",
 	Description: `
-Apply classifier to unlabeled examples, and print a pair of score and url.
+Get recommendation list and store them.
 `,
-	Action: doApply,
+	Action: doRecommend,
 	Flags: []cli.Flag{
 		cli.BoolFlag{Name: "filter-status-code-ok", Usage: "Use only examples with status code = 200"},
 		cli.BoolFlag{Name: "json-output", Usage: "Make output with json format or not (tsv format)."},
