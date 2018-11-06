@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"net/url"
 	"os/signal"
 	"time"
 
@@ -21,7 +20,6 @@ import (
 
 	"github.com/codegangsta/cli"
 	"github.com/fukata/golang-stats-api-handler"
-	"github.com/ikeikeikeike/go-sitemap-generator/stm"
 	"github.com/mitchellh/go-server-timing"
 	"github.com/syou6162/go-active-learning-web/lib/search"
 	"github.com/syou6162/go-active-learning-web/lib/version"
@@ -248,54 +246,6 @@ func ServerAvail(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintln(w, "OK, I'm fine")
-}
-
-func SitemapTop(w http.ResponseWriter, r *http.Request) {
-	sm := stm.NewSitemap(1)
-	sm.SetDefaultHost("https://www.machine-learning.news")
-	sm.SetCompress(true)
-	sm.SetVerbose(true)
-
-	sm.Create()
-
-	sm.Add(stm.URL{{"loc", "/list/general"}, {"changefreq", "daily"}})
-	sm.Add(stm.URL{{"loc", "/list/article"}, {"changefreq", "daily"}})
-	sm.Add(stm.URL{{"loc", "/list/twitter"}, {"changefreq", "daily"}})
-	sm.Add(stm.URL{{"loc", "/list/github"}, {"changefreq", "daily"}})
-	sm.Add(stm.URL{{"loc", "/list/arxiv"}, {"changefreq", "daily"}})
-	sm.Add(stm.URL{{"loc", "/list/slide"}, {"changefreq", "daily"}})
-
-	sm.Add(stm.URL{{"loc", "/recent-added-examples"}, {"changefreq", "daily"}})
-
-	w.Header().Set("Content-Type", "application/xml; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-	w.Write(sm.XMLContent())
-}
-
-func SitemapCategory(w http.ResponseWriter, r *http.Request) {
-	queryValues := r.URL.Query()
-	listName := queryValues.Get("category")
-
-	examples, err := getUrlsFromList(listName)
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-
-	sm := stm.NewSitemap(1)
-	sm.SetDefaultHost("https://www.machine-learning.news")
-	sm.SetCompress(true)
-	sm.SetVerbose(true)
-
-	sm.Create()
-	for _, e := range examples {
-		sm.Add(stm.URL{{"loc", "/example/" + url.PathEscape(e.FinalUrl)}, {"changefreq", "daily"}})
-	}
-
-	w.Header().Set("Content-Type", "application/xml; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-	w.Write(sm.XMLContent())
 }
 
 func doServe(c *cli.Context) error {
