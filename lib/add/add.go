@@ -1,8 +1,6 @@
 package add
 
 import (
-	"fmt"
-
 	"github.com/codegangsta/cli"
 	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/db"
@@ -37,16 +35,9 @@ func doAdd(c *cli.Context) error {
 	cache.AttachMetadata(examples, true, false)
 
 	for _, e := range examples {
-		_, err = db.InsertOrUpdateExample(e)
-		if err != nil {
+		if _, err = db.InsertOrUpdateExample(e); err != nil {
 			return err
 		}
-
-		url := e.Url
-		if e.FinalUrl != "" {
-			url = e.FinalUrl
-		}
-		fmt.Println(fmt.Sprintf("%s\t%d", url, e.Label))
 	}
 
 	return nil
