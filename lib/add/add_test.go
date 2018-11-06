@@ -1,4 +1,4 @@
-package expand_url_test
+package add_test
 
 import (
 	"testing"
@@ -7,12 +7,12 @@ import (
 	"github.com/syou6162/go-active-learning-web/lib/command"
 )
 
-func TestDoExpandUrl(t *testing.T) {
+func TestDoAdd(t *testing.T) {
 	app := cli.NewApp()
 	app.Commands = command.Commands
 	args := []string{
 		"go-active-learning-web",
-		"expand-url",
+		"add",
 		"--input-filename=../../tech_input_example.txt",
 	}
 

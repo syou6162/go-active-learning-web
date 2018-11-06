@@ -1,4 +1,4 @@
-package expand_url
+package add
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 	"github.com/syou6162/go-active-learning/lib/util/file"
 )
 
-func doExpandURL(c *cli.Context) error {
+func doAdd(c *cli.Context) error {
 	inputFilename := c.String("input-filename")
 
 	if inputFilename == "" {
@@ -52,13 +52,13 @@ func doExpandURL(c *cli.Context) error {
 	return nil
 }
 
-var CommandExpandURL = cli.Command{
-	Name:  "expand-url",
-	Usage: "Expand shortened url",
+var CommandAdd = cli.Command{
+	Name:  "add",
+	Usage: "add urls",
 	Description: `
-Expand shortened url.
+Add urls.
 `,
-	Action: doExpandURL,
+	Action: doAdd,
 	Flags: []cli.Flag{
 		cli.StringFlag{Name: "input-filename"},
 	},
