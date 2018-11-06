@@ -252,7 +252,7 @@ func ServerAvail(w http.ResponseWriter, r *http.Request) {
 
 func SitemapTop(w http.ResponseWriter, r *http.Request) {
 	sm := stm.NewSitemap(1)
-	sm.SetDefaultHost("https://machine-learning.news")
+	sm.SetDefaultHost("https://www.machine-learning.news")
 	sm.SetCompress(true)
 	sm.SetVerbose(true)
 
@@ -284,7 +284,7 @@ func SitemapCategory(w http.ResponseWriter, r *http.Request) {
 	}
 
 	sm := stm.NewSitemap(1)
-	sm.SetDefaultHost("https://machine-learning.news")
+	sm.SetDefaultHost("https://www.machine-learning.news")
 	sm.SetCompress(true)
 	sm.SetVerbose(true)
 
