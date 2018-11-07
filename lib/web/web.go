@@ -270,6 +270,7 @@ func doServe(c *cli.Context) error {
 	mux.HandleFunc("/api/stats", stats_api.Handler)
 	mux.HandleFunc("/sitemap", SitemapCategory)
 	mux.HandleFunc("/sitemap/top", SitemapTop)
+	mux.HandleFunc("/sitemap/recent", SitemapRecentPositiveExamples)
 
 	srv := http.Server{
 		Addr:    addr,

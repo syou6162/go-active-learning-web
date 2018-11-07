@@ -6,6 +6,9 @@ import (
 	"net/url"
 
 	"github.com/ikeikeikeike/go-sitemap-generator/stm"
+	"github.com/syou6162/go-active-learning/lib/cache"
+	"github.com/syou6162/go-active-learning/lib/db"
+	"github.com/syou6162/go-active-learning/lib/util"
 )
 
 func SitemapTop(w http.ResponseWriter, r *http.Request) {
@@ -48,6 +51,31 @@ func SitemapCategory(w http.ResponseWriter, r *http.Request) {
 
 	sm.Create()
 	for _, e := range examples {
+		sm.Add(stm.URL{{"loc", "/example/" + url.PathEscape(e.FinalUrl)}, {"changefreq", "daily"}})
+	}
+
+	w.Header().Set("Content-Type", "application/xml; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	w.Write(sm.XMLContent())
+}
+
+func SitemapRecentPositiveExamples(w http.ResponseWriter, r *http.Request) {
+	sm := stm.NewSitemap(1)
+	sm.SetDefaultHost("https://www.machine-learning.news")
+	sm.SetCompress(true)
+	sm.SetVerbose(true)
+
+	sm.Create()
+	positiveExamples, err := db.ReadPositiveExamples(100)
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+	cache.AttachMetadata(positiveExamples, false, true)
+	positiveExamples = util.FilterStatusCodeOkExamples(positiveExamples)
+
+	for _, e := range positiveExamples {
 		sm.Add(stm.URL{{"loc", "/example/" + url.PathEscape(e.FinalUrl)}, {"changefreq", "daily"}})
 	}
 

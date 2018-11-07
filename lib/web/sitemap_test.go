@@ -24,6 +24,7 @@ func TestSitemapTop(t *testing.T) {
 			status, http.StatusOK)
 	}
 }
+
 func TestSitemapCategory(t *testing.T) {
 	inputFilename := "../../tech_input_example.txt"
 	train, err := file.ReadExamples(inputFilename)
@@ -44,6 +45,32 @@ func TestSitemapCategory(t *testing.T) {
 	}
 	w := httptest.NewRecorder()
 	http.HandlerFunc(web.SitemapCategory).ServeHTTP(w, req)
+
+	if status := w.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+}
+
+func TestSitemapRecentPositiveExamples(t *testing.T) {
+	inputFilename := "../../tech_input_example.txt"
+	train, err := file.ReadExamples(inputFilename)
+	if err != nil {
+		t.Error(err)
+	}
+	for _, example := range train {
+		_, err = db.InsertOrUpdateExample(example)
+		if err != nil {
+			t.Error(err)
+		}
+	}
+
+	req, err := http.NewRequest("GET", "/sitemap/recent", nil)
+	if err != nil {
+		t.Error(err)
+	}
+	w := httptest.NewRecorder()
+	http.HandlerFunc(web.SitemapRecentPositiveExamples).ServeHTTP(w, req)
 
 	if status := w.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",
