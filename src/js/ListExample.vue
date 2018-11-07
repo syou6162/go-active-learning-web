@@ -1,5 +1,11 @@
 <template>
   <div>
+    <vue-headful 
+      v-bind:title="title" 
+      v-bind:keywords="keywords(listname).join(',')" 
+      v-bind:description="description(listname)" 
+      v-bind:url="url(listname)"
+      />
     <div v-if="loading">
       Now loading...
     </div>
@@ -7,9 +13,6 @@
       Fail to retrieve from API server. Error: {{ error }}
     </div>
     <div v-else>
-      <vue-headful 
-        v-bind:title="title" 
-        />
       <b-form-group label="Please select a label">
         <b-form-radio-group
           buttons
@@ -32,6 +35,24 @@
 import axios from 'axios';
 import Example from './Example.vue';
 import NewExample from './util';
+
+const keywordsByListname = {
+  "general": ["機械学習", "Machine Learning", "自然言語処理"],
+  "article": ["機械学習", "Machine Learning", "自然言語処理"],
+  "twitter": ["Twitter", "Machine Learning", "機械学習"],
+  "github": ["Github", "OSS", "Machine Learning"],
+  "arxiv": ["arXiv", "Paper", "論文", "Machine Learning"],
+  "slide": ["登壇", "発表", "Machine Learning", "機械学習"],
+};
+
+const descriptionByListname = {
+  "general": "機械学習に関連する人気のエントリを読むことができます",
+  "article": "機械学習に関連する人気のエントリを読むことができます",
+  "twitter": "Twitter上で話題の機械学習に関連するツイートを読むことができます",
+  "github": "Github上で話題の機械学習に関連するリポジトリを見ることができます",
+  "arxiv": "arXiv上で話題の機械学習に関連する論文を読むことができます",
+  "slide": "SlideShareやSpeaker Deck上で話題の機械学習に関連する発表資料を読むことができます",
+};
 
 export default {
   data () {
@@ -83,7 +104,16 @@ export default {
           return e.IsNew == isNew;
         }
       })
-    }
+    },
+    keywords: function(listname) {
+      return keywordsByListname[listname] || []; 
+    },
+    description: function(listname) {
+      return descriptionByListname[listname] || ""; 
+    },
+    url: function(listname) {
+      return "https://www.machine-learning.news/list/" + listname;
+    },
   },
   components: {
     "example": Example,
