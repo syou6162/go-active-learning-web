@@ -1,28 +1,36 @@
 <template>
-  <div class="mx-auto" style="max-width: 40rem;">
-    <vue-headful 
-      v-bind:title="title" 
-      v-bind:description="example | getDescription(1000, '...')"
-      v-bind:url="example.FinalUrl"
-      />
-    <b-card v-if="example" v-bind:title="example | getTitle(1000, '...')" tag="article">
-      <img v-if="example.OgImage" class="img-thumbnail img-responsive" style="width: 128px; height: 96px; margin: 3px; float: right;" v-lazy="example.OgImage" onerror="this.style.display='none'" />
-      <p class="card-text">
-        {{ example | getDescription(1000, '...') }}
-      </p>
-      <b-card-footer>
-        <img v-if="example.Favicon" style="width: 16px; height: 16px;" v-lazy="example.Favicon" onerror="this.style.display='none'" />
-        <a v-bind:href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
-      </b-card-footer>
-    </b-card>
-    <h4 v-if="similarExamples.length > 0">Related Entries</h4>
-    <b-list-group>
-      <b-list-group-item v-for="example in similarExamples" :key="example.FinalUrl">
-        <b-button v-bind:href="'/example/' + encodeURIComponent(example.FinalUrl)" class="float-right" size="sm">Read more</b-button>
-        <img v-if="example.Favicon" style="width: 16px; height: 16px;" v-lazy="example.Favicon" onerror="this.style.display='none'" />
-        {{ example | getTitle(100, '...') }}
-      </b-list-group-item>
-    </b-list-group>
+  <div>
+    <div v-if="loading">
+      Now loading...
+    </div>
+    <div v-else-if="error">
+      Fail to retrieve from API server. Error: {{ error }}
+    </div>
+    <div v-else class="mx-auto" style="max-width: 40rem;">
+      <vue-headful 
+        v-bind:title="title" 
+        v-bind:description="example | getDescription(1000, '...')"
+        v-bind:url="example.FinalUrl"
+        />
+      <b-card v-if="example" v-bind:title="example | getTitle(1000, '...')" tag="article">
+        <img v-if="example.OgImage" class="img-thumbnail img-responsive" style="width: 128px; height: 96px; margin: 3px; float: right;" v-lazy="example.OgImage" onerror="this.style.display='none'" />
+        <p class="card-text">
+          {{ example | getDescription(1000, '...') }}
+        </p>
+        <b-card-footer>
+          <img v-if="example.Favicon" style="width: 16px; height: 16px;" v-lazy="example.Favicon" onerror="this.style.display='none'" />
+          <a v-bind:href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
+        </b-card-footer>
+      </b-card>
+      <h4 v-if="similarExamples.length > 0">Related Entries</h4>
+      <b-list-group>
+        <b-list-group-item v-for="example in similarExamples" :key="example.FinalUrl">
+          <b-button v-bind:href="'/example/' + encodeURIComponent(example.FinalUrl)" class="float-right" size="sm">Read more</b-button>
+          <img v-if="example.Favicon" style="width: 16px; height: 16px;" v-lazy="example.Favicon" onerror="this.style.display='none'" />
+          {{ example | getTitle(100, '...') }}
+        </b-list-group-item>
+      </b-list-group>
+    </div>
   </div>
 </template>
 
@@ -37,7 +45,9 @@ export default {
       title: "ML News",
       url: this.$route.params.url,
       example: null,
-      similarExamples: []
+      similarExamples: [],
+      error: null,
+      loading: true,
     }
   },
   mounted() {
@@ -45,15 +55,25 @@ export default {
   },
   methods: {
     fetchExample(url) {
+      let self = this;
+      this.loading = true;
+      this.error = null;
+
       this.examples = [];
       axios.get("/api/example?url=" + encodeURIComponent(url))
-      .then(response => {
-        this.example = NewExample(response.data.Example);
-        this.similarExamples = response.data.SimilarExamples.filter(function(e) {
-          return e.Label === 1 || e.Score > 0.0;
+        .then(response => {
+          this.example = NewExample(response.data.Example);
+          this.similarExamples = response.data.SimilarExamples.filter(function(e) {
+            return e.Label === 1 || e.Score > 0.0;
+          });
+          this.title = `ML News - ${this.example.Title}`;
+          this.loading = false;
+        }).catch(function (error) {
+          if (error.response) {
+            self.loading = false;
+            self.error = error.response.statusText;
+          }
         });
-        this.title = `ML News - ${this.example.Title}`;
-      });
     }
   },
   components: {
