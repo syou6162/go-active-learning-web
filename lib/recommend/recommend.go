@@ -77,6 +77,7 @@ func doRecommend(c *cli.Context) error {
 	log.Println("Started to attach metadata to positive or unlabeled...")
 	cache.AttachMetadata(targetExamples, true, false)
 	targetExamples = util.FilterStatusCodeOkExamples(targetExamples)
+	targetExamples = util.UniqueByFinalUrl(targetExamples)
 
 	log.Println("Started to predict scores...")
 	result := example.Examples{}

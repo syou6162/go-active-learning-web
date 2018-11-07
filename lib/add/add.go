@@ -5,7 +5,6 @@ import (
 	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/db"
 	"github.com/syou6162/go-active-learning/lib/util/file"
-	"github.com/syou6162/go-active-learning/lib/util"
 )
 
 func doAdd(c *cli.Context) error {
@@ -34,7 +33,6 @@ func doAdd(c *cli.Context) error {
 	}
 
 	cache.AttachMetadata(examples, true, false)
-	examples = util.UniqueByFinalUrl(examples)
 
 	for _, e := range examples {
 		if _, err = db.InsertOrUpdateExample(e); err != nil {
