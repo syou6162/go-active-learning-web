@@ -437,7 +437,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:3b754872ef81d4f53da1ae4514baff44653b83bc6975010ac625e30eb924c066"
+  digest = "1:db6820b0a4c7c3c47a6a2db20485a5a40cdcb84f1eba42feaa16d787baf5b33b"
   name = "github.com/syou6162/go-active-learning"
   packages = [
     "lib/cache",
@@ -451,7 +451,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "98cda94b1deabf473b5531beb90ddb034c221a5a"
+  revision = "e10b67a95f654a3781b887dd05b346eee4123b6a"
 
 [[projects]]
   digest = "1:c28625428387b63dd7154eb857f51e700465cfbf7c06f619e71f2da33cefe47e"
@@ -478,14 +478,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:509feef845f6af582cb82caad5eb176016b30714facdc754d84869ca31305b59"
+  digest = "1:f97031542387802b6fd8867c3f29488c2852aac19954ed51df6231a4fadf1707"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "UT"
-  revision = "7155702f2d47d94b134229da97195d0130cab001"
+  revision = "3a76605856fddce5718553cbb8bd50ca492a7274"
 
 [[projects]]
   digest = "1:aa4d6967a3237f8367b6bf91503964a77183ecf696f1273e8ad3551bb4412b5f"
