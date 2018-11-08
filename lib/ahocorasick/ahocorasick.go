@@ -35,11 +35,16 @@ var keywords = []string{
 	"要約",
 	"summarization",
 
-	"ner",
 	"parsing",
 
 	"テキストマイニング",
 	"text mining",
+
+	"対話",
+	"dialogue",
+
+	"アノテーション",
+	"annotation",
 
 	"コンピュータビジョン",
 	"computer vision",
@@ -54,6 +59,7 @@ var keywords = []string{
 
 	"物体検出",
 	"semantic segmentation",
+	"yolo",
 
 	"cifar",
 	"imagenet",
@@ -92,10 +98,13 @@ var keywords = []string{
 	"icdm",
 	"kdd",
 	"iclr",
+	"ijcai",
+	"aaai",
 
 	"ロジステック回帰",
 	"logistic regression",
 	"ガウシアンプロセス",
+	"ガウス過程",
 	"gaussian process",
 	"svm",
 
@@ -104,6 +113,8 @@ var keywords = []string{
 	"行列分解",
 	"pca",
 	"svd",
+	"lda",
+	"トピックモデル",
 
 	"ベイズ",
 	"bayesian",
@@ -111,10 +122,12 @@ var keywords = []string{
 	"ベイズ最適化",
 	"bayesian optimization",
 
+	"半教師あり学習",
 	"転移学習",
 	"transfer learning",
 	"ドメイン適用",
 	"domain adaptation",
+	"data augmentation",
 
 	"圧縮",
 	"高速化",
@@ -138,10 +151,15 @@ var keywords = []string{
 	"nnabla",
 	"edward",
 	"jupyter",
+	"lightgbm",
+	"xgboost",
+	"random forest",
+	"stan",
 
 	"cnn",
 	"rnn",
 	"lstm",
+	"autoencoder",
 	"bert",
 	"elmo",
 	"gan",
