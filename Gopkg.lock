@@ -154,14 +154,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:d67eca25ce5d27fa8cac538a1d6f5b4152c91d5e3529f38d7b912c7a3e11332c"
+  digest = "1:c0b59da8e9510287e1ec24a87b90d45edcf6ae63aeb75571a091f662f4b9f917"
   name = "github.com/go-ego/gse"
   packages = [
     ".",
     "hmm",
   ]
   pruneopts = "UT"
-  revision = "3f2cde93e968a665347a896617b6f967e7d2f365"
+  revision = "ad1c1fb5f953bf048f2d26440eb44020f1776f97"
 
 [[projects]]
   branch = "master"
@@ -437,7 +437,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:0deab014683da746cc0fe1c8ab2cb844d37458082c07dc80f76f0b94ed4d442e"
+  digest = "1:68d1ba7126f8e7035ea40536ca1963861fcf2597dde74d489844018850f9548d"
   name = "github.com/syou6162/go-active-learning"
   packages = [
     "lib/cache",
@@ -451,7 +451,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "9f183bfd706ac6dd4e4f95a486e1d6d4761f0352"
+  revision = "b5c123f2e1d48e7eac106b38689570107f9faa3f"
 
 [[projects]]
   digest = "1:c28625428387b63dd7154eb857f51e700465cfbf7c06f619e71f2da33cefe47e"
@@ -463,10 +463,9 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:e67fda6a6f84c760a11c7e0884edfa958273b1ebc365245651cbcd810a974bc1"
+  digest = "1:0ad27c13b4d8059e712dc70f1d2352427710d6547fa54927429c7b6db9802c87"
   name = "golang.org/x/net"
   packages = [
-    "context",
     "html",
     "html/atom",
     "html/charset",
@@ -474,7 +473,7 @@
     "trace",
   ]
   pruneopts = "UT"
-  revision = "a544f70c90f196e50d198126db0c4cb2b562fec0"
+  revision = "03003ca0c849e57b6ea29a4bab8d3cb6e4d568fe"
 
 [[projects]]
   branch = "master"
