@@ -2,11 +2,13 @@ package ahocorasick
 
 import (
 	"sync"
+
 	"github.com/anknown/ahocorasick"
+	"github.com/syou6162/go-active-learning/lib/util"
 )
 
 var (
-	once sync.Once
+	once    sync.Once
 	machine *goahocorasick.Machine
 )
 
@@ -125,5 +127,5 @@ func SearchKeywords(content string) []string {
 	for _, t := range terms {
 		foundKeywords = append(foundKeywords, string(t.Word))
 	}
-	return foundKeywords
+	return util.RemoveDuplicate(foundKeywords)
 }
