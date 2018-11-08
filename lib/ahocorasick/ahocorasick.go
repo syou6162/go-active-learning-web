@@ -16,10 +16,13 @@ var keywords = []string{
 	"機械学習",
 	"machine learning",
 
+	"強化学習",
 	"深層強化学習",
+	"reinforcement learning",
 
 	"自然言語処理",
 	"natural language processing",
+	"nlp",
 
 	"言語モデル",
 	"language model",
@@ -29,6 +32,9 @@ var keywords = []string{
 
 	"parsing",
 
+	"コンピュータビジョン",
+	"computer vision",
+
 	"異常検知",
 	"anomaly detection",
 
@@ -37,7 +43,14 @@ var keywords = []string{
 
 	"物体検出",
 
+	"レコメンド",
+	"recommender",
+	"recommendation",
+
 	"データ基盤",
+
+	"データセット",
+	"dataset",
 
 	"論文",
 	"survey",
@@ -73,6 +86,11 @@ var keywords = []string{
 	"ベイズ最適化",
 	"bayesian optimization",
 
+	"転移学習",
+	"transfer learning",
+	"ドメイン適用",
+	"domain adaptation",
+
 	"python",
 	"julia",
 	"tensorflow",
@@ -97,6 +115,11 @@ var keywords = []string{
 	"gan",
 	"u-net",
 	"transformer",
+
+	"埋め込み",
+	"embedding",
+	"glove",
+	"word2vec",
 
 	"kaggle",
 	"コンペ",
