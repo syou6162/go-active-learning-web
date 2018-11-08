@@ -21,6 +21,7 @@ import (
 	"github.com/codegangsta/cli"
 	"github.com/fukata/golang-stats-api-handler"
 	"github.com/mitchellh/go-server-timing"
+	"github.com/syou6162/go-active-learning-web/lib/ahocorasick"
 	"github.com/syou6162/go-active-learning-web/lib/search"
 	"github.com/syou6162/go-active-learning-web/lib/version"
 	"github.com/syou6162/go-active-learning/lib/cache"
@@ -160,6 +161,7 @@ func GetExamplesFromList(w http.ResponseWriter, r *http.Request) {
 type ExampleWithSimilarExamples struct {
 	Example         *example.Example
 	SimilarExamples example.Examples `json:"SimilarExamples"`
+	Keywords        []string
 }
 
 func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
@@ -198,7 +200,11 @@ func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("X-Keywords", strings.Join(keywords, ","))
 	w.WriteHeader(http.StatusOK)
 
-	json.NewEncoder(w).Encode(ExampleWithSimilarExamples{Example: ex, SimilarExamples: similarExamplesWithoutOriginal})
+	json.NewEncoder(w).Encode(ExampleWithSimilarExamples{
+		Example:         ex,
+		SimilarExamples: similarExamplesWithoutOriginal,
+		Keywords:        ahocorasick.SearchKeywords(ex.Title),
+	})
 }
 
 func Search(w http.ResponseWriter, r *http.Request) {
@@ -297,6 +303,8 @@ func doServe(c *cli.Context) error {
 
 	search.Init()
 	defer search.Close()
+
+	ahocorasick.Init()
 
 	// SIGINTとSYSTERMが飛んできたらgraceful shutdown
 	stopChan := make(chan os.Signal, 1)

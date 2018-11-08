@@ -17,6 +17,12 @@
         <p class="card-text">
           {{ example | getDescription(1000, '...') }}
         </p>
+        <div v-if="keywords.length > 0">
+          Keywords: 
+          <b-link v-bind:href="'/search?query=' + k" v-for="k in keywords">
+            {{ k }}
+          </b-link>
+        </div>
         <b-card-footer>
           <img v-if="example.Favicon" style="width: 16px; height: 16px;" v-lazy="example.Favicon" onerror="this.style.display='none'" />
           <a v-bind:href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
@@ -46,6 +52,7 @@ export default {
       url: this.$route.params.url,
       example: null,
       similarExamples: [],
+      keywords: [],
       error: null,
       loading: true,
     }
@@ -66,6 +73,7 @@ export default {
           this.similarExamples = response.data.SimilarExamples.filter(function(e) {
             return e.Label === 1 || e.Score > 0.0;
           });
+          this.keywords = response.data.Keywords;
           this.title = `ML News - ${this.example.Title}`;
           this.loading = false;
         }).catch(function (error) {
