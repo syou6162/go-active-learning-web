@@ -29,6 +29,10 @@ import Example from './Example.vue';
 import NewExample from './util';
 
 export default {
+  mounted() {
+    this.query = this.$route.query.query;
+    this.debouncedGetSearchResult();
+  },
   data () {
     return {
       query: this.$route.query.query,
