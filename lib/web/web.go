@@ -203,7 +203,7 @@ func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(ExampleWithSimilarExamples{
 		Example:         ex,
 		SimilarExamples: similarExamplesWithoutOriginal,
-		Keywords:        ahocorasick.SearchKeywords(ex.Title),
+		Keywords:        ahocorasick.SearchKeywords(strings.ToLower(ex.Title)),
 	})
 }
 
