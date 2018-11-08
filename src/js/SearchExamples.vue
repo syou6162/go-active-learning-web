@@ -31,7 +31,7 @@ import NewExample from './util';
 export default {
   data () {
     return {
-      query: "",
+      query: this.$route.query.query,
       results: [],
       error: null,
       loading: true,
@@ -39,7 +39,9 @@ export default {
   },
   watch: {
     query: function(newSearchQuery, oldSearchQuery) {
-      this.debouncedGetSearchResult()
+      // https://router.vuejs.org/ja/guide/essentials/navigation.html
+      this.$router.push({ query: { query: newSearchQuery }})
+      this.debouncedGetSearchResult();
     },
   },
   created: function() {
