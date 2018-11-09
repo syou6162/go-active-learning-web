@@ -154,7 +154,6 @@ var keywords = []string{
 	"lightgbm",
 	"xgboost",
 	"random forest",
-	"stan",
 
 	"cnn",
 	"rnn",
