@@ -24,6 +24,8 @@ func SelectSubExamplesBySubModular(whole example.Examples, sizeConstraint int, a
 	return selected
 }
 
+// ref: http://aclweb.org/anthology/N10-1134
+// Algorithm 1 line4
 func SelectBestExample(mat SimilarityMatrix, remainings example.Examples, selected example.Examples, whole example.Examples, alpha float64, r float64) int {
 	maxScore := math.Inf(-1)
 	argmax := 0
