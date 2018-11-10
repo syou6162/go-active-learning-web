@@ -43,6 +43,22 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:970a346837f206daaeb0cfdb63cdf0b727d723cad51a4adc6e79bd696514eff9"
+  name = "github.com/anknown/ahocorasick"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "0c5fc028355814897180453fe134912834f36b46"
+
+[[projects]]
+  branch = "master"
+  digest = "1:2a51111b3894c37a009943dc9440e1d1c89c2fd69f475d9290cf376e1752a964"
+  name = "github.com/anknown/darts"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "83ff685239e6a1fa38eaca43cf737a9dfa3e8bde"
+
+[[projects]]
+  branch = "master"
   digest = "1:0f893aeaa870f517664d80ac7be7fa85c4b04ce984ae3eeb0dac7687c8fd34d1"
   name = "github.com/araddon/dateparse"
   packages = ["."]
@@ -215,14 +231,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:0f5e49a5b6dcdc5cce42085b44adef18f234401b8d182dfe0633e8ee4a9deac7"
+  digest = "1:1f2691d754fc32355ae99f14fd932b210ffa1a987e3f4da9bca67b94a93e7f9b"
   name = "github.com/go-vgo/gt"
   packages = [
     "conf",
     "info",
   ]
   pruneopts = "UT"
-  revision = "ebbe1e89a8f7c5e1aba98caac802b86e518debc2"
+  revision = "04b916917f5a891a89ea4365161d2e914f79ad05"
 
 [[projects]]
   branch = "master"
@@ -351,6 +367,14 @@
   version = "v0.0.1"
 
 [[projects]]
+  branch = "master"
+  digest = "1:fc0f10a3e53092a5f273c7081ec2909630c3b25fe738a57fb52ade1204532633"
+  name = "github.com/pbnjay/clustering"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "34a8f36cd397ba24b141ccd54a9879166500410f"
+
+[[projects]]
   digest = "1:95741de3af260a92cc5c7f3f3061e85273f5a81b5db20d4bd68da74bd521675e"
   name = "github.com/pelletier/go-toml"
   packages = ["."]
@@ -437,7 +461,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:68d1ba7126f8e7035ea40536ca1963861fcf2597dde74d489844018850f9548d"
+  digest = "1:35381c4ae6c2e436e88c1f23efbc14682aa6ab2a65e2581d45c5976cdfd2338a"
   name = "github.com/syou6162/go-active-learning"
   packages = [
     "lib/cache",
@@ -451,7 +475,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "b5c123f2e1d48e7eac106b38689570107f9faa3f"
+  revision = "85cbc4e8dfbba59ce1b4aa4a43fecf692a1e64a6"
 
 [[projects]]
   digest = "1:c28625428387b63dd7154eb857f51e700465cfbf7c06f619e71f2da33cefe47e"
@@ -527,6 +551,7 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/anknown/ahocorasick",
     "github.com/codegangsta/cli",
     "github.com/fukata/golang-stats-api-handler",
     "github.com/go-ego/riot",
@@ -535,6 +560,7 @@
     "github.com/jessevdk/go-assets",
     "github.com/mackerelio/mackerel-client-go",
     "github.com/mitchellh/go-server-timing",
+    "github.com/pbnjay/clustering",
     "github.com/syou6162/go-active-learning/lib/cache",
     "github.com/syou6162/go-active-learning/lib/classifier",
     "github.com/syou6162/go-active-learning/lib/db",

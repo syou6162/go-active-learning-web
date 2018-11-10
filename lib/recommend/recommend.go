@@ -79,6 +79,7 @@ func doRecommend(c *cli.Context) error {
 	cache.AttachMetadata(targetExamples, true, false)
 	targetExamples = util.FilterStatusCodeOkExamples(targetExamples)
 	targetExamples = util.UniqueByFinalUrl(targetExamples)
+	targetExamples = util.UniqueByTitle(targetExamples)
 
 	log.Println("Started to predict scores...")
 	result := example.Examples{}
