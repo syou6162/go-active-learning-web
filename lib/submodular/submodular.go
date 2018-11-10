@@ -87,10 +87,16 @@ func GetSimilarityMatrixByTFIDF(examples example.Examples) SimilarityMatrix {
 	for _, e1 := range examples {
 		df1 := dfByURL[e1.Url]
 		s1 := math.Sqrt(sumByUrl[e1.Url])
+		if s1 == 0.0 {
+			continue
+		}
 
 		for _, e2 := range examples {
 			df2 := dfByURL[e2.Url]
 			s2 := math.Sqrt(sumByUrl[e2.Url])
+			if s2 == 0.0 {
+				continue
+			}
 
 			s := 0.0
 			for k, v := range df2 {
