@@ -3,19 +3,40 @@ package submodular
 import (
 	"math"
 
+	"fmt"
+
+	"github.com/pbnjay/clustering"
 	"github.com/syou6162/go-active-learning/lib/example"
 	"github.com/syou6162/go-active-learning/lib/feature"
 )
 
-func SelectSubExamplesBySubModular(whole example.Examples, sizeConstraint int, alpha float64, r float64) example.Examples {
+func extractFeature(e example.Example) feature.FeatureVector {
+	result := feature.FeatureVector{}
+	result = append(result, feature.ExtractNounFeaturesWithoutPrefix(e.Title)...)
+	result = append(result, feature.ExtractHostFeature(e.FinalUrl))
+	return result
+}
+
+func SelectSubExamplesBySubModular(whole example.Examples, sizeConstraint int, alpha float64, r float64, lambda float64) example.Examples {
 	selected := example.Examples{}
 	remainings := whole
 	simMat := GetSimilarityMatrixByTFIDF(whole)
+	clusters := GetClusters(simMat, whole)
+
+	clusters.EachCluster(-1, func(cluster int) {
+		clusters.EachItem(cluster, func(e clustering.ClusterItem) {
+			switch x := e.(type) {
+			case *example.Example:
+				fmt.Printf("%d %s %s\n", cluster, x.Title, x.Url) // for debuging
+			}
+		})
+	})
+
 	for {
 		if len(selected) >= sizeConstraint || len(remainings) == 0 {
 			break
 		}
-		argmax := SelectBestExample(simMat, remainings, selected, whole, alpha, r)
+		argmax := SelectBestExample(simMat, clusters, remainings, selected, whole, alpha, r, lambda)
 		selected = append(selected, remainings[argmax])
 		remainings = append(remainings[:argmax], remainings[argmax+1:]...)
 	}
@@ -24,20 +45,59 @@ func SelectSubExamplesBySubModular(whole example.Examples, sizeConstraint int, a
 	return selected
 }
 
+func GetClusters(simMat SimilarityMatrix, whole example.Examples) clustering.ClusterSet {
+	distMap := clustering.DistanceMap{}
+	for _, e1 := range whole {
+		m := make(map[clustering.ClusterItem]float64)
+		for _, e2 := range whole {
+			similarity := GetCosineSimilarity(simMat, e1, e2)
+			// convert similarity to distance
+			m[e2] = 1.0 / math.Max(0.00001, similarity)
+		}
+		distMap[e1] = m
+	}
+	clusters := clustering.NewDistanceMapClusterSet(distMap)
+
+	clustering.Cluster(clusters, clustering.Threshold(100.0), clustering.CompleteLinkage())
+	return clusters
+}
+
+// ref: http://www.lr.pi.titech.ac.jp/~morita/YANS.pdf
+func DiversityFunction(mat SimilarityMatrix, clusters clustering.ClusterSet, subset example.Examples, whole example.Examples) float64 {
+	sum := 0.0
+	// Enumerate clusters and print members
+	clusters.EachCluster(-1, func(cluster int) {
+		tmp := 0.0
+		clusters.EachItem(cluster, func(e clustering.ClusterItem) {
+			switch x := e.(type) {
+			case *example.Example:
+				for _, s := range subset {
+					if s.Url == x.Url {
+						tmp += coverageFunction(mat, x, whole) / float64(clusters.Count())
+						continue
+					}
+				}
+			}
+		})
+		sum += math.Sqrt(tmp)
+	})
+	return sum
+}
+
 // ref: http://aclweb.org/anthology/N10-1134
 // Algorithm 1 line4
-func SelectBestExample(mat SimilarityMatrix, remainings example.Examples, selected example.Examples, whole example.Examples, alpha float64, r float64) int {
+func SelectBestExample(mat SimilarityMatrix, clusters clustering.ClusterSet, remainings example.Examples, selected example.Examples, whole example.Examples, alpha float64, r float64, lambda float64) int {
 	maxScore := math.Inf(-1)
 	argmax := 0
-	c2 := CoverageFunction(mat, selected, whole, alpha)
+	c2 := CoverageFunction(mat, selected, whole, alpha) + lambda*DiversityFunction(mat, clusters, selected, whole)
 	for idx, remaining := range remainings {
 		subset := example.Examples{}
 		for _, e := range selected {
 			subset = append(subset, e)
 		}
 		subset = append(subset, remaining)
-		c1 := CoverageFunction(mat, subset, whole, alpha)
-		fv := feature.ExtractNounFeatures(remaining.Body, "BODY")
+		c1 := CoverageFunction(mat, subset, whole, alpha) + lambda*DiversityFunction(mat, clusters, subset, whole)
+		fv := extractFeature(*remaining)
 		if len(fv) == 0 {
 			continue
 		}
@@ -119,7 +179,7 @@ func GetCosineSimilarity(mat SimilarityMatrix, e1 *example.Example, e2 *example.
 func GetDF(example example.Example) map[string]float64 {
 	df := make(map[string]float64)
 	n := 0.0
-	fv := feature.ExtractNounFeatures(example.Body, "BODY")
+	fv := extractFeature(example)
 
 	for _, f := range fv {
 		df[f]++
@@ -138,7 +198,7 @@ func GetIDF(examples example.Examples) map[string]float64 {
 	n := float64(len(examples))
 
 	for _, e := range examples {
-		fv := feature.ExtractNounFeatures(e.Body, "BODY")
+		fv := extractFeature(*e)
 		for _, f := range fv {
 			cnt[f]++
 		}
