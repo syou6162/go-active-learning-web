@@ -35,6 +35,7 @@ func doRecommend(c *cli.Context) error {
 	sizeConstraint := c.Int("size-constraint")
 	alpha := c.Float64("alpha")
 	r := c.Float64("r")
+	lambda := c.Float64("lambda")
 	scoreThreshold := c.Float64("score-threshold")
 	durationDay := c.Int64("duration-day")
 	listName := c.String("listname")
@@ -103,7 +104,7 @@ func doRecommend(c *cli.Context) error {
 	log.Println("Started to filter by submodular...")
 	log.Println(fmt.Sprintf("Original result size: %d", len(result)))
 	if subsetSelection {
-		result = submodular.SelectSubExamplesBySubModular(result, sizeConstraint, alpha, r)
+		result = submodular.SelectSubExamplesBySubModular(result, sizeConstraint, alpha, r, lambda)
 	}
 
 	log.Println("Started to write result...")
@@ -165,6 +166,7 @@ Get recommendation list and store them.
 		cli.Int64Flag{Name: "size-constraint", Value: 10, Usage: "Budget constraint. Max number of entries to be contained"},
 		cli.Float64Flag{Name: "alpha", Value: 1.0},
 		cli.Float64Flag{Name: "r", Value: 1.0, Usage: "Scaling factor for number of words"},
+		cli.Float64Flag{Name: "lambda", Value: 1.0, Usage: "Diversity parameter"},
 		cli.Float64Flag{Name: "score-threshold", Value: 0.0},
 		cli.StringFlag{Name: "listname", Usage: "List name for cache"},
 		cli.Int64Flag{Name: "duration-day", Usage: "Time span for fetching prediction target", Value: 2},
