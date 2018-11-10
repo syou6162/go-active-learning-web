@@ -29,6 +29,7 @@ func SelectSubExamplesBySubModular(whole example.Examples, sizeConstraint int, a
 func SelectBestExample(mat SimilarityMatrix, remainings example.Examples, selected example.Examples, whole example.Examples, alpha float64, r float64) int {
 	maxScore := math.Inf(-1)
 	argmax := 0
+	c2 := CoverageFunction(mat, selected, whole, alpha)
 	for idx, remaining := range remainings {
 		subset := example.Examples{}
 		for _, e := range selected {
@@ -36,8 +37,11 @@ func SelectBestExample(mat SimilarityMatrix, remainings example.Examples, select
 		}
 		subset = append(subset, remaining)
 		c1 := CoverageFunction(mat, subset, whole, alpha)
-		c2 := CoverageFunction(mat, selected, whole, alpha)
-		score := (c1 - c2) / math.Pow(float64(len(remaining.Fv)), r)
+		fv := feature.ExtractNounFeatures(remaining.Body, "BODY")
+		if len(fv) == 0 {
+			continue
+		}
+		score := (c1 - c2) / math.Pow(float64(len(fv)), r)
 		if score >= maxScore {
 			argmax = idx
 			maxScore = score
