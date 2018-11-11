@@ -170,21 +170,21 @@ func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
 
 	examples, err := db.SearchExamplesByUlrs([]string{url})
 	if err != nil || len(examples) != 1 {
-		w.WriteHeader(http.StatusBadGateway)
+		BadRequest(w, "No such url: "+url)
 		fmt.Fprintln(w, "No such url: "+url)
 		return
 	}
 
 	cache.AttachMetadata(examples, false, true)
 	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
+		BadRequest(w, err.Error())
 		fmt.Fprintln(w, err.Error())
 		return
 	}
 	ex := examples[0]
 	similarExamples, keywords, err := search.SearchSimilarExamples(ex.Title)
 	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
+		BadRequest(w, err.Error())
 		fmt.Fprintln(w, err.Error())
 		return
 	}
@@ -196,11 +196,8 @@ func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
 	}
 	similarExamplesWithoutOriginal = util.FilterStatusCodeOkExamples(similarExamplesWithoutOriginal)
 
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.Header().Set("X-Keywords", strings.Join(keywords, ","))
-	w.WriteHeader(http.StatusOK)
-
-	json.NewEncoder(w).Encode(ExampleWithSimilarExamples{
+	JSON(w, http.StatusOK, ExampleWithSimilarExamples{
 		Example:         ex,
 		SimilarExamples: similarExamplesWithoutOriginal,
 		Keywords:        ahocorasick.SearchKeywords(strings.ToLower(ex.Title)),
