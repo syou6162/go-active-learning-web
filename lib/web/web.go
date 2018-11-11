@@ -75,51 +75,50 @@ func lightenExamples(examples example.Examples) {
 	}
 }
 
+type RecentAddedExamplesResult struct {
+	PositiveExamples  example.Examples
+	NegativeExamples  example.Examples
+	UnlabeledExamples example.Examples
+}
+
 func RecentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	timing := servertiming.FromContext(r.Context())
 
 	m := timing.NewMetric("db-positive").WithDesc("db.ReadPositiveExamples").Start()
 	positiveExamples, err := db.ReadPositiveExamples(30)
 	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
+		BadRequest(w, err.Error())
 		fmt.Fprintln(w, err.Error())
 		return
 	}
 	m.Stop()
+	cache.AttachMetadata(positiveExamples, false, true)
 
 	m = timing.NewMetric("db-negative").WithDesc("db.ReadNegativeExamples").Start()
 	negativeExamples, err := db.ReadNegativeExamples(30)
 	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
+		BadRequest(w, err.Error())
 		fmt.Fprintln(w, err.Error())
 		return
 	}
 	m.Stop()
+	cache.AttachMetadata(negativeExamples, false, true)
 
 	m = timing.NewMetric("db-unlabeled").WithDesc("db.ReadUnlabeledExamples").Start()
 	unlabeledExamples, err := db.ReadUnlabeledExamples(30)
 	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
+		BadRequest(w, err.Error())
 		fmt.Fprintln(w, err.Error())
 		return
 	}
 	m.Stop()
+	cache.AttachMetadata(unlabeledExamples, false, true)
 
-	var examples example.Examples
-	examples = append(examples, positiveExamples...)
-	examples = append(examples, negativeExamples...)
-	examples = append(examples, unlabeledExamples...)
-
-	m = timing.NewMetric("cache").WithDesc("cache.AttachMetadata").Start()
-	cache.AttachMetadata(examples, false, true)
-	m.Stop()
-
-	examples = util.FilterStatusCodeOkExamples(examples)
-	lightenExamples(examples)
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-
-	json.NewEncoder(w).Encode(examples)
+	JSON(w, http.StatusOK, RecentAddedExamplesResult{
+		PositiveExamples:  positiveExamples,
+		NegativeExamples:  negativeExamples,
+		UnlabeledExamples: unlabeledExamples,
+	})
 }
 
 func getUrlsFromList(listName string) (example.Examples, error) {
