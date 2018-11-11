@@ -170,10 +170,10 @@ func TestSearch(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	examples := example.Examples{}
-	json.Unmarshal(w.Body.Bytes(), &examples)
+	result := web.SearchResult{}
+	json.Unmarshal(w.Body.Bytes(), &result)
 
-	if len(examples) == 0 {
+	if len(result.Examples) == 0 || result.Count == 0 {
 		t.Error("Result must not be empty")
 	}
 }
