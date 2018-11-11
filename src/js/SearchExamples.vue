@@ -61,7 +61,7 @@ export default {
       params.append('query', this.query);
       axios.post("/api/search", params)
         .then(response => {
-          this.results = response.data.map(e => NewExample(e));
+          this.results = response.data.Examples.map(e => NewExample(e));
           this.loading = false;
         }).catch(function (error) {
           if (error.response) {

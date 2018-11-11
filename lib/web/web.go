@@ -207,10 +207,16 @@ func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+type SearchResult struct {
+	Examples example.Examples
+	Query    string `json:"Query"`
+	Count    int    `json:"Count"`
+}
+
 func Search(w http.ResponseWriter, r *http.Request) {
 	timing := servertiming.FromContext(r.Context())
 	if r.Method != "POST" {
-		w.WriteHeader(http.StatusBadRequest)
+		BadRequest(w, "Only POST method is supported")
 		return
 	}
 
@@ -220,17 +226,19 @@ func Search(w http.ResponseWriter, r *http.Request) {
 	examples, err := search.Search(query)
 	m.Stop()
 	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
+		BadRequest(w, err.Error())
 		fmt.Fprintln(w, err.Error())
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-
 	examples = util.FilterStatusCodeOkExamples(examples)
 	lightenExamples(examples)
-	json.NewEncoder(w).Encode(examples)
+
+	JSON(w, http.StatusOK, SearchResult{
+		Examples: examples,
+		Query:    query,
+		Count:    len(examples),
+	})
 }
 
 func ServerAvail(w http.ResponseWriter, r *http.Request) {
