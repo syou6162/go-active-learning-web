@@ -64,6 +64,7 @@ func TestSitemapRecentPositiveExamples(t *testing.T) {
 			t.Error(err)
 		}
 	}
+	cache.AttachMetadata(train, true, true)
 
 	req, err := http.NewRequest("GET", "/sitemap/recent", nil)
 	if err != nil {
