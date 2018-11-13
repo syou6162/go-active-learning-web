@@ -33,7 +33,8 @@
         <b-list-group-item v-for="e in referringTweets.slice(0, 3)" :key="e.FinalUrl">
           <b-button v-bind:href="'/example/' + encodeURIComponent(e.FinalUrl)" class="float-right" size="sm">Read more</b-button>
           <img v-if="e.Favicon" style="width: 16px; height: 16px;" v-lazy="e.Favicon" onerror="this.style.display='none'" />
-          {{ e | getTitle(150, '...') }}
+          {{ e | getTweetTitle }}
+          <a v-bind:href="e.FinalUrl">{{ e | getUserName }}</a>
         </b-list-group-item>
       </b-list-group>
       <h4 v-if="similarExamples.length > 0">Related Entries</h4>
