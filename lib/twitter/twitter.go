@@ -76,6 +76,9 @@ func setReferringTweets(listName string) error {
 	cache.AttachMetadata(examples, false, true)
 
 	for _, e := range examples {
+		if len(e.ReferringTweets) > 0 {
+			continue
+		}
 		fmt.Println(e.FinalUrl)
 		if tweets, err := GetReferringTweets(e.FinalUrl); err == nil {
 			for _, t := range tweets {
