@@ -49,7 +49,9 @@ func GetReferringTweets(url string) ([]string, error) {
 	for _, t := range search.Statuses {
 		url := fmt.Sprintf("https://twitter.com/%s/status/%s", t.User.ScreenName, t.IDStr)
 		cnt := t.FavoriteCount
-		result = append(result, kv{url, cnt})
+		if cnt > 2 {
+			result = append(result, kv{url, cnt})
+		}
 	}
 	sort.Slice(result, func(i, j int) bool {
 		return result[i].Value > result[j].Value
