@@ -80,30 +80,33 @@ func setReferringTweets(listName string) error {
 			continue
 		}
 		fmt.Println(e.FinalUrl)
-		if tweets, err := GetReferringTweets(e.FinalUrl); err == nil {
-			for _, t := range tweets {
-				tweetExample := example.NewExample(t, example.UNLABELED)
-				if _, err = db.InsertOrUpdateExample(tweetExample); err != nil {
-					return err
-				}
-			}
+		tweets, err := GetReferringTweets(e.FinalUrl)
+		if err != nil {
+			return err
+		}
 
-			tweetExamples, err := db.SearchExamplesByUlrs(tweets)
-			if err != nil {
+		for _, t := range tweets {
+			tweetExample := example.NewExample(t, example.UNLABELED)
+			if _, err = db.InsertOrUpdateExample(tweetExample); err != nil {
 				return err
 			}
-			cache.AttachMetadata(tweetExamples, true, true)
-			tweetExamples = util.UniqueByFinalUrl(tweetExamples)
-
-			tweets = []string{}
-			for _, t := range tweetExamples {
-				fmt.Printf("- %s\n", t.FinalUrl)
-				tweets = append(tweets, t.FinalUrl)
-			}
-
-			e.ReferringTweets = tweets
-			cache.SetExample(*e)
 		}
+
+		tweetExamples, err := db.SearchExamplesByUlrs(tweets)
+		if err != nil {
+			return err
+		}
+		cache.AttachMetadata(tweetExamples, true, true)
+		tweetExamples = util.UniqueByFinalUrl(tweetExamples)
+
+		tweets = []string{}
+		for _, t := range tweetExamples {
+			fmt.Printf("- %s\n", t.FinalUrl)
+			tweets = append(tweets, t.FinalUrl)
+		}
+
+		e.ReferringTweets = tweets
+		cache.SetExample(*e)
 	}
 	return nil
 }
