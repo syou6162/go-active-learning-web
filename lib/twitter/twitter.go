@@ -2,15 +2,17 @@ package twitter
 
 import (
 	"errors"
-	"github.com/syou6162/go-active-learning/lib/util"
+	"fmt"
+	"net/http"
+	"sort"
+
+	"github.com/codegangsta/cli"
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
-	"net/http"
-	"fmt"
-	"sort"
-	"github.com/syou6162/go-active-learning/lib/db"
 	"github.com/syou6162/go-active-learning/lib/cache"
-	"github.com/codegangsta/cli"
+	"github.com/syou6162/go-active-learning/lib/db"
+	"github.com/syou6162/go-active-learning/lib/example"
+	"github.com/syou6162/go-active-learning/lib/util"
 )
 
 type kv struct {
@@ -72,7 +74,28 @@ func setReferringTweets(listName string) error {
 	cache.AttachMetadata(examples, false, true)
 
 	for _, e := range examples {
+		fmt.Println(e.FinalUrl)
 		if tweets, err := GetReferringTweets(e.FinalUrl); err == nil {
+			for _, t := range tweets {
+				tweetExample := example.NewExample(t, example.UNLABELED)
+				if _, err = db.InsertOrUpdateExample(tweetExample); err != nil {
+					return err
+				}
+			}
+
+			tweetExamples, err := db.SearchExamplesByUlrs(tweets)
+			if err != nil {
+				return err
+			}
+			cache.AttachMetadata(tweetExamples, true, true)
+			tweetExamples = util.UniqueByFinalUrl(tweetExamples)
+
+			tweets = []string{}
+			for _, t := range tweetExamples {
+				fmt.Printf("- %s\n", t.FinalUrl)
+				tweets = append(tweets, t.FinalUrl)
+			}
+
 			e.ReferringTweets = tweets
 			cache.SetExample(*e)
 		}
