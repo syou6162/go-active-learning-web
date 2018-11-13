@@ -162,6 +162,7 @@ type ExampleWithSimilarExamples struct {
 	Example         *example.Example
 	SimilarExamples example.Examples `json:"SimilarExamples"`
 	Keywords        []string
+	ReferringTweets example.Examples
 }
 
 func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
@@ -182,6 +183,17 @@ func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	ex := examples[0]
+
+	tweets := ex.ReferringTweets
+	tweetExamples, err := db.SearchExamplesByUlrs(tweets)
+	if err != nil {
+		w.WriteHeader(http.StatusBadGateway)
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+	cache.AttachMetadata(tweetExamples, false, true)
+	tweetExamples = util.UniqueByFinalUrl(tweetExamples)
+
 	similarExamples, keywords, err := search.SearchSimilarExamples(ex.Title)
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
@@ -204,6 +216,7 @@ func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
 		Example:         ex,
 		SimilarExamples: similarExamplesWithoutOriginal,
 		Keywords:        ahocorasick.SearchKeywords(strings.ToLower(ex.Title)),
+		ReferringTweets: tweetExamples,
 	})
 }
 

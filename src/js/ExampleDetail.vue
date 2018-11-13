@@ -28,6 +28,13 @@
           <a v-bind:href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
         </b-card-footer>
       </b-card>
+      <b-list-group>
+        <b-list-group-item v-for="e in referringTweets" :key="e.FinalUrl">
+          <b-button v-bind:href="'/example/' + encodeURIComponent(e.FinalUrl)" class="float-right" size="sm">Read more</b-button>
+          <img v-if="e.Favicon" style="width: 16px; height: 16px;" v-lazy="e.Favicon" onerror="this.style.display='none'" />
+          {{ e | getTitle(100, '...') }}
+        </b-list-group-item>
+      </b-list-group>
       <h4 v-if="similarExamples.length > 0">Related Entries</h4>
       <b-list-group>
         <b-list-group-item v-for="example in similarExamples" :key="example.FinalUrl">
@@ -53,6 +60,7 @@ export default {
       example: null,
       similarExamples: [],
       keywords: [],
+      referringTweets: [],
       error: null,
       loading: true,
     }
@@ -74,6 +82,7 @@ export default {
             return e.Label === 1 || e.Score > 0.0;
           });
           this.keywords = response.data.Keywords;
+          this.referringTweets = response.data.ReferringTweets;
           this.title = `ML News - ${this.example.Title}`;
           this.loading = false;
         }).catch(function (error) {
