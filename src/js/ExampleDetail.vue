@@ -30,7 +30,7 @@
       </b-card>
       <h4 v-if="referringTweets.length > 0">Referring Tweets</h4>
       <b-list-group>
-        <b-list-group-item v-for="e in referringTweets" :key="e.FinalUrl">
+        <b-list-group-item v-for="e in referringTweets.slice(0, 3)" :key="e.FinalUrl">
           <b-button v-bind:href="'/example/' + encodeURIComponent(e.FinalUrl)" class="float-right" size="sm">Read more</b-button>
           <img v-if="e.Favicon" style="width: 16px; height: 16px;" v-lazy="e.Favicon" onerror="this.style.display='none'" />
           {{ e | getTitle(150, '...') }}
