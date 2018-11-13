@@ -73,7 +73,7 @@ func setReferringTweets(listName string) error {
 	if err != nil {
 		return err
 	}
-	cache.AttachMetadata(examples, false, true)
+	cache.AttachMetadata(examples, false, false)
 
 	for _, e := range examples {
 		if len(e.ReferringTweets) > 0 {
@@ -96,7 +96,7 @@ func setReferringTweets(listName string) error {
 		if err != nil {
 			return err
 		}
-		cache.AttachMetadata(tweetExamples, true, true)
+		cache.AttachMetadata(tweetExamples, true, false)
 		tweetExamples = util.UniqueByFinalUrl(tweetExamples)
 
 		tweets = []string{}
