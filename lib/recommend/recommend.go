@@ -80,6 +80,7 @@ func doRecommend(c *cli.Context) error {
 	targetExamples = util.FilterStatusCodeOkExamples(targetExamples)
 	targetExamples = util.UniqueByFinalUrl(targetExamples)
 	targetExamples = util.UniqueByTitle(targetExamples)
+	log.Println(fmt.Sprintf("target size: %d", len(targetExamples)))
 
 	log.Println("Started to predict scores...")
 	result := example.Examples{}
