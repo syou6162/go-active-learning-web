@@ -28,6 +28,7 @@
           <a v-bind:href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
         </b-card-footer>
       </b-card>
+      <h4 v-if="referringTweets.length > 0">Referring Tweets</h4>
       <b-list-group>
         <b-list-group-item v-for="e in referringTweets" :key="e.FinalUrl">
           <b-button v-bind:href="'/example/' + encodeURIComponent(e.FinalUrl)" class="float-right" size="sm">Read more</b-button>
