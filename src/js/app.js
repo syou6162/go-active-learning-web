@@ -48,7 +48,7 @@ Vue.filter('getTitle', function(example, length, omission) {
 
 Vue.filter('getTweetTitle', function(example) {
   var title = example.Title.replace(/\r?\n/g, ' ');
-  var result = title.match(/^((.*? on Twitter)|(.*?さんのツイート)): \"(.*?)\"/);
+  var result = title.match(/^((.*? on Twitter)|(.*?さんのツイート)): \"(.*?)\"$/);
   return truncate(result[4], 150, '...');
 })
 
