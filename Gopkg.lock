@@ -246,7 +246,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:d9e652d8f9c8b16bccba711d57c14764b08280e7850969e7fef5f27e0e7cd412"
+  digest = "1:62e9e5a4de4090f87648cbeac5724e07c2f4ce6d2db1db5134ff1f0c182586fd"
   name = "github.com/go-redis/redis"
   packages = [
     ".",
@@ -259,7 +259,7 @@
     "internal/util",
   ]
   pruneopts = "UT"
-  revision = "0064936c5b77c874f8e1f089c955ec8bef3818c4"
+  revision = "effc0c507aa2cfe5b7ea45cc8be07de048a19cc3"
 
 [[projects]]
   branch = "master"
@@ -501,7 +501,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:70dc1b87a9fbb57dc3bc89a5a17f1303392a89b8a2a527513a46531ceed06cc8"
+  digest = "1:36003da751dfd9575dd0454fc67d70750b9438ec9de874526314fca78d9df1ee"
   name = "github.com/syou6162/go-active-learning"
   packages = [
     "lib/cache",
@@ -515,7 +515,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "fc741eee0b12730f55d45507115d4a90e1d9294c"
+  revision = "a3c6d8328e1dab5b310acea82eaa46c5454144a9"
 
 [[projects]]
   digest = "1:c28625428387b63dd7154eb857f51e700465cfbf7c06f619e71f2da33cefe47e"
@@ -538,7 +538,7 @@
     "trace",
   ]
   pruneopts = "UT"
-  revision = "03003ca0c849e57b6ea29a4bab8d3cb6e4d568fe"
+  revision = "88d92db4c548972d942ac2a3531a8a9a34c82ca6"
 
 [[projects]]
   branch = "master"
