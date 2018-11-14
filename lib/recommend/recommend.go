@@ -88,6 +88,9 @@ func doRecommend(c *cli.Context) error {
 		if !rule.MatchString(e.FinalUrl) {
 			continue
 		}
+		if listName == "general" && !e.IsTwitterUrl() {
+			continue
+		}
 		if listName == "article" && !e.IsArticle() {
 			continue
 		}
