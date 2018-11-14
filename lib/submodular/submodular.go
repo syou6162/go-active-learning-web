@@ -73,7 +73,7 @@ func DiversityFunction(mat SimilarityMatrix, clusters clustering.ClusterSet, sub
 			case *example.Example:
 				for _, s := range subset {
 					if s.Url == x.Url {
-						tmp += coverageFunction(mat, x, whole) / float64(clusters.Count())
+						tmp += coverageFunction(mat, x, whole) / float64(len(whole))
 						continue
 					}
 				}

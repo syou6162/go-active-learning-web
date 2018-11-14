@@ -74,12 +74,44 @@
   version = "v1.0.1"
 
 [[projects]]
+  digest = "1:2209584c0f7c9b68c23374e659357ab546e1b70eec2761f03280f69a8fd23d77"
+  name = "github.com/cenkalti/backoff"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "2ea60e5f094469f9e65adb9cd103795b73ae743e"
+  version = "v2.0.0"
+
+[[projects]]
   digest = "1:b24d38b282bacf9791408a080f606370efa3d364e4b5fd9ba0f7b87786d3b679"
   name = "github.com/codegangsta/cli"
   packages = ["."]
   pruneopts = "UT"
   revision = "cfb38830724cc34fedffe9a2a29fb54fa9169cd1"
   version = "v1.20.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:0cdb65f3b28d37708cbb653a0193f886f141b16c7ee2489ce6fad15771673693"
+  name = "github.com/dghubble/go-twitter"
+  packages = ["twitter"]
+  pruneopts = "UT"
+  revision = "e75339c4bc3d739058b5e43806e7accda132fb53"
+
+[[projects]]
+  digest = "1:144f5984ed1f07aa8fa2468844f856b1ac8e93ac94e1fd19fbf69ce034d9ef92"
+  name = "github.com/dghubble/oauth1"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "70562a5920ad9b6ff03ef697c0f90ae569abbd2b"
+  version = "v0.4.0"
+
+[[projects]]
+  digest = "1:ace1aef6acdf2c4647365dc87c14fb8b71ed8bb0b3ae114ffb216614a24da219"
+  name = "github.com/dghubble/sling"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "eb56e89ac5088bebb12eef3cb4b293300f43608b"
+  version = "v1.1.0"
 
 [[projects]]
   digest = "1:5f5090f05382959db941fa45acbeb7f4c5241aa8ac0f8f4393dec696e5953f53"
@@ -158,7 +190,7 @@
   name = "github.com/go-ego/cedar"
   packages = ["."]
   pruneopts = "UT"
-  revision = "393be26fe3b8614d07dff4df428cb9ab8fc56c1f"
+  revision = "0630dde5f3c4a434db484a8b6b377f0470c8d050"
 
 [[projects]]
   branch = "master"
@@ -189,7 +221,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:395a9972f3542d604b93d4a48529a2d9e8715f645145555138effaf714380b13"
+  digest = "1:23c7714ec5a96085400bc33a1f325006c07a6f271eb8fca458016198e53e0287"
   name = "github.com/go-ego/riot"
   packages = [
     ".",
@@ -199,7 +231,7 @@
     "utils",
   ]
   pruneopts = "UT"
-  revision = "13300f75a2286775e5d9aa1869dfafff81fbf96f"
+  revision = "8e3e7f7cc4af058213bf6b147eee2c426c532a33"
 
 [[projects]]
   digest = "1:64a5a67c69b70c2420e607a8545d674a23778ed9c3e80607bfd17b77c6c87f6a"
@@ -214,7 +246,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:dfb34e11914b4c2415202d36bf2954f6fe6b7faf660a75778183f57cd6cee75c"
+  digest = "1:62e9e5a4de4090f87648cbeac5724e07c2f4ce6d2db1db5134ff1f0c182586fd"
   name = "github.com/go-redis/redis"
   packages = [
     ".",
@@ -227,7 +259,7 @@
     "internal/util",
   ]
   pruneopts = "UT"
-  revision = "58f22c56fdbdf07f5d6f5e397a6e134b94c65b0c"
+  revision = "effc0c507aa2cfe5b7ea45cc8be07de048a19cc3"
 
 [[projects]]
   branch = "master"
@@ -263,6 +295,14 @@
   packages = ["."]
   pruneopts = "UT"
   revision = "2e65f85255dbc3072edf28d6b5b8efc472979f5a"
+
+[[projects]]
+  digest = "1:a63cff6b5d8b95638bfe300385d93b2a6d9d687734b863da8e09dc834510a690"
+  name = "github.com/google/go-querystring"
+  packages = ["query"]
+  pruneopts = "UT"
+  revision = "44c6ddd0a2342c386950e880b658017258da92fc"
+  version = "v1.0.0"
 
 [[projects]]
   branch = "master"
@@ -453,15 +493,15 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:7c257a930be3a60001196345b679565a03049af62203c14992f593bddf97a9bb"
+  digest = "1:5314962c7ce47123740c553897a4a5f3917a1ec4dab34ba0bcbd0965c52f381e"
   name = "github.com/syou6162/GoOse"
   packages = ["."]
   pruneopts = "UT"
-  revision = "5d5b97884480b22d724b68050c222cc427bc9e6a"
+  revision = "a33014d1b7f31cb69de7a6bdc2e509dda0d26b3d"
 
 [[projects]]
   branch = "master"
-  digest = "1:35381c4ae6c2e436e88c1f23efbc14682aa6ab2a65e2581d45c5976cdfd2338a"
+  digest = "1:36003da751dfd9575dd0454fc67d70750b9438ec9de874526314fca78d9df1ee"
   name = "github.com/syou6162/go-active-learning"
   packages = [
     "lib/cache",
@@ -475,7 +515,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "85cbc4e8dfbba59ce1b4aa4a43fecf692a1e64a6"
+  revision = "cdf1e29415ed395a9807a8019f06059c3141453e"
 
 [[projects]]
   digest = "1:c28625428387b63dd7154eb857f51e700465cfbf7c06f619e71f2da33cefe47e"
@@ -487,9 +527,10 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:0ad27c13b4d8059e712dc70f1d2352427710d6547fa54927429c7b6db9802c87"
+  digest = "1:5d842bad291b4fdc0b2fcd8a1b8b044d9dbea49068c232481507605510644940"
   name = "golang.org/x/net"
   packages = [
+    "context",
     "html",
     "html/atom",
     "html/charset",
@@ -497,7 +538,7 @@
     "trace",
   ]
   pruneopts = "UT"
-  revision = "03003ca0c849e57b6ea29a4bab8d3cb6e4d568fe"
+  revision = "88d92db4c548972d942ac2a3531a8a9a34c82ca6"
 
 [[projects]]
   branch = "master"
@@ -553,6 +594,8 @@
   input-imports = [
     "github.com/anknown/ahocorasick",
     "github.com/codegangsta/cli",
+    "github.com/dghubble/go-twitter/twitter",
+    "github.com/dghubble/oauth1",
     "github.com/fukata/golang-stats-api-handler",
     "github.com/go-ego/riot",
     "github.com/go-ego/riot/types",
