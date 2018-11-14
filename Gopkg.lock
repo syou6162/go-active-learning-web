@@ -221,7 +221,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:395a9972f3542d604b93d4a48529a2d9e8715f645145555138effaf714380b13"
+  digest = "1:23c7714ec5a96085400bc33a1f325006c07a6f271eb8fca458016198e53e0287"
   name = "github.com/go-ego/riot"
   packages = [
     ".",
@@ -231,7 +231,7 @@
     "utils",
   ]
   pruneopts = "UT"
-  revision = "3de4119da12c4b8cae4d3f4c751aa7a2e1a9d99a"
+  revision = "8e3e7f7cc4af058213bf6b147eee2c426c532a33"
 
 [[projects]]
   digest = "1:64a5a67c69b70c2420e607a8545d674a23778ed9c3e80607bfd17b77c6c87f6a"
@@ -493,11 +493,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:7c257a930be3a60001196345b679565a03049af62203c14992f593bddf97a9bb"
+  digest = "1:5314962c7ce47123740c553897a4a5f3917a1ec4dab34ba0bcbd0965c52f381e"
   name = "github.com/syou6162/GoOse"
   packages = ["."]
   pruneopts = "UT"
-  revision = "5d5b97884480b22d724b68050c222cc427bc9e6a"
+  revision = "a33014d1b7f31cb69de7a6bdc2e509dda0d26b3d"
 
 [[projects]]
   branch = "master"
@@ -515,7 +515,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "a3c6d8328e1dab5b310acea82eaa46c5454144a9"
+  revision = "cdf1e29415ed395a9807a8019f06059c3141453e"
 
 [[projects]]
   digest = "1:c28625428387b63dd7154eb857f51e700465cfbf7c06f619e71f2da33cefe47e"
