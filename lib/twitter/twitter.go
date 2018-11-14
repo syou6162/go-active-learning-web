@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"sort"
 
+	"strings"
+
 	"github.com/codegangsta/cli"
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
@@ -47,7 +49,8 @@ func GetReferringTweets(url string) ([]string, error) {
 
 	var result []kv
 	for _, t := range search.Statuses {
-		url := fmt.Sprintf("https://twitter.com/%s/status/%s", t.User.ScreenName, t.IDStr)
+		// twitterのcanonicalがlower caseになっているので、それに合わせる
+		url := fmt.Sprintf("https://twitter.com/%s/status/%s", strings.ToLower(t.User.ScreenName), t.IDStr)
 		cnt := t.FavoriteCount
 		if cnt > 2 {
 			result = append(result, kv{url, cnt})
