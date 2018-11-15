@@ -52,6 +52,9 @@ func GetReferringTweets(url string) ([]string, error) {
 
 	var result []kv
 	for _, t := range search.Statuses {
+		if t.Retweeted {
+			continue
+		}
 		// twitterのcanonicalがlower caseになっているので、それに合わせる
 		url := fmt.Sprintf("https://twitter.com/%s/status/%s", strings.ToLower(t.User.ScreenName), t.IDStr)
 		cnt := t.FavoriteCount
