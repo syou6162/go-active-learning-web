@@ -97,13 +97,20 @@ func RecentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	m.Stop()
 
 	m = timing.NewMetric("db-unlabeled").WithDesc("db.ReadUnlabeledExamples").Start()
-	unlabeledExamples, err := db.ReadUnlabeledExamples(30)
+	unlabeledExamples := example.Examples{}
+	tmp, err := db.ReadUnlabeledExamples(60)
 	if err != nil {
 		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprintln(w, err.Error())
 		return
 	}
 	m.Stop()
+
+	for _, e := range tmp {
+		if !e.IsTwitterUrl() {
+			unlabeledExamples = append(unlabeledExamples, e)
+		}
+	}
 
 	var examples example.Examples
 	examples = append(examples, positiveExamples...)
