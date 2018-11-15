@@ -21,7 +21,6 @@ func SitemapTop(w http.ResponseWriter, r *http.Request) {
 
 	sm.Add(stm.URL{{"loc", "/list/general"}, {"changefreq", "daily"}})
 	sm.Add(stm.URL{{"loc", "/list/article"}, {"changefreq", "daily"}})
-	sm.Add(stm.URL{{"loc", "/list/twitter"}, {"changefreq", "daily"}})
 	sm.Add(stm.URL{{"loc", "/list/github"}, {"changefreq", "daily"}})
 	sm.Add(stm.URL{{"loc", "/list/arxiv"}, {"changefreq", "daily"}})
 	sm.Add(stm.URL{{"loc", "/list/slide"}, {"changefreq", "daily"}})
