@@ -111,13 +111,13 @@ func RecentAddedExamples(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	m.Stop()
-	cache.AttachMetadata(unlabeledExamples, false, true)
 
 	for _, e := range tmp {
 		if !e.IsTwitterUrl() {
 			unlabeledExamples = append(unlabeledExamples, e)
 		}
 	}
+	cache.AttachMetadata(unlabeledExamples, false, true)
 
 	JSON(w, http.StatusOK, RecentAddedExamplesResult{
 		PositiveExamples:  positiveExamples,
