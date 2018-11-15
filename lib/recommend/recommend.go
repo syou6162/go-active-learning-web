@@ -26,7 +26,6 @@ var listName2Rule = map[string]*regexp.Regexp{
 	"article": regexp.MustCompile(`.+`),                              // あとでog:typeで絞り込む
 	"github":  regexp.MustCompile(`https://github.com/[^/]+/[^/]+$`), // リポジトリのトップのみ
 	"slide":   regexp.MustCompile(`https://(www.slideshare.net|speakerdeck.com)/.+`),
-	"twitter": regexp.MustCompile(`https://twitter.com/.+`),
 	"arxiv":   regexp.MustCompile(`https://arxiv.org/abs/.+`),
 }
 

@@ -39,7 +39,6 @@ import NewExample from './util';
 const keywordsByListname = {
   "general": ["機械学習", "Machine Learning", "自然言語処理"],
   "article": ["機械学習", "Machine Learning", "自然言語処理"],
-  "twitter": ["Twitter", "Machine Learning", "機械学習"],
   "github": ["GitHub", "OSS", "Machine Learning"],
   "arxiv": ["arXiv", "Paper", "論文", "Machine Learning"],
   "slide": ["登壇", "発表", "Machine Learning", "機械学習"],
@@ -48,7 +47,6 @@ const keywordsByListname = {
 const descriptionByListname = {
   "general": "機械学習に関連する人気のエントリを読むことができます",
   "article": "機械学習に関連する人気のエントリを読むことができます",
-  "twitter": "Twitter上で話題の機械学習に関連するツイートを読むことができます",
   "github": "GitHub上で話題の機械学習に関連するリポジトリを見ることができます",
   "arxiv": "arXiv上で話題の機械学習に関連する論文を読むことができます",
   "slide": "SlideShareやSpeaker Deck上で話題の機械学習に関連する発表資料を読むことができます",
