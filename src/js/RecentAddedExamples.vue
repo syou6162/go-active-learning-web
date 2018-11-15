@@ -10,13 +10,13 @@
       <b-form-group label="Please select a label">
         <b-form-radio-group
           buttons
-          v-model="filter_label"
+          v-model="label"
           button-variant="outline-primary"
           :options="options" />
       </b-form-group>
       <b-card-group columns>
         <example 
-          v-for="example in examplesFilterByLabel(filter_label)"
+          v-for="example in searchExamplesByLabel(label)"
           v-bind:key="example.Url"
           v-bind:example="example"
           ></example>
@@ -33,13 +33,15 @@ import NewExample from './util';
 export default {
   data () {
     return {
-      filter_label: 1,
+      label: 1,
       options: [
         { text: 'Positive', value: 1 },
         { text: 'Negative', value: -1 },
         { text: 'Unlabeled', value: 0 },
       ],
-      results: [],
+      positive: [],
+      negative: [],
+      unlabeled: [],
       error: null,
       loading: true,
     }
@@ -51,7 +53,9 @@ export default {
     
     axios.get("/api/recent_added_examples")
       .then(response => {
-        this.results = response.data.map(e => NewExample(e));
+        this.positive = response.data.PositiveExamples.map(e => NewExample(e));
+        this.negative = response.data.NegativeExamples.map(e => NewExample(e));
+        this.unlabeled = response.data.UnlabeledExamples.map(e => NewExample(e));
         this.loading = false;
       }).catch(function (error) {
         if (error.response) {
@@ -61,10 +65,16 @@ export default {
       });
   },
   methods: {
-    examplesFilterByLabel: function(label) {
-      return this.results.filter(function(e) {
-        return e.Label == label;
-      })
+    searchExamplesByLabel: function(label) {
+      if (label == 1) {
+        return this.positive;
+      } else if (label == -1) {
+        return this.negative;
+      } else if (label == 0) {
+        return this.unlabeled;
+      } else {
+        return [];
+      }
     }
   },
   components: {
