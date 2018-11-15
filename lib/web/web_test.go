@@ -125,10 +125,10 @@ func TestGetExamplesFromList(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	examples := example.Examples{}
-	json.Unmarshal(w.Body.Bytes(), &examples)
+	examplesFromList := web.ExamplesFromList{}
+	json.Unmarshal(w.Body.Bytes(), &examplesFromList)
 
-	if len(examples) == 0 {
+	if len(examplesFromList.Examples) == 0 {
 		t.Error("Result must not be empty")
 	}
 }

@@ -12,8 +12,6 @@ import (
 	"os"
 	"strings"
 
-	"encoding/json"
-
 	"sort"
 
 	"syscall"
@@ -138,6 +136,10 @@ func getUrlsFromList(listName string) (example.Examples, error) {
 	return result, nil
 }
 
+type ExamplesFromList struct {
+	Examples example.Examples
+}
+
 func GetExamplesFromList(w http.ResponseWriter, r *http.Request) {
 	queryValues := r.URL.Query()
 	listName := queryValues.Get("listName")
@@ -154,7 +156,10 @@ func GetExamplesFromList(w http.ResponseWriter, r *http.Request) {
 
 	examples = util.FilterStatusCodeOkExamples(examples)
 	lightenExamples(examples)
-	json.NewEncoder(w).Encode(examples)
+
+	JSON(w, http.StatusOK, ExamplesFromList{
+		Examples: examples,
+	})
 }
 
 type ExampleWithSimilarExamples struct {

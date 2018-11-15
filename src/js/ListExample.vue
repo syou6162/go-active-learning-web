@@ -85,7 +85,7 @@ export default {
 
       axios.get("/api/examples?listName=" + listname)
         .then(response => {
-          this.examples = response.data.map(e => NewExample(e));
+          this.examples = response.data.Examples.map(e => NewExample(e));
           this.listname = this.$route.params.listname;
           this.title = `ML News - ${this.listname}`;
           this.loading = false;
