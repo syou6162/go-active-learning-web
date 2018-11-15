@@ -40,6 +40,7 @@ func GetReferringTweets(url string) ([]string, error) {
 	client := getClient()
 	search, resp, err := client.Search.Tweets(&twitter.SearchTweetParams{
 		Query: url,
+		Count: 100,
 	})
 
 	if err != nil {
