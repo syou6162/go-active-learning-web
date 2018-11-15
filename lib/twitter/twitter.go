@@ -109,7 +109,8 @@ func setReferringTweets(listName string) error {
 			fmt.Printf("- %s\n", t.FinalUrl)
 			tweets = append(tweets, t.FinalUrl)
 		}
-
+		tweets = append(tweets, e.ReferringTweets...)
+		tweets = util.RemoveDuplicate(tweets)
 		e.ReferringTweets = tweets
 		cache.SetExample(*e)
 	}
