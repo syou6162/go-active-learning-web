@@ -8,6 +8,8 @@ import (
 
 	"strings"
 
+	"time"
+
 	"github.com/codegangsta/cli"
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
@@ -79,7 +81,7 @@ func setReferringTweets(listName string) error {
 	cache.AttachMetadata(examples, false, false)
 
 	for _, e := range examples {
-		if len(e.ReferringTweets) > 0 {
+		if e.UpdatedAt.Add(time.Hour * 72).After(time.Now()) {
 			continue
 		}
 		fmt.Println(e.FinalUrl)
