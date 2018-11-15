@@ -85,7 +85,7 @@ func setReferringTweets(listName string) error {
 	cache.AttachMetadata(examples, false, false)
 
 	for _, e := range examples {
-		if e.UpdatedAt.Add(time.Hour * 72).Before(time.Now()) {
+		if e.UpdatedAt.Add(time.Hour * 240).Before(time.Now()) {
 			continue
 		}
 		fmt.Println(e.FinalUrl)
