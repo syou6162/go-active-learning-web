@@ -87,7 +87,11 @@ func setReferringTweets(listName string) error {
 		fmt.Println(e.FinalUrl)
 		tweets, err := GetReferringTweets(e.FinalUrl)
 		if err != nil {
-			fmt.Printf("cannot retrieve %s: %s", e.FinalUrl, err.Error())
+			u := e.FinalUrl
+			if e.FinalUrl == "" {
+				u = e.Url
+			}
+			fmt.Printf("cannot retrieve %s: %s", u, err.Error())
 			continue
 		}
 
