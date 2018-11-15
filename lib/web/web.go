@@ -75,51 +75,50 @@ func lightenExamples(examples example.Examples) {
 	}
 }
 
+type RecentAddedExamplesResult struct {
+	PositiveExamples  example.Examples
+	NegativeExamples  example.Examples
+	UnlabeledExamples example.Examples
+}
+
 func RecentAddedExamples(w http.ResponseWriter, r *http.Request) {
 	timing := servertiming.FromContext(r.Context())
 
 	m := timing.NewMetric("db-positive").WithDesc("db.ReadPositiveExamples").Start()
 	positiveExamples, err := db.ReadPositiveExamples(30)
 	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
+		BadRequest(w, err.Error())
 		fmt.Fprintln(w, err.Error())
 		return
 	}
 	m.Stop()
+	cache.AttachMetadata(positiveExamples, false, true)
 
 	m = timing.NewMetric("db-negative").WithDesc("db.ReadNegativeExamples").Start()
 	negativeExamples, err := db.ReadNegativeExamples(30)
 	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
+		BadRequest(w, err.Error())
 		fmt.Fprintln(w, err.Error())
 		return
 	}
 	m.Stop()
+	cache.AttachMetadata(negativeExamples, false, true)
 
 	m = timing.NewMetric("db-unlabeled").WithDesc("db.ReadUnlabeledExamples").Start()
 	unlabeledExamples, err := db.ReadUnlabeledExamples(30)
 	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
+		BadRequest(w, err.Error())
 		fmt.Fprintln(w, err.Error())
 		return
 	}
 	m.Stop()
+	cache.AttachMetadata(unlabeledExamples, false, true)
 
-	var examples example.Examples
-	examples = append(examples, positiveExamples...)
-	examples = append(examples, negativeExamples...)
-	examples = append(examples, unlabeledExamples...)
-
-	m = timing.NewMetric("cache").WithDesc("cache.AttachMetadata").Start()
-	cache.AttachMetadata(examples, false, true)
-	m.Stop()
-
-	examples = util.FilterStatusCodeOkExamples(examples)
-	lightenExamples(examples)
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-
-	json.NewEncoder(w).Encode(examples)
+	JSON(w, http.StatusOK, RecentAddedExamplesResult{
+		PositiveExamples:  positiveExamples,
+		NegativeExamples:  negativeExamples,
+		UnlabeledExamples: unlabeledExamples,
+	})
 }
 
 func getUrlsFromList(listName string) (example.Examples, error) {
@@ -171,14 +170,14 @@ func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
 
 	examples, err := db.SearchExamplesByUlrs([]string{url})
 	if err != nil || len(examples) != 1 {
-		w.WriteHeader(http.StatusBadGateway)
+		BadRequest(w, "No such url: "+url)
 		fmt.Fprintln(w, "No such url: "+url)
 		return
 	}
 
 	cache.AttachMetadata(examples, false, true)
 	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
+		BadRequest(w, err.Error())
 		fmt.Fprintln(w, err.Error())
 		return
 	}
@@ -196,7 +195,7 @@ func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
 
 	similarExamples, keywords, err := search.SearchSimilarExamples(ex.Title)
 	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
+		BadRequest(w, err.Error())
 		fmt.Fprintln(w, err.Error())
 		return
 	}
@@ -208,11 +207,8 @@ func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
 	}
 	similarExamplesWithoutOriginal = util.FilterStatusCodeOkExamples(similarExamplesWithoutOriginal)
 
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.Header().Set("X-Keywords", strings.Join(keywords, ","))
-	w.WriteHeader(http.StatusOK)
-
-	json.NewEncoder(w).Encode(ExampleWithSimilarExamples{
+	JSON(w, http.StatusOK, ExampleWithSimilarExamples{
 		Example:         ex,
 		SimilarExamples: similarExamplesWithoutOriginal,
 		Keywords:        ahocorasick.SearchKeywords(strings.ToLower(ex.Title)),
@@ -220,10 +216,16 @@ func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+type SearchResult struct {
+	Examples example.Examples
+	Query    string `json:"Query"`
+	Count    int    `json:"Count"`
+}
+
 func Search(w http.ResponseWriter, r *http.Request) {
 	timing := servertiming.FromContext(r.Context())
 	if r.Method != "POST" {
-		w.WriteHeader(http.StatusBadRequest)
+		BadRequest(w, "Only POST method is supported")
 		return
 	}
 
@@ -233,38 +235,39 @@ func Search(w http.ResponseWriter, r *http.Request) {
 	examples, err := search.Search(query)
 	m.Stop()
 	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
+		BadRequest(w, err.Error())
 		fmt.Fprintln(w, err.Error())
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-
 	examples = util.FilterStatusCodeOkExamples(examples)
 	lightenExamples(examples)
-	json.NewEncoder(w).Encode(examples)
+
+	JSON(w, http.StatusOK, SearchResult{
+		Examples: examples,
+		Query:    query,
+		Count:    len(examples),
+	})
 }
 
 func ServerAvail(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/plain; charset=UTF-8")
 	if err := db.Ping(); err != nil {
-		w.WriteHeader(http.StatusBadGateway)
+		UnavaliableError(w, err.Error())
 		fmt.Fprintln(w, err.Error())
 		return
 	}
 	if err := cache.Ping(); err != nil {
-		w.WriteHeader(http.StatusBadGateway)
+		UnavaliableError(w, err.Error())
 		fmt.Fprintln(w, err.Error())
 		return
 	}
 	if err := search.Ping(); err != nil {
-		w.WriteHeader(http.StatusBadGateway)
+		UnavaliableError(w, err.Error())
 		fmt.Fprintln(w, err.Error())
 		return
 	}
-	w.WriteHeader(http.StatusOK)
-	fmt.Fprintln(w, "OK, I'm fine")
+	Ok(w, "OK, I'm fine")
 }
 
 func doServe(c *cli.Context) error {
