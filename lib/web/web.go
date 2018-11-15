@@ -180,20 +180,19 @@ func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
 	queryValues := r.URL.Query()
 	url := queryValues.Get("url")
 
-	examples, err := db.SearchExamplesByUlrs([]string{url})
-	if err != nil || len(examples) != 1 {
+	ex, err := db.SearchExamplesByUlr(url)
+	if err != nil {
 		BadRequest(w, "No such url: "+url)
 		fmt.Fprintln(w, "No such url: "+url)
 		return
 	}
 
-	cache.AttachMetadata(examples, false, true)
+	cache.AttachMetadata(example.Examples{ex}, false, true)
 	if err != nil {
 		BadRequest(w, err.Error())
 		fmt.Fprintln(w, err.Error())
 		return
 	}
-	ex := examples[0]
 
 	tweets := ex.ReferringTweets
 	tweetExamples, err := db.SearchExamplesByUlrs(tweets)
