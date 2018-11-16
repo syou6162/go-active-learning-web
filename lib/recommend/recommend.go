@@ -18,6 +18,7 @@ import (
 	"github.com/syou6162/go-active-learning/lib/classifier"
 	"github.com/syou6162/go-active-learning/lib/db"
 	"github.com/syou6162/go-active-learning/lib/example"
+	"github.com/syou6162/go-active-learning/lib/hatena_bookmark"
 	"github.com/syou6162/go-active-learning/lib/util"
 )
 
@@ -118,6 +119,10 @@ func doRecommend(c *cli.Context) error {
 	}
 
 	for _, e := range result {
+		if bookmarks, err := hatena_bookmark.GetHatenaBookmark(e.FinalUrl); err == nil {
+			e.HatenaBookmarks = *bookmarks
+			cache.SetExample(*e)
+		}
 		fmt.Println(fmt.Sprintf("%0.03f\t%s", e.Score, e.Url))
 	}
 
