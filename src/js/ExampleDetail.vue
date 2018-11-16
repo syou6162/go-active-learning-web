@@ -19,7 +19,7 @@
         </p>
         <div v-if="bookmarks.length > 0">
           <a v-bind:href="example.HatenaBookmarks.entry_url" style="color: #ff4166;">{{ bookmarks.length}} users</a>:
-          <img v-for="b in bookmarks.slice(0, 5)" v-b-popover.hover="'id:' + b.user" v-bind:alt="b.user" style="width: 24px; height: 24px; margin: 2px" v-lazy="'https://cdn.profile-image.st-hatena.com/users/' + b.user+ '/profile.png'" />
+          <img v-for="b in bookmarks.slice(0, 9)" v-b-popover.hover="'id:' + b.user" v-bind:alt="b.user" style="width: 24px; height: 24px; margin: 2px" v-lazy="'https://cdn.profile-image.st-hatena.com/users/' + b.user+ '/profile.png'" />
         </div>
         <div v-if="keywords.length > 0">
           Keywords: 
