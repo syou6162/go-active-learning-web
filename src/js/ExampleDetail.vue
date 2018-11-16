@@ -17,6 +17,10 @@
         <p class="card-text">
           {{ example | getDescription(1000, '...') }}
         </p>
+        <div v-if="bookmarks.length > 0">
+          <a v-bind:href="example.HatenaBookmarks.entry_url" style="color: #ff4166;">{{ bookmarks.length}} users</a>:
+          <img v-for="b in bookmarks.slice(0, 5)" v-b-popover.hover="'id:' + b.user" v-bind:alt="b.user" style="width: 24px; height: 24px; margin: 2px" v-lazy="'https://cdn.profile-image.st-hatena.com/users/' + b.user+ '/profile.png'" />
+        </div>
         <div v-if="keywords.length > 0">
           Keywords: 
           <b-link v-bind:href="'/search?query=' + k" v-for="k in keywords">
@@ -65,6 +69,7 @@ export default {
       similarExamples: [],
       keywords: [],
       referringTweets: [],
+      bookmarks: [],
       error: null,
       loading: true,
     }
@@ -87,6 +92,7 @@ export default {
           });
           this.keywords = response.data.Keywords;
           this.referringTweets = response.data.ReferringTweets;
+          this.bookmarks = (response.data.Example.HatenaBookmarks.bookmarks || []).reverse();
           this.title = `ML News - ${this.example.Title}`;
           this.loading = false;
         }).catch(function (error) {
