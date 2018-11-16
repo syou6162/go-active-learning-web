@@ -52,6 +52,14 @@ const descriptionByListname = {
   "slide": "SlideShareやSpeaker Deck上で話題の機械学習に関連する発表資料を読むことができます",
 };
 
+const isNewDayThresholdByListname = {
+  "general": 2.5,
+  "article": 3,
+  "github": 10,
+  "arxiv": 5,
+  "slide": 10,
+};
+
 export default {
   data () {
     return {
@@ -83,7 +91,11 @@ export default {
 
       axios.get("/api/examples?listName=" + listname)
         .then(response => {
-          this.examples = response.data.Examples.map(e => NewExample(e));
+          this.examples = response.data.Examples.map(e => 
+            NewExample(e, {
+              "IsNewDayThreshold": isNewDayThresholdByListname[listname],
+            })
+          );
           this.listname = this.$route.params.listname;
           this.title = `ML News - ${this.listname}`;
           this.loading = false;
