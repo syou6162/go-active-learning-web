@@ -95,7 +95,11 @@ export default {
             NewExample(e, {
               "IsNewDayThreshold": isNewDayThresholdByListname[listname],
             })
-          );
+          ).sort(function(a, b) {
+            if (a.HatenaBookmarks.count > b.HatenaBookmarks.count) return -1;
+            if (a.HatenaBookmarks.count < b.HatenaBookmarks.count) return 1;
+            return 0;
+          });
           this.listname = this.$route.params.listname;
           this.title = `ML News - ${this.listname}`;
           this.loading = false;
