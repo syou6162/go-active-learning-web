@@ -1,4 +1,4 @@
-import moment from 'moment'
+var moment = require('moment-timezone');
 
 export default function NewExample(e, opts = {}) {
   var isNewDayThreshold = moment().add(-1 * (opts["IsNewDayThreshold"] || 1), "days");

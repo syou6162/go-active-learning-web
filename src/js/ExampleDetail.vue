@@ -24,7 +24,7 @@
           </b-link>
         </div>
         Date: 
-        {{ example.CreatedAt.format("YYYY/MM/DD HH:mm") }}
+        {{ example.CreatedAt.tz("Asia/Tokyo").format("YYYY/MM/DD HH:mm") }}
         <b-card-footer>
           <img v-if="example.Favicon" style="width: 16px; height: 16px;" v-lazy="example.Favicon" onerror="this.style.display='none'" />
           <a v-bind:href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
