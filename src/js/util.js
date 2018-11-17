@@ -7,6 +7,6 @@ export default function NewExample(e, opts = {}) {
   e.CreatedAt = createdAt;
   e.UpdatedAt = updatedAt;
   e.IsNew = createdAt.isAfter(isNewDayThreshold);
-  e.HatenaBookmarks.bookmarks = (e.HatenaBookmarks.bookmarks || []).reverse();
+  e.HatenaBookmark.bookmarks = (e.HatenaBookmark.bookmarks || []).reverse();
   return e;
 }

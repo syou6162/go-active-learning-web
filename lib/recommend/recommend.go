@@ -119,8 +119,8 @@ func doRecommend(c *cli.Context) error {
 	}
 
 	for _, e := range result {
-		if bookmarks, err := hatena_bookmark.GetHatenaBookmark(e.FinalUrl); err == nil {
-			e.HatenaBookmarks = *bookmarks
+		if bookmark, err := hatena_bookmark.GetHatenaBookmark(e.FinalUrl); err == nil {
+			e.HatenaBookmark = *bookmark
 			cache.SetExample(*e)
 		}
 		fmt.Println(fmt.Sprintf("%0.03f\t%s", e.Score, e.Url))

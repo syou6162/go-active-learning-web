@@ -278,7 +278,7 @@
   name = "github.com/golang/gddo"
   packages = ["httputil/header"]
   pruneopts = "UT"
-  revision = "6c035858b4d75d0d20d1dc21647c98707fe284d0"
+  revision = "9bd4a32950217197bb319565e843237cca7f85d2"
 
 [[projects]]
   digest = "1:97df918963298c287643883209a2c3f642e6593379f97ab400c2a2e219ab647d"
@@ -501,7 +501,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:99f8f168bcb0897c4579c259dcf6d91ac55a3d8976f6c322398ffce653ec5e36"
+  digest = "1:2b15b45b08668975f0501a7db6ece0bedab3fd99874d6dbdb4e5ad454ea08447"
   name = "github.com/syou6162/go-active-learning"
   packages = [
     "lib/cache",
@@ -516,7 +516,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "f7d125b64cf38367707e8d71db1965294349128a"
+  revision = "1e2784571cabf318c0985fb0fb2c315f48baebc8"
 
 [[projects]]
   digest = "1:c28625428387b63dd7154eb857f51e700465cfbf7c06f619e71f2da33cefe47e"

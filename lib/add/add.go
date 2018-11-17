@@ -39,8 +39,8 @@ func doAdd(c *cli.Context) error {
 		if _, err = db.InsertOrUpdateExample(e); err != nil {
 			return err
 		}
-		if bookmarks, err := hatena_bookmark.GetHatenaBookmark(e.FinalUrl); err == nil {
-			e.HatenaBookmarks = *bookmarks
+		if bookmark, err := hatena_bookmark.GetHatenaBookmark(e.FinalUrl); err == nil {
+			e.HatenaBookmark = *bookmark
 			cache.SetExample(*e)
 		}
 	}

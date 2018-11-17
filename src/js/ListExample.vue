@@ -96,8 +96,8 @@ export default {
               "IsNewDayThreshold": isNewDayThresholdByListname[listname],
             })
           ).sort(function(a, b) {
-            if (a.HatenaBookmarks.count > b.HatenaBookmarks.count) return -1;
-            if (a.HatenaBookmarks.count < b.HatenaBookmarks.count) return 1;
+            if (a.HatenaBookmark.count > b.HatenaBookmark.count) return -1;
+            if (a.HatenaBookmark.count < b.HatenaBookmark.count) return 1;
             return 0;
           });
           this.listname = this.$route.params.listname;
