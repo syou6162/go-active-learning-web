@@ -4,6 +4,7 @@ import (
 	"github.com/codegangsta/cli"
 	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/db"
+	"github.com/syou6162/go-active-learning/lib/hatena_bookmark"
 	"github.com/syou6162/go-active-learning/lib/util/file"
 )
 
@@ -37,6 +38,10 @@ func doAdd(c *cli.Context) error {
 	for _, e := range examples {
 		if _, err = db.InsertOrUpdateExample(e); err != nil {
 			return err
+		}
+		if bookmark, err := hatena_bookmark.GetHatenaBookmark(e.FinalUrl); err == nil {
+			e.HatenaBookmark = *bookmark
+			cache.SetExample(*e)
 		}
 	}
 

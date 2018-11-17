@@ -17,12 +17,21 @@
         <p class="card-text">
           {{ example | getDescription(1000, '...') }}
         </p>
+        <div v-if="example.HatenaBookmark.bookmarks.length > 0">
+          <a v-bind:href="example.HatenaBookmark.entry_url" style="color: #ff4166;">{{ example.HatenaBookmark.bookmarks.length}} users</a>:
+          <hatena-bookmark-icon 
+            v-for="b in example.HatenaBookmark.bookmarks.slice(0, 9)"
+            v-bind:bookmark="b"
+            ></hatena-bookmark-icon>
+        </div>
         <div v-if="keywords.length > 0">
           Keywords: 
           <b-link v-bind:href="'/search?query=' + k" v-for="k in keywords">
             {{ k }}
           </b-link>
         </div>
+        Date: 
+        {{ example.CreatedAt.tz("Asia/Tokyo").format("YYYY/MM/DD HH:mm") }}
         <b-card-footer>
           <img v-if="example.Favicon" style="width: 16px; height: 16px;" v-lazy="example.Favicon" onerror="this.style.display='none'" />
           <a v-bind:href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
@@ -52,6 +61,7 @@
 <script>
 import axios from 'axios';
 import Example from './Example.vue';
+import HatenaBookmarkIcon from './HatenaBookmarkIcon.vue';
 import NewExample from './util';
 
 export default {
@@ -96,7 +106,7 @@ export default {
     }
   },
   components: {
-    "example": Example
+    "hatena-bookmark-icon": HatenaBookmarkIcon 
   }
 }
 </script>

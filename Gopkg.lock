@@ -18,12 +18,12 @@
   version = "v0.3.1"
 
 [[projects]]
-  digest = "1:a62f6ed230a8cd138a9efbe718e7d0b0294f139266f5f55cd942769a9aac8de2"
+  digest = "1:573fa46f8d413d4bc3f7cc5e86b2c43cb21559f4fb0a19d9874d228e28fdc07c"
   name = "github.com/PuerkitoBio/goquery"
   packages = ["."]
   pruneopts = "UT"
-  revision = "dc2ec5c7ca4d9aae063b79b9f581dd3ea6afd2b2"
-  version = "v1.4.1"
+  revision = "2d2796f41742ece03e8086188fa4db16a3a0b458"
+  version = "v1.5.0"
 
 [[projects]]
   digest = "1:e92f5581902c345eb4ceffdcd4a854fb8f73cf436d47d837d1ec98ef1fe0a214"
@@ -278,7 +278,7 @@
   name = "github.com/golang/gddo"
   packages = ["httputil/header"]
   pruneopts = "UT"
-  revision = "6c035858b4d75d0d20d1dc21647c98707fe284d0"
+  revision = "9bd4a32950217197bb319565e843237cca7f85d2"
 
 [[projects]]
   digest = "1:97df918963298c287643883209a2c3f642e6593379f97ab400c2a2e219ab647d"
@@ -501,7 +501,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:41264319230324069a308983cd834218bf09d629565b477393e1c7334cf8d8fe"
+  digest = "1:2b15b45b08668975f0501a7db6ece0bedab3fd99874d6dbdb4e5ad454ea08447"
   name = "github.com/syou6162/go-active-learning"
   packages = [
     "lib/cache",
@@ -511,11 +511,12 @@
     "lib/example",
     "lib/feature",
     "lib/fetcher",
+    "lib/hatena_bookmark",
     "lib/util",
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "cfa9a5cae916627d727356fe1b7adf291183d705"
+  revision = "1e2784571cabf318c0985fb0fb2c315f48baebc8"
 
 [[projects]]
   digest = "1:c28625428387b63dd7154eb857f51e700465cfbf7c06f619e71f2da33cefe47e"
@@ -542,14 +543,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:6a875550c3b582f6c2d7e2ce44aba792511f00016d7c46b0a4fb26f730ef3058"
+  digest = "1:a089387bbfcfa884e5aafeebb85929993195bb8959766b1d20102841d47e0b0e"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "UT"
-  revision = "66b7b1311ac80bbafcd2daeef9a5e6e2cd1e2399"
+  revision = "93218def8b18e66adbdab3eca8ec334700329f1f"
 
 [[projects]]
   digest = "1:aa4d6967a3237f8367b6bf91503964a77183ecf696f1273e8ad3551bb4412b5f"
@@ -609,6 +610,7 @@
     "github.com/syou6162/go-active-learning/lib/db",
     "github.com/syou6162/go-active-learning/lib/example",
     "github.com/syou6162/go-active-learning/lib/feature",
+    "github.com/syou6162/go-active-learning/lib/hatena_bookmark",
     "github.com/syou6162/go-active-learning/lib/util",
     "github.com/syou6162/go-active-learning/lib/util/file",
   ]

@@ -118,6 +118,7 @@ func RecentAddedExamples(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	cache.AttachMetadata(unlabeledExamples, false, true)
+	unlabeledExamples = util.FilterStatusCodeOkExamples(unlabeledExamples)
 
 	JSON(w, http.StatusOK, RecentAddedExamplesResult{
 		PositiveExamples:  positiveExamples,

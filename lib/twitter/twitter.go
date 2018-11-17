@@ -40,6 +40,7 @@ func GetReferringTweets(url string) ([]string, error) {
 	client := getClient()
 	search, resp, err := client.Search.Tweets(&twitter.SearchTweetParams{
 		Query: url,
+		Count: 100,
 	})
 
 	if err != nil {
@@ -51,6 +52,9 @@ func GetReferringTweets(url string) ([]string, error) {
 
 	var result []kv
 	for _, t := range search.Statuses {
+		if t.Retweeted {
+			continue
+		}
 		// twitterのcanonicalがlower caseになっているので、それに合わせる
 		url := fmt.Sprintf("https://twitter.com/%s/status/%s", strings.ToLower(t.User.ScreenName), t.IDStr)
 		cnt := t.FavoriteCount
@@ -81,7 +85,7 @@ func setReferringTweets(listName string) error {
 	cache.AttachMetadata(examples, false, false)
 
 	for _, e := range examples {
-		if e.UpdatedAt.Add(time.Hour * 72).Before(time.Now()) {
+		if e.UpdatedAt.Add(time.Hour * 240).Before(time.Now()) {
 			continue
 		}
 		fmt.Println(e.FinalUrl)
