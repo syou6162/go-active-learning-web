@@ -205,7 +205,7 @@ func GetExampleByUrl(w http.ResponseWriter, r *http.Request) {
 	cache.AttachMetadata(tweetExamples, false, true)
 	tweetExamples = util.UniqueByFinalUrl(tweetExamples)
 
-	similarExamples, keywords, err := search.SearchSimilarExamples(ex.Title)
+	similarExamples, keywords, err := search.SearchSimilarExamples(ex.Title, 5)
 	if err != nil {
 		BadRequest(w, err.Error())
 		fmt.Fprintln(w, err.Error())

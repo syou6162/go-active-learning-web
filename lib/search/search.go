@@ -153,12 +153,12 @@ func GetKeywordsInQuery(query string) []string {
 	return result
 }
 
-func SearchSimilarExamples(query string) (example.Examples, []string, error) {
+func SearchSimilarExamples(query string, maxOutputs int) (example.Examples, []string, error) {
 	keywords := GetKeywordsInQuery(query)
 	req := types.SearchReq{
 		Tokens:   keywords,
 		Logic:    types.Logic{Should: true},
-		RankOpts: &types.RankOpts{MaxOutputs: 10},
+		RankOpts: &types.RankOpts{MaxOutputs: maxOutputs},
 	}
 
 	urls := make([]string, 0)
