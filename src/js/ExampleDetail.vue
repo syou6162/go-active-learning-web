@@ -18,7 +18,7 @@
           {{ example | getDescription(1000, '...') }}
         </p>
         <div v-if="example.HatenaBookmark.bookmarks.length > 0">
-          <a v-bind:href="example.HatenaBookmark.entry_url" style="color: #ff4166;">{{ example.HatenaBookmark.bookmarks.length}} users</a>:
+          <a v-bind:href="example.HatenaBookmark.entry_url" style="color: #ff4166;">{{ example.HatenaBookmark.bookmarks.length }} users</a>:
           <hatena-bookmark-icon 
             v-for="b in example.HatenaBookmark.bookmarks.slice(0, 9)"
             v-bind:bookmark="b"
