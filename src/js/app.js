@@ -75,6 +75,19 @@ Vue.filter('getUserName', function(example) {
   }
 })
 
+Vue.filter('getTwitterId', function(example) {
+  var domain = getDomain(example);
+  var url = example.FinalUrl;
+  var paths = url.replace('http://','').replace('https://','').split(/[/?#]/);
+  if (paths.length === 0) {
+    return;
+  } else if ('twitter.com' === domain) {
+    return paths[1];
+  } else {
+    return;
+  }
+})
+
 Vue.filter('getDescription', function(example, length, omission) {
   var title = example.Title ? example.Title : example.Url;
   var body = example.Body ? example.Body : title;
