@@ -17,9 +17,12 @@
         <p class="card-text">
           {{ example | getDescription(1000, '...') }}
         </p>
-        <div v-if="bookmarks.length > 0">
-          <a v-bind:href="example.HatenaBookmarks.entry_url" style="color: #ff4166;">{{ bookmarks.length}} users</a>:
-          <img v-for="b in bookmarks.slice(0, 9)" v-b-popover.hover="'id:' + b.user" v-bind:alt="b.user" style="width: 24px; height: 24px; margin: 2px" v-lazy="'https://cdn.profile-image.st-hatena.com/users/' + b.user+ '/profile.png'" />
+        <div v-if="example.HatenaBookmarks.bookmarks.length > 0">
+          <a v-bind:href="example.HatenaBookmarks.entry_url" style="color: #ff4166;">{{ example.HatenaBookmarks.bookmarks.length}} users</a>:
+          <hatena-bookmark-icon 
+            v-for="b in example.HatenaBookmarks.bookmarks.slice(0, 9)"
+            v-bind:bookmark="b"
+            ></hatena-bookmark-icon>
         </div>
         <div v-if="keywords.length > 0">
           Keywords: 
@@ -58,6 +61,7 @@
 <script>
 import axios from 'axios';
 import Example from './Example.vue';
+import HatenaBookmarkIcon from './HatenaBookmarkIcon.vue';
 import NewExample from './util';
 
 export default {
@@ -69,7 +73,6 @@ export default {
       similarExamples: [],
       keywords: [],
       referringTweets: [],
-      bookmarks: [],
       error: null,
       loading: true,
     }
@@ -92,7 +95,6 @@ export default {
           });
           this.keywords = response.data.Keywords;
           this.referringTweets = response.data.ReferringTweets;
-          this.bookmarks = (response.data.Example.HatenaBookmarks.bookmarks || []).reverse();
           this.title = `ML News - ${this.example.Title}`;
           this.loading = false;
         }).catch(function (error) {
@@ -104,7 +106,7 @@ export default {
     }
   },
   components: {
-    "example": Example
+    "hatena-bookmark-icon": HatenaBookmarkIcon 
   }
 }
 </script>
