@@ -1,6 +1,6 @@
 var moment = require('moment-timezone');
 
-export default function NewExample(e, opts = {}) {
+export function NewExample(e, opts = {}) {
   var isNewDayThreshold = moment().add(-1 * (opts["IsNewDayThreshold"] || 1), "days");
   var createdAt = moment(e.CreatedAt);
   var updatedAt = moment(e.UpdatedAt);
@@ -9,4 +9,41 @@ export default function NewExample(e, opts = {}) {
   e.IsNew = createdAt.isAfter(isNewDayThreshold);
   e.HatenaBookmark.bookmarks = (e.HatenaBookmark.bookmarks || []).reverse();
   return e;
+}
+
+export function getDomain(example) {
+  var url = example.FinalUrl;
+  return url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
+}
+
+export function truncate(str, length, omission) {
+  str = str ? str : '';
+  var length = length ? parseInt(length, 10) : 20;
+  var omission = omission ? omission.toString() : '...';
+
+  if (str.length <= length) {
+    return str;
+  }
+  else {
+    return str.substring(0, length) + omission;
+  }
+}
+
+export function getTwitterId(example) {
+  var domain = getDomain(example);
+  var url = example.FinalUrl;
+  var paths = url.replace('http://','').replace('https://','').split(/[/?#]/);
+  if (paths.length === 0) {
+    return;
+  } else if ('twitter.com' === domain) {
+    return paths[1];
+  } else {
+    return;
+  }
+}
+
+export function getTweetTitle(example) {
+  var title = example.Title.replace(/\r?\n/g, ' ');
+  var result = title.match(/^((.*? on Twitter)|(.*?さんのツイート)): \"(.*?)\"$/);
+  return truncate(result[4], 200, '...');
 }

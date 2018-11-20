@@ -34,7 +34,7 @@
 <script>
 import axios from 'axios';
 import Example from './Example.vue';
-import NewExample from './util';
+import { NewExample } from './util';
 
 const keywordsByListname = {
   "general": ["機械学習", "Machine Learning", "自然言語処理"],

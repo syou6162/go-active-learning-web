@@ -62,7 +62,7 @@
 import axios from 'axios';
 import Example from './Example.vue';
 import HatenaBookmarkIcon from './HatenaBookmarkIcon.vue';
-import NewExample from './util';
+import { NewExample } from './util';
 
 export default {
   data () {
