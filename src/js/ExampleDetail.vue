@@ -22,11 +22,16 @@
           <hatena-bookmark-icon 
             v-for="b in example.HatenaBookmark.bookmarks.slice(0, 9)"
             v-bind:bookmark="b"
+            v-bind:key="b.user"
             ></hatena-bookmark-icon>
         </div>
         <div v-if="keywords.length > 0">
           Keywords: 
-          <b-link v-bind:href="'/search?query=' + k" v-for="k in keywords">
+          <b-link 
+            v-bind:href="'/search?query=' + k" 
+            v-for="k in keywords"
+            v-bind:key="k"
+            >
             {{ k }}
           </b-link>
         </div>
