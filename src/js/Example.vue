@@ -7,7 +7,16 @@
           <hatena-bookmark-icon 
             v-for="b in example.HatenaBookmark.bookmarks.slice(0, 9)"
             v-bind:bookmark="b"
+            v-bind:key="b.user"
             ></hatena-bookmark-icon>
+        </div>
+        <div v-if="tweets !== undefined && tweets !== null && tweets.length > 0">
+          <span style="color: #ff4166;">{{ tweets.length }} mentions</span>:
+          <twitter-icon
+             v-for="tweet in tweets.slice(0, 8)"
+             v-bind:tweet="tweet"
+             v-bind:key="example.Url"
+             ></twitter-icon>
         </div>
         <b-card-footer>
           <b-button v-bind:href="'/example/' + encodeURIComponent(example.FinalUrl)" class="float-right" size="sm">Read more</b-button>
@@ -21,15 +30,17 @@
 
 <script>
 import HatenaBookmarkIcon from './HatenaBookmarkIcon.vue';
+import TwitterIcon from './TwitterIcon.vue';
 export default {
   data () {
     return {
       modalShow: false
     }
   },
-  props: ['example'],
+  props: ['example', 'tweets'],
   components: {
-    "hatena-bookmark-icon": HatenaBookmarkIcon 
+    "hatena-bookmark-icon": HatenaBookmarkIcon,
+    "twitter-icon": TwitterIcon 
   }
 }
 </script>

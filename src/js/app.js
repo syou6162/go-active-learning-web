@@ -23,35 +23,14 @@ Vue.use(VueAnalytics, {
   router
 })
 
-function getDomain(example) {
-  var url = example.FinalUrl;
-  return url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
-}
-
-function truncate(str, length, omission) {
-  str = str ? str : '';
-  var length = length ? parseInt(length, 10) : 20;
-  var omission = omission ? omission.toString() : '...';
-
-  if (str.length <= length) {
-    return str;
-  }
-  else {
-    return str.substring(0, length) + omission;
-  }
-}
+import { truncate, getDomain, getTwitterId, getTweetTitle } from './util';
 
 Vue.filter('getTitle', function(example, length, omission) {
   var title = example.Title ? example.Title : example.Url;
   return truncate(title, length, omission);
 })
 
-Vue.filter('getTweetTitle', function(example) {
-  var title = example.Title.replace(/\r?\n/g, ' ');
-  var result = title.match(/^((.*? on Twitter)|(.*?さんのツイート)): \"(.*?)\"$/);
-  return truncate(result[4], 200, '...');
-})
-
+Vue.filter('getTweetTitle', getTweetTitle)
 Vue.filter('getDomain', getDomain) 
 
 Vue.filter('getUserName', function(example) {
@@ -75,18 +54,7 @@ Vue.filter('getUserName', function(example) {
   }
 })
 
-Vue.filter('getTwitterId', function(example) {
-  var domain = getDomain(example);
-  var url = example.FinalUrl;
-  var paths = url.replace('http://','').replace('https://','').split(/[/?#]/);
-  if (paths.length === 0) {
-    return;
-  } else if ('twitter.com' === domain) {
-    return paths[1];
-  } else {
-    return;
-  }
-})
+Vue.filter('getTwitterId', getTwitterId)
 
 Vue.filter('getDescription', function(example, length, omission) {
   var title = example.Title ? example.Title : example.Url;

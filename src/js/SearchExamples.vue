@@ -26,7 +26,7 @@
 import axios from 'axios';
 import _ from 'lodash';
 import Example from './Example.vue';
-import NewExample from './util';
+import { NewExample } from './util';
 
 export default {
   mounted() {

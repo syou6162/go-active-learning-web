@@ -145,7 +145,8 @@ func getUrlsFromList(listName string) (example.Examples, error) {
 }
 
 type ExamplesFromList struct {
-	Examples example.Examples
+	Examples    example.Examples
+	TweetsByUrl map[string]example.Examples
 }
 
 func GetExamplesFromList(w http.ResponseWriter, r *http.Request) {
@@ -165,8 +166,22 @@ func GetExamplesFromList(w http.ResponseWriter, r *http.Request) {
 	examples = util.FilterStatusCodeOkExamples(examples)
 	lightenExamples(examples)
 
+	tweetsByUrl := map[string]example.Examples{}
+	for _, e := range examples {
+		tmp, err := db.SearchExamplesByUlrs(e.ReferringTweets)
+		if err != nil {
+			w.WriteHeader(http.StatusBadGateway)
+			fmt.Fprintln(w, err.Error())
+			return
+		}
+		cache.AttachMetadata(tmp, false, true)
+		tmp = util.FilterStatusCodeOkExamples(tmp)
+		tweetsByUrl[e.FinalUrl] = append(tweetsByUrl[e.FinalUrl], tmp...)
+	}
+
 	JSON(w, http.StatusOK, ExamplesFromList{
-		Examples: examples,
+		Examples:    examples,
+		TweetsByUrl: tweetsByUrl,
 	})
 }
 

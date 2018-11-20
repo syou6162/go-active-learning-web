@@ -25,6 +25,7 @@
           v-for="example in examplesFilterByIsNew(isNew)"
           v-bind:key="example.Url"
           v-bind:example="example"
+          v-bind:tweets="tweetsByUrl[example.FinalUrl]"
           ></example>
       </b-card-group>
     </div>
@@ -34,7 +35,7 @@
 <script>
 import axios from 'axios';
 import Example from './Example.vue';
-import NewExample from './util';
+import { NewExample } from './util';
 
 const keywordsByListname = {
   "general": ["機械学習", "Machine Learning", "自然言語処理"],
@@ -66,6 +67,7 @@ export default {
       title: "ML News",
       listname: 'general',
       examples: [],
+      tweetsByUrl: {},
       isNew: 0,
       options: [
         { text: 'All', value: 0 },
@@ -96,6 +98,7 @@ export default {
               "IsNewDayThreshold": isNewDayThresholdByListname[listname],
             })
           );
+          this.tweetsByUrl = response.data.TweetsByUrl;
           this.listname = this.$route.params.listname;
           this.title = `ML News - ${this.listname}`;
           this.loading = false;
