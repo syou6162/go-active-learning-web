@@ -11,6 +11,9 @@ import (
 
 	"os"
 
+	"net/url"
+	"sort"
+
 	"github.com/codegangsta/cli"
 	mkr "github.com/mackerelio/mackerel-client-go"
 	"github.com/syou6162/go-active-learning-web/lib/submodular"
@@ -30,8 +33,25 @@ var listName2Rule = map[string]*regexp.Regexp{
 	"arxiv":   regexp.MustCompile(`https://arxiv.org/abs/.+`),
 }
 
+func UniqByHost(examples example.Examples) example.Examples {
+	result := example.Examples{}
+
+	examplesByHost := map[string]example.Examples{}
+	for _, e := range examples {
+		if u, err := url.Parse(e.FinalUrl); err == nil {
+			examplesByHost[u.Host] = append(examplesByHost[u.Host], e)
+		}
+	}
+	for _, arry := range examplesByHost {
+		sort.Sort(sort.Reverse(arry))
+		result = append(result, arry[0])
+	}
+	return result
+}
+
 func doRecommend(c *cli.Context) error {
 	subsetSelection := c.Bool("subset-selection")
+	uniqueByHost := c.Bool("unique-by-host")
 	sizeConstraint := c.Int("size-constraint")
 	alpha := c.Float64("alpha")
 	r := c.Float64("r")
@@ -106,8 +126,14 @@ func doRecommend(c *cli.Context) error {
 		}
 	}
 
-	log.Println("Started to filter by submodular...")
 	log.Println(fmt.Sprintf("Original result size: %d", len(result)))
+
+	if uniqueByHost {
+		result = UniqByHost(result)
+		log.Println(fmt.Sprintf("Filtered by host: %d", len(result)))
+	}
+
+	log.Println("Started to filter by submodular...")
 	if subsetSelection {
 		result = submodular.SelectSubExamplesBySubModular(result, sizeConstraint, alpha, r, lambda)
 	}
@@ -172,6 +198,7 @@ Get recommendation list and store them.
 	Action: doRecommend,
 	Flags: []cli.Flag{
 		cli.BoolFlag{Name: "subset-selection", Usage: "Use subset selection algorithm (maximizing submodular function) to filter entries"},
+		cli.BoolFlag{Name: "unique-by-host", Usage: "Filter entries to be unique by host"},
 		cli.Int64Flag{Name: "size-constraint", Value: 10, Usage: "Budget constraint. Max number of entries to be contained"},
 		cli.Float64Flag{Name: "alpha", Value: 1.0},
 		cli.Float64Flag{Name: "r", Value: 1.0, Usage: "Scaling factor for number of words"},
