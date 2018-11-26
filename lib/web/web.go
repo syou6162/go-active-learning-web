@@ -18,7 +18,6 @@ import (
 
 	"github.com/codegangsta/cli"
 	"github.com/fukata/golang-stats-api-handler"
-	"github.com/mitchellh/go-server-timing"
 	"github.com/syou6162/go-active-learning-web/lib/ahocorasick"
 	"github.com/syou6162/go-active-learning-web/lib/search"
 	"github.com/syou6162/go-active-learning-web/lib/version"
@@ -106,29 +105,22 @@ type RecentAddedExamplesResult struct {
 
 func (s *server) RecentAddedExamples() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		timing := servertiming.FromContext(r.Context())
-
-		m := timing.NewMetric("db-positive").WithDesc("db.ReadPositiveExamples").Start()
 		positiveExamples, err := s.app.ReadPositiveExamples(30)
 		if err != nil {
 			BadRequest(w, err.Error())
 			fmt.Fprintln(w, err.Error())
 			return
 		}
-		m.Stop()
 		cache.AttachMetadata(positiveExamples, false, true)
 
-		m = timing.NewMetric("db-negative").WithDesc("db.ReadNegativeExamples").Start()
 		negativeExamples, err := s.app.ReadNegativeExamples(30)
 		if err != nil {
 			BadRequest(w, err.Error())
 			fmt.Fprintln(w, err.Error())
 			return
 		}
-		m.Stop()
 		cache.AttachMetadata(negativeExamples, false, true)
 
-		m = timing.NewMetric("db-unlabeled").WithDesc("db.ReadUnlabeledExamples").Start()
 		unlabeledExamples := model.Examples{}
 		tmp, err := s.app.ReadUnlabeledExamples(60)
 		if err != nil {
@@ -136,7 +128,6 @@ func (s *server) RecentAddedExamples() http.Handler {
 			fmt.Fprintln(w, err.Error())
 			return
 		}
-		m.Stop()
 
 		for _, e := range tmp {
 			if !e.IsTwitterUrl() {
@@ -282,7 +273,6 @@ type SearchResult struct {
 
 func (s *server) Search() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		timing := servertiming.FromContext(r.Context())
 		if r.Method != "POST" {
 			BadRequest(w, "Only POST method is supported")
 			return
@@ -290,9 +280,7 @@ func (s *server) Search() http.Handler {
 
 		query := r.FormValue("query")
 
-		m := timing.NewMetric("search").WithDesc("search.Search").Start()
 		examples, err := search.Search(s.app, query)
-		m.Stop()
 		if err != nil {
 			BadRequest(w, err.Error())
 			fmt.Fprintln(w, err.Error())
