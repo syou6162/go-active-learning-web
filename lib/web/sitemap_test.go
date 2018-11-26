@@ -7,7 +7,8 @@ import (
 
 	"github.com/syou6162/go-active-learning-web/lib/web"
 	"github.com/syou6162/go-active-learning/lib/cache"
-	"github.com/syou6162/go-active-learning/lib/db"
+	"github.com/syou6162/go-active-learning/lib/repository"
+	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util/file"
 )
 
@@ -17,7 +18,16 @@ func TestSitemapTop(t *testing.T) {
 		t.Error(err)
 	}
 	w := httptest.NewRecorder()
-	http.HandlerFunc(web.SitemapTop).ServeHTTP(w, req)
+
+	repo, err := repository.New()
+	if err != nil {
+		t.Error(err)
+	}
+	app := service.NewApp(repo)
+	defer app.Close()
+
+	svr := web.NewServer(app)
+	http.Handler(svr.SitemapTop()).ServeHTTP(w, req)
 
 	if status := w.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",
@@ -26,14 +36,21 @@ func TestSitemapTop(t *testing.T) {
 }
 
 func TestSitemapCategory(t *testing.T) {
+	repo, err := repository.New()
+	if err != nil {
+		t.Error(err)
+	}
+	app := service.NewApp(repo)
+	defer app.Close()
+
 	inputFilename := "../../tech_input_example.txt"
 	train, err := file.ReadExamples(inputFilename)
 	if err != nil {
 		t.Error(err)
 	}
 	for _, example := range train {
-		_, err = db.InsertOrUpdateExample(example)
-		if err != nil {
+		println(example.Url)
+		if err = app.InsertOrUpdateExample(example); err != nil {
 			t.Error(err)
 		}
 	}
@@ -44,7 +61,9 @@ func TestSitemapCategory(t *testing.T) {
 		t.Error(err)
 	}
 	w := httptest.NewRecorder()
-	http.HandlerFunc(web.SitemapCategory).ServeHTTP(w, req)
+	svr := web.NewServer(app)
+
+	http.Handler(svr.SitemapCategory()).ServeHTTP(w, req)
 
 	if status := w.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",
@@ -53,14 +72,20 @@ func TestSitemapCategory(t *testing.T) {
 }
 
 func TestSitemapRecentPositiveExamples(t *testing.T) {
+	repo, err := repository.New()
+	if err != nil {
+		t.Error(err)
+	}
+	app := service.NewApp(repo)
+	defer app.Close()
+
 	inputFilename := "../../tech_input_example.txt"
 	train, err := file.ReadExamples(inputFilename)
 	if err != nil {
 		t.Error(err)
 	}
 	for _, example := range train {
-		_, err = db.InsertOrUpdateExample(example)
-		if err != nil {
+		if err = app.InsertOrUpdateExample(example); err != nil {
 			t.Error(err)
 		}
 	}
@@ -71,7 +96,8 @@ func TestSitemapRecentPositiveExamples(t *testing.T) {
 		t.Error(err)
 	}
 	w := httptest.NewRecorder()
-	http.HandlerFunc(web.SitemapRecentPositiveExamples).ServeHTTP(w, req)
+	svr := web.NewServer(app)
+	http.Handler(svr.SitemapRecentPositiveExamples()).ServeHTTP(w, req)
 
 	if status := w.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",

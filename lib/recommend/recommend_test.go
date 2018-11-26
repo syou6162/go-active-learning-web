@@ -5,7 +5,8 @@ import (
 
 	"github.com/codegangsta/cli"
 	"github.com/syou6162/go-active-learning-web/lib/command"
-	"github.com/syou6162/go-active-learning/lib/db"
+	"github.com/syou6162/go-active-learning/lib/repository"
+	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util/file"
 )
 
@@ -16,20 +17,19 @@ func TestDoRecommend(t *testing.T) {
 		t.Error(err)
 	}
 
-	err = db.Init()
+	repo, err := repository.New()
 	if err != nil {
-		t.Error(err)
+		t.Error(err.Error())
 	}
-	defer db.Close()
+	a := service.NewApp(repo)
+	defer a.Close()
 
-	_, err = db.DeleteAllExamples()
-	if err != nil {
+	if err = a.DeleteAllExamples(); err != nil {
 		t.Error(err)
 	}
 
 	for _, example := range train {
-		_, err = db.InsertOrUpdateExample(example)
-		if err != nil {
+		if err = a.InsertOrUpdateExample(example); err != nil {
 			t.Error(err)
 		}
 	}

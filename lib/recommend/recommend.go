@@ -19,9 +19,10 @@ import (
 	"github.com/syou6162/go-active-learning-web/lib/submodular"
 	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/classifier"
-	"github.com/syou6162/go-active-learning/lib/db"
-	"github.com/syou6162/go-active-learning/lib/example"
 	"github.com/syou6162/go-active-learning/lib/hatena_bookmark"
+	"github.com/syou6162/go-active-learning/lib/model"
+	"github.com/syou6162/go-active-learning/lib/repository"
+	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util"
 )
 
@@ -33,10 +34,10 @@ var listName2Rule = map[string]*regexp.Regexp{
 	"arxiv":   regexp.MustCompile(`https://arxiv.org/abs/.+`),
 }
 
-func UniqByHost(examples example.Examples) example.Examples {
-	result := example.Examples{}
+func UniqByHost(examples model.Examples) model.Examples {
+	result := model.Examples{}
 
-	examplesByHost := map[string]example.Examples{}
+	examplesByHost := map[string]model.Examples{}
 	for _, e := range examples {
 		if u, err := url.Parse(e.FinalUrl); err == nil {
 			examplesByHost[u.Host] = append(examplesByHost[u.Host], e)
@@ -70,13 +71,14 @@ func doRecommend(c *cli.Context) error {
 	}
 	defer cache.Close()
 
-	err = db.Init()
+	repo, err := repository.New()
 	if err != nil {
 		return err
 	}
-	defer db.Close()
+	app := service.NewApp(repo)
+	defer app.Close()
 
-	examples, err := db.ReadLabeledExamples(100000)
+	examples, err := app.ReadLabeledExamples(100000)
 	if err != nil {
 		return err
 	}
@@ -87,9 +89,9 @@ func doRecommend(c *cli.Context) error {
 
 	cache.AttachMetadata(examples, true, false)
 	examples = util.FilterStatusCodeOkExamples(examples)
-	model := classifier.NewBinaryClassifier(examples)
+	m := classifier.NewBinaryClassifier(examples)
 
-	targetExamples, err := db.ReadRecentExamples(time.Now().Add(-time.Duration(24*durationDay) * time.Hour))
+	targetExamples, err := app.ReadRecentExamples(time.Now().Add(-time.Duration(24*durationDay) * time.Hour))
 	if err != nil {
 		return err
 	}
@@ -103,7 +105,7 @@ func doRecommend(c *cli.Context) error {
 	log.Println(fmt.Sprintf("target size: %d", len(targetExamples)))
 
 	log.Println("Started to predict scores...")
-	result := example.Examples{}
+	result := model.Examples{}
 	for _, e := range targetExamples {
 		if !rule.MatchString(e.FinalUrl) {
 			continue
@@ -114,7 +116,7 @@ func doRecommend(c *cli.Context) error {
 		if listName == "article" && !e.IsArticle() {
 			continue
 		}
-		e.Score = model.PredictScore(e.Fv)
+		e.Score = m.PredictScore(e.Fv)
 		e.Title = strings.Replace(e.Title, "\n", " ", -1)
 		if err := cache.SetExample(*e); err != nil {
 			return err
@@ -155,7 +157,7 @@ func doRecommend(c *cli.Context) error {
 	return nil
 }
 
-func postNumOfPositiveAndNegativeExamplesToMackerel(examples example.Examples) error {
+func postNumOfPositiveAndNegativeExamplesToMackerel(examples model.Examples) error {
 	apiKey := os.Getenv("MACKEREL_API_KEY")
 	serviceName := os.Getenv("MACKEREL_SERVICE_NAME")
 	if apiKey == "" || serviceName == "" {
@@ -165,9 +167,9 @@ func postNumOfPositiveAndNegativeExamplesToMackerel(examples example.Examples) e
 	numPos := 0
 	numNeg := 0
 	for _, e := range examples {
-		if e.Label == example.POSITIVE {
+		if e.Label == model.POSITIVE {
 			numPos++
-		} else if e.Label == example.NEGATIVE {
+		} else if e.Label == model.NEGATIVE {
 			numNeg++
 		}
 	}

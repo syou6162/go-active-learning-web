@@ -14,8 +14,10 @@ import (
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
 	"github.com/syou6162/go-active-learning/lib/cache"
-	"github.com/syou6162/go-active-learning/lib/db"
 	"github.com/syou6162/go-active-learning/lib/example"
+	"github.com/syou6162/go-active-learning/lib/model"
+	"github.com/syou6162/go-active-learning/lib/repository"
+	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util"
 )
 
@@ -72,13 +74,13 @@ func GetReferringTweets(url string) ([]string, error) {
 	return tweets, nil
 }
 
-func setReferringTweets(listName string) error {
+func setReferringTweets(app service.GoActiveLearningApp, listName string) error {
 	urls, err := cache.GetUrlsFromList(listName, 0, 100)
 	if err != nil {
 		return err
 	}
 
-	examples, err := db.SearchExamplesByUlrs(urls)
+	examples, err := app.SearchExamplesByUlrs(urls)
 	if err != nil {
 		return err
 	}
@@ -100,13 +102,13 @@ func setReferringTweets(listName string) error {
 		}
 
 		for _, t := range tweets {
-			tweetExample := example.NewExample(t, example.UNLABELED)
-			if _, err = db.InsertOrUpdateExample(tweetExample); err != nil {
+			tweetExample := example.NewExample(t, model.UNLABELED)
+			if err = app.InsertOrUpdateExample(tweetExample); err != nil {
 				return err
 			}
 		}
 
-		tweetExamples, err := db.SearchExamplesByUlrs(tweets)
+		tweetExamples, err := app.SearchExamplesByUlrs(tweets)
 		if err != nil {
 			return err
 		}
@@ -135,12 +137,13 @@ func doSetReferringTweets(c *cli.Context) error {
 	}
 	defer cache.Close()
 
-	err = db.Init()
+	repo, err := repository.New()
 	if err != nil {
 		return err
 	}
-	defer db.Close()
-	return setReferringTweets(listName)
+	app := service.NewApp(repo)
+	defer app.Close()
+	return setReferringTweets(app, listName)
 }
 
 var CommandSetReferringTweets = cli.Command{

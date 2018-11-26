@@ -5,10 +5,11 @@ import (
 	"testing"
 
 	"github.com/syou6162/go-active-learning/lib/example"
+	"github.com/syou6162/go-active-learning/lib/model"
 )
 
 func TestGetDF(t *testing.T) {
-	e := example.NewExample("http://b.hatena.ne.jp", example.POSITIVE)
+	e := example.NewExample("http://b.hatena.ne.jp", model.POSITIVE)
 	e.Title = "こんにちは、日本"
 	dfMap := GetDF(*e)
 
@@ -19,9 +20,9 @@ func TestGetDF(t *testing.T) {
 }
 
 func TestGetIDF(t *testing.T) {
-	e1 := example.NewExample("http://b.hatena.ne.jp", example.POSITIVE)
+	e1 := example.NewExample("http://b.hatena.ne.jp", model.POSITIVE)
 	e1.Title = "こんにちは、日本"
-	idfMap := GetIDF(example.Examples{e1})
+	idfMap := GetIDF(model.Examples{e1})
 
 	japan := "日本"
 	if _, ok := idfMap[japan]; !ok {
@@ -30,12 +31,12 @@ func TestGetIDF(t *testing.T) {
 }
 
 func TestSelectSubExamplesBySubModular(t *testing.T) {
-	e1 := example.NewExample("http://b.hatena.ne.jp", example.POSITIVE)
+	e1 := example.NewExample("http://b.hatena.ne.jp", model.POSITIVE)
 	e1.Title = "こんにちは、日本"
-	e2 := example.NewExample("http://google.com", example.POSITIVE)
+	e2 := example.NewExample("http://google.com", model.POSITIVE)
 	e2.Title = "hello google"
 
-	examples := SelectSubExamplesBySubModular(example.Examples{e1, e2}, 1, 1.0, 1.0, 1.0)
+	examples := SelectSubExamplesBySubModular(model.Examples{e1, e2}, 1, 1.0, 1.0, 1.0)
 
 	if len(examples) != 1 {
 		t.Error(fmt.Printf("Number of selected examples must be %d", len(examples)))

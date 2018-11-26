@@ -7,33 +7,24 @@ import (
 
 	"encoding/json"
 	"log"
-	"os"
 
 	"net/url"
 	"strings"
+
+	"os"
 
 	"github.com/fukata/golang-stats-api-handler"
 	"github.com/syou6162/go-active-learning-web/lib/search"
 	"github.com/syou6162/go-active-learning-web/lib/web"
 	"github.com/syou6162/go-active-learning/lib/cache"
-	"github.com/syou6162/go-active-learning/lib/db"
-	"github.com/syou6162/go-active-learning/lib/example"
+	"github.com/syou6162/go-active-learning/lib/model"
+	"github.com/syou6162/go-active-learning/lib/repository"
+	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util/file"
 )
 
 func TestMain(m *testing.M) {
-	err := db.Init()
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-	defer db.Close()
-
-	_, err = db.DeleteAllExamples()
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-
-	err = cache.Init()
+	err := cache.Init()
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -44,8 +35,13 @@ func TestMain(m *testing.M) {
 }
 
 func TestRecentAddedExamples(t *testing.T) {
-	_, err := db.DeleteAllExamples()
+	repo, err := repository.New()
 	if err != nil {
+		t.Error(err)
+	}
+	app := service.NewApp(repo)
+	defer app.Close()
+	if err := app.DeleteAllExamples(); err != nil {
 		t.Error("Cannot delete examples")
 	}
 
@@ -54,14 +50,16 @@ func TestRecentAddedExamples(t *testing.T) {
 		t.Error(err)
 	}
 	w := httptest.NewRecorder()
-	http.HandlerFunc(web.RecentAddedExamples).ServeHTTP(w, req)
+	svr := web.NewServer(app)
+
+	http.Handler(svr.RecentAddedExamples()).ServeHTTP(w, req)
 
 	if status := w.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",
 			status, http.StatusOK)
 	}
 
-	examples := example.Examples{}
+	examples := model.Examples{}
 	json.Unmarshal(w.Body.Bytes(), &examples)
 
 	if len(examples) != 0 {
@@ -74,8 +72,7 @@ func TestRecentAddedExamples(t *testing.T) {
 		t.Error(err)
 	}
 	for _, example := range train {
-		_, err = db.InsertOrUpdateExample(example)
-		if err != nil {
+		if err = app.InsertOrUpdateExample(example); err != nil {
 			t.Error(err)
 		}
 	}
@@ -86,7 +83,7 @@ func TestRecentAddedExamples(t *testing.T) {
 		t.Error(err)
 	}
 	w = httptest.NewRecorder()
-	http.HandlerFunc(web.RecentAddedExamples).ServeHTTP(w, req)
+	http.Handler(svr.RecentAddedExamples()).ServeHTTP(w, req)
 	if status := w.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",
 			status, http.StatusOK)
@@ -100,14 +97,23 @@ func TestRecentAddedExamples(t *testing.T) {
 }
 
 func TestGetExamplesFromList(t *testing.T) {
+	repo, err := repository.New()
+	if err != nil {
+		t.Error(err)
+	}
+	app := service.NewApp(repo)
+	defer app.Close()
+	if err := app.DeleteAllExamples(); err != nil {
+		t.Error("Cannot delete examples")
+	}
+
 	inputFilename := "../../tech_input_example.txt"
 	train, err := file.ReadExamples(inputFilename)
 	if err != nil {
 		t.Error(err)
 	}
 	for _, example := range train {
-		_, err = db.InsertOrUpdateExample(example)
-		if err != nil {
+		if err = app.InsertOrUpdateExample(example); err != nil {
 			t.Error(err)
 		}
 	}
@@ -118,7 +124,8 @@ func TestGetExamplesFromList(t *testing.T) {
 		t.Error(err)
 	}
 	w := httptest.NewRecorder()
-	http.HandlerFunc(web.GetExamplesFromList).ServeHTTP(w, req)
+	svr := web.NewServer(app)
+	http.Handler(svr.GetExamplesFromList()).ServeHTTP(w, req)
 
 	if status := w.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",
@@ -134,6 +141,16 @@ func TestGetExamplesFromList(t *testing.T) {
 }
 
 func TestSearch(t *testing.T) {
+	repo, err := repository.New()
+	if err != nil {
+		t.Error(err)
+	}
+	app := service.NewApp(repo)
+	defer app.Close()
+	if err := app.DeleteAllExamples(); err != nil {
+		t.Error("Cannot delete examples")
+	}
+
 	inputFilename := "../../tech_input_example.txt"
 	train, err := file.ReadExamples(inputFilename)
 	if err != nil {
@@ -143,13 +160,12 @@ func TestSearch(t *testing.T) {
 	cache.AttachMetadata(train, true, true)
 
 	for _, example := range train {
-		_, err = db.InsertOrUpdateExample(example)
-		if err != nil {
+		if err = app.InsertOrUpdateExample(example); err != nil {
 			t.Error(err)
 		}
 	}
 
-	if err = search.Init(); err != nil {
+	if err = search.Init(app); err != nil {
 		t.Error(err)
 	}
 	defer search.Close()
@@ -163,7 +179,9 @@ func TestSearch(t *testing.T) {
 	}
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	w := httptest.NewRecorder()
-	http.HandlerFunc(web.Search).ServeHTTP(w, req)
+	svr := web.NewServer(app)
+
+	http.Handler(svr.Search()).ServeHTTP(w, req)
 
 	if status := w.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",
@@ -179,12 +197,21 @@ func TestSearch(t *testing.T) {
 }
 
 func TestServerAvail(t *testing.T) {
+	repo, err := repository.New()
+	if err != nil {
+		t.Error(err)
+	}
+	app := service.NewApp(repo)
+	defer app.Close()
+
 	req, err := http.NewRequest("GET", "/api/server_avail", nil)
 	if err != nil {
 		t.Error(err)
 	}
 	w := httptest.NewRecorder()
-	http.HandlerFunc(web.ServerAvail).ServeHTTP(w, req)
+	svr := web.NewServer(app)
+
+	http.Handler(svr.ServerAvail()).ServeHTTP(w, req)
 
 	if status := w.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",
