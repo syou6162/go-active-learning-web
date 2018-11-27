@@ -301,11 +301,11 @@ func (s *server) Search() http.Handler {
 func (s *server) ServerAvail() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/plain; charset=UTF-8")
-		//if err := s.app.Ping(); err != nil {
-		//	UnavaliableError(w, err.Error())
-		//	fmt.Fprintln(w, err.Error())
-		//	return
-		//}
+		if err := s.app.Ping(); err != nil {
+			UnavaliableError(w, err.Error())
+			fmt.Fprintln(w, err.Error())
+			return
+		}
 		if err := cache.Ping(); err != nil {
 			UnavaliableError(w, err.Error())
 			fmt.Fprintln(w, err.Error())
