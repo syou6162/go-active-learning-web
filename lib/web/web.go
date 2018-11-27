@@ -21,9 +21,7 @@ import (
 	"github.com/syou6162/go-active-learning-web/lib/ahocorasick"
 	"github.com/syou6162/go-active-learning-web/lib/search"
 	"github.com/syou6162/go-active-learning-web/lib/version"
-	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/model"
-	"github.com/syou6162/go-active-learning/lib/repository"
 	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util"
 )
@@ -111,7 +109,7 @@ func (s *server) RecentAddedExamples() http.Handler {
 			fmt.Fprintln(w, err.Error())
 			return
 		}
-		cache.AttachMetadata(positiveExamples, false, true)
+		s.app.AttachLightMetadata(positiveExamples)
 
 		negativeExamples, err := s.app.ReadNegativeExamples(30)
 		if err != nil {
@@ -119,7 +117,7 @@ func (s *server) RecentAddedExamples() http.Handler {
 			fmt.Fprintln(w, err.Error())
 			return
 		}
-		cache.AttachMetadata(negativeExamples, false, true)
+		s.app.AttachLightMetadata(negativeExamples)
 
 		unlabeledExamples := model.Examples{}
 		tmp, err := s.app.ReadUnlabeledExamples(60)
@@ -134,7 +132,7 @@ func (s *server) RecentAddedExamples() http.Handler {
 				unlabeledExamples = append(unlabeledExamples, e)
 			}
 		}
-		cache.AttachMetadata(unlabeledExamples, false, true)
+		s.app.AttachLightMetadata(unlabeledExamples)
 		unlabeledExamples = util.FilterStatusCodeOkExamples(unlabeledExamples)
 
 		JSON(w, http.StatusOK, RecentAddedExamplesResult{
@@ -146,7 +144,7 @@ func (s *server) RecentAddedExamples() http.Handler {
 }
 
 func (s *server) getUrlsFromList(listName string) (model.Examples, error) {
-	urls, err := cache.GetUrlsFromList(listName, 0, 100)
+	urls, err := s.app.GetUrlsFromList(listName, 0, 100)
 	if err != nil {
 		return nil, err
 	}
@@ -156,7 +154,7 @@ func (s *server) getUrlsFromList(listName string) (model.Examples, error) {
 		return nil, err
 	}
 
-	cache.AttachMetadata(examples, false, true)
+	s.app.AttachLightMetadata(examples)
 	sort.Sort(sort.Reverse(examples))
 	result := util.RemoveNegativeExamples(examples)
 	return result, nil
@@ -193,7 +191,7 @@ func (s *server) GetExamplesFromList() http.Handler {
 				fmt.Fprintln(w, err.Error())
 				return
 			}
-			cache.AttachMetadata(tmp, false, true)
+			s.app.AttachLightMetadata(tmp)
 			tmp = util.FilterStatusCodeOkExamples(tmp)
 			tweetsByUrl[e.FinalUrl] = append(tweetsByUrl[e.FinalUrl], tmp...)
 		}
@@ -224,7 +222,7 @@ func (s *server) GetExampleByUrl() http.Handler {
 			return
 		}
 
-		cache.AttachMetadata(model.Examples{ex}, false, true)
+		s.app.AttachLightMetadata(model.Examples{ex})
 		if err != nil {
 			BadRequest(w, err.Error())
 			fmt.Fprintln(w, err.Error())
@@ -238,7 +236,7 @@ func (s *server) GetExampleByUrl() http.Handler {
 			fmt.Fprintln(w, err.Error())
 			return
 		}
-		cache.AttachMetadata(tweetExamples, false, true)
+		s.app.AttachLightMetadata(tweetExamples)
 		tweetExamples = util.UniqueByFinalUrl(tweetExamples)
 
 		similarExamples, keywords, err := search.SearchSimilarExamples(s.app, ex.Title, 5)
@@ -306,11 +304,6 @@ func (s *server) ServerAvail() http.Handler {
 			fmt.Fprintln(w, err.Error())
 			return
 		}
-		if err := cache.Ping(); err != nil {
-			UnavaliableError(w, err.Error())
-			fmt.Fprintln(w, err.Error())
-			return
-		}
 		if err := search.Ping(); err != nil {
 			UnavaliableError(w, err.Error())
 			fmt.Fprintln(w, err.Error())
@@ -347,11 +340,10 @@ func doServe(c *cli.Context) error {
 		addr = ":7778"
 	}
 
-	repo, err := repository.New()
+	app, err := service.NewDefaultApp()
 	if err != nil {
 		return err
 	}
-	app := service.NewApp(repo)
 	defer app.Close()
 
 	srv := &http.Server{
@@ -364,12 +356,6 @@ func doServe(c *cli.Context) error {
 			log.Println(err.Error())
 		}
 	}()
-
-	err = cache.Init()
-	if err != nil {
-		return err
-	}
-	defer cache.Close()
 
 	search.Init(app)
 	defer search.Close()

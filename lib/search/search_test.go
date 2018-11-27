@@ -6,9 +6,7 @@ import (
 	"os"
 
 	"github.com/syou6162/go-active-learning-web/lib/search"
-	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/model"
-	"github.com/syou6162/go-active-learning/lib/repository"
 	"github.com/syou6162/go-active-learning/lib/service"
 )
 
@@ -18,22 +16,15 @@ func TestMain(m *testing.M) {
 }
 
 func TestSearch(t *testing.T) {
-	repo, err := repository.New()
+	app, err := service.NewDefaultApp()
 	if err != nil {
 		t.Error(err.Error())
 	}
-	app := service.NewApp(repo)
 	defer app.Close()
 
 	if err = app.DeleteAllExamples(); err != nil {
 		t.Error(err.Error())
 	}
-
-	err = cache.Init()
-	if err != nil {
-		t.Error(err.Error())
-	}
-	defer cache.Close()
 
 	e1 := model.Example{Url: "https://www.yasuhisay.info/entry/2018/10/04/201000", Label: model.POSITIVE}
 	e2 := model.Example{Url: "https://www.yasuhisay.info/entry/2018/10/01/090000", Label: model.POSITIVE}
@@ -45,7 +36,8 @@ func TestSearch(t *testing.T) {
 			t.Error(err)
 		}
 	}
-	cache.AttachMetadata(examples, true, true)
+	app.Fetch(examples)
+	app.UpdateExamplesMetadata(examples)
 	search.Init(app)
 	defer search.Close()
 

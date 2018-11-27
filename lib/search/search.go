@@ -11,7 +11,6 @@ import (
 
 	"github.com/go-ego/riot"
 	"github.com/go-ego/riot/types"
-	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/feature"
 	"github.com/syou6162/go-active-learning/lib/model"
 	"github.com/syou6162/go-active-learning/lib/service"
@@ -62,7 +61,7 @@ func Init(app service.GoActiveLearningApp) error {
 			return
 		}
 		examples = append(examples, unlabeledExamples...)
-		cache.AttachMetadata(examples, false, false)
+		app.AttachMetadata(examples)
 		for _, e := range examples {
 			id := hash(e.FinalUrl)
 			id2url[id] = e.FinalUrl
@@ -106,7 +105,7 @@ func Search(app service.GoActiveLearningApp, query string) (model.Examples, erro
 	if err != nil {
 		return nil, err
 	}
-	cache.AttachMetadata(examples, false, true)
+	app.AttachLightMetadata(examples)
 	return examples, nil
 }
 
@@ -170,7 +169,7 @@ func SearchSimilarExamples(app service.GoActiveLearningApp, query string, maxOut
 	if err != nil {
 		return nil, make([]string, 0), err
 	}
-	cache.AttachMetadata(examples, false, true)
+	app.AttachLightMetadata(examples)
 	return examples, keywords, nil
 }
 

@@ -6,8 +6,6 @@ import (
 	"testing"
 
 	"github.com/syou6162/go-active-learning-web/lib/web"
-	"github.com/syou6162/go-active-learning/lib/cache"
-	"github.com/syou6162/go-active-learning/lib/repository"
 	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util/file"
 )
@@ -19,11 +17,10 @@ func TestSitemapTop(t *testing.T) {
 	}
 	w := httptest.NewRecorder()
 
-	repo, err := repository.New()
+	app, err := service.NewDefaultApp()
 	if err != nil {
 		t.Error(err)
 	}
-	app := service.NewApp(repo)
 	defer app.Close()
 
 	svr := web.NewServer(app)
@@ -36,11 +33,10 @@ func TestSitemapTop(t *testing.T) {
 }
 
 func TestSitemapCategory(t *testing.T) {
-	repo, err := repository.New()
+	app, err := service.NewDefaultApp()
 	if err != nil {
 		t.Error(err)
 	}
-	app := service.NewApp(repo)
 	defer app.Close()
 
 	inputFilename := "../../tech_input_example.txt"
@@ -54,7 +50,7 @@ func TestSitemapCategory(t *testing.T) {
 			t.Error(err)
 		}
 	}
-	cache.AddExamplesToList("general", train)
+	app.AddExamplesToList("general", train)
 
 	req, err := http.NewRequest("GET", "/sitemap?category=general", nil)
 	if err != nil {
@@ -72,11 +68,10 @@ func TestSitemapCategory(t *testing.T) {
 }
 
 func TestSitemapRecentPositiveExamples(t *testing.T) {
-	repo, err := repository.New()
+	app, err := service.NewDefaultApp()
 	if err != nil {
 		t.Error(err)
 	}
-	app := service.NewApp(repo)
 	defer app.Close()
 
 	inputFilename := "../../tech_input_example.txt"
@@ -89,7 +84,8 @@ func TestSitemapRecentPositiveExamples(t *testing.T) {
 			t.Error(err)
 		}
 	}
-	cache.AttachMetadata(train, true, true)
+	app.Fetch(train)
+	app.UpdateExamplesMetadata(train)
 
 	req, err := http.NewRequest("GET", "/sitemap/recent", nil)
 	if err != nil {

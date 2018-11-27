@@ -448,7 +448,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:2c4379920afd63d262751932c18dfaa30d92ee8241403a919cd7a3e4cf9561d6"
+  digest = "1:786c36d675e2f6f2462e9f853aba754ae8f84fed6c103732aac697a666a70ae3"
   name = "github.com/syndtr/goleveldb"
   packages = [
     "leveldb",
@@ -465,7 +465,7 @@
     "leveldb/util",
   ]
   pruneopts = "UT"
-  revision = "d5f8e13ca70d404acb9f9f8daab06b3818425145"
+  revision = "353a9fca669c44dedb58d5a074f6d052fb0f58e0"
 
 [[projects]]
   branch = "master"
@@ -477,7 +477,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:7ac9bbf74f45fda3b7385c246ce99e59f66109c9b608e3c3b49b32bdbf855019"
+  digest = "1:f51783ee8a1c3612a83bb2aeb0a4dce28b3bf3b704ef69412c8b702bb26ea6a7"
   name = "github.com/syou6162/go-active-learning"
   packages = [
     "lib/cache",
@@ -494,7 +494,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "3709ebe155c49c19a59dbb62c1299400b1182182"
+  revision = "91a1dd6c0b9c81f4add62b686ef8c742712e1ef6"
 
 [[projects]]
   digest = "1:c28625428387b63dd7154eb857f51e700465cfbf7c06f619e71f2da33cefe47e"

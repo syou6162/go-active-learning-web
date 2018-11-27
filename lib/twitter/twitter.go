@@ -13,10 +13,8 @@ import (
 	"github.com/codegangsta/cli"
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
-	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/example"
 	"github.com/syou6162/go-active-learning/lib/model"
-	"github.com/syou6162/go-active-learning/lib/repository"
 	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util"
 )
@@ -75,7 +73,7 @@ func GetReferringTweets(url string) ([]string, error) {
 }
 
 func setReferringTweets(app service.GoActiveLearningApp, listName string) error {
-	urls, err := cache.GetUrlsFromList(listName, 0, 100)
+	urls, err := app.GetUrlsFromList(listName, 0, 100)
 	if err != nil {
 		return err
 	}
@@ -84,7 +82,7 @@ func setReferringTweets(app service.GoActiveLearningApp, listName string) error 
 	if err != nil {
 		return err
 	}
-	cache.AttachMetadata(examples, false, false)
+	app.AttachMetadata(examples)
 
 	for _, e := range examples {
 		if e.UpdatedAt.Add(time.Hour * 240).Before(time.Now()) {
@@ -112,7 +110,8 @@ func setReferringTweets(app service.GoActiveLearningApp, listName string) error 
 		if err != nil {
 			return err
 		}
-		cache.AttachMetadata(tweetExamples, true, false)
+		app.Fetch(tweetExamples)
+		app.UpdateExamplesMetadata(tweetExamples)
 		tweetExamples = util.UniqueByFinalUrl(tweetExamples)
 
 		tweets = []string{}
@@ -123,7 +122,7 @@ func setReferringTweets(app service.GoActiveLearningApp, listName string) error 
 		tweets = append(tweets, e.ReferringTweets...)
 		tweets = util.RemoveDuplicate(tweets)
 		e.ReferringTweets = tweets
-		cache.SetExample(*e)
+		app.UpdateExampleMetadata(*e)
 	}
 	return nil
 }
@@ -131,17 +130,10 @@ func setReferringTweets(app service.GoActiveLearningApp, listName string) error 
 func doSetReferringTweets(c *cli.Context) error {
 	listName := c.String("listname")
 
-	err := cache.Init()
+	app, err := service.NewDefaultApp()
 	if err != nil {
 		return err
 	}
-	defer cache.Close()
-
-	repo, err := repository.New()
-	if err != nil {
-		return err
-	}
-	app := service.NewApp(repo)
 	defer app.Close()
 	return setReferringTweets(app, listName)
 }

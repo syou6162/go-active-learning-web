@@ -6,7 +6,6 @@ import (
 	"net/url"
 
 	"github.com/ikeikeikeike/go-sitemap-generator/stm"
-	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/util"
 )
 
@@ -75,7 +74,7 @@ func (s *server) SitemapRecentPositiveExamples() http.Handler {
 			fmt.Fprintln(w, err.Error())
 			return
 		}
-		cache.AttachMetadata(positiveExamples, false, true)
+		s.app.AttachLightMetadata(positiveExamples)
 		positiveExamples = util.FilterStatusCodeOkExamples(positiveExamples)
 
 		for _, e := range positiveExamples {
