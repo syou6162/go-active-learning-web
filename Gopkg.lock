@@ -494,7 +494,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "91a1dd6c0b9c81f4add62b686ef8c742712e1ef6"
+  revision = "c2e44742418f4ab273351844c9b68c56023f8b29"
 
 [[projects]]
   digest = "1:c28625428387b63dd7154eb857f51e700465cfbf7c06f619e71f2da33cefe47e"
@@ -582,13 +582,11 @@
     "github.com/jessevdk/go-assets",
     "github.com/mackerelio/mackerel-client-go",
     "github.com/pbnjay/clustering",
-    "github.com/syou6162/go-active-learning/lib/cache",
     "github.com/syou6162/go-active-learning/lib/classifier",
     "github.com/syou6162/go-active-learning/lib/example",
     "github.com/syou6162/go-active-learning/lib/feature",
     "github.com/syou6162/go-active-learning/lib/hatena_bookmark",
     "github.com/syou6162/go-active-learning/lib/model",
-    "github.com/syou6162/go-active-learning/lib/repository",
     "github.com/syou6162/go-active-learning/lib/service",
     "github.com/syou6162/go-active-learning/lib/util",
     "github.com/syou6162/go-active-learning/lib/util/file",

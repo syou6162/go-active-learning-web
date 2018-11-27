@@ -13,6 +13,7 @@ deps:
 	go get github.com/go-ego/gse
 	go get github.com/mattn/goveralls
 	go get github.com/haya14busa/goverage
+	go get -v github.com/rubenv/sql-migrate/...
 
 .PHONY: build
 build:
