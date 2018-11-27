@@ -477,9 +477,10 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:f51783ee8a1c3612a83bb2aeb0a4dce28b3bf3b704ef69412c8b702bb26ea6a7"
+  digest = "1:9b1f57271981458ed43cf2d4206d69276dcbde9d04a9507155e2a3f96cb7f3d7"
   name = "github.com/syou6162/go-active-learning"
   packages = [
+    "lib/add",
     "lib/cache",
     "lib/classifier",
     "lib/evaluation",
@@ -494,7 +495,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "c2e44742418f4ab273351844c9b68c56023f8b29"
+  revision = "a2d8b3af72187cdf54449bc506af28a4b73da99b"
 
 [[projects]]
   digest = "1:c28625428387b63dd7154eb857f51e700465cfbf7c06f619e71f2da33cefe47e"
@@ -582,6 +583,7 @@
     "github.com/jessevdk/go-assets",
     "github.com/mackerelio/mackerel-client-go",
     "github.com/pbnjay/clustering",
+    "github.com/syou6162/go-active-learning/lib/add",
     "github.com/syou6162/go-active-learning/lib/classifier",
     "github.com/syou6162/go-active-learning/lib/example",
     "github.com/syou6162/go-active-learning/lib/feature",
