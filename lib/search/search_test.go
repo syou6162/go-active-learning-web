@@ -7,8 +7,9 @@ import (
 
 	"github.com/syou6162/go-active-learning-web/lib/search"
 	"github.com/syou6162/go-active-learning/lib/cache"
-	"github.com/syou6162/go-active-learning/lib/db"
-	"github.com/syou6162/go-active-learning/lib/example"
+	"github.com/syou6162/go-active-learning/lib/model"
+	"github.com/syou6162/go-active-learning/lib/repository"
+	"github.com/syou6162/go-active-learning/lib/service"
 )
 
 func TestMain(m *testing.M) {
@@ -17,14 +18,14 @@ func TestMain(m *testing.M) {
 }
 
 func TestSearch(t *testing.T) {
-	err := db.Init()
+	repo, err := repository.New()
 	if err != nil {
 		t.Error(err.Error())
 	}
-	defer db.Close()
+	app := service.NewApp(repo)
+	defer app.Close()
 
-	_, err = db.DeleteAllExamples()
-	if err != nil {
+	if err = app.DeleteAllExamples(); err != nil {
 		t.Error(err.Error())
 	}
 
@@ -34,22 +35,21 @@ func TestSearch(t *testing.T) {
 	}
 	defer cache.Close()
 
-	e1 := example.Example{Url: "https://www.yasuhisay.info/entry/2018/10/04/201000", Label: example.POSITIVE}
-	e2 := example.Example{Url: "https://www.yasuhisay.info/entry/2018/10/01/090000", Label: example.POSITIVE}
-	e3 := example.Example{Url: "https://www.yasuhisay.info/entry/mackerel_meetup_12_anomaly_detection", Label: example.POSITIVE}
-	examples := example.Examples{&e1, &e2, &e3}
+	e1 := model.Example{Url: "https://www.yasuhisay.info/entry/2018/10/04/201000", Label: model.POSITIVE}
+	e2 := model.Example{Url: "https://www.yasuhisay.info/entry/2018/10/01/090000", Label: model.POSITIVE}
+	e3 := model.Example{Url: "https://www.yasuhisay.info/entry/mackerel_meetup_12_anomaly_detection", Label: model.POSITIVE}
+	examples := model.Examples{&e1, &e2, &e3}
 
 	for _, e := range examples {
-		_, err = db.InsertOrUpdateExample(e)
-		if err != nil {
+		if err = app.InsertOrUpdateExample(e); err != nil {
 			t.Error(err)
 		}
 	}
 	cache.AttachMetadata(examples, true, true)
-	search.Init()
+	search.Init(app)
 	defer search.Close()
 
-	result, err := search.Search("機械 学習")
+	result, err := search.Search(app, "機械 学習")
 	if err != nil {
 		t.Error(err.Error())
 	}

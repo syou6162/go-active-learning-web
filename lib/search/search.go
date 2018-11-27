@@ -12,9 +12,9 @@ import (
 	"github.com/go-ego/riot"
 	"github.com/go-ego/riot/types"
 	"github.com/syou6162/go-active-learning/lib/cache"
-	"github.com/syou6162/go-active-learning/lib/db"
-	"github.com/syou6162/go-active-learning/lib/example"
 	"github.com/syou6162/go-active-learning/lib/feature"
+	"github.com/syou6162/go-active-learning/lib/model"
+	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util"
 )
 
@@ -42,7 +42,7 @@ func setDictPathFromEnv() {
 	riotDictPath = dictPath
 }
 
-func Init() error {
+func Init(app service.GoActiveLearningApp) error {
 	var err error
 	once.Do(func() {
 		setDictPathFromEnv()
@@ -51,13 +51,13 @@ func Init() error {
 			UseStore: false,
 		})
 
-		examples := example.Examples{}
-		positiveExamples, err := db.ReadPositiveExamples(10000)
+		examples := model.Examples{}
+		positiveExamples, err := app.ReadPositiveExamples(10000)
 		if err != nil {
 			return
 		}
 		examples = append(examples, positiveExamples...)
-		unlabeledExamples, err := db.ReadUnlabeledExamples(10000)
+		unlabeledExamples, err := app.ReadUnlabeledExamples(10000)
 		if err != nil {
 			return
 		}
@@ -92,7 +92,7 @@ func Ping() error {
 	return nil
 }
 
-func Search(query string) (example.Examples, error) {
+func Search(app service.GoActiveLearningApp, query string) (model.Examples, error) {
 	urls := make([]string, 0)
 	req := types.SearchReq{
 		Tokens:   feature.ExtractNounFeaturesWithoutPrefix(query),
@@ -102,7 +102,7 @@ func Search(query string) (example.Examples, error) {
 		url := id2url[resp.DocId]
 		urls = append(urls, url)
 	}
-	examples, err := db.SearchExamplesByUlrs(urls)
+	examples, err := app.SearchExamplesByUlrs(urls)
 	if err != nil {
 		return nil, err
 	}
@@ -153,7 +153,7 @@ func GetKeywordsInQuery(query string) []string {
 	return result
 }
 
-func SearchSimilarExamples(query string, maxOutputs int) (example.Examples, []string, error) {
+func SearchSimilarExamples(app service.GoActiveLearningApp, query string, maxOutputs int) (model.Examples, []string, error) {
 	keywords := GetKeywordsInQuery(query)
 	req := types.SearchReq{
 		Tokens:   keywords,
@@ -166,7 +166,7 @@ func SearchSimilarExamples(query string, maxOutputs int) (example.Examples, []st
 		url := id2url[resp.DocId]
 		urls = append(urls, url)
 	}
-	examples, err := db.SearchExamplesByUlrs(urls)
+	examples, err := app.SearchExamplesByUlrs(urls)
 	if err != nil {
 		return nil, make([]string, 0), err
 	}

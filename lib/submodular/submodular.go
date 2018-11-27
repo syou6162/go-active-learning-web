@@ -6,19 +6,19 @@ import (
 	"fmt"
 
 	"github.com/pbnjay/clustering"
-	"github.com/syou6162/go-active-learning/lib/example"
 	"github.com/syou6162/go-active-learning/lib/feature"
+	"github.com/syou6162/go-active-learning/lib/model"
 )
 
-func extractFeature(e example.Example) feature.FeatureVector {
+func extractFeature(e model.Example) feature.FeatureVector {
 	result := feature.FeatureVector{}
 	result = append(result, feature.ExtractNounFeaturesWithoutPrefix(e.Title)...)
 	result = append(result, feature.ExtractHostFeature(e.FinalUrl))
 	return result
 }
 
-func SelectSubExamplesBySubModular(whole example.Examples, sizeConstraint int, alpha float64, r float64, lambda float64) example.Examples {
-	selected := example.Examples{}
+func SelectSubExamplesBySubModular(whole model.Examples, sizeConstraint int, alpha float64, r float64, lambda float64) model.Examples {
+	selected := model.Examples{}
 	remainings := whole
 	simMat := GetSimilarityMatrixByTFIDF(whole)
 	clusters := GetClusters(simMat, whole)
@@ -26,7 +26,7 @@ func SelectSubExamplesBySubModular(whole example.Examples, sizeConstraint int, a
 	clusters.EachCluster(-1, func(cluster int) {
 		clusters.EachItem(cluster, func(e clustering.ClusterItem) {
 			switch x := e.(type) {
-			case *example.Example:
+			case *model.Example:
 				fmt.Printf("%d %s %s\n", cluster, x.Title, x.Url) // for debuging
 			}
 		})
@@ -45,7 +45,7 @@ func SelectSubExamplesBySubModular(whole example.Examples, sizeConstraint int, a
 	return selected
 }
 
-func GetClusters(simMat SimilarityMatrix, whole example.Examples) clustering.ClusterSet {
+func GetClusters(simMat SimilarityMatrix, whole model.Examples) clustering.ClusterSet {
 	distMap := clustering.DistanceMap{}
 	for _, e1 := range whole {
 		m := make(map[clustering.ClusterItem]float64)
@@ -63,14 +63,14 @@ func GetClusters(simMat SimilarityMatrix, whole example.Examples) clustering.Clu
 }
 
 // ref: http://www.lr.pi.titech.ac.jp/~morita/YANS.pdf
-func DiversityFunction(mat SimilarityMatrix, clusters clustering.ClusterSet, subset example.Examples, whole example.Examples) float64 {
+func DiversityFunction(mat SimilarityMatrix, clusters clustering.ClusterSet, subset model.Examples, whole model.Examples) float64 {
 	sum := 0.0
 	// Enumerate clusters and print members
 	clusters.EachCluster(-1, func(cluster int) {
 		tmp := 0.0
 		clusters.EachItem(cluster, func(e clustering.ClusterItem) {
 			switch x := e.(type) {
-			case *example.Example:
+			case *model.Example:
 				for _, s := range subset {
 					if s.Url == x.Url {
 						tmp += coverageFunction(mat, x, whole) / float64(len(whole))
@@ -86,12 +86,12 @@ func DiversityFunction(mat SimilarityMatrix, clusters clustering.ClusterSet, sub
 
 // ref: http://aclweb.org/anthology/N10-1134
 // Algorithm 1 line4
-func SelectBestExample(mat SimilarityMatrix, clusters clustering.ClusterSet, remainings example.Examples, selected example.Examples, whole example.Examples, alpha float64, r float64, lambda float64) int {
+func SelectBestExample(mat SimilarityMatrix, clusters clustering.ClusterSet, remainings model.Examples, selected model.Examples, whole model.Examples, alpha float64, r float64, lambda float64) int {
 	maxScore := math.Inf(-1)
 	argmax := 0
 	c2 := CoverageFunction(mat, selected, whole, alpha) + lambda*DiversityFunction(mat, clusters, selected, whole)
 	for idx, remaining := range remainings {
-		subset := example.Examples{}
+		subset := model.Examples{}
 		for _, e := range selected {
 			subset = append(subset, e)
 		}
@@ -110,7 +110,7 @@ func SelectBestExample(mat SimilarityMatrix, clusters clustering.ClusterSet, rem
 	return argmax
 }
 
-func CoverageFunction(mat SimilarityMatrix, subset example.Examples, whole example.Examples, alpha float64) float64 {
+func CoverageFunction(mat SimilarityMatrix, subset model.Examples, whole model.Examples, alpha float64) float64 {
 	sum := 0.0
 	for _, e := range whole {
 		sum += math.Min(
@@ -121,7 +121,7 @@ func CoverageFunction(mat SimilarityMatrix, subset example.Examples, whole examp
 	return sum
 }
 
-func coverageFunction(mat SimilarityMatrix, example *example.Example, examples example.Examples) float64 {
+func coverageFunction(mat SimilarityMatrix, example *model.Example, examples model.Examples) float64 {
 	sum := 0.0
 	for _, e := range examples {
 		sum += GetCosineSimilarity(mat, e, example)
@@ -131,7 +131,7 @@ func coverageFunction(mat SimilarityMatrix, example *example.Example, examples e
 
 type SimilarityMatrix map[string]float64
 
-func GetSimilarityMatrixByTFIDF(examples example.Examples) SimilarityMatrix {
+func GetSimilarityMatrixByTFIDF(examples model.Examples) SimilarityMatrix {
 	idf := GetIDF(examples)
 
 	dfByURL := make(map[string]map[string]float64)
@@ -172,11 +172,11 @@ func GetSimilarityMatrixByTFIDF(examples example.Examples) SimilarityMatrix {
 	return mat
 }
 
-func GetCosineSimilarity(mat SimilarityMatrix, e1 *example.Example, e2 *example.Example) float64 {
+func GetCosineSimilarity(mat SimilarityMatrix, e1 *model.Example, e2 *model.Example) float64 {
 	return mat[e1.Url+"+"+e2.Url]
 }
 
-func GetDF(example example.Example) map[string]float64 {
+func GetDF(example model.Example) map[string]float64 {
 	df := make(map[string]float64)
 	n := 0.0
 	fv := extractFeature(example)
@@ -192,7 +192,7 @@ func GetDF(example example.Example) map[string]float64 {
 	return df
 }
 
-func GetIDF(examples example.Examples) map[string]float64 {
+func GetIDF(examples model.Examples) map[string]float64 {
 	idf := make(map[string]float64)
 	cnt := make(map[string]float64)
 	n := float64(len(examples))

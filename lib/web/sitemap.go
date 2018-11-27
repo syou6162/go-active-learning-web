@@ -7,78 +7,83 @@ import (
 
 	"github.com/ikeikeikeike/go-sitemap-generator/stm"
 	"github.com/syou6162/go-active-learning/lib/cache"
-	"github.com/syou6162/go-active-learning/lib/db"
 	"github.com/syou6162/go-active-learning/lib/util"
 )
 
-func SitemapTop(w http.ResponseWriter, r *http.Request) {
-	sm := stm.NewSitemap(1)
-	sm.SetDefaultHost("https://www.machine-learning.news")
-	sm.SetCompress(true)
-	sm.SetVerbose(true)
+func (s *server) SitemapTop() http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		sm := stm.NewSitemap(1)
+		sm.SetDefaultHost("https://www.machine-learning.news")
+		sm.SetCompress(true)
+		sm.SetVerbose(true)
 
-	sm.Create()
+		sm.Create()
 
-	sm.Add(stm.URL{{"loc", "/list/general"}, {"changefreq", "daily"}})
-	sm.Add(stm.URL{{"loc", "/list/article"}, {"changefreq", "daily"}})
-	sm.Add(stm.URL{{"loc", "/list/github"}, {"changefreq", "daily"}})
-	sm.Add(stm.URL{{"loc", "/list/arxiv"}, {"changefreq", "daily"}})
-	sm.Add(stm.URL{{"loc", "/list/slide"}, {"changefreq", "daily"}})
+		sm.Add(stm.URL{{"loc", "/list/general"}, {"changefreq", "daily"}})
+		sm.Add(stm.URL{{"loc", "/list/article"}, {"changefreq", "daily"}})
+		sm.Add(stm.URL{{"loc", "/list/github"}, {"changefreq", "daily"}})
+		sm.Add(stm.URL{{"loc", "/list/arxiv"}, {"changefreq", "daily"}})
+		sm.Add(stm.URL{{"loc", "/list/slide"}, {"changefreq", "daily"}})
 
-	sm.Add(stm.URL{{"loc", "/recent-added-examples"}, {"changefreq", "daily"}})
+		sm.Add(stm.URL{{"loc", "/recent-added-examples"}, {"changefreq", "daily"}})
 
-	w.Header().Set("Content-Type", "application/xml; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-	w.Write(sm.XMLContent())
+		w.Header().Set("Content-Type", "application/xml; charset=UTF-8")
+		w.WriteHeader(http.StatusOK)
+		w.Write(sm.XMLContent())
+	})
 }
 
-func SitemapCategory(w http.ResponseWriter, r *http.Request) {
-	queryValues := r.URL.Query()
-	listName := queryValues.Get("category")
+func (s *server) SitemapCategory() http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		queryValues := r.URL.Query()
+		listName := queryValues.Get("category")
 
-	examples, err := getUrlsFromList(listName)
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
+		examples, err := s.getUrlsFromList(listName)
+		if err != nil {
+			w.WriteHeader(http.StatusBadGateway)
+			fmt.Fprintln(w, err.Error())
+			return
+		}
 
-	sm := stm.NewSitemap(1)
-	sm.SetDefaultHost("https://www.machine-learning.news")
-	sm.SetCompress(true)
-	sm.SetVerbose(true)
+		sm := stm.NewSitemap(1)
+		sm.SetDefaultHost("https://www.machine-learning.news")
+		sm.SetCompress(true)
+		sm.SetVerbose(true)
 
-	sm.Create()
-	for _, e := range examples {
-		sm.Add(stm.URL{{"loc", "/example/" + url.PathEscape(e.FinalUrl)}, {"changefreq", "daily"}})
-	}
+		sm.Create()
+		for _, e := range examples {
+			sm.Add(stm.URL{{"loc", "/example/" + url.PathEscape(e.FinalUrl)}, {"changefreq", "daily"}})
+		}
 
-	w.Header().Set("Content-Type", "application/xml; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-	w.Write(sm.XMLContent())
+		w.Header().Set("Content-Type", "application/xml; charset=UTF-8")
+		w.WriteHeader(http.StatusOK)
+		w.Write(sm.XMLContent())
+	})
 }
 
-func SitemapRecentPositiveExamples(w http.ResponseWriter, r *http.Request) {
-	sm := stm.NewSitemap(1)
-	sm.SetDefaultHost("https://www.machine-learning.news")
-	sm.SetCompress(true)
-	sm.SetVerbose(true)
+func (s *server) SitemapRecentPositiveExamples() http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		sm := stm.NewSitemap(1)
+		sm.SetDefaultHost("https://www.machine-learning.news")
+		sm.SetCompress(true)
+		sm.SetVerbose(true)
 
-	sm.Create()
-	positiveExamples, err := db.ReadPositiveExamples(100)
-	if err != nil {
-		w.WriteHeader(http.StatusBadGateway)
-		fmt.Fprintln(w, err.Error())
-		return
-	}
-	cache.AttachMetadata(positiveExamples, false, true)
-	positiveExamples = util.FilterStatusCodeOkExamples(positiveExamples)
+		sm.Create()
+		positiveExamples, err := s.app.ReadPositiveExamples(100)
+		if err != nil {
+			w.WriteHeader(http.StatusBadGateway)
+			fmt.Fprintln(w, err.Error())
+			return
+		}
+		cache.AttachMetadata(positiveExamples, false, true)
+		positiveExamples = util.FilterStatusCodeOkExamples(positiveExamples)
 
-	for _, e := range positiveExamples {
-		sm.Add(stm.URL{{"loc", "/example/" + url.PathEscape(e.FinalUrl)}, {"changefreq", "daily"}})
-	}
+		for _, e := range positiveExamples {
+			sm.Add(stm.URL{{"loc", "/example/" + url.PathEscape(e.FinalUrl)}, {"changefreq", "daily"}})
+		}
 
-	w.Header().Set("Content-Type", "application/xml; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-	w.Write(sm.XMLContent())
+		w.Header().Set("Content-Type", "application/xml; charset=UTF-8")
+		w.WriteHeader(http.StatusOK)
+		w.Write(sm.XMLContent())
+	})
 }

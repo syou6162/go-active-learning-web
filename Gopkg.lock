@@ -59,11 +59,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:0f893aeaa870f517664d80ac7be7fa85c4b04ce984ae3eeb0dac7687c8fd34d1"
+  digest = "1:f9bb4fba309ed75573053608ea00f16c6b5764d2accbad0ce27189b8edcba934"
   name = "github.com/araddon/dateparse"
   packages = ["."]
   pruneopts = "UT"
-  revision = "00e168d34895ce6682b546bc3914bcea611a6dbd"
+  revision = "21df004e09ca46e07ce99bbba1e8c2422ba4ecf9"
 
 [[projects]]
   digest = "1:f25dfe4538112147d22e4c8437efbc2e216112bec37277534ffe146935064ea8"
@@ -91,27 +91,27 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:0cdb65f3b28d37708cbb653a0193f886f141b16c7ee2489ce6fad15771673693"
+  digest = "1:63c394402a65bb9b6cb355e2d576c313bab65eb57f3b92f599386d614b7580dc"
   name = "github.com/dghubble/go-twitter"
   packages = ["twitter"]
   pruneopts = "UT"
-  revision = "e75339c4bc3d739058b5e43806e7accda132fb53"
+  revision = "66265eae502c0c5e5542b34e9e2871520050e330"
 
 [[projects]]
-  digest = "1:144f5984ed1f07aa8fa2468844f856b1ac8e93ac94e1fd19fbf69ce034d9ef92"
+  digest = "1:f3cacf5fd0e718de3f43af615e84372b318f61889140f6854f98b05894001d99"
   name = "github.com/dghubble/oauth1"
   packages = ["."]
   pruneopts = "UT"
-  revision = "70562a5920ad9b6ff03ef697c0f90ae569abbd2b"
-  version = "v0.4.0"
+  revision = "f0fe2bff8fbf301b33359ca431e4afc90390aab0"
+  version = "v0.5.0"
 
 [[projects]]
-  digest = "1:ace1aef6acdf2c4647365dc87c14fb8b71ed8bb0b3ae114ffb216614a24da219"
+  digest = "1:fba61d8584058169c5bd4625196f33077ba937f7131625d4440686c5e4cff380"
   name = "github.com/dghubble/sling"
   packages = ["."]
   pruneopts = "UT"
-  revision = "eb56e89ac5088bebb12eef3cb4b293300f43608b"
-  version = "v1.1.0"
+  revision = "e2624bf29a7de45ab0802b09aea94ca0a7815c5f"
+  version = "v1.2.0"
 
 [[projects]]
   digest = "1:5f5090f05382959db941fa45acbeb7f4c5241aa8ac0f8f4393dec696e5953f53"
@@ -153,14 +153,6 @@
   version = "v1.1.0"
 
 [[projects]]
-  digest = "1:296cda2c4a6a7a54964d7b3b0815e2aed215da75217b72033060ffb1c4e4b6ae"
-  name = "github.com/felixge/httpsnoop"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "eadd4fad6aac69ae62379194fe0219f3dbc80fd3"
-  version = "v1.0.0"
-
-[[projects]]
   digest = "1:abeb38ade3f32a92943e5be54f55ed6d6e3b6602761d74b4aab4c9dd45c18abd"
   name = "github.com/fsnotify/fsnotify"
   packages = ["."]
@@ -186,11 +178,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:f127a51c0c0caf4bf78052e8147b191b515548e3434c919fdabb4964aa6f8f07"
+  digest = "1:25c6e207f0cc55506c1da810be54f1b171dfceba42a9fbd92c6234d10d1d79fc"
   name = "github.com/go-ego/cedar"
   packages = ["."]
   pruneopts = "UT"
-  revision = "0630dde5f3c4a434db484a8b6b377f0470c8d050"
+  revision = "ea076a54857edde111e1ce0c7fca2272f6856880"
 
 [[projects]]
   branch = "master"
@@ -202,14 +194,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:c0b59da8e9510287e1ec24a87b90d45edcf6ae63aeb75571a091f662f4b9f917"
+  digest = "1:a664f284075dbd5d6937f3c3c071177f94014ef16ce2799c902383cad04fa59a"
   name = "github.com/go-ego/gse"
   packages = [
     ".",
     "hmm",
   ]
   pruneopts = "UT"
-  revision = "ad1c1fb5f953bf048f2d26440eb44020f1776f97"
+  revision = "e361db41b9daa29488b4b5e5fcd908f9b8a56fc3"
 
 [[projects]]
   branch = "master"
@@ -246,7 +238,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:62e9e5a4de4090f87648cbeac5724e07c2f4ce6d2db1db5134ff1f0c182586fd"
+  digest = "1:78b8c5557391c5a452db65c5e7184db52c294d434b4aa7f6941ae70a59e6169f"
   name = "github.com/go-redis/redis"
   packages = [
     ".",
@@ -259,7 +251,7 @@
     "internal/util",
   ]
   pruneopts = "UT"
-  revision = "effc0c507aa2cfe5b7ea45cc8be07de048a19cc3"
+  revision = "8238d9a02746abd1b244895f69a0db1c6f86c9b0"
 
 [[projects]]
   branch = "master"
@@ -271,14 +263,6 @@
   ]
   pruneopts = "UT"
   revision = "04b916917f5a891a89ea4365161d2e914f79ad05"
-
-[[projects]]
-  branch = "master"
-  digest = "1:01745416ed734d0dbd8f2a25344536e399ee60319654873da12b107e9e3cb309"
-  name = "github.com/golang/gddo"
-  packages = ["httputil/header"]
-  pruneopts = "UT"
-  revision = "9bd4a32950217197bb319565e843237cca7f85d2"
 
 [[projects]]
   digest = "1:97df918963298c287643883209a2c3f642e6593379f97ab400c2a2e219ab647d"
@@ -383,14 +367,6 @@
   version = "v0.0.3"
 
 [[projects]]
-  digest = "1:dd3d50b46f8d3c88a8d3986f2e5344db582c457469a7cb3a0dda953c669cdf9a"
-  name = "github.com/mitchellh/go-server-timing"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "1ca01db910d57d64ec1c68f27105614b77558e28"
-  version = "v1.0.0"
-
-[[projects]]
   digest = "1:246ab598a22ea9d50f46e65f655f78161a19822f6597268b02f04af998684807"
   name = "github.com/montanaflynn/stats"
   packages = ["."]
@@ -472,7 +448,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:9ff9e1808adfc43f788f1c1e9fd2660c285b522243da985a4c043ec6f2a2d736"
+  digest = "1:2c4379920afd63d262751932c18dfaa30d92ee8241403a919cd7a3e4cf9561d6"
   name = "github.com/syndtr/goleveldb"
   packages = [
     "leveldb",
@@ -489,7 +465,7 @@
     "leveldb/util",
   ]
   pruneopts = "UT"
-  revision = "f9080354173f192dfc8821931eacf9cfd6819253"
+  revision = "d5f8e13ca70d404acb9f9f8daab06b3818425145"
 
 [[projects]]
   branch = "master"
@@ -501,22 +477,24 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:2b15b45b08668975f0501a7db6ece0bedab3fd99874d6dbdb4e5ad454ea08447"
+  digest = "1:7ac9bbf74f45fda3b7385c246ce99e59f66109c9b608e3c3b49b32bdbf855019"
   name = "github.com/syou6162/go-active-learning"
   packages = [
     "lib/cache",
     "lib/classifier",
-    "lib/db",
     "lib/evaluation",
     "lib/example",
     "lib/feature",
     "lib/fetcher",
     "lib/hatena_bookmark",
+    "lib/model",
+    "lib/repository",
+    "lib/service",
     "lib/util",
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "1e2784571cabf318c0985fb0fb2c315f48baebc8"
+  revision = "3709ebe155c49c19a59dbb62c1299400b1182182"
 
 [[projects]]
   digest = "1:c28625428387b63dd7154eb857f51e700465cfbf7c06f619e71f2da33cefe47e"
@@ -543,14 +521,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:a089387bbfcfa884e5aafeebb85929993195bb8959766b1d20102841d47e0b0e"
+  digest = "1:f343f077a5b0bc3a3788b3a04e24dd417e3e25b2acb529c413e212d2c42416ef"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "UT"
-  revision = "93218def8b18e66adbdab3eca8ec334700329f1f"
+  revision = "62eef0e2fa9b2c385f7b2778e763486da6880d37"
 
 [[projects]]
   digest = "1:aa4d6967a3237f8367b6bf91503964a77183ecf696f1273e8ad3551bb4412b5f"
@@ -603,14 +581,15 @@
     "github.com/ikeikeikeike/go-sitemap-generator/stm",
     "github.com/jessevdk/go-assets",
     "github.com/mackerelio/mackerel-client-go",
-    "github.com/mitchellh/go-server-timing",
     "github.com/pbnjay/clustering",
     "github.com/syou6162/go-active-learning/lib/cache",
     "github.com/syou6162/go-active-learning/lib/classifier",
-    "github.com/syou6162/go-active-learning/lib/db",
     "github.com/syou6162/go-active-learning/lib/example",
     "github.com/syou6162/go-active-learning/lib/feature",
     "github.com/syou6162/go-active-learning/lib/hatena_bookmark",
+    "github.com/syou6162/go-active-learning/lib/model",
+    "github.com/syou6162/go-active-learning/lib/repository",
+    "github.com/syou6162/go-active-learning/lib/service",
     "github.com/syou6162/go-active-learning/lib/util",
     "github.com/syou6162/go-active-learning/lib/util/file",
   ]

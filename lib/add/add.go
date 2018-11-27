@@ -3,8 +3,9 @@ package add
 import (
 	"github.com/codegangsta/cli"
 	"github.com/syou6162/go-active-learning/lib/cache"
-	"github.com/syou6162/go-active-learning/lib/db"
 	"github.com/syou6162/go-active-learning/lib/hatena_bookmark"
+	"github.com/syou6162/go-active-learning/lib/repository"
+	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util/file"
 )
 
@@ -16,11 +17,12 @@ func doAdd(c *cli.Context) error {
 		return cli.NewExitError("`input-filename` is a required field.", 1)
 	}
 
-	err := db.Init()
+	repo, err := repository.New()
 	if err != nil {
 		return err
 	}
-	defer db.Close()
+	app := service.NewApp(repo)
+	defer app.Close()
 
 	err = cache.Init()
 	if err != nil {
@@ -36,7 +38,7 @@ func doAdd(c *cli.Context) error {
 	cache.AttachMetadata(examples, true, false)
 
 	for _, e := range examples {
-		if _, err = db.InsertOrUpdateExample(e); err != nil {
+		if err = app.InsertOrUpdateExample(e); err != nil {
 			return err
 		}
 		if bookmark, err := hatena_bookmark.GetHatenaBookmark(e.FinalUrl); err == nil {
