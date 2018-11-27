@@ -6,40 +6,23 @@ import (
 	"testing"
 
 	"encoding/json"
-	"log"
 
 	"net/url"
 	"strings"
 
-	"os"
-
 	"github.com/fukata/golang-stats-api-handler"
 	"github.com/syou6162/go-active-learning-web/lib/search"
 	"github.com/syou6162/go-active-learning-web/lib/web"
-	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/model"
-	"github.com/syou6162/go-active-learning/lib/repository"
 	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util/file"
 )
 
-func TestMain(m *testing.M) {
-	err := cache.Init()
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-	defer cache.Close()
-
-	ret := m.Run()
-	os.Exit(ret)
-}
-
 func TestRecentAddedExamples(t *testing.T) {
-	repo, err := repository.New()
+	app, err := service.NewDefaultApp()
 	if err != nil {
 		t.Error(err)
 	}
-	app := service.NewApp(repo)
 	defer app.Close()
 	if err := app.DeleteAllExamples(); err != nil {
 		t.Error("Cannot delete examples")
@@ -76,7 +59,8 @@ func TestRecentAddedExamples(t *testing.T) {
 			t.Error(err)
 		}
 	}
-	cache.AttachMetadata(train, true, false)
+	app.Fetch(train)
+	app.UpdateExamplesMetadata(train)
 
 	req, err = http.NewRequest("GET", "/api/recent_added_examples", nil)
 	if err != nil {
@@ -97,11 +81,10 @@ func TestRecentAddedExamples(t *testing.T) {
 }
 
 func TestGetExamplesFromList(t *testing.T) {
-	repo, err := repository.New()
+	app, err := service.NewDefaultApp()
 	if err != nil {
 		t.Error(err)
 	}
-	app := service.NewApp(repo)
 	defer app.Close()
 	if err := app.DeleteAllExamples(); err != nil {
 		t.Error("Cannot delete examples")
@@ -117,7 +100,7 @@ func TestGetExamplesFromList(t *testing.T) {
 			t.Error(err)
 		}
 	}
-	cache.AddExamplesToList("general", train)
+	app.AddExamplesToList("general", train)
 
 	req, err := http.NewRequest("GET", "/api/examples?listName=general", nil)
 	if err != nil {
@@ -141,11 +124,10 @@ func TestGetExamplesFromList(t *testing.T) {
 }
 
 func TestSearch(t *testing.T) {
-	repo, err := repository.New()
+	app, err := service.NewDefaultApp()
 	if err != nil {
 		t.Error(err)
 	}
-	app := service.NewApp(repo)
 	defer app.Close()
 	if err := app.DeleteAllExamples(); err != nil {
 		t.Error("Cannot delete examples")
@@ -157,7 +139,8 @@ func TestSearch(t *testing.T) {
 		t.Error(err)
 	}
 
-	cache.AttachMetadata(train, true, true)
+	app.Fetch(train)
+	app.UpdateExamplesMetadata(train)
 
 	for _, example := range train {
 		if err = app.InsertOrUpdateExample(example); err != nil {
@@ -197,11 +180,10 @@ func TestSearch(t *testing.T) {
 }
 
 func TestServerAvail(t *testing.T) {
-	repo, err := repository.New()
+	app, err := service.NewDefaultApp()
 	if err != nil {
 		t.Error(err)
 	}
-	app := service.NewApp(repo)
 	defer app.Close()
 
 	req, err := http.NewRequest("GET", "/api/server_avail", nil)

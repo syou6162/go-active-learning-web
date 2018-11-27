@@ -17,11 +17,9 @@ import (
 	"github.com/codegangsta/cli"
 	mkr "github.com/mackerelio/mackerel-client-go"
 	"github.com/syou6162/go-active-learning-web/lib/submodular"
-	"github.com/syou6162/go-active-learning/lib/cache"
 	"github.com/syou6162/go-active-learning/lib/classifier"
 	"github.com/syou6162/go-active-learning/lib/hatena_bookmark"
 	"github.com/syou6162/go-active-learning/lib/model"
-	"github.com/syou6162/go-active-learning/lib/repository"
 	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util"
 )
@@ -65,17 +63,10 @@ func doRecommend(c *cli.Context) error {
 		return cli.NewExitError("No matched rule", 1)
 	}
 
-	err := cache.Init()
+	app, err := service.NewDefaultApp()
 	if err != nil {
 		return err
 	}
-	defer cache.Close()
-
-	repo, err := repository.New()
-	if err != nil {
-		return err
-	}
-	app := service.NewApp(repo)
 	defer app.Close()
 
 	examples, err := app.ReadLabeledExamples(100000)
@@ -87,7 +78,8 @@ func doRecommend(c *cli.Context) error {
 		return err
 	}
 
-	cache.AttachMetadata(examples, true, false)
+	app.Fetch(examples)
+	app.UpdateExamplesMetadata(examples)
 	examples = util.FilterStatusCodeOkExamples(examples)
 	m := classifier.NewBinaryClassifier(examples)
 
@@ -98,7 +90,8 @@ func doRecommend(c *cli.Context) error {
 
 	targetExamples = util.RemoveNegativeExamples(targetExamples)
 	log.Println("Started to attach metadata to positive or unlabeled...")
-	cache.AttachMetadata(targetExamples, true, false)
+	app.Fetch(targetExamples)
+	app.UpdateExamplesMetadata(targetExamples)
 	targetExamples = util.FilterStatusCodeOkExamples(targetExamples)
 	targetExamples = util.UniqueByFinalUrl(targetExamples)
 	targetExamples = util.UniqueByTitle(targetExamples)
@@ -118,12 +111,12 @@ func doRecommend(c *cli.Context) error {
 		}
 		e.Score = m.PredictScore(e.Fv)
 		e.Title = strings.Replace(e.Title, "\n", " ", -1)
-		if err := cache.SetExample(*e); err != nil {
+		if err := app.UpdateExampleMetadata(*e); err != nil {
 			return err
 		}
 		if e.Score > scoreThreshold {
 			hour := 24 * 31 * 6 // 6 months
-			cache.SetExampleExpire(*e, time.Hour*time.Duration(hour))
+			app.UpdateExampleExpire(*e, time.Hour*time.Duration(hour))
 			result = append(result, e)
 		}
 	}
@@ -141,7 +134,7 @@ func doRecommend(c *cli.Context) error {
 	}
 
 	log.Println("Started to write result...")
-	err = cache.AddExamplesToList(listName, result)
+	err = app.AddExamplesToList(listName, result)
 	if err != nil {
 		return err
 	}
@@ -149,7 +142,7 @@ func doRecommend(c *cli.Context) error {
 	for _, e := range result {
 		if bookmark, err := hatena_bookmark.GetHatenaBookmark(e.FinalUrl); err == nil {
 			e.HatenaBookmark = *bookmark
-			cache.SetExample(*e)
+			app.UpdateExampleMetadata(*e)
 		}
 		fmt.Println(fmt.Sprintf("%0.03f\t%s", e.Score, e.Url))
 	}
