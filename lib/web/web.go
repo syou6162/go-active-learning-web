@@ -215,7 +215,7 @@ func (s *server) GetExampleByUrl() http.Handler {
 		queryValues := r.URL.Query()
 		url := queryValues.Get("url")
 
-		ex, err := s.app.SearchExamplesByUlr(url)
+		ex, err := s.app.FindExampleByUlr(url)
 		if err != nil {
 			BadRequest(w, "No such url: "+url)
 			fmt.Fprintln(w, "No such url: "+url)
