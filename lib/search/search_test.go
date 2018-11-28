@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/syou6162/go-active-learning-web/lib/search"
+	"github.com/syou6162/go-active-learning/lib/example"
 	"github.com/syou6162/go-active-learning/lib/model"
 	"github.com/syou6162/go-active-learning/lib/service"
 )
@@ -26,10 +27,10 @@ func TestSearch(t *testing.T) {
 		t.Error(err.Error())
 	}
 
-	e1 := model.Example{Url: "https://www.yasuhisay.info/entry/2018/10/04/201000", Label: model.POSITIVE}
-	e2 := model.Example{Url: "https://www.yasuhisay.info/entry/2018/10/01/090000", Label: model.POSITIVE}
-	e3 := model.Example{Url: "https://www.yasuhisay.info/entry/mackerel_meetup_12_anomaly_detection", Label: model.POSITIVE}
-	examples := model.Examples{&e1, &e2, &e3}
+	e1 := example.NewExample("https://www.yasuhisay.info/entry/2018/10/04/201000", model.POSITIVE)
+	e2 := example.NewExample("https://www.yasuhisay.info/entry/2018/10/01/090000", model.POSITIVE)
+	e3 := example.NewExample("https://www.yasuhisay.info/entry/mackerel_meetup_12_anomaly_detection", model.POSITIVE)
+	examples := model.Examples{e1, e2, e3}
 
 	for _, e := range examples {
 		if err = app.InsertOrUpdateExample(e); err != nil {
