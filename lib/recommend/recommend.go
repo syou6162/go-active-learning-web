@@ -141,7 +141,7 @@ func doRecommend(c *cli.Context) error {
 
 	for _, e := range result {
 		if bookmark, err := hatena_bookmark.GetHatenaBookmark(e.FinalUrl); err == nil {
-			e.HatenaBookmark = *bookmark
+			e.HatenaBookmark = bookmark
 			app.UpdateExampleMetadata(*e)
 		}
 		fmt.Println(fmt.Sprintf("%0.03f\t%s", e.Score, e.Url))
