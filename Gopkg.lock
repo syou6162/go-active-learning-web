@@ -74,12 +74,12 @@
   version = "v1.0.1"
 
 [[projects]]
-  digest = "1:2209584c0f7c9b68c23374e659357ab546e1b70eec2761f03280f69a8fd23d77"
+  digest = "1:553f73a4171c265045ae4f5d3122429ecf2c9c0c232c91f336127fe45480104a"
   name = "github.com/cenkalti/backoff"
   packages = ["."]
   pruneopts = "UT"
-  revision = "2ea60e5f094469f9e65adb9cd103795b73ae743e"
-  version = "v2.0.0"
+  revision = "62661b46c4093e2c1f38d943e663db1a29873e80"
+  version = "v2.1.0"
 
 [[projects]]
   digest = "1:b24d38b282bacf9791408a080f606370efa3d364e4b5fd9ba0f7b87786d3b679"
@@ -178,11 +178,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:25c6e207f0cc55506c1da810be54f1b171dfceba42a9fbd92c6234d10d1d79fc"
+  digest = "1:96e249a7a1bfd147857d8dfa4a653b2687c90a0633b1fe35a15b1148fe1e45a3"
   name = "github.com/go-ego/cedar"
   packages = ["."]
   pruneopts = "UT"
-  revision = "ea076a54857edde111e1ce0c7fca2272f6856880"
+  revision = "c920d07249de7c982b846173e99feeac1a0e21ff"
 
 [[projects]]
   branch = "master"
@@ -205,11 +205,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:16b6a4d6fe77616c08a7c74c4e79d7cb714052ae4d9868445e789d254f8e5280"
+  digest = "1:2778a49f52f175ea2a1482103b2778b9199c3dc2f3dae004449278049ead8a02"
   name = "github.com/go-ego/murmur"
   packages = ["."]
   pruneopts = "UT"
-  revision = "24868d0e6e6603b3a4cdf82542ed3ee954e3de48"
+  revision = "fac557227e045cbad6cf745e3555c28cdafe5991"
 
 [[projects]]
   branch = "master"
@@ -238,7 +238,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:78b8c5557391c5a452db65c5e7184db52c294d434b4aa7f6941ae70a59e6169f"
+  digest = "1:af88af095c31e033be0bf3eb08965aea96fd779737951f85bf48f57a07c8476b"
   name = "github.com/go-redis/redis"
   packages = [
     ".",
@@ -251,7 +251,7 @@
     "internal/util",
   ]
   pruneopts = "UT"
-  revision = "8238d9a02746abd1b244895f69a0db1c6f86c9b0"
+  revision = "1d1269e0cf72355a7731eb8aea9ecf3192266bb2"
 
 [[projects]]
   branch = "master"
@@ -488,7 +488,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:498a09f67314a83a87053018ac9023fd634b96b7cd43aaf561dbf85cc1fab9f8"
+  digest = "1:1a32166ab08df22073087b551e85d04578911f1a02cbad94fe45ac3f812c4eaf"
   name = "github.com/syou6162/go-active-learning"
   packages = [
     "lib/add",
@@ -506,7 +506,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "b9661ef6268b454a845bf64465af4d0e294a7ca9"
+  revision = "6cf12289475833fc62082c68fafdab00338f3dcb"
 
 [[projects]]
   digest = "1:c28625428387b63dd7154eb857f51e700465cfbf7c06f619e71f2da33cefe47e"
@@ -518,10 +518,9 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:5d842bad291b4fdc0b2fcd8a1b8b044d9dbea49068c232481507605510644940"
+  digest = "1:0ad27c13b4d8059e712dc70f1d2352427710d6547fa54927429c7b6db9802c87"
   name = "golang.org/x/net"
   packages = [
-    "context",
     "html",
     "html/atom",
     "html/charset",
@@ -529,7 +528,7 @@
     "trace",
   ]
   pruneopts = "UT"
-  revision = "adae6a3d119ae4890b46832a2e88a95adc62b8e7"
+  revision = "fae4c4e3ad76c295c3d6d259f898136b4bf833a8"
 
 [[projects]]
   branch = "master"
