@@ -71,8 +71,6 @@ func setReferringTweets(app service.GoActiveLearningApp, listName string) error 
 		return err
 	}
 
-	urls = append(urls, "https://euclidesdb.readthedocs.io/en/latest/")
-
 	examples, err := app.SearchExamplesByUlrs(urls)
 	if err != nil {
 		return err
