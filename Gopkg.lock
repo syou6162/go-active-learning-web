@@ -285,7 +285,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:9e6ffafb97eb3aebbaadeba4718da15e7fd9d9f19c5e1ae4885c24bbc6654076"
+  digest = "1:81c8e913bfcfa2b7c26adae424aad0d6da3bf46e2b9c345c7c7d9c311855a820"
   name = "github.com/syou6162/go-active-learning"
   packages = [
     "lib/add",
@@ -303,7 +303,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "6f04fe56ca9602dffdc2106ef15e14e827f24306"
+  revision = "ead15fb9d09a4e2d49432092a950cc73f63c240d"
 
 [[projects]]
   branch = "master"
