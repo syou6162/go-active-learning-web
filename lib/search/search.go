@@ -1,107 +1,15 @@
 package search
 
 import (
-	"errors"
-	"hash/fnv"
-	"sync"
-
-	"os"
-
-	"sort"
-
-	"github.com/go-ego/riot"
-	"github.com/go-ego/riot/types"
 	"github.com/syou6162/go-active-learning/lib/feature"
 	"github.com/syou6162/go-active-learning/lib/model"
 	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util"
 )
 
-var (
-	once               sync.Once
-	riotDictPath       string
-	searcher           = riot.Engine{}
-	id2url             = map[uint64]string{}
-	avail              = false
-	documentFreqByword = map[string]int{}
-)
-
-func hash(s string) uint64 {
-	h := fnv.New64a()
-	h.Write([]byte(s))
-	return h.Sum64()
-}
-
-func setDictPathFromEnv() {
-	dictPath, ok := os.LookupEnv("RIOT_DICT_PATH")
-	if !ok {
-		goPath := util.GetEnv("GOPATH", "~/go")
-		dictPath = goPath + "/src/github.com/go-ego/gse/data/dict/jp/dict.txt"
-	}
-	riotDictPath = dictPath
-}
-
-func Init(app service.GoActiveLearningApp) error {
-	var err error
-	once.Do(func() {
-		setDictPathFromEnv()
-		searcher.Init(types.EngineOpts{
-			GseDict:  riotDictPath,
-			UseStore: false,
-		})
-
-		examples := model.Examples{}
-		positiveExamples, err := app.ReadPositiveExamples(10000)
-		if err != nil {
-			return
-		}
-		examples = append(examples, positiveExamples...)
-		unlabeledExamples, err := app.ReadUnlabeledExamples(10000)
-		if err != nil {
-			return
-		}
-		examples = append(examples, unlabeledExamples...)
-		app.AttachMetadata(examples)
-		for _, e := range examples {
-			id := hash(e.FinalUrl)
-			id2url[id] = e.FinalUrl
-
-			keywords := make([]types.TokenData, 0)
-			for _, k := range feature.ExtractNounFeaturesWithoutPrefix(e.Title) {
-				keywords = append(keywords, types.TokenData{Text: k})
-			}
-			searcher.Index(id, types.DocData{Content: "", Tokens: keywords})
-			for _, w := range getUniqueWords(e.Title) {
-				documentFreqByword[w]++
-			}
-		}
-		searcher.Flush()
-	})
-	if err != nil {
-		return err
-	}
-	avail = true
-	return nil
-}
-
-func Ping() error {
-	if !avail {
-		return errors.New("searcher cannot be available")
-	}
-	return nil
-}
-
 func Search(app service.GoActiveLearningApp, query string) (model.Examples, error) {
-	urls := make([]string, 0)
-	req := types.SearchReq{
-		Tokens:   feature.ExtractNounFeaturesWithoutPrefix(query),
-		RankOpts: &types.RankOpts{MaxOutputs: 100},
-	}
-	for _, resp := range searcher.SearchDoc(req).Docs {
-		url := id2url[resp.DocId]
-		urls = append(urls, url)
-	}
-	examples, err := app.SearchExamplesByUlrs(urls)
+	keywords := feature.ExtractNounFeaturesWithoutPrefix(query)
+	examples, err := app.SearchExamplesByKeywords(keywords, "ALL", 100)
 	if err != nil {
 		return nil, err
 	}
@@ -123,56 +31,12 @@ func getUniqueWords(s string) []string {
 	return util.RemoveDuplicate(removeOneCharKeywords(feature.ExtractNounFeaturesWithoutPrefix(s)))
 }
 
-func GetKeywordsInQuery(query string) []string {
-	tokens := getUniqueWords(query)
-	type kv struct {
-		Key   string
-		Value int
-	}
-
-	var dfInQuery []kv
-	for _, k := range tokens {
-		if cnt, ok := documentFreqByword[k]; ok {
-			dfInQuery = append(dfInQuery, kv{k, cnt})
-		}
-	}
-
-	sort.Slice(dfInQuery, func(i, j int) bool {
-		return dfInQuery[i].Value < dfInQuery[j].Value
-	})
-
-	result := make([]string, 0)
-	for idx, kv := range dfInQuery {
-		if idx > 2 {
-			break
-		}
-		result = append(result, kv.Key)
-	}
-
-	return result
-}
-
 func SearchSimilarExamples(app service.GoActiveLearningApp, query string, maxOutputs int) (model.Examples, []string, error) {
-	keywords := GetKeywordsInQuery(query)
-	req := types.SearchReq{
-		Tokens:   keywords,
-		Logic:    types.Logic{Should: true},
-		RankOpts: &types.RankOpts{MaxOutputs: maxOutputs},
-	}
-
-	urls := make([]string, 0)
-	for _, resp := range searcher.SearchDoc(req).Docs {
-		url := id2url[resp.DocId]
-		urls = append(urls, url)
-	}
-	examples, err := app.SearchExamplesByUlrs(urls)
+	keywords := getUniqueWords(query)
+	examples, err := app.SearchExamplesByKeywords(keywords, "ANY", maxOutputs)
 	if err != nil {
 		return nil, make([]string, 0), err
 	}
 	app.AttachLightMetadata(examples)
 	return examples, keywords, nil
-}
-
-func Close() {
-	searcher.Close()
 }

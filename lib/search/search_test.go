@@ -39,8 +39,6 @@ func TestSearch(t *testing.T) {
 	}
 	app.Fetch(examples)
 	app.UpdateExamplesMetadata(examples)
-	search.Init(app)
-	defer search.Close()
 
 	result, err := search.Search(app, "機械 学習")
 	if err != nil {
