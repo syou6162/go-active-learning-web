@@ -215,7 +215,7 @@ func (s *server) GetExampleByUrl() http.Handler {
 		queryValues := r.URL.Query()
 		url := queryValues.Get("url")
 
-		ex, err := s.app.SearchExamplesByUlr(url)
+		ex, err := s.app.FindExampleByUlr(url)
 		if err != nil {
 			BadRequest(w, "No such url: "+url)
 			fmt.Fprintln(w, "No such url: "+url)
@@ -304,11 +304,6 @@ func (s *server) ServerAvail() http.Handler {
 			fmt.Fprintln(w, err.Error())
 			return
 		}
-		if err := search.Ping(); err != nil {
-			UnavaliableError(w, err.Error())
-			fmt.Fprintln(w, err.Error())
-			return
-		}
 		Ok(w, "OK, I'm fine")
 	})
 }
@@ -356,9 +351,6 @@ func doServe(c *cli.Context) error {
 			log.Println(err.Error())
 		}
 	}()
-
-	search.Init(app)
-	defer search.Close()
 
 	ahocorasick.Init()
 

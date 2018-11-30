@@ -11,7 +11,6 @@ import (
 	"strings"
 
 	"github.com/fukata/golang-stats-api-handler"
-	"github.com/syou6162/go-active-learning-web/lib/search"
 	"github.com/syou6162/go-active-learning-web/lib/web"
 	"github.com/syou6162/go-active-learning/lib/model"
 	"github.com/syou6162/go-active-learning/lib/service"
@@ -100,6 +99,8 @@ func TestGetExamplesFromList(t *testing.T) {
 			t.Error(err)
 		}
 	}
+	app.Fetch(train)
+	app.UpdateExamplesMetadata(train)
 	app.AddExamplesToList("general", train)
 
 	req, err := http.NewRequest("GET", "/api/examples?listName=general", nil)
@@ -147,11 +148,6 @@ func TestSearch(t *testing.T) {
 			t.Error(err)
 		}
 	}
-
-	if err = search.Init(app); err != nil {
-		t.Error(err)
-	}
-	defer search.Close()
 
 	values := url.Values{}
 	values.Set("query", "blog")
