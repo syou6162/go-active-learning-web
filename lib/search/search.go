@@ -5,10 +5,17 @@ import (
 	"github.com/syou6162/go-active-learning/lib/model"
 	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util"
+	"strings"
 )
 
 func Search(app service.GoActiveLearningApp, query string) (model.Examples, error) {
-	keywords := feature.ExtractNounFeaturesWithoutPrefix(query)
+	keywords := make([]string, 0)
+	for _, s := range strings.Split(query, " ") {
+		if s != "" {
+			keywords = append(keywords, s)
+		}
+	}
+
 	examples, err := app.SearchExamplesByKeywords(keywords, "ALL", 100)
 	if err != nil {
 		return nil, err
