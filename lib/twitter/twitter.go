@@ -55,6 +55,7 @@ func GetReferringTweets(url string) (model.ReferringTweets, error) {
 			FavoriteCount: t.FavoriteCount,
 			RetweetCount: t.RetweetCount,
 			Lang: t.Lang,
+			Retweeted: t.Retweeted,
 
 			ScreenName: t.User.ScreenName,
 			Name: t.User.Name,
