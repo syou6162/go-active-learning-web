@@ -25,7 +25,7 @@
           v-for="example in examplesFilterByIsNew(isNew)"
           v-bind:key="example.Url"
           v-bind:example="example"
-          v-bind:tweets="tweetsByUrl[example.FinalUrl]"
+          v-bind:tweets="example.ReferringTweets"
           ></example>
       </b-card-group>
     </div>
@@ -67,7 +67,6 @@ export default {
       title: "ML News",
       listname: 'general',
       examples: [],
-      tweetsByUrl: {},
       isNew: 0,
       options: [
         { text: 'All', value: 0 },
@@ -98,7 +97,6 @@ export default {
               "IsNewDayThreshold": isNewDayThresholdByListname[listname],
             })
           );
-          this.tweetsByUrl = response.data.TweetsByUrl;
           this.listname = this.$route.params.listname;
           this.title = `ML News - ${this.listname}`;
           this.loading = false;
