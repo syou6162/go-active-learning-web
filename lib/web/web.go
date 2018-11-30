@@ -162,7 +162,6 @@ func (s *server) getUrlsFromList(listName string) (model.Examples, error) {
 
 type ExamplesFromList struct {
 	Examples    model.Examples
-	TweetsByUrl map[string]model.Examples
 }
 
 func (s *server) GetExamplesFromList() http.Handler {
@@ -177,28 +176,10 @@ func (s *server) GetExamplesFromList() http.Handler {
 			return
 		}
 
-		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-		w.WriteHeader(http.StatusOK)
-
 		examples = util.FilterStatusCodeOkExamples(examples)
 		lightenExamples(examples)
-
-		tweetsByUrl := map[string]model.Examples{}
-		for _, e := range examples {
-			tmp, err := s.app.SearchExamplesByUlrs(e.ReferringTweets)
-			if err != nil {
-				w.WriteHeader(http.StatusBadGateway)
-				fmt.Fprintln(w, err.Error())
-				return
-			}
-			s.app.AttachLightMetadata(tmp)
-			tmp = util.FilterStatusCodeOkExamples(tmp)
-			tweetsByUrl[e.FinalUrl] = append(tweetsByUrl[e.FinalUrl], tmp...)
-		}
-
 		JSON(w, http.StatusOK, ExamplesFromList{
 			Examples:    examples,
-			TweetsByUrl: tweetsByUrl,
 		})
 	})
 }
@@ -207,7 +188,6 @@ type ExampleWithSimilarExamples struct {
 	Example         *model.Example
 	SimilarExamples model.Examples `json:"SimilarExamples"`
 	Keywords        []string
-	ReferringTweets model.Examples
 }
 
 func (s *server) GetExampleByUrl() http.Handler {
@@ -229,16 +209,6 @@ func (s *server) GetExampleByUrl() http.Handler {
 			return
 		}
 
-		tweets := ex.ReferringTweets
-		tweetExamples, err := s.app.SearchExamplesByUlrs(tweets)
-		if err != nil {
-			w.WriteHeader(http.StatusBadGateway)
-			fmt.Fprintln(w, err.Error())
-			return
-		}
-		s.app.AttachLightMetadata(tweetExamples)
-		tweetExamples = util.UniqueByFinalUrl(tweetExamples)
-
 		similarExamples, keywords, err := search.SearchSimilarExamples(s.app, ex.Title, 5)
 		if err != nil {
 			BadRequest(w, err.Error())
@@ -258,7 +228,6 @@ func (s *server) GetExampleByUrl() http.Handler {
 			Example:         ex,
 			SimilarExamples: similarExamplesWithoutOriginal,
 			Keywords:        ahocorasick.SearchKeywords(strings.ToLower(ex.Title)),
-			ReferringTweets: tweetExamples,
 		})
 	})
 }
