@@ -54,8 +54,6 @@ Vue.filter('getUserName', function(example) {
   }
 })
 
-Vue.filter('getTwitterId', getTwitterId)
-
 Vue.filter('getDescription', function(example, length, omission) {
   var title = example.Title ? example.Title : example.Url;
   var body = example.Body ? example.Body : title;

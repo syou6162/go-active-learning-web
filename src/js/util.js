@@ -29,19 +29,6 @@ export function truncate(str, length, omission) {
   }
 }
 
-export function getTwitterId(example) {
-  var domain = getDomain(example);
-  var url = example.FinalUrl;
-  var paths = url.replace('http://','').replace('https://','').split(/[/?#]/);
-  if (paths.length === 0) {
-    return;
-  } else if ('twitter.com' === domain) {
-    return paths[1];
-  } else {
-    return;
-  }
-}
-
 export function getTweetTitle(example) {
   var title = example.Title.replace(/\r?\n/g, ' ');
   var result = title.match(/^((.*? on Twitter)|(.*?さんのツイート)): \"(.*?)\"$/);

@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import { getDomain, getTwitterId, getTweetTitle } from './util';
 export default {
   computed: {
     twitterId: function() {
