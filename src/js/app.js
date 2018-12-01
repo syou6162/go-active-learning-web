@@ -63,6 +63,14 @@ Vue.filter('getDescription', function(example, length, omission) {
   return truncate(desc, length, omission);
 })
 
+Vue.filter('getDescriptionForSearchEngine', function(example) {
+  var tweets = example.ReferringTweets.map(t => "@" + t.ScreenName + "「" + t.FullText.substr(0, 100) + "...」").slice(0, 3);
+  var bookmarks = example.HatenaBookmark.bookmarks.filter(function(b) {
+    return b.comment !== "";
+  }).map(b => "id:" + b.user + "「"+ b.comment + "」").slice(0, 3);
+  return tweets.join("\n") + bookmarks.join("\n");
+})
+
 const app = new Vue({
   el: '#app',
   router

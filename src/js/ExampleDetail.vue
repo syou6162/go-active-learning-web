@@ -9,7 +9,7 @@
     <div v-else class="mx-auto" style="max-width: 40rem;">
       <vue-headful 
         v-bind:title="title" 
-        v-bind:description="example | getDescription(1000, '...')"
+        v-bind:description="example | getDescriptionForSearchEngine"
         v-bind:url="example.FinalUrl"
         />
       <b-card v-if="example" v-bind:title="example | getTitle(1000, '...')" tag="article">
