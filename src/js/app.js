@@ -23,7 +23,7 @@ Vue.use(VueAnalytics, {
   router
 })
 
-import { truncate, getDomain, getTwitterId, getTweetTitle } from './util';
+import { truncate, getDomain, getTwitterId, getTweetTitle, filterBookmarksWithComment } from './util';
 
 Vue.filter('getTitle', function(example, length, omission) {
   var title = example.Title ? example.Title : example.Url;
@@ -65,9 +65,7 @@ Vue.filter('getDescription', function(example, length, omission) {
 
 Vue.filter('getDescriptionForSearchEngine', function(example) {
   var tweets = example.ReferringTweets.map(t => "@" + t.ScreenName + "「" + t.FullText.substr(0, 100) + "...」").slice(0, 3);
-  var bookmarks = example.HatenaBookmark.bookmarks.filter(function(b) {
-    return b.comment !== "";
-  }).map(b => "id:" + b.user + "「"+ b.comment + "」").slice(0, 3);
+  var bookmarks = filterBookmarksWithComment(example).map(b => "id:" + b.user + "「"+ b.comment + "」").slice(0, 3);
   return tweets.join("\n") + bookmarks.join("\n");
 })
 

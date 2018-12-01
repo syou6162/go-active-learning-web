@@ -52,6 +52,16 @@
           </b-list-group-item>
         </b-list-group>
       </div>
+      <div v-if="hasBookmarksWithComment">
+        <h4>Bookmark Comments</h4>
+        <b-list-group>
+          <b-list-group-item v-for="b in bookmarksWithComment.slice(0, 3)" :key="b.user">
+            <img style="width: 24px; height: 24px; margin: 2px" v-lazy="'https://cdn.profile-image.st-hatena.com/users/' + b.user+ '/profile.png'" />
+            <a v-bind:href="'http://b.hatena.ne.jp/' + b.user">id:{{ b.user }}</a>
+            {{ b.comment }}
+          </b-list-group-item>
+        </b-list-group>
+      </div>
       <h4 v-if="similarExamples.length > 0">Related Entries</h4>
       <b-list-group>
         <b-list-group-item v-for="example in similarExamples" :key="example.FinalUrl">
@@ -68,7 +78,7 @@
 import axios from 'axios';
 import Example from './Example.vue';
 import HatenaBookmarkIcon from './HatenaBookmarkIcon.vue';
-import { NewExample } from './util';
+import { NewExample, filterBookmarksWithComment } from './util';
 
 export default {
   data () {
@@ -108,6 +118,14 @@ export default {
           }
         });
     }
+  },
+  computed: {
+    hasBookmarksWithComment() {
+      return filterBookmarksWithComment(this.example).length > 0;
+    },
+    bookmarksWithComment() {
+      return filterBookmarksWithComment(this.example);
+    },
   },
   components: {
     "hatena-bookmark-icon": HatenaBookmarkIcon 
