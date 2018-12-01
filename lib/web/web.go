@@ -161,7 +161,7 @@ func (s *server) getUrlsFromList(listName string) (model.Examples, error) {
 }
 
 type ExamplesFromList struct {
-	Examples    model.Examples
+	Examples model.Examples
 }
 
 func (s *server) GetExamplesFromList() http.Handler {
@@ -179,7 +179,7 @@ func (s *server) GetExamplesFromList() http.Handler {
 		examples = util.FilterStatusCodeOkExamples(examples)
 		lightenExamples(examples)
 		JSON(w, http.StatusOK, ExamplesFromList{
-			Examples:    examples,
+			Examples: examples,
 		})
 	})
 }

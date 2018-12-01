@@ -30,8 +30,8 @@ func getClient() *twitter.Client {
 func GetReferringTweets(url string) (model.ReferringTweets, error) {
 	client := getClient()
 	search, resp, err := client.Search.Tweets(&twitter.SearchTweetParams{
-		Query: fmt.Sprintf("%s -filter:retweets", url),
-		Count: 100,
+		Query:     fmt.Sprintf("%s -filter:retweets", url),
+		Count:     100,
 		TweetMode: "extended",
 	})
 
@@ -49,15 +49,15 @@ func GetReferringTweets(url string) (model.ReferringTweets, error) {
 			createdAt = time.Now()
 		}
 		tweet := model.Tweet{
-			CreatedAt: createdAt,
-			IdStr: t.IDStr,
-			FullText: t.FullText,
+			CreatedAt:     createdAt,
+			IdStr:         t.IDStr,
+			FullText:      t.FullText,
 			FavoriteCount: t.FavoriteCount,
-			RetweetCount: t.RetweetCount,
-			Lang: t.Lang,
+			RetweetCount:  t.RetweetCount,
+			Lang:          t.Lang,
 
-			ScreenName: t.User.ScreenName,
-			Name: t.User.Name,
+			ScreenName:      t.User.ScreenName,
+			Name:            t.User.Name,
 			ProfileImageUrl: t.User.ProfileImageURLHttps,
 		}
 		tweets = append(tweets, &tweet)

@@ -1,11 +1,12 @@
 package search
 
 import (
+	"strings"
+
 	"github.com/syou6162/go-active-learning/lib/feature"
 	"github.com/syou6162/go-active-learning/lib/model"
 	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util"
-	"strings"
 )
 
 func Search(app service.GoActiveLearningApp, query string) (model.Examples, error) {
