@@ -115,8 +115,6 @@ func doRecommend(c *cli.Context) error {
 			return err
 		}
 		if e.Score > scoreThreshold {
-			hour := 24 * 31 * 6 // 6 months
-			app.UpdateExampleExpire(*e, time.Hour*time.Duration(hour))
 			result = append(result, e)
 		}
 	}
