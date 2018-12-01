@@ -15,7 +15,7 @@
           <twitter-icon
              v-for="tweet in tweets.slice(0, 8)"
              v-bind:tweet="tweet"
-             v-bind:key="example.Url"
+             v-bind:key="tweet.ScreenName"
              ></twitter-icon>
         </div>
         <b-card-footer>

@@ -4,25 +4,16 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"sort"
-
-	"strings"
 
 	"time"
 
 	"github.com/codegangsta/cli"
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
-	"github.com/syou6162/go-active-learning/lib/example"
 	"github.com/syou6162/go-active-learning/lib/model"
 	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util"
 )
-
-type kv struct {
-	Key   string
-	Value int
-}
 
 func getClient() *twitter.Client {
 	consumerKey := util.GetEnv("TWITTER_CONSUMER_KEY", "")
@@ -36,11 +27,12 @@ func getClient() *twitter.Client {
 	return twitter.NewClient(httpClient)
 }
 
-func GetReferringTweets(url string) ([]string, error) {
+func GetReferringTweets(url string) (model.ReferringTweets, error) {
 	client := getClient()
 	search, resp, err := client.Search.Tweets(&twitter.SearchTweetParams{
-		Query: url,
-		Count: 100,
+		Query:     fmt.Sprintf("%s -filter:retweets", url),
+		Count:     100,
+		TweetMode: "extended",
 	})
 
 	if err != nil {
@@ -50,24 +42,25 @@ func GetReferringTweets(url string) ([]string, error) {
 		return nil, errors.New(resp.Status)
 	}
 
-	var result []kv
+	tweets := model.ReferringTweets{}
 	for _, t := range search.Statuses {
-		if t.Retweeted {
-			continue
+		createdAt, err := t.CreatedAtTime()
+		if err != nil {
+			createdAt = time.Now()
 		}
-		// twitterのcanonicalがlower caseになっているので、それに合わせる
-		url := fmt.Sprintf("https://twitter.com/%s/status/%s", strings.ToLower(t.User.ScreenName), t.IDStr)
-		cnt := t.FavoriteCount
-		if cnt > 2 {
-			result = append(result, kv{url, cnt})
+		tweet := model.Tweet{
+			CreatedAt:     createdAt,
+			IdStr:         t.IDStr,
+			FullText:      t.FullText,
+			FavoriteCount: t.FavoriteCount,
+			RetweetCount:  t.RetweetCount,
+			Lang:          t.Lang,
+
+			ScreenName:      t.User.ScreenName,
+			Name:            t.User.Name,
+			ProfileImageUrl: t.User.ProfileImageURLHttps,
 		}
-	}
-	sort.Slice(result, func(i, j int) bool {
-		return result[i].Value > result[j].Value
-	})
-	tweets := make([]string, 0)
-	for _, t := range result {
-		tweets = append(tweets, t.Key)
+		tweets = append(tweets, &tweet)
 	}
 	return tweets, nil
 }
@@ -98,30 +91,7 @@ func setReferringTweets(app service.GoActiveLearningApp, listName string) error 
 			fmt.Printf("cannot retrieve %s: %s", u, err.Error())
 			continue
 		}
-
-		for _, t := range tweets {
-			tweetExample := example.NewExample(t, model.UNLABELED)
-			if err = app.InsertOrUpdateExample(tweetExample); err != nil {
-				return err
-			}
-		}
-
-		tweetExamples, err := app.SearchExamplesByUlrs(tweets)
-		if err != nil {
-			return err
-		}
-		app.Fetch(tweetExamples)
-		app.UpdateExamplesMetadata(tweetExamples)
-		tweetExamples = util.UniqueByFinalUrl(tweetExamples)
-
-		tweets = []string{}
-		for _, t := range tweetExamples {
-			fmt.Printf("- %s\n", t.FinalUrl)
-			tweets = append(tweets, t.FinalUrl)
-		}
-		tweets = append(tweets, e.ReferringTweets...)
-		tweets = util.RemoveDuplicate(tweets)
-		e.ReferringTweets = tweets
+		e.ReferringTweets = &tweets
 		app.UpdateExampleMetadata(*e)
 	}
 	return nil
