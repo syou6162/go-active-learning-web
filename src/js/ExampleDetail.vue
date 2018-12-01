@@ -25,6 +25,14 @@
             v-bind:key="b.user"
             ></hatena-bookmark-icon>
         </div>
+        <div v-if="example.ReferringTweets && example.ReferringTweets.length > 0">
+          <span style="color: #ff4166;">{{ example.ReferringTweets.length }} mentions</span>:
+          <twitter-icon
+             v-for="tweet in example.ReferringTweets.slice(0, 8)"
+             v-bind:tweet="tweet"
+             v-bind:key="tweet.ScreenName"
+             ></twitter-icon>
+        </div>
         <div v-if="keywords.length > 0">
           Keywords: 
           <b-link 
@@ -78,6 +86,7 @@
 import axios from 'axios';
 import Example from './Example.vue';
 import HatenaBookmarkIcon from './HatenaBookmarkIcon.vue';
+import TwitterIcon from './TwitterIcon.vue';
 import { NewExample, filterBookmarksWithComment } from './util';
 
 export default {
@@ -128,7 +137,8 @@ export default {
     },
   },
   components: {
-    "hatena-bookmark-icon": HatenaBookmarkIcon 
+    "hatena-bookmark-icon": HatenaBookmarkIcon,
+    "twitter-icon": TwitterIcon 
   }
 }
 </script>
