@@ -54,6 +54,11 @@ export default {
   methods: {
     searchExamples: function() {
       let self = this;
+      // undefinedのときは検索しない
+      if (this.query === void 0) {
+        return;
+      }
+
       this.loading = true;
       this.error = null;
 
