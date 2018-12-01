@@ -67,11 +67,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:63c394402a65bb9b6cb355e2d576c313bab65eb57f3b92f599386d614b7580dc"
+  digest = "1:d806797ee643c9e821aebed5e676a105e41afef625a70636e5650f37d984d407"
   name = "github.com/dghubble/go-twitter"
   packages = ["twitter"]
   pruneopts = "UT"
-  revision = "66265eae502c0c5e5542b34e9e2871520050e330"
+  revision = "22c4b7bc9a27d64433c5c9c419311b53f899eac1"
 
 [[projects]]
   digest = "1:f3cacf5fd0e718de3f43af615e84372b318f61889140f6854f98b05894001d99"
@@ -285,7 +285,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:81c8e913bfcfa2b7c26adae424aad0d6da3bf46e2b9c345c7c7d9c311855a820"
+  digest = "1:a07f1d0c0342b9df8e6b6101e30a8bea64825012b5ef1bc94bb5594f9188711a"
   name = "github.com/syou6162/go-active-learning"
   packages = [
     "lib/add",
@@ -303,7 +303,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "ead15fb9d09a4e2d49432092a950cc73f63c240d"
+  revision = "e50a5decfb63f3007499b12ab04fb452712f8e57"
 
 [[projects]]
   branch = "master"
@@ -315,7 +315,7 @@
     "html/charset",
   ]
   pruneopts = "UT"
-  revision = "fae4c4e3ad76c295c3d6d259f898136b4bf833a8"
+  revision = "351d144fa1fc0bd934e2408202be0c29f25e35a0"
 
 [[projects]]
   digest = "1:aa4d6967a3237f8367b6bf91503964a77183ecf696f1273e8ad3551bb4412b5f"
