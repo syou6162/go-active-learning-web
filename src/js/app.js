@@ -23,14 +23,13 @@ Vue.use(VueAnalytics, {
   router
 })
 
-import { truncate, getDomain, getTwitterId, getTweetTitle, filterBookmarksWithComment } from './util';
+import { truncate, getDomain, filterBookmarksWithComment } from './util';
 
 Vue.filter('getTitle', function(example, length, omission) {
   var title = example.Title ? example.Title : example.Url;
   return truncate(title, length, omission);
 })
 
-Vue.filter('getTweetTitle', getTweetTitle)
 Vue.filter('getDomain', getDomain) 
 
 Vue.filter('getUserName', function(example) {

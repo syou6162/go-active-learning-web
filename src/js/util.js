@@ -29,12 +29,6 @@ export function truncate(str, length, omission) {
   }
 }
 
-export function getTweetTitle(example) {
-  var title = example.Title.replace(/\r?\n/g, ' ');
-  var result = title.match(/^((.*? on Twitter)|(.*?さんのツイート)): \"(.*?)\"$/);
-  return truncate(result[4], 200, '...');
-}
- 
 export function filterBookmarksWithComment(example) {
   return example.HatenaBookmark.bookmarks.filter(function(b) {
     return b.comment !== "";
