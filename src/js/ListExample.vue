@@ -96,7 +96,27 @@ export default {
             NewExample(e, {
               "IsNewDayThreshold": isNewDayThresholdByListname[listname],
             })
-          );
+          ).sort(function(a, b) {
+            var aHatebuCount = a.HatenaBookmark.count;
+            var bHatebuCount = b.HatenaBookmark.count;
+
+            var aTweetsCount = 0;
+            var bTweetsCount = 0;
+            if (a.ReferringTweets) {
+              aTweetsCount = a.ReferringTweets.length;
+            }
+            if (b.ReferringTweets) {
+              bTweetsCount = b.ReferringTweets.length;
+            }
+
+            if (aHatebuCount + aTweetsCount > bHatebuCount + bTweetsCount) {
+              return -1;
+            } else if (aHatebuCount +aTweetsCount < bHatebuCount + bTweetsCount) {
+              return 1;
+            } else {
+              return 0;
+            }
+          });
           this.listname = this.$route.params.listname;
           this.title = `ML News - ${this.listname}`;
           this.loading = false;
