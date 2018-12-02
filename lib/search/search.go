@@ -3,10 +3,9 @@ package search
 import (
 	"strings"
 
-	"github.com/syou6162/go-active-learning/lib/feature"
+	"github.com/syou6162/go-active-learning-web/lib/ahocorasick"
 	"github.com/syou6162/go-active-learning/lib/model"
 	"github.com/syou6162/go-active-learning/lib/service"
-	"github.com/syou6162/go-active-learning/lib/util"
 )
 
 func Search(app service.GoActiveLearningApp, query string) (model.Examples, error) {
@@ -25,22 +24,8 @@ func Search(app service.GoActiveLearningApp, query string) (model.Examples, erro
 	return examples, nil
 }
 
-func removeOneCharKeywords(keywords []string) []string {
-	result := make([]string, 0)
-	for _, k := range keywords {
-		if len([]rune(k)) > 1 {
-			result = append(result, k)
-		}
-	}
-	return result
-}
-
-func getUniqueWords(s string) []string {
-	return util.RemoveDuplicate(removeOneCharKeywords(feature.ExtractNounFeaturesWithoutPrefix(s)))
-}
-
 func SearchSimilarExamples(app service.GoActiveLearningApp, query string, maxOutputs int) (model.Examples, []string, error) {
-	keywords := getUniqueWords(query)
+	keywords := ahocorasick.SearchKeywords(strings.ToLower(query))
 	examples, err := app.SearchExamplesByKeywords(keywords, "ANY", maxOutputs)
 	if err != nil {
 		return nil, make([]string, 0), err
