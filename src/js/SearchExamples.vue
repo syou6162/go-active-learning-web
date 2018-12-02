@@ -11,6 +11,11 @@
       No search result for '{{ query }}'
     </div>
     <div v-else>
+      <vue-headful
+         v-bind:title="getSearchResultsTitle"
+         v-bind:description="getSearchResultsDescription"
+         v-bind:url="getSearchResultUrl"
+        />
       <b-card-group columns>
         <example 
           v-for="example in results"
@@ -74,6 +79,17 @@ export default {
             self.error = error.response.statusText;
           }
         });
+    },
+  },
+  computed: {
+    getSearchResultsTitle() {
+      return "ML News - 「" + this.query + "」に関する検索結果";
+    },
+    getSearchResultsDescription() {
+      return this.results.map(e => e.Title).join("\n");
+    },
+    getSearchResultUrl: function() {
+      return "https://www.machine-learning.news/search?query=" + this.query;
     },
   },
   components: {
