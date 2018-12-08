@@ -83,6 +83,11 @@ func doRecommend(c *cli.Context) error {
 	examples = util.FilterStatusCodeOkExamples(examples)
 	m := classifier.NewBinaryClassifier(examples)
 
+	for _, e := range examples {
+		e.Score = m.PredictScore(e.Fv)
+		app.UpdateScore(e)
+	}
+
 	targetExamples, err := app.ReadRecentExamples(time.Now().Add(-time.Duration(24*durationDay) * time.Hour))
 	if err != nil {
 		return err
