@@ -81,7 +81,7 @@ func doRecommend(c *cli.Context) error {
 	app.Fetch(examples)
 	app.UpdateExamplesMetadata(examples)
 	examples = util.FilterStatusCodeOkExamples(examples)
-	m := classifier.NewBinaryClassifier(examples)
+	m := classifier.NewMIRAClassifierByCrossValidation(examples)
 
 	for _, e := range examples {
 		e.Score = m.PredictScore(e.Fv)
