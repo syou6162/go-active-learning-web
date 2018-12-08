@@ -60,25 +60,35 @@ func (s *server) SitemapCategory() http.Handler {
 	})
 }
 
+func (s *server) buildSitemap() (*stm.Sitemap, error) {
+	sm := stm.NewSitemap(1)
+	sm.SetDefaultHost("https://www.machine-learning.news")
+	sm.SetCompress(true)
+	sm.SetVerbose(true)
+
+	sm.Create()
+	positiveExamples, err := s.app.SearchPositiveScoredExamples(1000)
+	if err != nil {
+		return nil, err
+	}
+	if err := s.app.AttachLightMetadata(positiveExamples); err != nil {
+		return nil, err
+	}
+	positiveExamples = util.FilterStatusCodeOkExamples(positiveExamples)
+
+	for _, e := range positiveExamples {
+		sm.Add(stm.URL{{"loc", "/example/" + url.PathEscape(e.FinalUrl)}, {"changefreq", "daily"}})
+	}
+	return sm, nil
+}
+
 func (s *server) SitemapRecentPositiveExamples() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		sm := stm.NewSitemap(1)
-		sm.SetDefaultHost("https://www.machine-learning.news")
-		sm.SetCompress(true)
-		sm.SetVerbose(true)
-
-		sm.Create()
-		positiveExamples, err := s.app.ReadPositiveExamples(100)
+		sm, err := s.buildSitemap()
 		if err != nil {
 			w.WriteHeader(http.StatusBadGateway)
 			fmt.Fprintln(w, err.Error())
 			return
-		}
-		s.app.AttachLightMetadata(positiveExamples)
-		positiveExamples = util.FilterStatusCodeOkExamples(positiveExamples)
-
-		for _, e := range positiveExamples {
-			sm.Add(stm.URL{{"loc", "/example/" + url.PathEscape(e.FinalUrl)}, {"changefreq", "daily"}})
 		}
 
 		w.Header().Set("Content-Type", "application/xml; charset=UTF-8")
