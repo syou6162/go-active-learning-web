@@ -34,17 +34,7 @@ func doUpdateModel(c *cli.Context) error {
 	examples = util.FilterStatusCodeOkExamples(examples)
 	m := classifier.NewMIRAClassifierByCrossValidation(examples)
 
-	if err := app.InsertMIRAModel(*m); err != nil {
-		return err
-	}
-
-	for _, e := range examples {
-		e.Score = m.PredictScore(e.Fv)
-		if err := app.UpdateScore(e); err != nil {
-			return err
-		}
-	}
-	return nil
+	return app.InsertMIRAModel(*m)
 }
 
 func postNumOfPositiveAndNegativeExamplesToMackerel(examples model.Examples) error {
