@@ -9,15 +9,11 @@ import (
 
 	"regexp"
 
-	"os"
-
 	"net/url"
 	"sort"
 
 	"github.com/codegangsta/cli"
-	mkr "github.com/mackerelio/mackerel-client-go"
 	"github.com/syou6162/go-active-learning-web/lib/submodular"
-	"github.com/syou6162/go-active-learning/lib/classifier"
 	"github.com/syou6162/go-active-learning/lib/hatena_bookmark"
 	"github.com/syou6162/go-active-learning/lib/model"
 	"github.com/syou6162/go-active-learning/lib/service"
@@ -69,25 +65,6 @@ func doRecommend(c *cli.Context) error {
 	}
 	defer app.Close()
 
-	examples, err := app.ReadLabeledExamples(100000)
-	if err != nil {
-		return err
-	}
-	err = postNumOfPositiveAndNegativeExamplesToMackerel(examples)
-	if err != nil {
-		return err
-	}
-
-	app.Fetch(examples)
-	app.UpdateExamplesMetadata(examples)
-	examples = util.FilterStatusCodeOkExamples(examples)
-	m := classifier.NewMIRAClassifierByCrossValidation(examples)
-
-	for _, e := range examples {
-		e.Score = m.PredictScore(e.Fv)
-		app.UpdateScore(e)
-	}
-
 	targetExamples, err := app.ReadRecentExamples(time.Now().Add(-time.Duration(24*durationDay) * time.Hour))
 	if err != nil {
 		return err
@@ -101,6 +78,11 @@ func doRecommend(c *cli.Context) error {
 	targetExamples = util.UniqueByFinalUrl(targetExamples)
 	targetExamples = util.UniqueByTitle(targetExamples)
 	log.Println(fmt.Sprintf("target size: %d", len(targetExamples)))
+
+	m, err := app.FindLatestMIRAModel()
+	if err != nil {
+		return err
+	}
 
 	log.Println("Started to predict scores...")
 	result := model.Examples{}
@@ -151,40 +133,6 @@ func doRecommend(c *cli.Context) error {
 	}
 
 	return nil
-}
-
-func postNumOfPositiveAndNegativeExamplesToMackerel(examples model.Examples) error {
-	apiKey := os.Getenv("MACKEREL_API_KEY")
-	serviceName := os.Getenv("MACKEREL_SERVICE_NAME")
-	if apiKey == "" || serviceName == "" {
-		return nil
-	}
-
-	numPos := 0
-	numNeg := 0
-	for _, e := range examples {
-		if e.Label == model.POSITIVE {
-			numPos++
-		} else if e.Label == model.NEGATIVE {
-			numNeg++
-		}
-	}
-
-	client := mkr.NewClient(apiKey)
-	now := time.Now().Unix()
-	err := client.PostServiceMetricValues(serviceName, []*mkr.MetricValue{
-		{
-			Name:  "count.positive",
-			Time:  now,
-			Value: numPos,
-		},
-		{
-			Name:  "count.negative",
-			Time:  now,
-			Value: numNeg,
-		},
-	})
-	return err
 }
 
 var CommandRecommend = cli.Command{
