@@ -18,15 +18,15 @@
              v-bind:key="tweet.ScreenName"
              ></twitter-icon>
         </div>
+        <annotate-buttons
+          v-if="isAdmin"
+          v-bind:example="example"
+          ></annotate-buttons>
         <b-card-footer>
           <b-button v-bind:href="'/example/' + encodeURIComponent(example.FinalUrl)" class="float-right" size="sm" v-bind:variant="example | getButtonStyle">Read more</b-button>
           <img v-if="example.Favicon" style="width: 16px; height: 16px;" v-lazy="example.Favicon" onerror="this.style.display='none'" />
           <a v-bind:href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
         </b-card-footer>
-        <annotate-buttons
-          v-if="isAdmin"
-          v-bind:example="example"
-          ></annotate-buttons>
       </b-card-body>
     </b-card>
   </div>
