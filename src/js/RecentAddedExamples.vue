@@ -34,11 +34,11 @@ import { NewExample, IsAdmin } from './util';
 export default {
   data () {
     return {
-      label: 1,
+      label: 0,
       options: [
+        { text: 'Unlabeled', value: 0 },
         { text: 'Positive', value: 1 },
         { text: 'Negative', value: -1 },
-        { text: 'Unlabeled', value: 0 },
       ],
       positive: [],
       negative: [],
