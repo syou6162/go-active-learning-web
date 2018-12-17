@@ -65,7 +65,11 @@ export function signOut() {
   return Auth.signOut();
 }
 
-export function currentSession() {
-  return Auth.currentSession();
+export function IsAdmin() {
+  return Auth.currentSession()
+    .then((data) => {
+      return true;
+    }).catch((err) => {
+      return false;
+    });
 }
-

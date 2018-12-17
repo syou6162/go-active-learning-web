@@ -23,6 +23,10 @@
           <img v-if="example.Favicon" style="width: 16px; height: 16px;" v-lazy="example.Favicon" onerror="this.style.display='none'" />
           <a v-bind:href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
         </b-card-footer>
+        <annotate-buttons
+          v-if="isAdmin"
+          v-bind:example="example"
+          ></annotate-buttons>
       </b-card-body>
     </b-card>
   </div>
@@ -31,16 +35,19 @@
 <script>
 import HatenaBookmarkIcon from './HatenaBookmarkIcon.vue';
 import TwitterIcon from './TwitterIcon.vue';
+import AnnotateButtons from './AnnotateButtons.vue';
+
 export default {
   data () {
     return {
       modalShow: false
     }
   },
-  props: ['example', 'tweets'],
+  props: ['example', 'tweets', 'isAdmin'],
   components: {
     "hatena-bookmark-icon": HatenaBookmarkIcon,
-    "twitter-icon": TwitterIcon 
+    "twitter-icon": TwitterIcon,
+    "annotate-buttons": AnnotateButtons 
   }
 }
 </script>
