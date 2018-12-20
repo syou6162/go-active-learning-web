@@ -1,9 +1,9 @@
 <template>
   <div>
     Annotate as: 
-    <b-button size="sm" variant="outline-primary" :pressed="false" v-on:click="updateLabel(example, 1)">Positive</b-button>
-    <b-button size="sm" variant="outline-danger" v-on:click="updateLabel(example, -1)">Negative</b-button>
-    <b-button size="sm" variant="outline-secondary" v-on:click="updateLabel(example, 0)">Unlabeled</b-button>
+    <b-button size="sm" v-bind:variant="[example.Label == 1 ? 'primary' : 'outline-primary']" :pressed="false" v-on:click="updateLabel(example, 1)">Positive</b-button>
+    <b-button size="sm" v-bind:variant="[example.Label == -1 ? 'danger' : 'outline-danger']" v-on:click="updateLabel(example, -1)">Negative</b-button>
+    <b-button size="sm" v-bind:variant="[example.Label == 0 ? 'secondary' : 'outline-secondary']" v-on:click="updateLabel(example, 0)">Unlabeled</b-button>
   </div>
 </template>
 
