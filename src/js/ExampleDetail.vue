@@ -132,7 +132,7 @@ export default {
             self.error = error.response.statusText;
           }
         });
-      this.isAdmin = IsAdmin();
+      IsAdmin().then(isAdmin => this.isAdmin = isAdmin);
     }
   },
   computed: {
