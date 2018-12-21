@@ -19,7 +19,7 @@ func doUpdateModel(c *cli.Context) error {
 	}
 	defer app.Close()
 
-	examples, err := app.ReadLabeledExamples(100000)
+	examples, err := app.SearchLabeledExamples(100000)
 	if err != nil {
 		return err
 	}

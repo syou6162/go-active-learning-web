@@ -65,7 +65,7 @@ func doRecommend(c *cli.Context) error {
 	}
 	defer app.Close()
 
-	targetExamples, err := app.ReadRecentExamples(time.Now().Add(-time.Duration(24*durationDay) * time.Hour))
+	targetExamples, err := app.SearchRecentExamples(time.Now().Add(-time.Duration(24*durationDay)*time.Hour), 10000)
 	if err != nil {
 		return err
 	}

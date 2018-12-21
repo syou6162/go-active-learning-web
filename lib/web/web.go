@@ -103,7 +103,7 @@ type RecentAddedExamplesResult struct {
 
 func (s *server) RecentAddedExamples() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		positiveExamples, err := s.app.ReadPositiveExamples(30)
+		positiveExamples, err := s.app.SearchPositiveExamples(30)
 		if err != nil {
 			BadRequest(w, err.Error())
 			fmt.Fprintln(w, err.Error())
@@ -111,7 +111,7 @@ func (s *server) RecentAddedExamples() http.Handler {
 		}
 		s.app.AttachLightMetadata(positiveExamples)
 
-		negativeExamples, err := s.app.ReadNegativeExamples(30)
+		negativeExamples, err := s.app.SearchNegativeExamples(30)
 		if err != nil {
 			BadRequest(w, err.Error())
 			fmt.Fprintln(w, err.Error())
@@ -120,7 +120,7 @@ func (s *server) RecentAddedExamples() http.Handler {
 		s.app.AttachLightMetadata(negativeExamples)
 
 		unlabeledExamples := model.Examples{}
-		tmp, err := s.app.ReadUnlabeledExamples(60)
+		tmp, err := s.app.SearchUnlabeledExamples(30)
 		if err != nil {
 			BadRequest(w, err.Error())
 			fmt.Fprintln(w, err.Error())
