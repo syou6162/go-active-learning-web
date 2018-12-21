@@ -28,6 +28,14 @@ var listName2Rule = map[string]*regexp.Regexp{
 	"arxiv":   regexp.MustCompile(`https://arxiv.org/abs/.+`),
 }
 
+var listName2Hosts = map[string][]string{
+	"general": {"http"},
+	"article": {"http"},
+	"github":  {"https://github.com"},
+	"slide":   {"https://www.slideshare.net", "https://speakerdeck.com"},
+	"arxiv":   {"https://arxiv.org"},
+}
+
 func UniqByHost(examples model.Examples) model.Examples {
 	result := model.Examples{}
 
@@ -65,9 +73,18 @@ func doRecommend(c *cli.Context) error {
 	}
 	defer app.Close()
 
-	targetExamples, err := app.SearchRecentExamples(time.Now().Add(-time.Duration(24*durationDay)*time.Hour), 10000)
-	if err != nil {
-		return err
+	targetExamples := model.Examples{}
+	hosts, ok := listName2Hosts[listName]
+	if ok == false {
+		return cli.NewExitError("No matched rule", 1)
+	}
+
+	for _, h := range hosts {
+		tmp, err := app.SearchRecentExamplesByHost(h, time.Now().Add(-time.Duration(24*durationDay)*time.Hour), 10000)
+		if err != nil {
+			return err
+		}
+		targetExamples = append(targetExamples, tmp...)
 	}
 
 	targetExamples = util.RemoveNegativeExamples(targetExamples)
