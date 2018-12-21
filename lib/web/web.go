@@ -119,18 +119,11 @@ func (s *server) RecentAddedExamples() http.Handler {
 		}
 		s.app.AttachLightMetadata(negativeExamples)
 
-		unlabeledExamples := model.Examples{}
-		tmp, err := s.app.SearchUnlabeledExamples(30)
+		unlabeledExamples, err := s.app.SearchUnlabeledExamples(30)
 		if err != nil {
 			BadRequest(w, err.Error())
 			fmt.Fprintln(w, err.Error())
 			return
-		}
-
-		for _, e := range tmp {
-			if !e.IsTwitterUrl() {
-				unlabeledExamples = append(unlabeledExamples, e)
-			}
 		}
 		s.app.AttachLightMetadata(unlabeledExamples)
 		unlabeledExamples = util.FilterStatusCodeOkExamples(unlabeledExamples)
