@@ -18,6 +18,8 @@
              v-bind:key="tweet.ScreenName"
              ></twitter-icon>
         </div>
+        Date: 
+        {{ example.CreatedAt.tz("Asia/Tokyo").format("YYYY/MM/DD HH:mm") }}
         <annotate-buttons
           v-if="isAdmin"
           v-bind:example="example"
