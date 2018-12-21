@@ -26,6 +26,7 @@
           v-bind:key="example.Url"
           v-bind:example="example"
           v-bind:tweets="example.ReferringTweets"
+          v-bind:isAdmin="isAdmin"
           ></example>
       </b-card-group>
     </div>
@@ -35,7 +36,7 @@
 <script>
 import axios from 'axios';
 import Example from './Example.vue';
-import { NewExample } from './util';
+import { NewExample, IsAdmin } from './util';
 
 const keywordsByListname = {
   "general": ["機械学習", "Machine Learning", "自然言語処理"],
@@ -74,10 +75,12 @@ export default {
       ],
       error: null,
       loading: true,
+      isAdmin: false,
     }
   },
   mounted() {
     this.fetchList(this.$route.params.listname)
+    IsAdmin().then(isAdmin => this.isAdmin = isAdmin);
   },
   watch: {
     '$route' (to, from) {

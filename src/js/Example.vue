@@ -18,6 +18,12 @@
              v-bind:key="tweet.ScreenName"
              ></twitter-icon>
         </div>
+        Date: 
+        {{ example.CreatedAt.tz("Asia/Tokyo").format("YYYY/MM/DD HH:mm") }}
+        <annotate-buttons
+          v-if="isAdmin"
+          v-bind:example="example"
+          ></annotate-buttons>
         <b-card-footer>
           <b-button v-bind:href="'/example/' + encodeURIComponent(example.FinalUrl)" class="float-right" size="sm" v-bind:variant="example | getButtonStyle">Read more</b-button>
           <img v-if="example.Favicon" style="width: 16px; height: 16px;" v-lazy="example.Favicon" onerror="this.style.display='none'" />
@@ -31,16 +37,19 @@
 <script>
 import HatenaBookmarkIcon from './HatenaBookmarkIcon.vue';
 import TwitterIcon from './TwitterIcon.vue';
+import AnnotateButtons from './AnnotateButtons.vue';
+
 export default {
   data () {
     return {
       modalShow: false
     }
   },
-  props: ['example', 'tweets'],
+  props: ['example', 'tweets', 'isAdmin'],
   components: {
     "hatena-bookmark-icon": HatenaBookmarkIcon,
-    "twitter-icon": TwitterIcon 
+    "twitter-icon": TwitterIcon,
+    "annotate-buttons": AnnotateButtons 
   }
 }
 </script>

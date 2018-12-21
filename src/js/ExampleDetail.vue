@@ -45,6 +45,10 @@
         </div>
         Date: 
         {{ example.CreatedAt.tz("Asia/Tokyo").format("YYYY/MM/DD HH:mm") }}
+        <annotate-buttons
+          v-if="isAdmin"
+          v-bind:example="example"
+          ></annotate-buttons>
         <b-card-footer>
           <img v-if="example.Favicon" style="width: 16px; height: 16px;" v-lazy="example.Favicon" onerror="this.style.display='none'" />
           <a v-bind:href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
@@ -86,8 +90,9 @@
 import axios from 'axios';
 import Example from './Example.vue';
 import HatenaBookmarkIcon from './HatenaBookmarkIcon.vue';
+import AnnotateButtons from './AnnotateButtons.vue';
 import TwitterIcon from './TwitterIcon.vue';
-import { NewExample, filterBookmarksWithComment } from './util';
+import { NewExample, filterBookmarksWithComment, IsAdmin } from './util';
 
 export default {
   data () {
@@ -99,6 +104,7 @@ export default {
       keywords: [],
       error: null,
       loading: true,
+      isAdmin: false,
     }
   },
   mounted() {
@@ -126,6 +132,7 @@ export default {
             self.error = error.response.statusText;
           }
         });
+      IsAdmin().then(isAdmin => this.isAdmin = isAdmin);
     }
   },
   computed: {
@@ -138,7 +145,8 @@ export default {
   },
   components: {
     "hatena-bookmark-icon": HatenaBookmarkIcon,
-    "twitter-icon": TwitterIcon 
+    "twitter-icon": TwitterIcon,
+    "annotate-buttons": AnnotateButtons 
   }
 }
 </script>

@@ -2,6 +2,7 @@ import RecentAddedExamples from './RecentAddedExamples.vue';
 import SearchExamples from './SearchExamples.vue';
 import ListExample from './ListExample.vue';
 import ExampleDetail from './ExampleDetail.vue';
+import Admin from './Admin.vue';
 
 export default [
   {
@@ -23,5 +24,9 @@ export default [
   {
     path: '/example/:url',
     component: ExampleDetail 
-  }
+  },
+  {
+    path: '/admin',
+    component: Admin 
+  },
 ]

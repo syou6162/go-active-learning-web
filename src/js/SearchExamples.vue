@@ -21,6 +21,7 @@
           v-for="example in results"
           v-bind:key="example.Url"
           v-bind:example="example"
+          v-bind:isAdmin="isAdmin"
           ></example>
       </b-card-group>
     </div>
@@ -31,7 +32,7 @@
 import axios from 'axios';
 import _ from 'lodash';
 import Example from './Example.vue';
-import { NewExample } from './util';
+import { NewExample, IsAdmin } from './util';
 
 export default {
   mounted() {
@@ -44,6 +45,7 @@ export default {
       results: [],
       error: null,
       loading: true,
+      isAdmin: false,
     }
   },
   watch: {
@@ -55,6 +57,7 @@ export default {
   },
   created: function() {
     this.debouncedGetSearchResult = _.debounce(this.searchExamples, 500)
+    IsAdmin().then(isAdmin => this.isAdmin = isAdmin);
   },
   methods: {
     searchExamples: function() {

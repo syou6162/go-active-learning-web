@@ -19,6 +19,7 @@
           v-for="example in searchExamplesByLabel(label)"
           v-bind:key="example.Url"
           v-bind:example="example"
+          v-bind:isAdmin="isAdmin"
           ></example>
       </b-card-group>
     </div>
@@ -28,22 +29,23 @@
 <script>
 import axios from 'axios';
 import Example from './Example.vue';
-import { NewExample } from './util';
+import { NewExample, IsAdmin } from './util';
 
 export default {
   data () {
     return {
-      label: 1,
+      label: 0,
       options: [
+        { text: 'Unlabeled', value: 0 },
         { text: 'Positive', value: 1 },
         { text: 'Negative', value: -1 },
-        { text: 'Unlabeled', value: 0 },
       ],
       positive: [],
       negative: [],
       unlabeled: [],
       error: null,
       loading: true,
+      isAdmin: false,
     }
   },
   mounted() {
@@ -63,6 +65,7 @@ export default {
           self.error = error.response.statusText;
         }
       });
+    IsAdmin().then(isAdmin => this.isAdmin = isAdmin);
   },
   methods: {
     searchExamplesByLabel: function(label) {

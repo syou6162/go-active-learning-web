@@ -67,11 +67,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:d806797ee643c9e821aebed5e676a105e41afef625a70636e5650f37d984d407"
+  digest = "1:4df66ab104e315cae30e5630f4563bf7b46661f8efea9a0bc4ff2edde4dfaab0"
   name = "github.com/dghubble/go-twitter"
   packages = ["twitter"]
   pruneopts = "UT"
-  revision = "22c4b7bc9a27d64433c5c9c419311b53f899eac1"
+  revision = "7ecc41c771b6fe11669159da651b6adf06ee60bf"
 
 [[projects]]
   digest = "1:f3cacf5fd0e718de3f43af615e84372b318f61889140f6854f98b05894001d99"
@@ -123,7 +123,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:af88af095c31e033be0bf3eb08965aea96fd779737951f85bf48f57a07c8476b"
+  digest = "1:424f6593024cdf0f6f90cba81bc69ca98df3758525e6fb248198ef15ead603a9"
   name = "github.com/go-redis/redis"
   packages = [
     ".",
@@ -136,7 +136,7 @@
     "internal/util",
   ]
   pruneopts = "UT"
-  revision = "1d1269e0cf72355a7731eb8aea9ecf3192266bb2"
+  revision = "c7d2ae66a004395d3420f640372791d1a002e6a6"
 
 [[projects]]
   digest = "1:a63cff6b5d8b95638bfe300385d93b2a6d9d687734b863da8e09dc834510a690"
@@ -228,12 +228,12 @@
   version = "v0.0.2"
 
 [[projects]]
-  digest = "1:cdb899c199f907ac9fb50495ec71212c95cb5b0e0a8ee0800da0238036091033"
+  digest = "1:0356f3312c9bd1cbeda81505b7fd437501d8e778ab66998ef69f00d7f9b3a0d7"
   name = "github.com/mattn/go-runewidth"
   packages = ["."]
   pruneopts = "UT"
-  revision = "ce7b0b5c7b45a81508558cd1dba6bb1e4ddb51bb"
-  version = "v0.0.3"
+  revision = "3ee7d812e62a0804a7d0a324e0249ca2db3476d3"
+  version = "v0.0.4"
 
 [[projects]]
   digest = "1:246ab598a22ea9d50f46e65f655f78161a19822f6597268b02f04af998684807"
@@ -285,7 +285,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:0a33e89c46c682c790330a46b9ffc0ac5ac4d658152f14d57a487769e65b9ad4"
+  digest = "1:a32432147814ccf2a1b2cef39a06965f74d8d86594ee8dd8ee5879a4145ce2f6"
   name = "github.com/syou6162/go-active-learning"
   packages = [
     "lib/add",
@@ -303,7 +303,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "5bebfe99515b5bdfba563c84b8fdce43029d8c52"
+  revision = "3797407330fe7eaca7ce54b1b52b88418e6c0e3f"
 
 [[projects]]
   branch = "master"
@@ -315,7 +315,7 @@
     "html/charset",
   ]
   pruneopts = "UT"
-  revision = "610586996380ceef02dd726cc09df7e00a3f8e56"
+  revision = "927f97764cc334a6575f4b7a1584a147864d5723"
 
 [[projects]]
   digest = "1:aa4d6967a3237f8367b6bf91503964a77183ecf696f1273e8ad3551bb4412b5f"
