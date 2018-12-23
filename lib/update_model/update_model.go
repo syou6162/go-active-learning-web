@@ -28,9 +28,12 @@ func doUpdateModel(c *cli.Context) error {
 		return err
 	}
 
-	app.Fetch(examples)
-	if err := app.UpdateExamplesMetadata(examples); err != nil {
-		return err
+	notOkExamples := util.FilterStatusCodeNotOkExamples(examples)
+	app.Fetch(notOkExamples)
+	for _, e := range util.FilterStatusCodeOkExamples(notOkExamples) {
+		if err := app.UpdateFeatureVector(e); err != nil {
+			return err
+		}
 	}
 	examples = util.FilterStatusCodeOkExamples(examples)
 	m := classifier.NewMIRAClassifierByCrossValidation(examples)

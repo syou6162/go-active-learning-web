@@ -32,13 +32,12 @@ func TestSearch(t *testing.T) {
 	e3 := example.NewExample("https://www.yasuhisay.info/entry/mackerel_meetup_12_anomaly_detection", model.POSITIVE)
 	examples := model.Examples{e1, e2, e3}
 
+	app.Fetch(examples)
 	for _, e := range examples {
-		if err = app.InsertOrUpdateExample(e); err != nil {
+		if err = app.UpdateOrCreateExample(e); err != nil {
 			t.Error(err)
 		}
 	}
-	app.Fetch(examples)
-	app.UpdateExamplesMetadata(examples)
 
 	result, err := search.Search(app, "機械 学習")
 	if err != nil {

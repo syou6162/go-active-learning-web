@@ -53,13 +53,12 @@ func TestRecentAddedExamples(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+	app.Fetch(train)
 	for _, example := range train {
-		if err = app.InsertOrUpdateExample(example); err != nil {
+		if err = app.UpdateOrCreateExample(example); err != nil {
 			t.Error(err)
 		}
 	}
-	app.Fetch(train)
-	app.UpdateExamplesMetadata(train)
 
 	req, err = http.NewRequest("GET", "/api/recent_added_examples", nil)
 	if err != nil {
@@ -94,13 +93,12 @@ func TestGetExamplesFromList(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+	app.Fetch(train)
 	for _, example := range train {
-		if err = app.InsertOrUpdateExample(example); err != nil {
+		if err = app.UpdateOrCreateExample(example); err != nil {
 			t.Error(err)
 		}
 	}
-	app.Fetch(train)
-	app.UpdateExamplesMetadata(train)
 	app.AddExamplesToList("general", train)
 
 	req, err := http.NewRequest("GET", "/api/examples?listName=general", nil)
@@ -141,10 +139,8 @@ func TestSearch(t *testing.T) {
 	}
 
 	app.Fetch(train)
-	app.UpdateExamplesMetadata(train)
-
 	for _, example := range train {
-		if err = app.InsertOrUpdateExample(example); err != nil {
+		if err = app.UpdateOrCreateExample(example); err != nil {
 			t.Error(err)
 		}
 	}

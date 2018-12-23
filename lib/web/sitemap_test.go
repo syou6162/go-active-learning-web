@@ -45,8 +45,7 @@ func TestSitemapCategory(t *testing.T) {
 		t.Error(err)
 	}
 	for _, example := range train {
-		println(example.Url)
-		if err = app.InsertOrUpdateExample(example); err != nil {
+		if err = app.UpdateOrCreateExample(example); err != nil {
 			t.Error(err)
 		}
 	}
@@ -79,15 +78,13 @@ func TestSitemapRecentPositiveExamples(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+
+	app.Fetch(train)
 	for _, example := range train {
 		example.Score = 10.0
-		if err = app.InsertOrUpdateExample(example); err != nil {
+		if err = app.UpdateOrCreateExample(example); err != nil {
 			t.Error(err)
 		}
-	}
-	app.Fetch(train)
-	if err := app.UpdateExamplesMetadata(train); err != nil {
-		t.Error(err)
 	}
 
 	req, err := http.NewRequest("GET", "/sitemap/recent", nil)

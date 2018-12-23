@@ -92,7 +92,9 @@ func setReferringTweets(app service.GoActiveLearningApp, listName string) error 
 			continue
 		}
 		e.ReferringTweets = &tweets
-		app.UpdateExampleMetadata(*e)
+		if err = app.UpdateReferringTweets(e); err != nil {
+			fmt.Printf("cannot update %s: %s", e.Url, err.Error())
+		}
 	}
 	return nil
 }

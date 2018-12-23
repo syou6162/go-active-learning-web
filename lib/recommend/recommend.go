@@ -89,8 +89,17 @@ func doRecommend(c *cli.Context) error {
 
 	targetExamples = util.RemoveNegativeExamples(targetExamples)
 	log.Println("Started to attach metadata to positive or unlabeled...")
-	app.Fetch(targetExamples)
-	app.UpdateExamplesMetadata(targetExamples)
+	if err = app.AttachLightMetadata(targetExamples); err != nil {
+		return err
+	}
+
+	notOkExamples := util.FilterStatusCodeNotOkExamples(targetExamples)
+	app.Fetch(notOkExamples)
+	for _, e := range util.FilterStatusCodeOkExamples(notOkExamples) {
+		app.UpdateOrCreateExample(e)
+		app.UpdateFeatureVector(e)
+	}
+
 	targetExamples = util.FilterStatusCodeOkExamples(targetExamples)
 	targetExamples = util.UniqueByFinalUrl(targetExamples)
 	targetExamples = util.UniqueByTitle(targetExamples)
@@ -115,7 +124,7 @@ func doRecommend(c *cli.Context) error {
 		}
 		e.Score = m.PredictScore(e.Fv)
 		e.Title = strings.Replace(e.Title, "\n", " ", -1)
-		if err := app.UpdateExampleMetadata(*e); err != nil {
+		if err := app.UpdateScore(e); err != nil {
 			return err
 		}
 		if e.Score > scoreThreshold {
@@ -144,7 +153,9 @@ func doRecommend(c *cli.Context) error {
 	for _, e := range result {
 		if bookmark, err := hatena_bookmark.GetHatenaBookmark(e.FinalUrl); err == nil {
 			e.HatenaBookmark = bookmark
-			app.UpdateExampleMetadata(*e)
+			if err = app.UpdateHatenaBookmark(e); err != nil {
+				log.Println(fmt.Sprintf("Error to update bookmark info %s %s", e.Url, err.Error()))
+			}
 		}
 		fmt.Println(fmt.Sprintf("%0.03f\t%s", e.Score, e.Url))
 	}
