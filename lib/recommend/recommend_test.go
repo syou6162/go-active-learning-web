@@ -49,7 +49,7 @@ func TestDoRecommend(t *testing.T) {
 		"--subset-selection",
 		"-r=0.75",
 		"--size-constraint=20",
-		"--score-threshold=0.1",
+		"--score-threshold=-0.1",
 		"--listname=general",
 	}
 
