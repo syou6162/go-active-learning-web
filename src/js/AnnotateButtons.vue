@@ -14,12 +14,15 @@ export default {
   props: ['example'],
   methods: {
     updateLabel(example, label) {
+      let idToken = localStorage.getItem("CognitoIdentityServiceProvider.4ia5ifrn456rqg4vr6dqfh7e68.yasuhisa.idToken");
+      let headers = { headers: { 'Authorization': idToken } };
       axios.post(
         "https://3ojd2wnlpg.execute-api.us-east-1.amazonaws.com/Prod/update_example_label", 
         {
           url: example.Url,
           label: label,
         },
+        headers
       ).then(response => {
         example.Label = label;
       }).catch(function (error) {
