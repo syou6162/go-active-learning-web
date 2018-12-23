@@ -93,6 +93,11 @@ func doRecommend(c *cli.Context) error {
 		return err
 	}
 
+	okExamples := util.FilterStatusCodeOkExamples(targetExamples)
+	if err = app.AttachMetadata(okExamples); err != nil {
+		return err
+	}
+
 	notOkExamples := util.FilterStatusCodeNotOkExamples(targetExamples)
 	app.Fetch(notOkExamples)
 	for _, e := range util.FilterStatusCodeOkExamples(notOkExamples) {

@@ -28,6 +28,11 @@ func doUpdateModel(c *cli.Context) error {
 		return err
 	}
 
+	okExamples := util.FilterStatusCodeOkExamples(examples)
+	if err = app.AttachMetadata(okExamples); err != nil {
+		return err
+	}
+
 	notOkExamples := util.FilterStatusCodeNotOkExamples(examples)
 	app.Fetch(notOkExamples)
 	for _, e := range util.FilterStatusCodeOkExamples(notOkExamples) {
