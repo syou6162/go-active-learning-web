@@ -1,5 +1,8 @@
 <template>
   <div>
+    <vue-headful
+      title="最近追加された事例一覧"
+      />
     <div v-if="loading">
       Now loading...
     </div>
