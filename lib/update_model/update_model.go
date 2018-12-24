@@ -41,7 +41,10 @@ func doUpdateModel(c *cli.Context) error {
 		}
 	}
 	examples = util.FilterStatusCodeOkExamples(examples)
-	m := classifier.NewMIRAClassifierByCrossValidation(examples)
+	m, err := classifier.NewMIRAClassifierByCrossValidation(examples)
+	if err != nil {
+		return err
+	}
 
 	return app.InsertMIRAModel(*m)
 }

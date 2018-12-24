@@ -260,6 +260,14 @@
   revision = "34a8f36cd397ba24b141ccd54a9879166500410f"
 
 [[projects]]
+  digest = "1:40e195917a951a8bf867cd05de2a46aaf1806c50cf92eebf4c16f78cd196f747"
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
+  version = "v0.8.0"
+
+[[projects]]
   branch = "master"
   digest = "1:3b1701815d188c58243a63f43c807cd5bb7b7b7da167c183538d8f75d7a2e20d"
   name = "github.com/shogo82148/go-shuffle"
@@ -285,7 +293,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:4bd1289c9882d841aa2407b90e771a99544ccd8f5def4113f4b7ccc4705c6679"
+  digest = "1:50efc9c91d6d7c45d8e3921e1958162a28ae71c30a49f47eeae6c3aac3b6a3ee"
   name = "github.com/syou6162/go-active-learning"
   packages = [
     "lib/add",
@@ -303,7 +311,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "35592e05a13af6bbc9e621b4107828505dbb7e4a"
+  revision = "b00abe8b4e4a3b7418a5ba219692a2459e8103bb"
 
 [[projects]]
   branch = "master"
