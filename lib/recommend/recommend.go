@@ -3,7 +3,6 @@ package recommend
 import (
 	"fmt"
 	"log"
-	"strings"
 
 	"time"
 
@@ -128,10 +127,6 @@ func doRecommend(c *cli.Context) error {
 			continue
 		}
 		e.Score = m.PredictScore(e.Fv)
-		e.Title = strings.Replace(e.Title, "\n", " ", -1)
-		if err := app.UpdateScore(e); err != nil {
-			return err
-		}
 		if e.Score > scoreThreshold {
 			result = append(result, e)
 		}
