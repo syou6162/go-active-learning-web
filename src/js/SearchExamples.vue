@@ -86,7 +86,8 @@ export default {
   },
   computed: {
     getSearchResultsTitle() {
-      return "ML News - 「" + this.query + "」に関する検索結果";
+      let query = this.query || '';
+      return "ML News - 「" + query + "」に関する検索結果";
     },
     getSearchResultsDescription() {
       return this.results.map(e => e.Title).join("\n");
