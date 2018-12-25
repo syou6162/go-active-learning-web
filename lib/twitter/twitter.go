@@ -66,12 +66,7 @@ func GetReferringTweets(url string) (model.ReferringTweets, error) {
 }
 
 func setReferringTweets(app service.GoActiveLearningApp, listName string) error {
-	urls, err := app.GetUrlsFromList(listName, 0, 100)
-	if err != nil {
-		return err
-	}
-
-	examples, err := app.SearchExamplesByUlrs(urls)
+	examples, err := app.GetRecommendation(listName)
 	if err != nil {
 		return err
 	}

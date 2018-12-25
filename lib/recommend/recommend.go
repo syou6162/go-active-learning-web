@@ -145,7 +145,7 @@ func doRecommend(c *cli.Context) error {
 	}
 
 	log.Println("Started to write result...")
-	err = app.AddExamplesToList(listName, result)
+	err = app.UpdateRecommendation(listName, result)
 	if err != nil {
 		return err
 	}

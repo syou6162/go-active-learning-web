@@ -137,16 +137,10 @@ func (s *server) RecentAddedExamples() http.Handler {
 }
 
 func (s *server) getUrlsFromList(listName string) (model.Examples, error) {
-	urls, err := s.app.GetUrlsFromList(listName, 0, 100)
+	examples, err := s.app.GetRecommendation(listName)
 	if err != nil {
 		return nil, err
 	}
-
-	examples, err := s.app.SearchExamplesByUlrs(urls)
-	if err != nil {
-		return nil, err
-	}
-
 	s.app.AttachLightMetadata(examples)
 	sort.Sort(sort.Reverse(examples))
 	result := util.RemoveNegativeExamples(examples)

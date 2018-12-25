@@ -99,7 +99,9 @@ func TestGetExamplesFromList(t *testing.T) {
 			t.Error(err)
 		}
 	}
-	app.AddExamplesToList("general", train)
+	if err := app.UpdateRecommendation("general", train); err != nil {
+		t.Error(err)
+	}
 
 	req, err := http.NewRequest("GET", "/api/examples?listName=general", nil)
 	if err != nil {
