@@ -122,23 +122,6 @@
   revision = "0f5467e35573c4ffebddd992935e1f7ceeac0696"
 
 [[projects]]
-  branch = "master"
-  digest = "1:424f6593024cdf0f6f90cba81bc69ca98df3758525e6fb248198ef15ead603a9"
-  name = "github.com/go-redis/redis"
-  packages = [
-    ".",
-    "internal",
-    "internal/consistenthash",
-    "internal/hashtag",
-    "internal/pool",
-    "internal/proto",
-    "internal/singleflight",
-    "internal/util",
-  ]
-  pruneopts = "UT"
-  revision = "c7d2ae66a004395d3420f640372791d1a002e6a6"
-
-[[projects]]
   digest = "1:a63cff6b5d8b95638bfe300385d93b2a6d9d687734b863da8e09dc834510a690"
   name = "github.com/google/go-querystring"
   packages = ["query"]
@@ -293,11 +276,10 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:6cba8994b0d529531d412ace1fa4a2631f3a036054f9ee3f9e4634b87dc9fbc3"
+  digest = "1:95223f438db8815ec6d4bb06c08c98b7124b0fa45759d77da8ad8b982da246ee"
   name = "github.com/syou6162/go-active-learning"
   packages = [
     "lib/add",
-    "lib/cache",
     "lib/classifier",
     "lib/evaluation",
     "lib/example",
@@ -311,7 +293,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "a85982ac3c5c8bd275afecaadfcf5737d469755b"
+  revision = "f8c58db9412f3f8797fd96b637199b845d385ca8"
 
 [[projects]]
   branch = "master"
