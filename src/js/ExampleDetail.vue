@@ -77,7 +77,7 @@
       <h4 v-if="similarExamples.length > 0">Related Entries</h4>
       <b-list-group>
         <b-list-group-item v-for="example in similarExamples" :key="example.FinalUrl">
-          <b-button v-bind:href="'/example/' + encodeURIComponent(example.FinalUrl)" class="float-right" size="sm">Read more</b-button>
+          <b-button v-bind:href="example | getEncodedUrl" class="float-right" size="sm">Read more</b-button>
           <img v-if="example.Favicon" style="width: 16px; height: 16px;" v-lazy="example.Favicon" onerror="this.style.display='none'" />
           {{ example | getTitle(100, '...') }}
         </b-list-group-item>
