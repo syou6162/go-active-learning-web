@@ -10,7 +10,7 @@
       <vue-headful 
         v-bind:title="title" 
         v-bind:description="example | getDescriptionForSearchEngine"
-        v-bind:url="example.FinalUrl"
+        v-bind:url="example | getAbsoluteEncodedUrl"
         />
       <b-card v-if="example" v-bind:title="example | getTitle(1000, '...')" tag="article">
         <img v-if="example.OgImage" class="img-thumbnail img-responsive" style="width: 128px; height: 96px; margin: 3px; float: right;" v-lazy="example.OgImage" onerror="this.style.display='none'" />
