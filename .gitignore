@@ -5,3 +5,4 @@ lib/assets/templates.go
 dist/js/bundle.js
 go-active-learning-web
 vendor
+.nuxt/*
