@@ -25,7 +25,6 @@
 
 <script>
 import axios from 'axios';
-import _ from 'lodash';
 import { Auth } from 'aws-amplify';
 import Example from '~/components/Example.vue';
 import { NewExample } from '~/assets/util';
