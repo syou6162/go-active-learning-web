@@ -100,7 +100,6 @@ export default {
       .catch(err => console.log(err))
   },
   async asyncData(context) {
-    console.log(context.route);
     const url = context.route.params.ExampleDetail;
     let data = await context.app.$axios.$get("/api/example?url=" + encodeURIComponent(url));
     return {
