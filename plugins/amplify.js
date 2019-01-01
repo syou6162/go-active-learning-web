@@ -3,7 +3,6 @@ import Amplify, {
   API,
 } from 'aws-amplify';
 
-Amplify.Logger.LOG_LEVEL = 'DEBUG';
 Amplify.configure({
   Auth: {
     region: 'us-east-1',
