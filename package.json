@@ -23,19 +23,10 @@
   },
   "homepage": "https://github.com/syou6162/go-active-learning-web#readme",
   "devDependencies": {
-    "axios": "^0.18.0",
     "css-loader": "^0.28.11",
     "prettier": "^1.12.1",
-    "style-loader": "^0.21.0",
-    "vue": "^2.5.21",
-    "vue-analytics": "^5.12.2",
-    "vue-lazyload": "^1.2.6",
-    "vue-loader": "^14.2.2",
-    "vue-router": "^3.0.1",
-    "vue-template-compiler": "^2.5.21",
     "webpack": "^4.27.1",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
+    "webpack-cli": "^3.1.2"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
@@ -48,10 +39,13 @@
     "cross-env": "^5.2.0",
     "date-fns": "^2.0.0-alpha.26",
     "lodash": "^4.17.11",
-    "moment-timezone": "^0.5.23",
     "nuxt": "^2.3.4",
+    "vue": "^2.5.21",
     "vue-axios": "^2.1.1",
-    "vue-headful": "^2.0.1",
+    "vue-lazyload": "^1.2.6",
+    "vue-loader": "^15.4.2",
+    "vue-router": "^3.0.2",
+    "vue-template-compiler": "^2.5.21",
     "webpack-node-externals": "^1.7.2"
   },
   "description": ""
