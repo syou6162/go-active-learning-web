@@ -115,6 +115,7 @@ export default {
     const tweets = this.example.ReferringTweets.map(t => "@" + t.ScreenName + "「" + t.FullText.substr(0, 100) + "...」").slice(0, 3);
     const bookmarks = filterBookmarksWithComment(this.example).map(b => "id:" + b.user + "「"+ b.comment + "」").slice(0, 3);
     const description = tweets.join("\n") + bookmarks.join("\n");
+    const robotsContent = this.example.Label == -1 ? "noindex, nofollow" : "index, follow";
 
     return {
       title: this.title,
@@ -126,6 +127,10 @@ export default {
         {
           name: "description",
           content: description
+        },
+        {
+          name: "robots",
+          content: robotsContent
         }
       ],
       link: [
