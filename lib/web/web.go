@@ -16,8 +16,11 @@ import (
 
 	"syscall"
 
+	"net/url"
+
 	"github.com/codegangsta/cli"
 	"github.com/fukata/golang-stats-api-handler"
+	"github.com/gorilla/feeds"
 	"github.com/syou6162/go-active-learning-web/lib/ahocorasick"
 	"github.com/syou6162/go-active-learning-web/lib/search"
 	"github.com/syou6162/go-active-learning-web/lib/version"
@@ -35,6 +38,7 @@ type Server interface {
 	GetExamplesFromList() http.Handler
 	GetExampleByUrl() http.Handler
 	Search() http.Handler
+	GetFeed() http.Handler
 	ServerAvail() http.Handler
 }
 
@@ -250,6 +254,53 @@ func (s *server) Search() http.Handler {
 	})
 }
 
+func (s *server) GetFeed() http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		queryValues := r.URL.Query()
+		listName := queryValues.Get("listName")
+
+		examples, err := s.getUrlsFromList(listName)
+		if err != nil {
+			w.WriteHeader(http.StatusBadGateway)
+			fmt.Fprintln(w, err.Error())
+			return
+		}
+
+		examples = util.FilterStatusCodeOkExamples(examples)
+		lightenExamples(examples)
+
+		now := time.Now()
+		feed := &feeds.Feed{
+			Title:       fmt.Sprintf("ML-News - %s", listName),
+			Link:        &feeds.Link{Href: fmt.Sprintf("https://www.machine-learning.news/list/%s", listName)},
+			Description: "機械学習に関連する人気のエントリを読むことができます",
+			Author:      &feeds.Author{Name: "Yasuhisa Yoshida"},
+			Created:     now,
+		}
+
+		for _, e := range examples {
+			item := &feeds.Item{
+				Title:       e.Title,
+				Link:        &feeds.Link{Href: fmt.Sprintf("https://www.machine-learning.news/example/%s", url.PathEscape(e.FinalUrl))},
+				Description: e.Description,
+				Created:     e.CreatedAt,
+			}
+			feed.Items = append(feed.Items, item)
+		}
+
+		rss, err := feed.ToRss()
+		if err != nil {
+			w.WriteHeader(http.StatusBadGateway)
+			fmt.Fprintln(w, err.Error())
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/rss+xml")
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(rss))
+	})
+}
+
 func (s *server) ServerAvail() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/plain; charset=UTF-8")
@@ -279,6 +330,7 @@ func (s *server) Handler() http.Handler {
 	mux.HandleFunc("/api/stats", stats_api.Handler)
 	mux.Handle("/sitemap", s.SitemapCategory())
 	mux.Handle("/sitemap/top", s.SitemapTop())
+	mux.Handle("/rss", s.GetFeed())
 	return mux
 }
 
