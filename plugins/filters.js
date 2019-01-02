@@ -1,29 +1,5 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router'
-import BootstrapVue from 'bootstrap-vue'
-import VueAnalytics from 'vue-analytics'
-import VueLazyload from 'vue-lazyload'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-import vueHeadful from 'vue-headful';
-
-Vue.use(VueRouter)
-Vue.use(BootstrapVue)
-Vue.use(VueLazyload)
-Vue.component('vue-headful', vueHeadful);
-
-import routes from './routes'
-const router = new VueRouter({
-  mode: 'history',
-  routes: routes
-});
-
-Vue.use(VueAnalytics, {
-  id: 'UA-591180-8',
-  router
-})
-
-import { truncate, getDomain, filterBookmarksWithComment } from './util';
+import { truncate, getDomain, filterBookmarksWithComment } from '~/assets/util';
 
 Vue.filter('getTitle', function(example, length, omission) {
   var title = example.Title ? example.Title : example.Url;
@@ -85,7 +61,3 @@ Vue.filter('getAbsoluteEncodedUrl', function(example) {
   return 'https://www.machine-learning.news/example/' + encodeURIComponent(example.Url);
 })
 
-const app = new Vue({
-  el: '#app',
-  router
-});

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { IsAdmin, signIn, signOut } from './util';
+import { IsAdmin, signIn, signOut } from '~/plugins/amplify.js';
 
 export default {
   data () {
