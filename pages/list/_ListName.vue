@@ -8,7 +8,6 @@
         :options="options" />
     </b-form-group>
     <b-card-group columns>
-      <no-ssr>
       <example 
         v-for="example in examplesFilterByIsNew(isNew)"
         v-bind:key="example.Url"
@@ -16,7 +15,6 @@
         v-bind:tweets="example.ReferringTweets"
         v-bind:isAdmin="isAdmin"
         ></example>
-      </no-ssr>
     </b-card-group>
   </div>
 </template>
