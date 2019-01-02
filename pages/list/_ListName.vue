@@ -126,6 +126,12 @@ export default {
         {
           rel: "canonical",
           href: `https://www.machine-learning.news/list/${this.listname}`
+        },
+        {
+          rel: "alternate",
+          type: "application/atom+xml",
+          title: `ML-News - ${this.listname}`,
+          href: `https://www.machine-learning.news/rss?listName=${this.listname}`
         }
       ]
     };
