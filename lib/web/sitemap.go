@@ -81,18 +81,3 @@ func (s *server) buildSitemap() (*stm.Sitemap, error) {
 	}
 	return sm, nil
 }
-
-func (s *server) SitemapRecentPositiveExamples() http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		sm, err := s.buildSitemap()
-		if err != nil {
-			w.WriteHeader(http.StatusBadGateway)
-			fmt.Fprintln(w, err.Error())
-			return
-		}
-
-		w.Header().Set("Content-Type", "application/xml; charset=UTF-8")
-		w.WriteHeader(http.StatusOK)
-		w.Write(sm.XMLContent())
-	})
-}

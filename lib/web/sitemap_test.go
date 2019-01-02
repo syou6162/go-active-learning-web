@@ -67,38 +67,3 @@ func TestSitemapCategory(t *testing.T) {
 			status, http.StatusOK)
 	}
 }
-
-func TestSitemapRecentPositiveExamples(t *testing.T) {
-	app, err := service.NewDefaultApp()
-	if err != nil {
-		t.Error(err)
-	}
-	defer app.Close()
-
-	inputFilename := "../../tech_input_example.txt"
-	train, err := file.ReadExamples(inputFilename)
-	if err != nil {
-		t.Error(err)
-	}
-
-	app.Fetch(train)
-	for _, example := range train {
-		example.Score = 10.0
-		if err = app.UpdateOrCreateExample(example); err != nil {
-			t.Error(err)
-		}
-	}
-
-	req, err := http.NewRequest("GET", "/sitemap/recent", nil)
-	if err != nil {
-		t.Error(err)
-	}
-	w := httptest.NewRecorder()
-	svr := web.NewServer(app)
-	http.Handler(svr.SitemapRecentPositiveExamples()).ServeHTTP(w, req)
-
-	if status := w.Code; status != http.StatusOK {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusOK)
-	}
-}

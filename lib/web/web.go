@@ -36,8 +36,6 @@ type Server interface {
 	GetExampleByUrl() http.Handler
 	Search() http.Handler
 	ServerAvail() http.Handler
-
-	SitemapRecentPositiveExamples() http.Handler
 }
 
 func NewServer(app service.GoActiveLearningApp) Server {
@@ -281,7 +279,6 @@ func (s *server) Handler() http.Handler {
 	mux.HandleFunc("/api/stats", stats_api.Handler)
 	mux.Handle("/sitemap", s.SitemapCategory())
 	mux.Handle("/sitemap/top", s.SitemapTop())
-	mux.Handle("/sitemap/recent", s.SitemapRecentPositiveExamples())
 	return mux
 }
 
