@@ -92,6 +92,7 @@ var keywords = []string{
 	"coling",
 
 	"nips",
+	"neurips",
 	"cvpr",
 	"icml",
 	"recsys",
@@ -144,6 +145,7 @@ var keywords = []string{
 	"sagemaker",
 	"colab",
 	"scikit-learn",
+	"sklearn",
 	"pandas",
 	"scipy",
 	"hivemall",
@@ -154,6 +156,7 @@ var keywords = []string{
 	"lightgbm",
 	"xgboost",
 	"random forest",
+	"optuna",
 
 	"cnn",
 	"rnn",
@@ -176,6 +179,7 @@ var keywords = []string{
 	"docker",
 	"kubernetes",
 	"kubeflow",
+	"sagemaker",
 
 	"kaggle",
 	"コンペ",
