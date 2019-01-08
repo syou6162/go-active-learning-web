@@ -281,7 +281,7 @@ func (s *server) GetFeed() http.Handler {
 		for _, e := range examples {
 			item := &feeds.Item{
 				Title:       e.Title,
-				Link:        &feeds.Link{Href: fmt.Sprintf("https://www.machine-learning.news/example/%s", url.PathEscape(e.FinalUrl))},
+				Link:        &feeds.Link{Href: fmt.Sprintf("https://www.machine-learning.news/example/%s", url.PathEscape(e.Url))},
 				Description: e.Description,
 				Created:     e.CreatedAt,
 			}
