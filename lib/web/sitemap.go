@@ -3,10 +3,8 @@ package web
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/ikeikeikeike/go-sitemap-generator/stm"
-	"github.com/syou6162/go-active-learning/lib/util"
 )
 
 func (s *server) SitemapTop() http.Handler {
@@ -51,7 +49,7 @@ func (s *server) SitemapCategory() http.Handler {
 
 		sm.Create()
 		for _, e := range examples {
-			sm.Add(stm.URL{{"loc", "/example/" + url.PathEscape(e.FinalUrl)}, {"changefreq", "daily"}})
+			sm.Add(stm.URL{{"loc", fmt.Sprintf("/example/%d", e.Id)}, {"changefreq", "daily"}})
 		}
 
 		w.Header().Set("Content-Type", "application/xml; charset=UTF-8")
