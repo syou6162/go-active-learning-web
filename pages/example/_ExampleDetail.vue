@@ -136,7 +136,7 @@ export default {
       link: [
         {
           rel: "canonical",
-          href: `https://www.machine-learning.news/example/${encodeURIComponent(this.example.Url)}`
+          href: `https://www.machine-learning.news/example/${this.example.Id}`
         }
       ]
     };
