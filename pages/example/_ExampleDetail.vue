@@ -100,8 +100,8 @@ export default {
       .catch(err => console.log(err))
   },
   async asyncData(context) {
-    const url = context.route.params.ExampleDetail;
-    let data = await context.app.$axios.$get("/api/example?url=" + encodeURIComponent(url));
+    const id = context.route.params.ExampleDetail;
+    let data = await context.app.$axios.$get(`/api/example?id=${id}`);
     return {
       title: `ML News - ${data.Example.Title}`,
       example: NewExample(data.Example),
