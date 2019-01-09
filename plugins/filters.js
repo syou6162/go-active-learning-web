@@ -56,8 +56,3 @@ Vue.filter('getDescriptionForSearchEngine', function(example) {
 Vue.filter('getEncodedUrl', function(example) {
   return '/example/' + encodeURIComponent(example.Url);
 })
-
-Vue.filter('getAbsoluteEncodedUrl', function(example) {
-  return 'https://www.machine-learning.news/example/' + encodeURIComponent(example.Url);
-})
-
