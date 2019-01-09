@@ -11,7 +11,8 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { property: 'og:type', content: 'website' }
+      { property: 'og:type', content: 'website' },
+      { name: 'google-site-verification', content: 'H2b0gd2dMVoTm8CCOpRmL9mZYBd9GlkqESRlH2cONhY' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
