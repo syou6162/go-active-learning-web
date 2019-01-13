@@ -6,17 +6,6 @@ Vue.filter('getTitle', function(example, length, omission) {
   return truncate(title, length, omission);
 })
 
-Vue.filter('getButtonStyle', function(example) {
-  var label = example.Label;
-  if (label === 1) {
-    return "primary";
-  } else if (label === -1) {
-    return "danger";
-  } else {
-    return "secondary";
-  }
-})
-
 Vue.filter('getDomain', getDomain) 
 
 Vue.filter('getUserName', function(example) {
