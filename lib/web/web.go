@@ -16,7 +16,7 @@ import (
 
 	"syscall"
 
-	"net/url"
+	"strconv"
 
 	"github.com/codegangsta/cli"
 	"github.com/fukata/golang-stats-api-handler"
@@ -36,7 +36,7 @@ type Server interface {
 
 	RecentAddedExamples() http.Handler
 	GetExamplesFromList() http.Handler
-	GetExampleByUrl() http.Handler
+	GetExampleById() http.Handler
 	Search() http.Handler
 	GetFeed() http.Handler
 	ServerAvail() http.Handler
@@ -179,15 +179,21 @@ type ExampleWithSimilarExamples struct {
 	Keywords        []string
 }
 
-func (s *server) GetExampleByUrl() http.Handler {
+func (s *server) GetExampleById() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		queryValues := r.URL.Query()
-		url := queryValues.Get("url")
-
-		ex, err := s.app.FindExampleByUlr(url)
+		q := queryValues.Get("id")
+		id, err := strconv.Atoi(q)
 		if err != nil {
-			BadRequest(w, "No such url: "+url)
-			fmt.Fprintln(w, "No such url: "+url)
+			NotFound(w, fmt.Sprintf("Cannot parse id: %s", q))
+			fmt.Fprintln(w, fmt.Sprintf("Cannot parse id: %s", q))
+			return
+		}
+
+		ex, err := s.app.FindExampleById(id)
+		if err != nil {
+			NotFound(w, fmt.Sprintf("No such id: %d", id))
+			fmt.Fprintln(w, fmt.Sprintf("No such id: %d", id))
 			return
 		}
 
@@ -198,21 +204,21 @@ func (s *server) GetExampleByUrl() http.Handler {
 			return
 		}
 
-		similarExamples, keywords, err := search.SearchSimilarExamples(s.app, ex.Title, 5)
-		if err != nil {
-			BadRequest(w, err.Error())
-			fmt.Fprintln(w, err.Error())
-			return
-		}
+		//similarExamples, keywords, err := search.SearchSimilarExamples(s.app, ex.Title, 5)
+		//if err != nil {
+		//	BadRequest(w, err.Error())
+		//	fmt.Fprintln(w, err.Error())
+		//	return
+		//}
 		similarExamplesWithoutOriginal := model.Examples{}
-		for _, e := range similarExamples {
-			if e.FinalUrl != ex.FinalUrl {
-				similarExamplesWithoutOriginal = append(similarExamplesWithoutOriginal, e)
-			}
-		}
-		similarExamplesWithoutOriginal = util.FilterStatusCodeOkExamples(similarExamplesWithoutOriginal)
+		//for _, e := range similarExamples {
+		//	if e.FinalUrl != ex.FinalUrl {
+		//		similarExamplesWithoutOriginal = append(similarExamplesWithoutOriginal, e)
+		//	}
+		//}
+		//similarExamplesWithoutOriginal = util.FilterStatusCodeOkExamples(similarExamplesWithoutOriginal)
 
-		w.Header().Set("X-Keywords", strings.Join(keywords, ","))
+		//w.Header().Set("X-Keywords", strings.Join(keywords, ","))
 		JSON(w, http.StatusOK, ExampleWithSimilarExamples{
 			Example:         ex,
 			SimilarExamples: similarExamplesWithoutOriginal,
@@ -281,7 +287,7 @@ func (s *server) GetFeed() http.Handler {
 		for _, e := range examples {
 			item := &feeds.Item{
 				Title:       e.Title,
-				Link:        &feeds.Link{Href: fmt.Sprintf("https://www.machine-learning.news/example/%s", url.PathEscape(e.Url))},
+				Link:        &feeds.Link{Href: fmt.Sprintf("https://www.machine-learning.news/example/%d", e.Id)},
 				Description: e.Description,
 				Created:     e.CreatedAt,
 			}
@@ -324,7 +330,7 @@ func (s *server) Handler() http.Handler {
 	mux.Handle("/api/register_training_data", s.registerTrainingData())
 	mux.Handle("/api/recent_added_examples", s.RecentAddedExamples())
 	mux.Handle("/api/examples", s.GetExamplesFromList())
-	mux.Handle("/api/example", s.GetExampleByUrl())
+	mux.Handle("/api/example", s.GetExampleById())
 	mux.Handle("/api/search", s.Search())
 	mux.Handle("/api/server_avail", s.ServerAvail())
 	mux.HandleFunc("/api/stats", stats_api.Handler)

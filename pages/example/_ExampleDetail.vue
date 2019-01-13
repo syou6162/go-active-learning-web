@@ -64,7 +64,7 @@
     <h4 v-if="similarExamples.length > 0">Related Entries</h4>
     <b-list-group>
       <b-list-group-item v-for="example in similarExamples" :key="example.FinalUrl">
-        <b-button v-bind:href="example | getEncodedUrl" class="float-right" size="sm">Read more</b-button>
+        <b-button v-bind:href="example | getExampleUrl" class="float-right" size="sm">Read more</b-button>
         <img v-if="example.Favicon" style="width: 16px; height: 16px;" v-lazy="example.Favicon" onerror="this.style.display='none'" />
         {{ example | getTitle(100, '...') }}
       </b-list-group-item>
@@ -100,8 +100,8 @@ export default {
       .catch(err => console.log(err))
   },
   async asyncData(context) {
-    const url = context.route.params.ExampleDetail;
-    let data = await context.app.$axios.$get("/api/example?url=" + encodeURIComponent(url));
+    const id = context.route.params.ExampleDetail;
+    let data = await context.app.$axios.$get(`/api/example?id=${id}`);
     return {
       title: `ML News - ${data.Example.Title}`,
       example: NewExample(data.Example),
@@ -136,7 +136,7 @@ export default {
       link: [
         {
           rel: "canonical",
-          href: `https://www.machine-learning.news/example/${encodeURIComponent(this.example.Url)}`
+          href: `https://www.machine-learning.news/example/${this.example.Id}`
         }
       ]
     };

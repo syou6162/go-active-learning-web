@@ -53,11 +53,6 @@ Vue.filter('getDescriptionForSearchEngine', function(example) {
   return tweets.join("\n") + bookmarks.join("\n");
 })
 
-Vue.filter('getEncodedUrl', function(example) {
-  return '/example/' + encodeURIComponent(example.Url);
+Vue.filter('getExampleUrl', function(example) {
+  return '/example/' + example.Id;
 })
-
-Vue.filter('getAbsoluteEncodedUrl', function(example) {
-  return 'https://www.machine-learning.news/example/' + encodeURIComponent(example.Url);
-})
-

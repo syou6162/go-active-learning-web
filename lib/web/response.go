@@ -33,6 +33,14 @@ func BadRequest(w http.ResponseWriter, msg string) {
 	JSON(w, http.StatusBadRequest, data)
 }
 
+func NotFound(w http.ResponseWriter, msg string) {
+	var data struct {
+		Error string `json:"error"`
+	}
+	data.Error = msg
+	JSON(w, http.StatusNotFound, data)
+}
+
 func ServerError(w http.ResponseWriter, msg string) {
 	var data struct {
 		Error string `json:"error"`
