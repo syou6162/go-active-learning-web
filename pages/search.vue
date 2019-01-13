@@ -58,9 +58,18 @@ export default {
     let params = new URLSearchParams();
     params.append('query', context.route.query.query);
     let data = await context.app.$axios.$post("/api/search", params);
+    let isAdmin = false;
+    if (process.browser) {
+      await Auth.currentAuthenticatedUser()
+        .then(user => {
+          isAdmin = true;
+        })
+        .catch(err => console.log(err))
+    }
     return {
       results: data.Examples.map(e => NewExample(e)),
-      loading: false
+      loading: false,
+      isAdmin: isAdmin
     }
   },
   head() {
