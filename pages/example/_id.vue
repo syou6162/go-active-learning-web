@@ -129,6 +129,14 @@ export default {
           content: description
         },
         {
+          name: "og:type",
+          content: "article"
+        },
+        {
+          name: "og:image",
+          content: this.example.OgImage 
+        },
+        {
           name: "robots",
           content: robotsContent
         }
