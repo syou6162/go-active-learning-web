@@ -32,6 +32,8 @@ const keywordsByListname = {
   "github": ["GitHub", "OSS", "Machine Learning"],
   "arxiv": ["arXiv", "Paper", "論文", "Machine Learning"],
   "slide": ["登壇", "発表", "Machine Learning", "機械学習"],
+  "video": ["登壇", "発表", "Machine Learning", "機械学習"],
+  "event": ["勉強会", "Machine Learning", "機械学習"],
 };
 
 const descriptionByListname = {
@@ -40,6 +42,8 @@ const descriptionByListname = {
   "github": "GitHub上で話題の機械学習に関連するリポジトリを見ることができます",
   "arxiv": "arXiv上で話題の機械学習に関連する論文を読むことができます",
   "slide": "SlideShareやSpeaker Deck上で話題の機械学習に関連する発表資料を読むことができます",
+  "video": "YouTube上で話題の機械学習に関連する発表を見ることができます",
+  "event": "connpass上で話題の機械学習に関連する勉強会を探すことができます",
 };
 
 const isNewDayThresholdByListname = {
@@ -48,6 +52,8 @@ const isNewDayThresholdByListname = {
   "github": 10,
   "arxiv": 5,
   "slide": 10,
+  "video": 10,
+  "event": 5,
 };
 
 export default {
