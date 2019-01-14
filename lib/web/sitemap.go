@@ -22,8 +22,6 @@ func (s *server) SitemapTop() http.Handler {
 		sm.Add(stm.URL{{"loc", "/list/arxiv"}, {"changefreq", "daily"}})
 		sm.Add(stm.URL{{"loc", "/list/slide"}, {"changefreq", "daily"}})
 
-		sm.Add(stm.URL{{"loc", "/recent-added-examples"}, {"changefreq", "daily"}})
-
 		w.Header().Set("Content-Type", "application/xml; charset=UTF-8")
 		w.WriteHeader(http.StatusOK)
 		w.Write(sm.XMLContent())
