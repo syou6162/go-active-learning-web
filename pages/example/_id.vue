@@ -100,7 +100,7 @@ export default {
       .catch(err => console.log(err))
   },
   async asyncData(context) {
-    const id = context.route.params.ExampleDetail;
+    const id = context.route.params.id;
     let data = await context.app.$axios.$get(`/api/example?id=${id}`);
     return {
       title: `ML News - ${data.Example.Title}`,
