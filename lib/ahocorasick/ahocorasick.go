@@ -15,6 +15,8 @@ var (
 var keywords = []string{
 	"機械学習",
 	"machine learning",
+	"deep learning",
+	"深層学習",
 	"end-to-end",
 
 	"強化学習",
@@ -69,6 +71,9 @@ var keywords = []string{
 	"recommendation",
 
 	"bandit",
+
+	"線形代数",
+	"linear algebra",
 
 	"データ基盤",
 	"データ分析",
@@ -133,6 +138,9 @@ var keywords = []string{
 	"圧縮",
 	"高速化",
 
+	"github",
+	"open source",
+	"オープンソース",
 	"python",
 	"julia",
 	"c++",
@@ -156,12 +164,15 @@ var keywords = []string{
 	"lightgbm",
 	"xgboost",
 	"random forest",
+	"ランダムフォレスト",
 	"optuna",
+	"sentencepiece",
 
 	"cnn",
 	"rnn",
 	"lstm",
 	"autoencoder",
+	"オートエンコーダー",
 	"bert",
 	"elmo",
 	"gan",
