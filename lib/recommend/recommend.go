@@ -24,7 +24,9 @@ var listName2Rule = map[string]*regexp.Regexp{
 	"article": regexp.MustCompile(`.+`),                              // あとでog:typeで絞り込む
 	"github":  regexp.MustCompile(`https://github.com/[^/]+/[^/]+$`), // リポジトリのトップのみ
 	"slide":   regexp.MustCompile(`https://(www.slideshare.net|speakerdeck.com)/.+`),
-	"arxiv":   regexp.MustCompile(`https://arxiv.org/abs/.+`),
+	"arxiv":   regexp.MustCompile(`https://arxiv.org/abs/.+$`),
+	"video":   regexp.MustCompile(`https://www.youtube.com/watch\?v=.+$`),
+	"event":   regexp.MustCompile(`https://.*?\.?connpass.com/event/.+/$`),
 }
 
 var listName2Hosts = map[string][]string{
@@ -33,6 +35,8 @@ var listName2Hosts = map[string][]string{
 	"github":  {"https://github.com"},
 	"slide":   {"https://www.slideshare.net", "https://speakerdeck.com"},
 	"arxiv":   {"https://arxiv.org"},
+	"video":   {"https://www.youtube.com"},
+	"event":   {"https://"},
 }
 
 func UniqByHost(examples model.Examples) model.Examples {

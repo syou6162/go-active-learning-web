@@ -10,6 +10,8 @@
           <b-nav-item to="/list/github">Github</b-nav-item>
           <b-nav-item to="/list/arxiv">arXiv</b-nav-item>
           <b-nav-item to="/list/slide">Slide</b-nav-item>
+          <b-nav-item to="/list/video">Video</b-nav-item>
+          <b-nav-item to="/list/event">Event</b-nav-item>
           <b-nav-item to="/search">Search</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
