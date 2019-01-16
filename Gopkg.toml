@@ -34,10 +34,6 @@
   name = "github.com/jessevdk/go-assets"
 
 [[constraint]]
-  name = "github.com/mackerelio/mackerel-client-go"
-  version = "0.0.2"
-
-[[constraint]]
   branch = "master"
   name = "github.com/syou6162/go-active-learning"
 

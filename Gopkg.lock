@@ -227,12 +227,12 @@
   version = "v0.0.4"
 
 [[projects]]
-  digest = "1:246ab598a22ea9d50f46e65f655f78161a19822f6597268b02f04af998684807"
+  digest = "1:3465cca9dac8f89b9966d86bf2646cab7703075fe32c185462f8bccc9017e6df"
   name = "github.com/montanaflynn/stats"
   packages = ["."]
   pruneopts = "UT"
-  revision = "1bf9dbcd8cbe1fdb75add3785b1d4a9a646269ab"
-  version = "0.3.0"
+  revision = "63fbb2597b7a13043b453a4b819945badb8f8926"
+  version = "v0.5.0"
 
 [[projects]]
   digest = "1:abcdbf03ca6ca13d3697e2186edc1f33863bbdac2b3a44dfa39015e8903f7409"
@@ -284,7 +284,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:d357716ea4ca664c4068570f9fb92d4fa16d846ff7fb9c70a7a927f78526d9c2"
+  digest = "1:4ec2f05112709cf779af326a1d0f70ae3630be10fa3d3f4c16e3a6776ca1fdc1"
   name = "github.com/syou6162/go-active-learning"
   packages = [
     "lib/add",
@@ -301,7 +301,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "f3428bc26d933df119d780443cfde3704ae23e53"
+  revision = "008f88aff264e96f951494527ba7a6af154e6b54"
 
 [[projects]]
   branch = "master"
@@ -364,7 +364,6 @@
     "github.com/gorilla/feeds",
     "github.com/ikeikeikeike/go-sitemap-generator/stm",
     "github.com/jessevdk/go-assets",
-    "github.com/mackerelio/mackerel-client-go",
     "github.com/pbnjay/clustering",
     "github.com/syou6162/go-active-learning/lib/add",
     "github.com/syou6162/go-active-learning/lib/classifier",
