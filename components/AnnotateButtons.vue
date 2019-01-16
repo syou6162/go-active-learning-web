@@ -19,14 +19,14 @@ export default {
       axios.post(
         "https://3ojd2wnlpg.execute-api.us-east-1.amazonaws.com/Prod/update_example_label", 
         {
-          url: example.Url,
+          id: example.Id,
           label: label,
         },
         headers
       ).then(response => {
-        example.Label = label;
+        example.Label = response.data.Label;
       }).catch(function (error) {
-        alert(`Failed to annotate "${example.Title}"`);
+        alert(`${error}: Failed to annotate "${example.Title}"`);
       })
     },
   }
