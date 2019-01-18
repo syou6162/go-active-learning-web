@@ -202,25 +202,23 @@ func (s *server) GetExampleById() http.Handler {
 			return
 		}
 
-		//similarExamples, keywords, err := search.SearchSimilarExamples(s.app, ex.Title, 5)
-		//if err != nil {
-		//	BadRequest(w, err.Error())
-		//	fmt.Fprintln(w, err.Error())
-		//	return
-		//}
+		similarExamples, keywords, err := search.SearchSimilarExamples(s.app, ex.Title, 5)
+		if err != nil {
+			BadRequest(w, err.Error())
+			return
+		}
 		similarExamplesWithoutOriginal := model.Examples{}
-		//for _, e := range similarExamples {
-		//	if e.FinalUrl != ex.FinalUrl {
-		//		similarExamplesWithoutOriginal = append(similarExamplesWithoutOriginal, e)
-		//	}
-		//}
-		//similarExamplesWithoutOriginal = util.FilterStatusCodeOkExamples(similarExamplesWithoutOriginal)
+		for _, e := range similarExamples {
+			if e.FinalUrl != ex.FinalUrl {
+				similarExamplesWithoutOriginal = append(similarExamplesWithoutOriginal, e)
+			}
+		}
+		similarExamplesWithoutOriginal = util.FilterStatusCodeOkExamples(similarExamplesWithoutOriginal)
 
-		//w.Header().Set("X-Keywords", strings.Join(keywords, ","))
 		JSON(w, http.StatusOK, ExampleWithSimilarExamples{
 			Example:         ex,
 			SimilarExamples: similarExamplesWithoutOriginal,
-			Keywords:        ahocorasick.SearchKeywords(strings.ToLower(ex.Title)),
+			Keywords:        keywords,
 		})
 	})
 }
