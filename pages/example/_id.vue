@@ -99,17 +99,25 @@ export default {
       })
       .catch(err => console.log(err))
   },
-  async asyncData(context) {
-    const id = context.route.params.id;
-    let data = await context.app.$axios.$get(`/api/example?id=${id}`);
-    return {
-      title: `ML News - ${data.Example.Title}`,
-      example: NewExample(data.Example),
-      similarExamples: data.SimilarExamples.filter(function(e) {
-        return e.Label === 1 || e.Score > 0.0;
-      }),
-      keywords: data.Keywords,
-    }
+  asyncData({ app, params, error }) {
+    return app.$axios.$get(`/api/example?id=${params.id}`)
+      .then((data) => {
+        return {
+          title: `ML News - ${data.Example.Title}`,
+          example: NewExample(data.Example),
+          similarExamples: data.SimilarExamples.filter(function(e) {
+            return e.Label === 1 || e.Score > 0.0;
+          }),
+          keywords: data.Keywords,
+        }
+      })
+      .catch((err) => {
+        const statusCode = err.response.status;
+        error({ 
+          statusCode: statusCode,
+          message: err.response.data.error
+        });
+      })
   },
   head() {
     const tweets = this.example.ReferringTweets.map(t => "@" + t.ScreenName + "「" + t.FullText.substr(0, 100) + "...」").slice(0, 3);
