@@ -186,7 +186,6 @@ func (s *server) GetExampleById() http.Handler {
 		id, err := strconv.Atoi(q)
 		if err != nil {
 			BadRequest(w, fmt.Sprintf("Cannot parse id: %s", q))
-			fmt.Fprintln(w, fmt.Sprintf("Cannot parse id: %s", q))
 			return
 		}
 
