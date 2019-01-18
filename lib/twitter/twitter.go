@@ -7,6 +7,9 @@ import (
 
 	"time"
 
+	"bufio"
+	"os"
+
 	"github.com/codegangsta/cli"
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
@@ -27,7 +30,23 @@ func getClient() *twitter.Client {
 	return twitter.NewClient(httpClient)
 }
 
-func GetReferringTweets(url string) (model.ReferringTweets, error) {
+func GetScreenNameList(path string) ([]string, error) {
+	screenNameList := make([]string, 0)
+
+	file, err := os.Open(path)
+	if err != nil {
+		return screenNameList, err
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		screenNameList = append(screenNameList, scanner.Text())
+	}
+	return screenNameList, nil
+}
+
+func GetReferringTweets(url string, blacklist []string) (model.ReferringTweets, error) {
 	client := getClient()
 	search, resp, err := client.Search.Tweets(&twitter.SearchTweetParams{
 		Query:     fmt.Sprintf("%s -filter:retweets", url),
@@ -48,6 +67,12 @@ func GetReferringTweets(url string) (model.ReferringTweets, error) {
 		if err != nil {
 			createdAt = time.Now()
 		}
+		label := model.UNLABELED
+		for _, name := range blacklist {
+			if name == t.User.ScreenName {
+				label = model.NEGATIVE
+			}
+		}
 		tweet := model.Tweet{
 			CreatedAt:     createdAt,
 			IdStr:         t.IDStr,
@@ -59,13 +84,19 @@ func GetReferringTweets(url string) (model.ReferringTweets, error) {
 			ScreenName:      t.User.ScreenName,
 			Name:            t.User.Name,
 			ProfileImageUrl: t.User.ProfileImageURLHttps,
+			Label:           label,
 		}
 		tweets = append(tweets, &tweet)
 	}
 	return tweets, nil
 }
 
-func setReferringTweets(app service.GoActiveLearningApp, listName string) error {
+func setReferringTweets(app service.GoActiveLearningApp, listName string, blacklistFilename string) error {
+	blacklist, err := GetScreenNameList(blacklistFilename)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
 	examples, err := app.GetRecommendation(listName)
 	if err != nil {
 		return err
@@ -77,7 +108,7 @@ func setReferringTweets(app service.GoActiveLearningApp, listName string) error 
 			continue
 		}
 		fmt.Println(e.FinalUrl)
-		tweets, err := GetReferringTweets(e.FinalUrl)
+		tweets, err := GetReferringTweets(e.FinalUrl, blacklist)
 		if err != nil {
 			u := e.FinalUrl
 			if e.FinalUrl == "" {
@@ -96,13 +127,14 @@ func setReferringTweets(app service.GoActiveLearningApp, listName string) error 
 
 func doSetReferringTweets(c *cli.Context) error {
 	listName := c.String("listname")
+	blacklistFilename := c.String("blacklist-filename")
 
 	app, err := service.NewDefaultApp()
 	if err != nil {
 		return err
 	}
 	defer app.Close()
-	return setReferringTweets(app, listName)
+	return setReferringTweets(app, listName, blacklistFilename)
 }
 
 var CommandSetReferringTweets = cli.Command{
@@ -114,5 +146,6 @@ Set referring tweets.
 	Action: doSetReferringTweets,
 	Flags: []cli.Flag{
 		cli.StringFlag{Name: "listname", Usage: "List name for cache"},
+		cli.StringFlag{Name: "blacklist-filename", Usage: "Filename of blacklist usernames"},
 	},
 }
