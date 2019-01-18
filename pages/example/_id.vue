@@ -48,6 +48,10 @@
           <img v-if="t.ProfileImageUrl" style="width: 24px; height: 24px;" v-lazy="t.ProfileImageUrl" onerror="this.style.display='none'" />
           <a v-bind:href="'https://twitter.com/' + t.ScreenName + '/status/' + t.IdStr">@{{ t.ScreenName }}</a>
           {{ t.FullText }}
+          <tweet-annotate-buttons
+            v-if="isAdmin"
+            v-bind:tweet="t"
+            ></tweet-annotate-buttons>
         </b-list-group-item>
       </b-list-group>
     </div>
@@ -79,6 +83,7 @@ import Example from '~/components/Example.vue';
 import HatenaBookmarkIcon from '~/components/HatenaBookmarkIcon.vue';
 import TwitterIcon from '~/components/TwitterIcon.vue';
 import AnnotateButtons from '~/components/AnnotateButtons.vue';
+import TweetAnnotateButtons from '~/components/TweetAnnotateButtons.vue';
 import { NewExample, filterBookmarksWithComment } from '~/assets/util';
 
 export default {
@@ -168,7 +173,8 @@ export default {
   components: {
     "hatena-bookmark-icon": HatenaBookmarkIcon,
     "twitter-icon": TwitterIcon,
-    "annotate-buttons": AnnotateButtons 
+    "annotate-buttons": AnnotateButtons,
+    "tweet-annotate-buttons": TweetAnnotateButtons
   }
 }
 </script>
