@@ -192,7 +192,6 @@ func (s *server) GetExampleById() http.Handler {
 		ex, err := s.app.FindExampleById(id)
 		if err != nil {
 			NotFound(w, fmt.Sprintf("No such id: %d", id))
-			fmt.Fprintln(w, fmt.Sprintf("No such id: %d", id))
 			return
 		}
 
