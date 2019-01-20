@@ -44,7 +44,7 @@
     <div v-if="example.ReferringTweets && example.ReferringTweets.length > 0">
       <h4>Referring Tweets</h4>
       <b-list-group>
-        <b-list-group-item v-for="t in example.ReferringTweets.slice(0, 9)" :key="t.ScreenName">
+        <b-list-group-item v-for="t in example.ReferringTweets.slice(0, 3)" :key="t.ScreenName">
           <img v-if="t.ProfileImageUrl" style="width: 24px; height: 24px;" v-lazy="t.ProfileImageUrl" onerror="this.style.display='none'" />
           <a v-bind:href="'https://twitter.com/' + t.ScreenName + '/status/' + t.IdStr">@{{ t.ScreenName }}</a>
           {{ t.FullText }}
