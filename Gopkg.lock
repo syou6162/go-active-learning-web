@@ -284,7 +284,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:f3a022911b419150cfd8ad45ed09d139a6a5d804fc0cd278984becc657280d58"
+  digest = "1:b1596d99839c9adba4d22bb17835e0ac9cfbcad438badd13faf55ef707ec9c61"
   name = "github.com/syou6162/go-active-learning"
   packages = [
     "lib/add",
@@ -292,6 +292,8 @@
     "lib/evaluation",
     "lib/example",
     "lib/feature",
+    "lib/feature/example",
+    "lib/feature/tweet",
     "lib/fetcher",
     "lib/hatena_bookmark",
     "lib/model",
@@ -302,7 +304,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "369f67c7ec99e5a95c292a170a8d4b6ca86078b3"
+  revision = "ac329ebbb78981c4be899dd242c2b681d0d00c09"
 
 [[projects]]
   branch = "master"
@@ -353,6 +355,14 @@
   revision = "a7f18ead1433a139742a8b42ce7a059cfb484d60"
   version = "v1.0.6"
 
+[[projects]]
+  digest = "1:0fd1344405134ae4a7c9a9251ec6f2948a4f6cc41d4523d4e33a42ec360c698f"
+  name = "gopkg.in/vmarkovtsev/go-lcss.v1"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "dfc501d07ea060ee377ee237fa3dd3d5292b2021"
+  version = "v1"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
@@ -365,11 +375,14 @@
     "github.com/gorilla/feeds",
     "github.com/ikeikeikeike/go-sitemap-generator/stm",
     "github.com/jessevdk/go-assets",
+    "github.com/mackerelio/mackerel-client-go",
     "github.com/pbnjay/clustering",
     "github.com/syou6162/go-active-learning/lib/add",
     "github.com/syou6162/go-active-learning/lib/classifier",
     "github.com/syou6162/go-active-learning/lib/example",
     "github.com/syou6162/go-active-learning/lib/feature",
+    "github.com/syou6162/go-active-learning/lib/feature/example",
+    "github.com/syou6162/go-active-learning/lib/feature/tweet",
     "github.com/syou6162/go-active-learning/lib/hatena_bookmark",
     "github.com/syou6162/go-active-learning/lib/model",
     "github.com/syou6162/go-active-learning/lib/service",
