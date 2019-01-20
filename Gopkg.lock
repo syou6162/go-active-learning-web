@@ -284,7 +284,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:174ce6d67e323b7d07ae55678cea71efe7ea42c19823d2a20cd3c818e8f86976"
+  digest = "1:57f416423e3dfe03e14213bad228816c266745fce23500f60eb1b6f34c2b2daa"
   name = "github.com/syou6162/go-active-learning"
   packages = [
     "lib/add",
@@ -298,10 +298,11 @@
     "lib/repository",
     "lib/service",
     "lib/util",
+    "lib/util/converter",
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "7e26f9abecde0579fa05e21981d2d917e981d2b9"
+  revision = "edecc06287edbf98bb04a1dd5080295ee4727302"
 
 [[projects]]
   branch = "master"
@@ -313,7 +314,7 @@
     "html/charset",
   ]
   pruneopts = "UT"
-  revision = "915654e7eabcea33ae277abbecf52f0d8b7a9fdc"
+  revision = "ed066c81e75eba56dd9bd2139ade88125b855585"
 
 [[projects]]
   digest = "1:aa4d6967a3237f8367b6bf91503964a77183ecf696f1273e8ad3551bb4412b5f"
@@ -373,6 +374,7 @@
     "github.com/syou6162/go-active-learning/lib/model",
     "github.com/syou6162/go-active-learning/lib/service",
     "github.com/syou6162/go-active-learning/lib/util",
+    "github.com/syou6162/go-active-learning/lib/util/converter",
     "github.com/syou6162/go-active-learning/lib/util/file",
   ]
   solver-name = "gps-cdcl"

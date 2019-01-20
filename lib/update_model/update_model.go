@@ -5,6 +5,7 @@ import (
 	"github.com/syou6162/go-active-learning/lib/classifier"
 	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util"
+	"github.com/syou6162/go-active-learning/lib/util/converter"
 )
 
 func doUpdateModel(c *cli.Context) error {
@@ -32,7 +33,7 @@ func doUpdateModel(c *cli.Context) error {
 		}
 	}
 	examples = util.FilterStatusCodeOkExamples(examples)
-	m, err := classifier.NewMIRAClassifierByCrossValidation(examples)
+	m, err := classifier.NewMIRAClassifierByCrossValidation(converter.ConvertExamplesToLearningInstances(examples))
 	if err != nil {
 		return err
 	}
