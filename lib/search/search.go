@@ -16,7 +16,7 @@ func Search(app service.GoActiveLearningApp, query string) (model.Examples, erro
 		}
 	}
 
-	examples, err := app.SearchExamplesByKeywords(keywords, "ALL", 100)
+	examples, err := app.SearchExamplesByKeywords(keywords, "ALL", 10)
 	if err != nil {
 		return nil, err
 	}
