@@ -13,6 +13,7 @@ import (
 
 	"github.com/codegangsta/cli"
 	"github.com/syou6162/go-active-learning-web/lib/submodular"
+	"github.com/syou6162/go-active-learning/lib/classifier"
 	"github.com/syou6162/go-active-learning/lib/hatena_bookmark"
 	"github.com/syou6162/go-active-learning/lib/model"
 	"github.com/syou6162/go-active-learning/lib/service"
@@ -113,7 +114,7 @@ func doRecommend(c *cli.Context) error {
 	targetExamples = util.UniqueByTitle(targetExamples)
 	log.Println(fmt.Sprintf("target size: %d", len(targetExamples)))
 
-	m, err := app.FindLatestMIRAModel()
+	m, err := app.FindLatestMIRAModel(classifier.EXAMPLE)
 	if err != nil {
 		return err
 	}
