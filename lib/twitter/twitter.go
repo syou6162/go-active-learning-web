@@ -13,6 +13,8 @@ import (
 	"github.com/codegangsta/cli"
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
+	"github.com/syou6162/go-active-learning/lib/classifier"
+	"github.com/syou6162/go-active-learning/lib/feature/tweet"
 	"github.com/syou6162/go-active-learning/lib/model"
 	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util"
@@ -103,6 +105,11 @@ func setReferringTweets(app service.GoActiveLearningApp, listName string, blackl
 	}
 	app.AttachMetadata(examples)
 
+	m, err := app.FindLatestMIRAModel(classifier.TWITTER)
+	if err != nil {
+		return err
+	}
+
 	for _, e := range examples {
 		if e.UpdatedAt.Add(time.Hour * 240).Before(time.Now()) {
 			continue
@@ -116,6 +123,10 @@ func setReferringTweets(app service.GoActiveLearningApp, listName string, blackl
 			}
 			fmt.Printf("cannot retrieve %s: %s", u, err.Error())
 			continue
+		}
+		for _, t := range tweets {
+			et := tweet_feature.GetExampleAndTweet(e, t)
+			t.Score = m.PredictScore(et.GetFeatureVector())
 		}
 		e.ReferringTweets = &tweets
 		if err = app.UpdateOrCreateReferringTweets(e); err != nil {
