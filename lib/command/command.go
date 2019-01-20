@@ -11,7 +11,8 @@ import (
 
 var Commands = []cli.Command{
 	add.CommandAdd,
-	update_model.CommandUpdateModel,
+	update_model.CommandUpdateExampleModel,
+	update_model.CommandUpdateTweetModel,
 	recommend.CommandRecommend,
 	web.CommandServe,
 	twitter.CommandSetReferringTweets,

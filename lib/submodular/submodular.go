@@ -8,12 +8,13 @@ import (
 	"github.com/pbnjay/clustering"
 	"github.com/syou6162/go-active-learning/lib/feature"
 	"github.com/syou6162/go-active-learning/lib/model"
+	"github.com/syou6162/go-active-learning/lib/feature/example"
 )
 
 func extractFeature(e model.Example) feature.FeatureVector {
 	result := feature.FeatureVector{}
-	result = append(result, feature.ExtractNounFeaturesWithoutPrefix(e.Title)...)
-	result = append(result, feature.ExtractHostFeature(e.FinalUrl))
+	result = append(result, example_feature.ExtractNounFeaturesWithoutPrefix(e.Title)...)
+	result = append(result, example_feature.ExtractHostFeature(e.FinalUrl))
 	return result
 }
 
