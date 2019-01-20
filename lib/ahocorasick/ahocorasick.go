@@ -39,8 +39,13 @@ var keywords = []string{
 
 	"parsing",
 
+	"固有表現抽出",
+	"named entity recognition",
+
 	"テキストマイニング",
 	"text mining",
+	"差分プライバシー",
+	"differential privacy",
 
 	"対話",
 	"dialogue",
@@ -59,8 +64,14 @@ var keywords = []string{
 	"変化検知",
 	"change point detection",
 
+	"metric learning",
+	"距離学習",
+
 	"物体検出",
 	"semantic segmentation",
+	"segmentation",
+	"セグメンテーション",
+	"姿勢推定",
 	"yolo",
 
 	"cifar",
@@ -69,8 +80,18 @@ var keywords = []string{
 	"レコメンド",
 	"recommender",
 	"recommendation",
+	"協調フィルタリング",
+	"collaborative filtering",
+	"learning to rank",
+	"ランキング学習",
+	"lambdamart",
 
 	"bandit",
+
+	"時系列",
+
+	"医療",
+	"medical",
 
 	"線形代数",
 	"linear algebra",
@@ -167,15 +188,22 @@ var keywords = []string{
 	"ランダムフォレスト",
 	"optuna",
 	"sentencepiece",
+	"lime",
+	"shap",
+	"openpose",
+	"pytext",
+	"scdv",
 
 	"cnn",
 	"rnn",
 	"lstm",
 	"autoencoder",
 	"オートエンコーダー",
+	"vae",
 	"bert",
 	"elmo",
 	"gan",
+	"generative adversarial network",
 	"u-net",
 	"transformer",
 
@@ -193,7 +221,10 @@ var keywords = []string{
 	"sagemaker",
 
 	"kaggle",
+	"signate",
 	"コンペ",
+	"competition",
+	"bagging",
 }
 
 func Init() error {
