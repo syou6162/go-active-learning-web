@@ -3,9 +3,9 @@ package update_model
 import (
 	"github.com/codegangsta/cli"
 	"github.com/syou6162/go-active-learning/lib/classifier"
-	"github.com/syou6162/go-active-learning/lib/service"
-	"github.com/syou6162/go-active-learning/lib/model"
 	"github.com/syou6162/go-active-learning/lib/feature/tweet"
+	"github.com/syou6162/go-active-learning/lib/model"
+	"github.com/syou6162/go-active-learning/lib/service"
 )
 
 func doUpdateTweetModel(c *cli.Context) error {

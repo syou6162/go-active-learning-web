@@ -4,8 +4,9 @@ import (
 	"os"
 	"time"
 
-	mkr "github.com/mackerelio/mackerel-client-go"
 	"fmt"
+
+	mkr "github.com/mackerelio/mackerel-client-go"
 )
 
 func postEvaluatedMetricsToMackerel(metricNamePrefix string, accuracy float64, precision float64, recall float64, fvalue float64) error {
