@@ -36,7 +36,7 @@ func TestDoRecommend(t *testing.T) {
 	app.Commands = command.Commands
 	args := []string{
 		"go-active-learning-web",
-		"update-model",
+		"update-example-model",
 	}
 
 	if err := app.Run(args); err != nil {
