@@ -8,9 +8,7 @@ import (
 	"os/signal"
 	"time"
 
-	"io/ioutil"
 	"os"
-	"strings"
 
 	"sort"
 
@@ -48,38 +46,6 @@ func NewServer(app service.GoActiveLearningApp) Server {
 
 type server struct {
 	app service.GoActiveLearningApp
-}
-
-func checkAuth(r *http.Request) bool {
-	username, password, ok := r.BasicAuth()
-	if ok == false {
-		return false
-	}
-	return username == os.Getenv("BASIC_AUTH_USERNAME") && password == os.Getenv("BASIC_AUTH_PASSWORD")
-}
-
-func (s *server) registerTrainingData() http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if checkAuth(r) == false {
-			w.WriteHeader(401)
-			w.Write([]byte("401 Unauthorized\n"))
-			return
-		} else {
-			buf, err := ioutil.ReadAll(r.Body)
-			if err != nil {
-				w.WriteHeader(http.StatusBadGateway)
-				fmt.Fprintln(w, err.Error())
-				return
-			}
-			defer r.Body.Close()
-			err = s.app.InsertExamplesFromReader(strings.NewReader(string(buf)))
-			if err != nil {
-				w.WriteHeader(http.StatusBadGateway)
-				fmt.Fprintln(w, err.Error())
-				return
-			}
-		}
-	})
 }
 
 func Min(x, y int) int {
@@ -323,7 +289,6 @@ func (s *server) Handler() http.Handler {
 		fmt.Fprintln(resp, "I'm ML-News.")
 	})
 
-	mux.Handle("/api/register_training_data", s.registerTrainingData())
 	mux.Handle("/api/recent_added_examples", s.RecentAddedExamples())
 	mux.Handle("/api/examples", s.GetExamplesFromList())
 	mux.Handle("/api/example", s.GetExampleById())
