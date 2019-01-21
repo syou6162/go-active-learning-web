@@ -42,8 +42,7 @@ export default {
     }
   },
   async asyncData(context) {
-    // let data = await context.app.$axios.$get("/api/recent_added_tweets");
-    let data = await context.app.$axios.$get("https://www.machine-learning.news/api/recent_added_tweets");
+    let data = await context.app.$axios.$get("/api/recent_added_tweets");
     return {
       positive: data.PositiveExamples.map(e => NewExample(e)),
       negative: data.NegativeExamples.map(e => NewExample(e)),
