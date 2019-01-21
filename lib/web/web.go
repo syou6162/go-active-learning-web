@@ -127,6 +127,7 @@ func (s *server) getListOfExampleWithTweet(tweets model.ReferringTweets) (model.
 		e.ReferringTweets = &model.ReferringTweets{t}
 		result = append(result, e)
 	}
+	result = util.UniqueByFinalUrl(result)
 	return result, nil
 }
 
