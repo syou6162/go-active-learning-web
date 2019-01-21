@@ -151,7 +151,7 @@ func (s *server) RecentAddedReferringTweets() http.Handler {
 			return
 		}
 
-		unlabeledTweets, err := s.app.SearchUnlabeledReferringTweets(limit)
+		unlabeledTweets, err := s.app.SearchUnlabeledReferringTweets(50)
 		if err != nil {
 			ServerError(w, err.Error())
 			return
