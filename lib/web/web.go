@@ -106,29 +106,24 @@ func (s *server) RecentAddedExamples() http.Handler {
 }
 
 func (s *server) getListOfExampleWithTweet(tweets model.ReferringTweets) (model.Examples, error) {
-	result := model.Examples{}
-
 	exampleIds := make([]int, 0)
 	for _, t := range tweets {
 		exampleIds = append(exampleIds, t.ExampleId)
 	}
 	examples, err := s.app.SearchExamplesByIds(exampleIds)
 	if err != nil {
-		return result, err
+		return nil, err
 	}
 
-	exampleById := make(map[int]*model.Example)
-	for _, e := range examples {
-		exampleById[e.Id] = e
-	}
-
+	tweetsByExampleId := make(map[int]model.ReferringTweets)
 	for _, t := range tweets {
-		e := exampleById[t.ExampleId]
-		e.ReferringTweets = &model.ReferringTweets{t}
-		result = append(result, e)
+		tweetsByExampleId[t.ExampleId] = append(tweetsByExampleId[t.ExampleId], t)
 	}
-	result = util.UniqueByFinalUrl(result)
-	return result, nil
+	for _, e := range examples {
+		tmp := tweetsByExampleId[e.Id]
+		e.ReferringTweets = &tmp
+	}
+	return examples, nil
 }
 
 func (s *server) RecentAddedReferringTweets() http.Handler {
