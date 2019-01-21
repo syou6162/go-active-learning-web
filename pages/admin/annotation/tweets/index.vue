@@ -12,7 +12,7 @@
         v-for="example in searchExamplesByLabel(label)"
         v-bind:key="getKey(example, label)"
         v-bind:example="example"
-        v-bind:tweet="example.ReferringTweets[0]"
+        v-bind:tweets="example.ReferringTweets"
         v-bind:isAdmin="isAdmin"
         ></example>
     </b-card-group>
@@ -21,7 +21,7 @@
 
 <script>
 import axios from 'axios';
-import AdminAnnotateTweet from '~/components/AdminAnnotateTweet.vue';
+import AdminAnnotateTweet from '~/components/AdminAnnotateTweets.vue';
 import TweetAnnotateButtons from '~/components/TweetAnnotateButtons.vue';
 import { NewExample } from '~/assets/util';
 import { Auth } from 'aws-amplify';
