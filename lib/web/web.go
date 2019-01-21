@@ -33,6 +33,7 @@ type Server interface {
 	SitemapCategory() http.Handler
 
 	RecentAddedExamples() http.Handler
+	RecentAddedReferringTweets() http.Handler
 	GetExamplesFromList() http.Handler
 	GetExampleById() http.Handler
 	Search() http.Handler
@@ -95,6 +96,75 @@ func (s *server) RecentAddedExamples() http.Handler {
 		}
 		s.app.AttachLightMetadata(unlabeledExamples)
 		unlabeledExamples = util.FilterStatusCodeOkExamples(unlabeledExamples)
+
+		JSON(w, http.StatusOK, RecentAddedExamplesResult{
+			PositiveExamples:  positiveExamples,
+			NegativeExamples:  negativeExamples,
+			UnlabeledExamples: unlabeledExamples,
+		})
+	})
+}
+
+func (s *server) getListOfExampleWithTweet(tweets model.ReferringTweets) (model.Examples, error) {
+	result := model.Examples{}
+
+	exampleIds := make([]int, 0)
+	for _, t := range tweets {
+		exampleIds = append(exampleIds, t.ExampleId)
+	}
+	examples, err := s.app.SearchExamplesByIds(exampleIds)
+	if err != nil {
+		return result, err
+	}
+
+	exampleById := make(map[int]*model.Example)
+	for _, e := range examples {
+		exampleById[e.Id] = e
+	}
+
+	for _, t := range tweets {
+		e := exampleById[t.ExampleId]
+		e.ReferringTweets = &model.ReferringTweets{t}
+		result = append(result, e)
+	}
+	return result, nil
+}
+
+func (s *server) RecentAddedReferringTweets() http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		limit := 30
+		positiveTweets, err := s.app.SearchPositiveReferringTweets(limit)
+		if err != nil {
+			ServerError(w, err.Error())
+			return
+		}
+		positiveExamples, err := s.getListOfExampleWithTweet(positiveTweets)
+		if err != nil {
+			ServerError(w, err.Error())
+			return
+		}
+
+		negativeTweets, err := s.app.SearchNegativeReferringTweets(limit)
+		if err != nil {
+			ServerError(w, err.Error())
+			return
+		}
+		negativeExamples, err := s.getListOfExampleWithTweet(negativeTweets)
+		if err != nil {
+			ServerError(w, err.Error())
+			return
+		}
+
+		unlabeledTweets, err := s.app.SearchUnlabeledReferringTweets(limit)
+		if err != nil {
+			ServerError(w, err.Error())
+			return
+		}
+		unlabeledExamples, err := s.getListOfExampleWithTweet(unlabeledTweets)
+		if err != nil {
+			ServerError(w, err.Error())
+			return
+		}
 
 		JSON(w, http.StatusOK, RecentAddedExamplesResult{
 			PositiveExamples:  positiveExamples,
@@ -290,6 +360,7 @@ func (s *server) Handler() http.Handler {
 	})
 
 	mux.Handle("/api/recent_added_examples", s.RecentAddedExamples())
+	mux.Handle("/api/recent_added_tweets", s.RecentAddedReferringTweets())
 	mux.Handle("/api/examples", s.GetExamplesFromList())
 	mux.Handle("/api/example", s.GetExampleById())
 	mux.Handle("/api/search", s.Search())
