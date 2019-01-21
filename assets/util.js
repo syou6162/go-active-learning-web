@@ -8,7 +8,9 @@ export function NewExample(e, opts = {}) {
   e.CreatedAt = format(createdAt, "yyyy/MM/dd HH:mm");
   e.UpdatedAt = format(updatedAt, "yyyy/MM/dd HH:mm");
   e.IsNew = isAfter(createdAt, isNewDayThreshold);
-  e.HatenaBookmark.bookmarks = (e.HatenaBookmark.bookmarks || []).reverse();
+  if (e.HatenaBookmark) {
+    e.HatenaBookmark.bookmarks = (e.HatenaBookmark.bookmarks || []).reverse();
+  }
   return e;
 }
 
