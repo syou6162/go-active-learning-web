@@ -8,9 +8,7 @@ import (
 	"os/signal"
 	"time"
 
-	"io/ioutil"
 	"os"
-	"strings"
 
 	"sort"
 
@@ -35,6 +33,7 @@ type Server interface {
 	SitemapCategory() http.Handler
 
 	RecentAddedExamples() http.Handler
+	RecentAddedReferringTweets() http.Handler
 	GetExamplesFromList() http.Handler
 	GetExampleById() http.Handler
 	Search() http.Handler
@@ -48,38 +47,6 @@ func NewServer(app service.GoActiveLearningApp) Server {
 
 type server struct {
 	app service.GoActiveLearningApp
-}
-
-func checkAuth(r *http.Request) bool {
-	username, password, ok := r.BasicAuth()
-	if ok == false {
-		return false
-	}
-	return username == os.Getenv("BASIC_AUTH_USERNAME") && password == os.Getenv("BASIC_AUTH_PASSWORD")
-}
-
-func (s *server) registerTrainingData() http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if checkAuth(r) == false {
-			w.WriteHeader(401)
-			w.Write([]byte("401 Unauthorized\n"))
-			return
-		} else {
-			buf, err := ioutil.ReadAll(r.Body)
-			if err != nil {
-				w.WriteHeader(http.StatusBadGateway)
-				fmt.Fprintln(w, err.Error())
-				return
-			}
-			defer r.Body.Close()
-			err = s.app.InsertExamplesFromReader(strings.NewReader(string(buf)))
-			if err != nil {
-				w.WriteHeader(http.StatusBadGateway)
-				fmt.Fprintln(w, err.Error())
-				return
-			}
-		}
-	})
 }
 
 func Min(x, y int) int {
@@ -129,6 +96,71 @@ func (s *server) RecentAddedExamples() http.Handler {
 		}
 		s.app.AttachLightMetadata(unlabeledExamples)
 		unlabeledExamples = util.FilterStatusCodeOkExamples(unlabeledExamples)
+
+		JSON(w, http.StatusOK, RecentAddedExamplesResult{
+			PositiveExamples:  positiveExamples,
+			NegativeExamples:  negativeExamples,
+			UnlabeledExamples: unlabeledExamples,
+		})
+	})
+}
+
+func (s *server) getListOfExampleWithTweet(tweets model.ReferringTweets) (model.Examples, error) {
+	exampleIds := make([]int, 0)
+	for _, t := range tweets {
+		exampleIds = append(exampleIds, t.ExampleId)
+	}
+	examples, err := s.app.SearchExamplesByIds(exampleIds)
+	if err != nil {
+		return nil, err
+	}
+
+	tweetsByExampleId := make(map[int]model.ReferringTweets)
+	for _, t := range tweets {
+		tweetsByExampleId[t.ExampleId] = append(tweetsByExampleId[t.ExampleId], t)
+	}
+	for _, e := range examples {
+		tmp := tweetsByExampleId[e.Id]
+		e.ReferringTweets = &tmp
+	}
+	return examples, nil
+}
+
+func (s *server) RecentAddedReferringTweets() http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		limit := 30
+		positiveTweets, err := s.app.SearchPositiveReferringTweets(limit)
+		if err != nil {
+			ServerError(w, err.Error())
+			return
+		}
+		positiveExamples, err := s.getListOfExampleWithTweet(positiveTweets)
+		if err != nil {
+			ServerError(w, err.Error())
+			return
+		}
+
+		negativeTweets, err := s.app.SearchNegativeReferringTweets(limit)
+		if err != nil {
+			ServerError(w, err.Error())
+			return
+		}
+		negativeExamples, err := s.getListOfExampleWithTweet(negativeTweets)
+		if err != nil {
+			ServerError(w, err.Error())
+			return
+		}
+
+		unlabeledTweets, err := s.app.SearchUnlabeledReferringTweets(50)
+		if err != nil {
+			ServerError(w, err.Error())
+			return
+		}
+		unlabeledExamples, err := s.getListOfExampleWithTweet(unlabeledTweets)
+		if err != nil {
+			ServerError(w, err.Error())
+			return
+		}
 
 		JSON(w, http.StatusOK, RecentAddedExamplesResult{
 			PositiveExamples:  positiveExamples,
@@ -323,8 +355,8 @@ func (s *server) Handler() http.Handler {
 		fmt.Fprintln(resp, "I'm ML-News.")
 	})
 
-	mux.Handle("/api/register_training_data", s.registerTrainingData())
 	mux.Handle("/api/recent_added_examples", s.RecentAddedExamples())
+	mux.Handle("/api/recent_added_tweets", s.RecentAddedReferringTweets())
 	mux.Handle("/api/examples", s.GetExamplesFromList())
 	mux.Handle("/api/example", s.GetExampleById())
 	mux.Handle("/api/search", s.Search())
