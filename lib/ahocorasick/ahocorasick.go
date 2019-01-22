@@ -159,7 +159,6 @@ var keywords = []string{
 	"圧縮",
 	"高速化",
 
-	"github",
 	"open source",
 	"オープンソース",
 	"python",
