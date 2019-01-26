@@ -99,8 +99,12 @@ var keywords = []string{
 	"データ基盤",
 	"データ分析",
 	"redash",
+	"re:dash",
 	"athena",
 	"bigquery",
+	"embulk",
+	"fluentd",
+	"digdag",
 
 	"データセット",
 	"dataset",
@@ -218,6 +222,7 @@ var keywords = []string{
 	"kubernetes",
 	"kubeflow",
 	"sagemaker",
+	"s3",
 
 	"kaggle",
 	"signate",
