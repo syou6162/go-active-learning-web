@@ -26,7 +26,7 @@ var listName2Rule = map[string]*regexp.Regexp{
 	"github":  regexp.MustCompile(`https://github.com/[^/]+/[^/]+$`), // リポジトリのトップのみ
 	"slide":   regexp.MustCompile(`https://(www.slideshare.net|speakerdeck.com)/.+`),
 	"arxiv":   regexp.MustCompile(`https://(arxiv.org/abs/.+$|openreview.net/forum\?id=.+$)`),
-	"video":   regexp.MustCompile(`https?://(www.youtube.com/watch\?v=.+$|videolectures.net/.+$)`),
+	"video":   regexp.MustCompile(`https?://(www.youtube.com/watch\?v=.+$|videolectures.net/.+$|vimeo.com/.+$)`),
 	"event":   regexp.MustCompile(`https://.*?\.?connpass.com/event/.+/$`),
 }
 
@@ -36,7 +36,7 @@ var listName2Hosts = map[string][]string{
 	"github":  {"https://github.com"},
 	"slide":   {"https://www.slideshare.net", "https://speakerdeck.com"},
 	"arxiv":   {"https://arxiv.org", "https://openreview.net"},
-	"video":   {"https://www.youtube.com", "http://videolectures.net"},
+	"video":   {"https://www.youtube.com", "http://videolectures.net", "https://vimeo.com"},
 	"event":   {"https://"},
 }
 
