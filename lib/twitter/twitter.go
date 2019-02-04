@@ -65,30 +65,34 @@ func GetReferringTweets(url string, blacklist []string) (model.ReferringTweets, 
 
 	tweets := model.ReferringTweets{}
 	for _, t := range search.Statuses {
-		createdAt, err := t.CreatedAtTime()
-		if err != nil {
-			createdAt = time.Now()
-		}
-		label := model.UNLABELED
+		belongsToBlacklist := false
 		for _, name := range blacklist {
 			if name == t.User.ScreenName {
-				label = model.NEGATIVE
+				belongsToBlacklist = true
+				break
 			}
 		}
-		tweet := model.Tweet{
-			CreatedAt:     createdAt,
-			IdStr:         t.IDStr,
-			FullText:      t.FullText,
-			FavoriteCount: t.FavoriteCount,
-			RetweetCount:  t.RetweetCount,
-			Lang:          t.Lang,
 
-			ScreenName:      t.User.ScreenName,
-			Name:            t.User.Name,
-			ProfileImageUrl: t.User.ProfileImageURLHttps,
-			Label:           label,
+		if !belongsToBlacklist {
+			createdAt, err := t.CreatedAtTime()
+			if err != nil {
+				createdAt = time.Now()
+			}
+			tweet := model.Tweet{
+				CreatedAt:     createdAt,
+				IdStr:         t.IDStr,
+				FullText:      t.FullText,
+				FavoriteCount: t.FavoriteCount,
+				RetweetCount:  t.RetweetCount,
+				Lang:          t.Lang,
+
+				ScreenName:      t.User.ScreenName,
+				Name:            t.User.Name,
+				ProfileImageUrl: t.User.ProfileImageURLHttps,
+				Label:           model.UNLABELED,
+			}
+			tweets = append(tweets, &tweet)
 		}
-		tweets = append(tweets, &tweet)
 	}
 	return tweets, nil
 }
