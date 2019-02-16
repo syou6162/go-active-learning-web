@@ -105,6 +105,8 @@ var keywords = []string{
 	"embulk",
 	"fluentd",
 	"digdag",
+	"airflow",
+	"argo",
 
 	"データセット",
 	"dataset",
@@ -131,6 +133,7 @@ var keywords = []string{
 	"iclr",
 	"ijcai",
 	"aaai",
+	"wsdm",
 
 	"ロジステック回帰",
 	"logistic regression",
@@ -209,6 +212,8 @@ var keywords = []string{
 	"generative adversarial network",
 	"u-net",
 	"transformer",
+	"stylegan",
+	"noise2void",
 
 	"埋め込み",
 	"embedding",
@@ -219,6 +224,7 @@ var keywords = []string{
 	"gcp",
 	"aws",
 	"docker",
+	"コンテナ",
 	"kubernetes",
 	"kubeflow",
 	"sagemaker",
