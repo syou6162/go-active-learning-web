@@ -1,6 +1,13 @@
 version: 2
 jobs:
-  build:
+  build_frontend:
+    docker:
+      - image: circleci/node:10.15.3-jessie
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run-script build
+  build_backend:
     working_directory: /home/circleci/go/src/github.com/syou6162/go-active-learning-web
     environment:
       - GOPATH: /home/circleci/go
@@ -36,3 +43,9 @@ jobs:
       - run: test `gofmt -l $(git ls-files | grep -e '\.go$' | grep -v -e vendor) | wc -l` = 0
       - run: make cover COVERAGE='/home/circleci/coverage.out'
       - run: goveralls -coverprofile=/home/circleci/coverage.out -service=circle-ci -repotoken=$COVERALLS_TOKEN
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build_frontend 
+      - build_backend
