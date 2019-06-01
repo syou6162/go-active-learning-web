@@ -19,5 +19,11 @@
 
 # Usage
 
+```console
+% ./go-active-learning-web serve --addr localhost:7778
+% npm run-script dev
+% open http://localhost:3000
+```
+
 # Author
 Yasuhisa Yoshida
