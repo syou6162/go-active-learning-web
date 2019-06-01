@@ -75,3 +75,18 @@ workflows:
       - test_backend:
           requires:
             - build_backend
+  nightly_workflow:
+    triggers:
+      - schedule:
+          cron: "0 6 * * *" # UTCで記述。この場合は15時
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - build_frontend 
+      - build_backend
+      - check_format
+      - test_backend:
+          requires:
+            - build_backend
