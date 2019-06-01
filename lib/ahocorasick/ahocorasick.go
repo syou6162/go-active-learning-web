@@ -81,6 +81,7 @@ var keywords = []string{
 	"recommender",
 	"recommendation",
 	"協調フィルタリング",
+	"factorization machine",
 	"collaborative filtering",
 	"learning to rank",
 	"ランキング学習",
@@ -103,10 +104,12 @@ var keywords = []string{
 	"athena",
 	"bigquery",
 	"embulk",
+	"spark",
 	"fluentd",
 	"digdag",
 	"airflow",
 	"argo",
+	"データパイプライン",
 
 	"データセット",
 	"dataset",
@@ -134,6 +137,7 @@ var keywords = []string{
 	"ijcai",
 	"aaai",
 	"wsdm",
+	"siggraph",
 
 	"ロジステック回帰",
 	"logistic regression",
@@ -229,6 +233,9 @@ var keywords = []string{
 	"kubeflow",
 	"sagemaker",
 	"s3",
+	"splunk",
+	"mlops",
+	"automl",
 
 	"kaggle",
 	"signate",
