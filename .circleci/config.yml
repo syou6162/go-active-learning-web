@@ -84,4 +84,6 @@ workflows:
       - build_frontend 
       - build_backend
       - check_format
-      - test_backend
+      - test_backend:
+          requires:
+            - build_backend
