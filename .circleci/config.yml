@@ -12,7 +12,34 @@ jobs:
     environment:
       - GOPATH: /home/circleci/go
     docker:
+      - image: circleci/golang:1.12
+        environment:
+          PGHOST: 127.0.0.1
+    steps:
+      - run: echo 'export PATH=${GOPATH}/bin/:${PATH}' >> $BASH_ENV
+      - checkout
+      - run: make deps-cmd
+      - run: make deps
+      - run: go get -t -d -v ./...
+      - run: make build
+      - run: go get -t -d -v ./...
+      - run: go build -v
+  check_format:
+    working_directory: /home/circleci/go/src/github.com/syou6162/go-active-learning-web
+    environment:
+      - GOPATH: /home/circleci/go
+    docker:
       - image: circleci/golang:1.9
+    steps:
+      - run: echo 'export PATH=${GOPATH}/bin/:${PATH}' >> $BASH_ENV
+      - checkout
+      - run: test `gofmt -l $(git ls-files | grep -e '\.go$' | grep -v -e vendor) | wc -l` = 0
+  test_backend:
+    working_directory: /home/circleci/go/src/github.com/syou6162/go-active-learning-web
+    environment:
+      - GOPATH: /home/circleci/go
+    docker:
+      - image: circleci/golang:1.12
         environment:
           PGHOST: 127.0.0.1
       - image: circleci/postgres:9.6-alpine
@@ -34,13 +61,8 @@ jobs:
       - run: make deps-cmd
       - run: make deps
       - run: go get -t -d -v ./...
-      - run: make build
-      - run: go get -t -d -v ./...
-      - run: go build -v
       - run: cd /home/circleci/go/src/github.com/syou6162/go-active-learning && psql -U postgres -f script/create_database.sql
       - run: cd /home/circleci/go/src/github.com/syou6162/go-active-learning && sql-migrate up -env=test
-      # Test
-      - run: test `gofmt -l $(git ls-files | grep -e '\.go$' | grep -v -e vendor) | wc -l` = 0
       - run: make cover COVERAGE='/home/circleci/coverage.out'
       - run: goveralls -coverprofile=/home/circleci/coverage.out -service=circle-ci -repotoken=$COVERALLS_TOKEN
 workflows:
@@ -49,3 +71,22 @@ workflows:
     jobs:
       - build_frontend 
       - build_backend
+      - check_format
+      - test_backend:
+          requires:
+            - build_backend
+  nightly_workflow:
+    triggers:
+      - schedule:
+          cron: "0 6 * * *" # UTCで記述。この場合は15時
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - build_frontend 
+      - build_backend
+      - check_format
+      - test_backend:
+          requires:
+            - build_backend
