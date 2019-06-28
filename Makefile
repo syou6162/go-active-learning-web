@@ -1,19 +1,15 @@
 COMMIT ?= $$(git describe --always 2>/dev/null)
 COVERAGE = coverage.out
+GO111MODULE=on
 
 all: build
 
-deps-cmd:
-	go get github.com/golang/dep/cmd/dep
-
 .PHONY: deps
 deps:
-	dep ensure
-	go get github.com/syou6162/go-active-learning
-	go get github.com/go-ego/gse
+	go mod download
 	go get github.com/mattn/goveralls
 	go get github.com/haya14busa/goverage
-	go get -v github.com/rubenv/sql-migrate/...
+	go get github.com/rubenv/sql-migrate/sql-migrate
 
 .PHONY: build
 build:

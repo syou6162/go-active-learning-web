@@ -1,4 +1,17 @@
 version: 2
+
+defaults: &defaults
+  docker:
+    - image: circleci/golang:1.12.4
+      user: root
+    - image: circleci/postgres:9.6-alpine
+  working_directory: /workspace
+  environment:
+    GOPATH: /
+    GOCACHE: /.cache/go-build
+    GO111MODULE: "on"
+    PGHOST: 127.0.0.1
+
 jobs:
   build_frontend:
     docker:
@@ -7,45 +20,59 @@ jobs:
       - checkout
       - run: npm install
       - run: npm run-script build
+  setup_build_backend:
+    <<: *defaults
+    steps:
+      - run: go env
+      - checkout
+      - restore_cache:
+          keys:
+            - go-module-cache-v1-{{ checksum "/workspace/go.sum" }}
+            - go-module-cache-v1-
+      - run: go mod download
+      - save_cache:
+          key: go-module-cache-v1-{{ checksum "/workspace/go.sum" }}
+          paths:
+            - /pkg/mod/cache
+      - save_cache:
+          key: workspace-v1-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - /workspace
   build_backend:
-    working_directory: /home/circleci/go/src/github.com/syou6162/go-active-learning-web
-    environment:
-      - GOPATH: /home/circleci/go
-    docker:
-      - image: circleci/golang:1.12
-        environment:
-          PGHOST: 127.0.0.1
+    <<: *defaults
     steps:
-      - run: echo 'export PATH=${GOPATH}/bin/:${PATH}' >> $BASH_ENV
-      - checkout
-      - run: make deps-cmd
-      - run: make deps
-      - run: go get -t -d -v ./...
+      - restore_cache:
+          keys:
+            - workspace-v1-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - go-module-cache-v1-{{ checksum "/workspace/go.sum" }}
+            - go-module-cache-v1-
+      - restore_cache:
+          keys:
+            - go-build-cache-v1-{{ .Branch }}-{{ .Revision }}
+            - go-build-cache-v1-{{ .Branch }}
+            - go-module-cache-v1-
       - run: make build
-      - run: go get -t -d -v ./...
-      - run: go build -v
   check_format:
-    working_directory: /home/circleci/go/src/github.com/syou6162/go-active-learning-web
-    environment:
-      - GOPATH: /home/circleci/go
-    docker:
-      - image: circleci/golang:1.9
+    <<: *defaults
     steps:
-      - run: echo 'export PATH=${GOPATH}/bin/:${PATH}' >> $BASH_ENV
-      - checkout
+      - restore_cache:
+          keys:
+            - workspace-v1-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - go-module-cache-v1-{{ checksum "/workspace/go.sum" }}
+            - go-module-cache-v1-
+      - restore_cache:
+          keys:
+            - go-build-cache-v1-{{ .Branch }}-{{ .Revision }}
+            - go-build-cache-v1-{{ .Branch }}
+            - go-module-cache-v1-
       - run: test `gofmt -l $(git ls-files | grep -e '\.go$' | grep -v -e vendor) | wc -l` = 0
   test_backend:
-    working_directory: /home/circleci/go/src/github.com/syou6162/go-active-learning-web
-    environment:
-      - GOPATH: /home/circleci/go
-    docker:
-      - image: circleci/golang:1.12
-        environment:
-          PGHOST: 127.0.0.1
-      - image: circleci/postgres:9.6-alpine
+    <<: *defaults
     steps:
-      - run: echo 'export PATH=${GOPATH}/bin/:${PATH}' >> $BASH_ENV
-      - checkout
       - run: sudo apt-get update
       - run: sudo apt-get install -y postgresql-client-9.6
       - run:
@@ -58,20 +85,34 @@ jobs:
               sleep 1
             done
             echo Failed waiting for Postgres && exit 1
-      - run: make deps-cmd
+      - restore_cache:
+          keys:
+            - workspace-v1-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - go-module-cache-v1-{{ checksum "/workspace/go.sum" }}
+            - go-module-cache-v1-
+      - restore_cache:
+          keys:
+            - go-build-cache-v1-{{ .Branch }}-{{ .Revision }}
+            - go-build-cache-v1-{{ .Branch }}
+            - go-module-cache-v1-
       - run: make deps
-      - run: go get -t -d -v ./...
-      - run: cd /home/circleci/go/src/github.com/syou6162/go-active-learning && psql -U postgres -f script/create_database.sql
-      - run: cd /home/circleci/go/src/github.com/syou6162/go-active-learning && sql-migrate up -env=test
+      - run: git clone https://github.com/syou6162/go-active-learning.git && cd go-active-learning && psql -U postgres -f script/create_database.sql && sql-migrate up -env=test && cd ../ && rm -rf go-active-learning
       - run: make cover COVERAGE='/home/circleci/coverage.out'
       - run: goveralls -coverprofile=/home/circleci/coverage.out -service=circle-ci -repotoken=$COVERALLS_TOKEN
 workflows:
   version: 2
   build-and-deploy:
     jobs:
+      - setup_build_backend 
       - build_frontend 
-      - build_backend
-      - check_format
+      - build_backend:
+          requires:
+            - setup_build_backend 
+      - check_format:
+          requires:
+            - setup_build_backend 
       - test_backend:
           requires:
             - build_backend
@@ -84,9 +125,14 @@ workflows:
               only:
                 - master
     jobs:
+      - setup_build_backend 
       - build_frontend 
-      - build_backend
-      - check_format
+      - build_backend:
+          requires:
+            - setup_build_backend 
+      - check_format:
+          requires:
+            - setup_build_backend 
       - test_backend:
           requires:
             - build_backend
