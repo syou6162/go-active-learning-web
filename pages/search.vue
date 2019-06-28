@@ -74,7 +74,7 @@ export default {
   },
   head() {
     let query = this.query || '';
-    const title = "ML News - 「" + query + "」に関する検索結果";
+    const title = "ML-News - 「" + query + "」に関する検索結果";
 
     return {
       title: title,

@@ -2,7 +2,7 @@
   <div>
     <b-navbar toggleable="md" type="dark" variant="dark" fixed="top" sticky>
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-      <b-navbar-brand to="/list/general">ML News</b-navbar-brand>
+      <b-navbar-brand to="/list/general">ML-News</b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
           <b-nav-item to="/list/general">General</b-nav-item>

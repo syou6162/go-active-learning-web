@@ -60,7 +60,7 @@ export default {
   layout: 'default',
   data () {
     return {
-      title: "ML News",
+      title: "ML-News",
       listname: 'general',
       examples: [],
       isNew: 0,
@@ -107,7 +107,7 @@ export default {
       }
     });
     return {
-      title: `ML News - ${listname}`,
+      title: `ML-News - ${listname}`,
       listname: listname,
       examples: examples,
       loading: false
