@@ -89,7 +89,7 @@ import { NewExample, filterBookmarksWithComment } from '~/assets/util';
 export default {
   data () {
     return {
-      title: "ML News",
+      title: "ML-News",
       url: this.$route.params.url,
       example: null,
       similarExamples: [],
@@ -108,7 +108,7 @@ export default {
     return app.$axios.$get(`/api/example?id=${params.id}`)
       .then((data) => {
         return {
-          title: `ML News - ${data.Example.Title}`,
+          title: `ML-News - ${data.Example.Title}`,
           example: NewExample(data.Example),
           similarExamples: data.SimilarExamples.filter(function(e) {
             return e.Label === 1 || e.Score > 0.0;

@@ -18,7 +18,7 @@ import { IsAdmin, signIn, signOut } from '~/plugins/amplify.js';
 export default {
   data () {
     return {
-      title: "ML News",
+      title: "ML-News",
       listname: 'general',
       examples: [],
       isNew: 0,
