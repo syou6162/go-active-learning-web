@@ -304,7 +304,7 @@
     "lib/util/file",
   ]
   pruneopts = "UT"
-  revision = "0469f07c88af0919d2cc2bf97fc206d278fe2347"
+  revision = "885b94dc8399b0e221cc05f4b752f5f3df3ce21d"
 
 [[projects]]
   branch = "master"
