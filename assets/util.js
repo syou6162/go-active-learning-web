@@ -37,3 +37,12 @@ export function filterBookmarksWithComment(example) {
     return b.comment !== "";
   });
 }
+
+export function getTitleWithKeyword(example, keywords) {
+  var origTitle = example.Title;
+  if (keywords && keywords.length > 0) {
+    return `[ML-News ${keywords[0]}] ${origTitle}`;
+  } else {
+    return `[ML-News] ${origTitle}`;
+  }
+}
