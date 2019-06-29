@@ -1,10 +1,10 @@
-import { format, formatDistance, formatRelative, subDays, isAfter, toDate } from 'date-fns'
+import { format, formatDistance, formatRelative, subDays, isAfter, toDate, parseISO } from 'date-fns'
 import jaLocale from 'date-fns/locale/ja'
 
 export function NewExample(e, opts = {}) {
   var isNewDayThreshold = subDays(new Date(), opts["IsNewDayThreshold"] || 1);
-  var createdAt = toDate(e.CreatedAt);
-  var updatedAt = toDate(e.UpdatedAt);
+  var createdAt = toDate(parseISO(e.CreatedAt));
+  var updatedAt = toDate(parseISO(e.UpdatedAt));
   e.CreatedAt = format(createdAt, "yyyy/MM/dd HH:mm");
   e.UpdatedAt = format(updatedAt, "yyyy/MM/dd HH:mm");
   e.IsNew = isAfter(createdAt, isNewDayThreshold);
