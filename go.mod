@@ -19,7 +19,7 @@ require (
 	github.com/fukata/golang-stats-api-handler v0.0.0-20160325105040-ab9f90f16caa
 	github.com/gigawattio/window v0.0.0-20180317192513-0f5467e35573 // indirect
 	github.com/google/go-querystring v1.0.0 // indirect
-	github.com/gorilla/feeds v1.1.0
+	github.com/gorilla/feeds v1.1.1
 	github.com/gorilla/websocket v1.4.0 // indirect
 	github.com/ikawaha/kagome v0.0.0-20180914080201-9e66de1ea90c // indirect
 	github.com/ikeikeikeike/go-sitemap-generator v2.0.1+incompatible
