@@ -41,7 +41,7 @@
     "cssnano": "^4.1.10",
     "date-fns": "^2.0.0-beta.2",
     "jquery": "^3.4.1",
-    "nuxt": "^2.8.0",
+    "nuxt": "^2.8.1",
     "regenerator-runtime": "^0.13.2",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.4",
