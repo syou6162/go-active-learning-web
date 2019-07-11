@@ -12,7 +12,7 @@ require (
 	github.com/clbanning/mxj v1.8.4 // indirect
 	github.com/codegangsta/cli v1.20.0
 	github.com/dghubble/go-twitter v0.0.0-20190108053744-7fd79e2bcc65
-	github.com/dghubble/oauth1 v0.5.0
+	github.com/dghubble/oauth1 v0.6.0
 	github.com/dghubble/sling v1.2.0 // indirect
 	github.com/fatih/set v0.2.1 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
