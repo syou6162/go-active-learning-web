@@ -39,7 +39,7 @@
     "bootstrap-vue": "^2.0.0-rc.21",
     "cross-env": "^5.2.0",
     "cssnano": "^4.1.10",
-    "date-fns": "^2.0.0-beta.2",
+    "date-fns": "^2.0.0-beta.3",
     "jquery": "^3.4.1",
     "nuxt": "^2.8.1",
     "regenerator-runtime": "^0.13.2",
