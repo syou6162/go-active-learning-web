@@ -84,7 +84,7 @@ import HatenaBookmarkIcon from '~/components/HatenaBookmarkIcon.vue';
 import TwitterIcon from '~/components/TwitterIcon.vue';
 import AnnotateButtons from '~/components/AnnotateButtons.vue';
 import TweetAnnotateButtons from '~/components/TweetAnnotateButtons.vue';
-import { NewExample, filterBookmarksWithComment, getTitleWithKeyword } from '~/assets/util';
+import { NewExample, filterBookmarksWithComment } from '~/assets/util';
 
 export default {
   data () {
@@ -108,7 +108,7 @@ export default {
     return app.$axios.$get(`/api/example?id=${params.id}`)
       .then((data) => {
         return {
-          title: getTitleWithKeyword(data.Example, data.Keywords),
+          title: `[ML-News] ${data.Example.Title}`,
           example: NewExample(data.Example),
           similarExamples: data.SimilarExamples.filter(function(e) {
             return e.Label === 1 || e.Score > 0.0;
