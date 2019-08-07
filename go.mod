@@ -28,7 +28,7 @@ require (
 	github.com/mattn/go-tty v0.0.0-20190424173100-523744f04859 // indirect
 	github.com/montanaflynn/stats v0.5.0 // indirect
 	github.com/pbnjay/clustering v0.0.0-20180426023255-34a8f36cd397
-	github.com/syou6162/go-active-learning v0.0.2
+	github.com/syou6162/go-active-learning v0.0.3
 	golang.org/x/net v0.0.0-20190724013045-ca1201d0de80 // indirect
 	golang.org/x/sys v0.0.0-20190801041406-cbf593c0f2f3 // indirect
 )
