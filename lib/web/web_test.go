@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/fukata/golang-stats-api-handler"
+	stats_api "github.com/fukata/golang-stats-api-handler"
 	"github.com/syou6162/go-active-learning-web/lib/web"
 	"github.com/syou6162/go-active-learning/lib/model"
 	"github.com/syou6162/go-active-learning/lib/service"
