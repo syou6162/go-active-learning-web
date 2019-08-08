@@ -11,13 +11,13 @@ import (
 	"net/url"
 	"sort"
 
-	"github.com/codegangsta/cli"
 	"github.com/syou6162/go-active-learning-web/lib/submodular"
 	"github.com/syou6162/go-active-learning/lib/classifier"
 	"github.com/syou6162/go-active-learning/lib/hatena_bookmark"
 	"github.com/syou6162/go-active-learning/lib/model"
 	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util"
+	"github.com/urfave/cli"
 )
 
 var listName2Rule = map[string]*regexp.Regexp{

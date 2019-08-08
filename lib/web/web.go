@@ -16,7 +16,7 @@ import (
 
 	"strconv"
 
-	"github.com/codegangsta/cli"
+	"github.com/urfave/cli"
 	"github.com/fukata/golang-stats-api-handler"
 	"github.com/gorilla/feeds"
 	"github.com/syou6162/go-active-learning-web/lib/ahocorasick"

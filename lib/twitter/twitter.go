@@ -10,14 +10,14 @@ import (
 	"bufio"
 	"os"
 
-	"github.com/codegangsta/cli"
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
 	"github.com/syou6162/go-active-learning/lib/classifier"
-	"github.com/syou6162/go-active-learning/lib/feature/tweet"
+	tweet_feature "github.com/syou6162/go-active-learning/lib/feature/tweet"
 	"github.com/syou6162/go-active-learning/lib/model"
 	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util"
+	"github.com/urfave/cli"
 )
 
 func getClient() *twitter.Client {
