@@ -1,15 +1,80 @@
 https://www.yasuhisay.info/	1
-http://www.songmu.jp/riji/	1
+https://songmu.jp/riji/	1
 https://blog.yuuk.io/	1
 https://hakobe932.hatenablog.com/	1
 https://motemen.hatenablog.com/	1
-http://www3.nhk.or.jp/news/	-1
+https://www3.nhk.or.jp/news/	-1
 https://www.facebook.com/	-1
 http://r.gnavi.co.jp/g-interview/	-1
-http://suumo.jp/town/	-1
-http://srdk.rakuten.jp/
-http://kuenishi.hatenadiary.jp/entry/2017/05/25/005527
+https://suumo.jp/town/	-1
+https://srdk.rakuten.jp/
+https://kuenishi.hatenadiary.jp/entry/2017/05/25/005527
 http://otiai10.hatenablog.com/entry/2017/05/24/163701
 https://www.yasuhisay.info/entry/2016/11/23/000000
 https://www.yasuhisay.info/entry/20090516/1242480413
 https://www.yasuhisay.info/entry/2017/05/18/080000
+https://arxiv.org/abs/1906.03776	1
+https://tech-blog.optim.co.jp/entry/2019/07/04/173000	1
+http://www.ai-gakkai.or.jp/my-bookmark_vol34-no4/	1
+https://data.gunosy.io/entry/poincare_embedding_for_recommendations	1
+http://englishforhackers.com/	-1
+https://www.youtube.com/watch?v=5ZwknHMf1yo	-1
+https://speakerdeck.com/livesense/shi-ye-heng-duan-zu-zhi-defalsemlsisutemukai-fa-yun-yong-toji-pan-she-ji	1
+https://www.yasuhisay.info/entry/splatoon2_udemae_x	-1
+https://www.yasuhisay.info/entry/2018/11/13/090000	-1
+https://www.yasuhisay.info/entry/2016/09/26/080000	-1
+https://www.yasuhisay.info/entry/2016/03/27/215344	-1
+https://www.yasuhisay.info/entry/20110714/1310622171	-1
+https://anond.hatelabo.jp/20190713043218	-1
+https://cybozushiki.cybozu.co.jp/articles/m005412.html	-1
+https://sorazine.soracom.jp/entry/2019/07/12/celestehair	-1
+https://www.yasuhisay.info/entry/20090516/1242480413	1
+https://www.yasuhisay.info/entry/kaggle_avazu_ctr_prediction	1
+https://www.yasuhisay.info/entry/mlct_mackerel_anomaly_detection	1
+https://www.yasuhisay.info/entry/2018/10/04/201000	1
+https://honz.jp/articles/-/45278	-1
+https://www.megamouth.info/entry/2019/07/12/175250	-1
+https://www.lifehacker.jp/2019/07/193679_higedanshaku.html	-1
+https://teineini.net/20190711-evernote-dokusyonote/	-1
+https://dev.classmethod.jp/tool/be-vimmer-by-trainings/	1
+https://www.clear-code.com/blog/2019/7/12.html	1
+https://techlife.cookpad.com/entry/2019/07/13/055601	1
+https://future-architect.github.io/articles/20190713/	1
+https://blog.craftz.dog/my-dev-workflow-using-tmux-vim-48f73cc4f39e	1
+https://junkyard.song.mu/slides/gocon2019-fukuoka/	1
+https://nykergoto.hatenablog.jp/entry/2019/07/09/FFT_を使った時系列データ解析	1
+http://memorability.csail.mit.edu/index.html	1
+https://ynd.co/blog/tensorflow-vs-pytorch/	1
+https://cloudplatform-jp.googleblog.com/2019/07/analyze-bigquery-data-with-kaggle-kernels-notebooks.html	1
+https://omedstu.jimdo.com/2019/07/05/force法によるrecurrent-spiking-neural-networksの教師あり学習/	1
+https://buildersbox.corp-sansan.com/entry/2019/07/12/110000	1
+https://www.slideshare.net/shunsukekozawa5/gunosy-152302982	1
+https://ml-loft.connpass.com/event/136426/	1
+https://nlp.stanford.edu/blog/a-new-multi-turn-multi-domain-task-oriented-dialogue-dataset/	1
+https://blog.ml.cmu.edu/2019/08/02/regret-circuits-composability-of-regret-minimizers/	1
+https://tech-blog.abeja.asia/entry/noisy-label-ml-survey	1
+https://imas.connpass.com/event/140272/	-1
+http://alissak.hatenablog.com/entry/2019/08/03/170413	-1
+https://ai.facebook.com/blog/advances-in-conversational-ai/	1
+https://heartbeat.fritz.ai/a-2019-guide-to-semantic-segmentation-ca8242f5a7fc	1
+http://morningproject.hateblo.jp/entry/2019/08/03/112605	-1
+https://gendai.ismedia.jp/articles/-/66255	-1
+https://oreno-yuigon.hatenablog.com/entry/2019/08/02/143028	-1
+https://toyokeizai.net/articles/-/295714	-1
+https://www.jigowatt121.com/entry/2019/08/03/183756	-1
+https://shogi.zukeran.org/2019/07/31/konsen-1/	-1
+https://note.mu/futashika/n/n382a4780b8bd	-1
+https://www.hotpepper.jp/mesitsu/entry/hiro-watanabe/19-00148	-1
+https://srdk.rakuten.jp/entry/2019/08/02/103000	-1
+https://blog.hatenablog.com/entry/2019/07/26/180000	-1
+https://www.huffingtonpost.jp/entry/oomura-conference_jp_5d454be5e4b0aca3411e2fe0	-1
+https://togetter.com/li/1383361	-1
+https://biz-journal.jp/2019/08/post_112573.html	-1
+https://www.mofumofu.pink/entry/2019/08/03/144340	-1
+https://nlab.itmedia.co.jp/nl/articles/1908/03/news013.html	-1
+https://behappy.pink/fedelini-alla-puttanesca/	-1
+https://helloandgoodbyecraft.com/jokes	-1
+https://toyokeizai.net/articles/-/295293	-1
+https://sirabee.com/2019/07/31/20162134165/	-1
+https://www.around50-konkatsu.info/entry/2019/08/03/南の島へ現実逃避	-1
+https://www7.ikutanpapa.com/entry/taketei	-1
