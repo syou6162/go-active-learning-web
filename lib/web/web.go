@@ -16,8 +16,7 @@ import (
 
 	"strconv"
 
-	"github.com/codegangsta/cli"
-	"github.com/fukata/golang-stats-api-handler"
+	stats_api "github.com/fukata/golang-stats-api-handler"
 	"github.com/gorilla/feeds"
 	"github.com/syou6162/go-active-learning-web/lib/ahocorasick"
 	"github.com/syou6162/go-active-learning-web/lib/search"
@@ -25,6 +24,7 @@ import (
 	"github.com/syou6162/go-active-learning/lib/model"
 	"github.com/syou6162/go-active-learning/lib/service"
 	"github.com/syou6162/go-active-learning/lib/util"
+	"github.com/urfave/cli"
 )
 
 type Server interface {
