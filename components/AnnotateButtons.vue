@@ -15,7 +15,7 @@ import Example from '~/models/Example'
 @Component
 export default class AnnotateButtons extends Vue {
   @Prop({required: true})
-  example!: Object
+  example!: Example 
   
   updateLabel(example: Example, label: number) {
     let idToken = localStorage.getItem("CognitoIdentityServiceProvider.4ia5ifrn456rqg4vr6dqfh7e68.yasuhisa.idToken");
