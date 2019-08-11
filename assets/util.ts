@@ -1,7 +1,8 @@
 import { format, formatDistance, formatRelative, subDays, isAfter, toDate, parseISO } from 'date-fns'
 import jaLocale from 'date-fns/locale/ja'
+import Example from '~/models/Example'
 
-export function NewExample(e, opts = {}) {
+export function NewExample(e: Example, opts = {}) {
   var isNewDayThreshold = subDays(new Date(), opts["IsNewDayThreshold"] || 1);
   var createdAt = toDate(parseISO(e.CreatedAt));
   var updatedAt = toDate(parseISO(e.UpdatedAt));
@@ -14,21 +15,21 @@ export function NewExample(e, opts = {}) {
   return e;
 }
 
-export function getDomain(example) {
+export function getDomain(example: Example) {
   var url = example.FinalUrl;
   return url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
 }
 
 export function truncate(str, length, omission) {
   str = str ? str : '';
-  var length = length ? parseInt(length, 10) : 20;
+  var l = length ? parseInt(length, 10) : 20;
   var omission = omission ? omission.toString() : '...';
 
-  if (str.length <= length) {
+  if (str.length <= l) {
     return str;
   }
   else {
-    return str.substring(0, length) + omission;
+    return str.substring(0, l) + omission;
   }
 }
 
