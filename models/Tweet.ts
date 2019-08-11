@@ -1,4 +1,6 @@
 export default interface Tweet {
+    ExampleId: number
+
     CreatedAt: string
     IdStr: string
     FullText: string
