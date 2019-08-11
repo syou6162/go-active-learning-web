@@ -1,6 +1,7 @@
-const pkg = require('./package');
+import NuxtConfiguration from '@nuxt/config'
+import pkg from './package.json'
 
-module.exports = {
+const config: NuxtConfiguration = {
   mode: 'universal',
 
   /*
@@ -34,7 +35,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: "@/plugins/filters.js", ssr: true },
+    { src: "@/plugins/filters.ts", ssr: true },
     { src: "@/plugins/lazyload.js", ssr: false },
     { src: "@/plugins/amplify.js", ssr: false }
   ],
@@ -80,3 +81,5 @@ module.exports = {
     }
   }
 }
+
+export default config
