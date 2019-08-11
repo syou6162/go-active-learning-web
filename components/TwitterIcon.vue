@@ -9,14 +9,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import Tweet from '~/models/Tweet'
 
-export default Vue.extend({
-  computed: {
-    twitterId(): string {
-      return '@' + this.tweet.ScreenName;
-    }
-  },
-  props: ['tweet']
-});
+@Component
+export default class TwitterIcon extends Vue {
+  @Prop()
+  tweet!: Tweet;
+
+  get twitterId(): string {
+    return '@' + this.tweet.ScreenName;
+  }
+}
 </script>
