@@ -33,10 +33,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import HatenaBookmarkIcon from './HatenaBookmarkIcon.vue';
 import TwitterIcon from './TwitterIcon.vue';
 import AnnotateButtons from './AnnotateButtons.vue';
+import { IsAdmin } from '../plugins/amplify';
+import Example from '~/models/Example'
+import Tweet from '~/models/Tweet'
 
 export default {
   data () {
@@ -44,11 +48,25 @@ export default {
       modalShow: false
     }
   },
-  props: ['example', 'tweets', 'isAdmin'],
+  props: {
+    example: {
+      type: Object,
+      required: true
+    },
+    tweets: {
+      type: Array,
+      required: false,
+    },
+    isAdmin: {
+      type: Boolean ,
+      required: true,
+      default: false
+    }
+  },
   components: {
     "hatena-bookmark-icon": HatenaBookmarkIcon,
     "twitter-icon": TwitterIcon,
-    "annotate-buttons": AnnotateButtons 
+    "annotate-buttons": AnnotateButtons
   }
 }
 </script>

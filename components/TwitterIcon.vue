@@ -8,13 +8,15 @@
     />
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+
+export default Vue.extend({
   computed: {
-    twitterId: function() {
+    twitterId(): string {
       return '@' + this.tweet.ScreenName;
-    },
+    }
   },
-  props: ['tweet'],
-}
+  props: ['tweet']
+});
 </script>
