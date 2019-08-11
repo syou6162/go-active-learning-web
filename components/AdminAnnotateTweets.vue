@@ -1,8 +1,7 @@
 <template>
   <div>
     <div
-      v-for="tweet in tweets"
-      v-bind:key="tweets.IdStr"
+      v-for="tweet in tweets" :key="tweet.IdStr"
       v-bind:tweet="tweet"
       v-bind:isAdmin="isAdmin"
       >
