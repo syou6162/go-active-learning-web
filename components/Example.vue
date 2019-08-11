@@ -53,7 +53,6 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { IsAdmin } from '../plugins/amplify';
 import Example from '~/models/Example'
 import Tweet from '~/models/Tweet'
 
@@ -69,10 +68,10 @@ export default class ExampleComponent extends Vue {
   modalShow: boolean = false
 
   @Prop({required: true})
-  example!: Object
+  example!: Example 
 
   @Prop({required: false})
-  tweets!: Array<Object>
+  tweets!: Tweet[]
 
   @Prop({required: true, default: false})
   isAdmin!: Boolean

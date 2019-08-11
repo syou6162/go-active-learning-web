@@ -129,13 +129,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import axios from 'axios';
 import { Auth } from 'aws-amplify';
 import Example from '~/components/Example.vue';
-import HatenaBookmarkIcon from '~/components/HatenaBookmarkIcon.vue';
-import TwitterIcon from '~/components/TwitterIcon.vue';
-import AnnotateButtons from '~/components/AnnotateButtons.vue';
-import TweetAnnotateButtons from '~/components/TweetAnnotateButtons.vue';
 import { NewExample, filterBookmarksWithComment } from '~/assets/util';
 
 @Component({

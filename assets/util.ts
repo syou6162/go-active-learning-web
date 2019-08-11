@@ -1,5 +1,4 @@
-import { format, formatDistance, formatRelative, subDays, isAfter, toDate, parseISO } from 'date-fns'
-import jaLocale from 'date-fns/locale/ja'
+import { format, subDays, isAfter, toDate, parseISO } from 'date-fns'
 import Example from '~/models/Example'
 import Bookmark from '~/models/Bookmark'
 
@@ -23,14 +22,11 @@ export function getDomain(example: Example): string {
 
 export function truncate(str: string, length: number, omission: string): string {
   str = str ? str : '';
-  var l = length ? parseInt(length, 10) : 20;
-  var omission = omission ? omission.toString() : '...';
-
-  if (str.length <= l) {
+  if (str.length <= length) {
     return str;
   }
   else {
-    return str.substring(0, l) + omission;
+    return str.substring(0, length) + omission;
   }
 }
 

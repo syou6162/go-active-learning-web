@@ -58,8 +58,6 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import TwitterIcon from './TwitterIcon.vue';
-import TweetAnnotateButtons from '~/components/TweetAnnotateButtons.vue';
 import Example from '~/models/Example'
 import Tweet from '~/models/Tweet'
 

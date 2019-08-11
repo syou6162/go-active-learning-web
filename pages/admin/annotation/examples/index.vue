@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import Example from '~/components/Example.vue';
 import { NewExample } from '~/assets/util';
 import { Auth } from 'aws-amplify';

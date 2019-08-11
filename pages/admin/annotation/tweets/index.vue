@@ -21,9 +21,7 @@
 </template>
 
 <script>
-import axios from 'axios';
 import AdminAnnotateTweet from '~/components/AdminAnnotateTweets.vue';
-import TweetAnnotateButtons from '~/components/TweetAnnotateButtons.vue';
 import { NewExample } from '~/assets/util';
 import { Auth } from 'aws-amplify';
 

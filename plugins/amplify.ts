@@ -1,6 +1,5 @@
 import Amplify, {
-  Auth,
-  API,
+  Auth
 } from 'aws-amplify';
 
 Amplify.configure({
