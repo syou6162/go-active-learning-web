@@ -8,17 +8,20 @@
     />
 </template>
 
-<script>
-export default {
-  computed: {
-    user_id: function() {
-      return 'id:' + this.bookmark.user;
-    },
-    tags_and_comment: function() {
-      const tags = this.bookmark.tags.map(t => '[' + t + ']').join("")
-      return tags + ' '+ this.bookmark.comment;
-    },
-  },
-  props: ['bookmark'],
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import Bookmark from '~/models/Bookmark'
+
+@Component
+export default class HatenaBookmarkIcon extends Vue {
+  get user_id(): string {
+    return 'id:' + this.bookmark.user;
+  }
+  get tags_and_comment(): string {
+    const tags = this.bookmark.tags.map(t => '[' + t + ']').join("")
+    return tags + ' '+ this.bookmark.comment;
+  }
+  @Prop()
+  bookmark!: Bookmark;
 }
 </script>

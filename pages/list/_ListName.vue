@@ -19,14 +19,19 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import Example from '~/models/Example'
+
 import axios from 'axios';
 import { Auth } from 'aws-amplify';
-import Example from '~/components/Example.vue';
 import { NewExample } from '~/assets/util';
 import { IsAdmin } from '~/plugins/amplify.js';
+import { bool } from 'aws-sdk/clients/signer';
+import { ArrivalDate } from 'aws-sdk/clients/ses';
+import { print } from 'util';
 
-const keywordsByListname = {
+const keywordsByListname: { [key: string]: string[] } = {
   "general": ["機械学習", "Machine Learning", "自然言語処理"],
   "article": ["機械学習", "Machine Learning", "自然言語処理"],
   "github": ["GitHub", "OSS", "Machine Learning"],
@@ -36,7 +41,7 @@ const keywordsByListname = {
   "event": ["勉強会", "Machine Learning", "機械学習"],
 };
 
-const descriptionByListname = {
+const descriptionByListname: { [key: string]: string } = {
   "general": "機械学習に関連する人気のエントリを読むことができます",
   "article": "機械学習に関連する人気のエントリを読むことができます",
   "github": "GitHub上で話題の機械学習に関連するリポジトリを見ることができます",
@@ -46,7 +51,7 @@ const descriptionByListname = {
   "event": "connpass上で話題の機械学習に関連する勉強会を探すことができます",
 };
 
-const isNewDayThresholdByListname = {
+const isNewDayThresholdByListname: { [key: string]: number }= {
   "general": 2.5,
   "article": 3,
   "github": 10,
@@ -56,36 +61,18 @@ const isNewDayThresholdByListname = {
   "event": 5,
 };
 
-export default {
-  layout: 'default',
-  data () {
-    return {
-      title: "ML-News",
-      listname: 'general',
-      examples: [],
-      isNew: 0,
-      options: [
-        { text: 'All', value: 0 },
-        { text: 'Recent', value: 1 },
-      ],
-      isAdmin: false,
-    }
-  },
-  mounted() {
-    Auth.currentAuthenticatedUser()
-      .then(user => {
-        this.isAdmin = true;
-      })
-      .catch(err => console.log(err))
+@Component({
+  components: {
+    Example: () => import('~/components/Example.vue')
   },
   async asyncData(context) {
     const listname = context.route.params.ListName;
     let data = await context.app.$axios.$get(`/api/examples?listName=${listname}`);
-    const examples = data.Examples.map(e => {
+    const examples = data.Examples.map((e: Example) => {
       return NewExample(e, {
         "IsNewDayThreshold": isNewDayThresholdByListname[listname],
       })
-    }).sort(function(a, b) {
+    }).sort(function(a: Example, b: Example) {
       var aHatebuCount = a.HatenaBookmark.count;
       var bHatebuCount = b.HatenaBookmark.count;
 
@@ -112,7 +99,29 @@ export default {
       examples: examples,
       loading: false
     };
-  },
+  }
+})
+
+export default class ListNamePage extends Vue {
+  layout: string = 'default'
+
+  title: string = "ML-News"
+  listname: string = 'general'
+  examples: Example[] = []
+  isNew: bool = false
+  options: { [key: string]: any }[] = [
+    { text: 'All', value: false },
+    { text: 'Recent', value: true }
+  ]
+  isAdmin: bool = false
+
+  mounted() {
+    Auth.currentAuthenticatedUser()
+      .then(user => {
+        this.isAdmin = true;
+      })
+      .catch(err => console.log(err))
+  }
   head() {
     return {
       title: this.title,
@@ -139,29 +148,24 @@ export default {
         }
       ]
     };
-  },
-  methods: {
-    examplesFilterByIsNew: function(isNew) {
-      return this.examples.filter(function(e) {
-        if (isNew == 0) {
-          return true;
-        } else {
-          return e.IsNew == isNew;
-        }
-      })
-    },
-    keywords: function(listname) {
-      return keywordsByListname[listname] || []; 
-    },
-    description: function(listname) {
-      return descriptionByListname[listname] || ""; 
-    },
-    url: function(listname) {
-      return "https://www.machine-learning.news/list/" + listname;
-    },
-  },
-  components: {
-    "example": Example,
+  }
+  examplesFilterByIsNew(isNew: boolean): Example[] {
+    return this.examples.filter(function(e: Example) {
+      if (!isNew) {
+        return true;
+      } else {
+        return e.IsNew == isNew;
+      }
+    })
+  }
+  keywords(listname: string): string[] {
+    return keywordsByListname[listname] || []; 
+  }
+  description(listname: string): string {
+    return descriptionByListname[listname] || ""; 
+  }
+  url(listname: string): string {
+    return "https://www.machine-learning.news/list/" + listname;
   }
 }
 </script>

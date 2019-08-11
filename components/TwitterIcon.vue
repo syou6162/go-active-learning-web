@@ -8,13 +8,17 @@
     />
 </template>
 
-<script>
-export default {
-  computed: {
-    twitterId: function() {
-      return '@' + this.tweet.ScreenName;
-    },
-  },
-  props: ['tweet'],
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import Tweet from '~/models/Tweet'
+
+@Component
+export default class TwitterIcon extends Vue {
+  @Prop()
+  tweet!: Tweet;
+
+  get twitterId(): string {
+    return '@' + this.tweet.ScreenName;
+  }
 }
 </script>

@@ -1,14 +1,15 @@
 import Vue from 'vue';
 import { truncate, getDomain, filterBookmarksWithComment } from '~/assets/util';
+import Example from '~/models/Example'
 
-Vue.filter('getTitle', function(example, length, omission) {
+Vue.filter('getTitle', function(example: Example, length: number, omission: string) {
   var title = example.Title ? example.Title : example.Url;
   return truncate(title, length, omission);
 })
 
 Vue.filter('getDomain', getDomain) 
 
-Vue.filter('getUserName', function(example) {
+Vue.filter('getUserName', function(example: Example) {
   var domain = getDomain(example);
   var url = example.FinalUrl;
   var paths = url.replace('http://','').replace('https://','').split(/[/?#]/);
@@ -29,19 +30,19 @@ Vue.filter('getUserName', function(example) {
   }
 })
 
-Vue.filter('getDescription', function(example, length, omission) {
+Vue.filter('getDescription', function(example: Example, length: number, omission: string) {
   var title = example.Title ? example.Title : example.Url;
   var body = example.Body ? example.Body : title;
   var desc = example.OgDescription ? example.OgDescription : (example.Description ? example.Description : body);
   return truncate(desc, length, omission);
 })
 
-Vue.filter('getDescriptionForSearchEngine', function(example) {
+Vue.filter('getDescriptionForSearchEngine', function(example: Example) {
   var tweets = example.ReferringTweets.map(t => "@" + t.ScreenName + "「" + t.FullText.substr(0, 100) + "...」").slice(0, 3);
   var bookmarks = filterBookmarksWithComment(example).map(b => "id:" + b.user + "「"+ b.comment + "」").slice(0, 3);
   return tweets.join("\n") + bookmarks.join("\n");
 })
 
-Vue.filter('getExampleUrl', function(example) {
+Vue.filter('getExampleUrl', function(example: Example) {
   return '/example/' + example.Id;
 })

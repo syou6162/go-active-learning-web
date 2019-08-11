@@ -76,7 +76,8 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import axios from 'axios';
 import { Auth } from 'aws-amplify';
 import Example from '~/components/Example.vue';
@@ -86,23 +87,12 @@ import AnnotateButtons from '~/components/AnnotateButtons.vue';
 import TweetAnnotateButtons from '~/components/TweetAnnotateButtons.vue';
 import { NewExample, filterBookmarksWithComment } from '~/assets/util';
 
-export default {
-  data () {
-    return {
-      title: "ML-News",
-      url: this.$route.params.url,
-      example: null,
-      similarExamples: [],
-      keywords: [],
-      isAdmin: false,
-    }
-  },
-  mounted() {
-    Auth.currentAuthenticatedUser()
-      .then(user => {
-        this.isAdmin = true;
-      })
-      .catch(err => console.log(err))
+@Component({
+  components: {
+    HatenaBookmarkIcon: () => import('~/components/HatenaBookmarkIcon.vue'),
+    TwitterIcon: () => import('~/components/TwitterIcon.vue'),
+    AnnotateButtons: () => import('~/components/AnnotateButtons.vue'),
+    TweetAnnotateButtons: () => import('~/components/TweetAnnotateButtons.vue')
   },
   asyncData({ app, params, error }) {
     return app.$axios.$get(`/api/example?id=${params.id}`)
@@ -123,7 +113,23 @@ export default {
           message: err.response.data.error
         });
       })
-  },
+  }
+})
+
+export default class ExamplePage extends Vue {
+  title: string = "ML-News"
+  example: Example | null = null
+  similarExamples: Example[] = []
+  keywords: string[] = []
+  isAdmin: boolean = false
+
+  mounted() {
+    Auth.currentAuthenticatedUser()
+      .then(user => {
+        this.isAdmin = true;
+      })
+      .catch(err => console.log(err))
+  }
   head() {
     const tweets = this.example.ReferringTweets.map(t => "@" + t.ScreenName + "「" + t.FullText.substr(0, 100) + "...」").slice(0, 3);
     const bookmarks = filterBookmarksWithComment(this.example).map(b => "id:" + b.user + "「"+ b.comment + "」").slice(0, 3);
@@ -161,20 +167,12 @@ export default {
         }
       ]
     };
-  },
-  computed: {
-    hasBookmarksWithComment() {
-      return filterBookmarksWithComment(this.example).length > 0;
-    },
-    bookmarksWithComment() {
-      return filterBookmarksWithComment(this.example);
-    },
-  },
-  components: {
-    "hatena-bookmark-icon": HatenaBookmarkIcon,
-    "twitter-icon": TwitterIcon,
-    "annotate-buttons": AnnotateButtons,
-    "tweet-annotate-buttons": TweetAnnotateButtons
+  }
+  get hasBookmarksWithComment(): boolean {
+    return filterBookmarksWithComment(this.example).length > 0;
+  }
+  get bookmarksWithComment() {
+    return filterBookmarksWithComment(this.example);
   }
 }
 </script>
