@@ -35,38 +35,28 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import HatenaBookmarkIcon from './HatenaBookmarkIcon.vue';
-import TwitterIcon from './TwitterIcon.vue';
-import AnnotateButtons from './AnnotateButtons.vue';
 import { IsAdmin } from '../plugins/amplify';
 import Example from '~/models/Example'
 import Tweet from '~/models/Tweet'
 
-export default {
-  data () {
-    return {
-      modalShow: false
-    }
-  },
-  props: {
-    example: {
-      type: Object,
-      required: true
-    },
-    tweets: {
-      type: Array,
-      required: false,
-    },
-    isAdmin: {
-      type: Boolean ,
-      required: true,
-      default: false
-    }
-  },
+@Component({
   components: {
-    "hatena-bookmark-icon": HatenaBookmarkIcon,
-    "twitter-icon": TwitterIcon,
-    "annotate-buttons": AnnotateButtons
+    HatenaBookmarkIcon: () => import('./HatenaBookmarkIcon.vue'),
+    TwitterIcon: () => import('./TwitterIcon.vue'),
+    AnnotateButtons: () => import('./AnnotateButtons.vue'),
   }
+})
+
+export default class ExampleComponent extends Vue {
+  modalShow: boolean = false
+
+  @Prop({required: true})
+  example!: Object
+
+  @Prop({required: false})
+  tweets!: Array<Object>
+
+  @Prop({required: true, default: false})
+  isAdmin!: Boolean
 }
 </script>
