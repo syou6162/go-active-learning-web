@@ -12,7 +12,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import axios from 'axios';
 import Tweet from '~/models/Tweet'
 
-export default {
+@Component
+export default class TweetAnnotateButtons extends Vue {
   @Prop({required: true})
   tweet!: Tweet 
 
