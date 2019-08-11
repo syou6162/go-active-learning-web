@@ -68,7 +68,7 @@ const isNewDayThresholdByListname: { [key: string]: number }= {
   async asyncData(context) {
     const listname = context.route.params.ListName;
     let data = await context.app.$axios.$get(`/api/examples?listName=${listname}`);
-    const examples = data.Examples.map(e => {
+    const examples = data.Examples.map((e: Example) => {
       return NewExample(e, {
         "IsNewDayThreshold": isNewDayThresholdByListname[listname],
       })
@@ -150,7 +150,7 @@ export default class ListNamePage extends Vue {
     };
   }
   examplesFilterByIsNew(isNew: boolean): Example[] {
-    return this.examples.filter(function(e) {
+    return this.examples.filter(function(e: Example) {
       if (!isNew) {
         return true;
       } else {
