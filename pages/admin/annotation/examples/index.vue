@@ -2,18 +2,19 @@
   <div>
     <b-form-group label="Please select a label">
       <b-form-radio-group
-        buttons
         v-model="label"
+        buttons
         button-variant="outline-primary"
-        :options="options" />
+        :options="options"
+      />
     </b-form-group>
     <b-card-group columns>
       <example 
         v-for="example in searchExamplesByLabel(label)"
-        v-bind:key="example.Url"
-        v-bind:example="example"
-        v-bind:isAdmin="isAdmin"
-        ></example>
+        :key="example.Url"
+        :example="example"
+        :is-admin="isAdmin"
+      />
     </b-card-group>
   </div>
 </template>
@@ -25,6 +26,9 @@ import { NewExample } from '~/assets/util';
 import { Auth } from 'aws-amplify';
 
 export default {
+  components: {
+    "example": Example
+  },
   data () {
     return {
       label: 0,
@@ -83,9 +87,6 @@ export default {
         }
       ]
     };
-  },
-  components: {
-    "example": Example
   }
 }
 </script>

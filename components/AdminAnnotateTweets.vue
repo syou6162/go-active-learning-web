@@ -1,24 +1,54 @@
 <template>
   <div>
     <div
-      v-for="tweet in tweets" :key="tweet.IdStr"
-      v-bind:tweet="tweet"
-      v-bind:isAdmin="isAdmin"
-      >
+      v-for="tweet in tweets"
+      :key="tweet.IdStr"
+      :tweet="tweet"
+      :isAdmin="isAdmin"
+    >
       <b-card no-body>
-        <b-card-body v-bind:title="example | getTitle(75, '...')" title-tag="h5" class="m-1 p-2">
-          <img v-if="example.OgImage" class="img-thumbnail img-responsive" style="width: 128px; height: 96px; margin: 3px; float: right;" v-lazy="example.OgImage" onerror="this.style.display='none'" />
-          <img v-if="tweet.ProfileImageUrl" style="width: 24px; height: 24px;" v-lazy="tweet.ProfileImageUrl" onerror="this.style.display='none'" />
-          <a v-bind:href="'https://twitter.com/' + tweet.ScreenName + '/status/' + tweet.IdStr">@{{ tweet.ScreenName }}</a>
+        <b-card-body
+          :title="example | getTitle(75, '...')"
+          title-tag="h5"
+          class="m-1 p-2"
+        >
+          <img
+            v-if="example.OgImage"
+            v-lazy="example.OgImage"
+            class="img-thumbnail img-responsive"
+            style="width: 128px; height: 96px; margin: 3px; float: right;"
+            onerror="this.style.display='none'"
+          >
+          <img
+            v-if="tweet.ProfileImageUrl"
+            v-lazy="tweet.ProfileImageUrl"
+            style="width: 24px; height: 24px;"
+            onerror="this.style.display='none'"
+          >
+          <a :href="'https://twitter.com/' + tweet.ScreenName + '/status/' + tweet.IdStr">@{{ tweet.ScreenName }}</a>
           <p class="card-text">
             {{ tweet.FullText }}
           </p>
           Fav: {{ tweet.FavoriteCount }}, RT: {{ tweet.RetweetCount }}, Score: {{ tweet.Score.toFixed(1) }}
-          <tweet-annotate-buttons v-if="isAdmin" v-bind:tweet="tweet"></tweet-annotate-buttons>
+          <tweet-annotate-buttons
+            v-if="isAdmin"
+            :tweet="tweet"
+          />
           <b-card-footer>
-            <b-button v-bind:to="example | getExampleUrl" class="float-right" size="sm">Read more</b-button>
-            <img v-if="example.Favicon" style="width: 16px; height: 16px;" v-lazy="example.Favicon" onerror="this.style.display='none'" />
-            <a v-bind:href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
+            <b-button
+              :to="example | getExampleUrl"
+              class="float-right"
+              size="sm"
+            >
+              Read more
+            </b-button>
+            <img
+              v-if="example.Favicon"
+              v-lazy="example.Favicon"
+              style="width: 16px; height: 16px;"
+              onerror="this.style.display='none'"
+            >
+            <a :href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
           </b-card-footer>
         </b-card-body>
       </b-card>
@@ -26,20 +56,29 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import TwitterIcon from './TwitterIcon.vue';
 import TweetAnnotateButtons from '~/components/TweetAnnotateButtons.vue';
+import Example from '~/models/Example'
+import Tweet from '~/models/Tweet'
 
-export default {
-  data () {
-    return {
-      modalShow: false
-    }
-  },
-  props: ['example', 'tweets', 'isAdmin'],
+@Component({
   components: {
-    "twitter-icon": TwitterIcon,
-    "tweet-annotate-buttons": TweetAnnotateButtons
+    TweetAnnotateButtons: () => import('~/components/TweetAnnotateButtons.vue')
   }
+})
+
+export default class AdminAnnotateTweets extends Vue {
+  modalShow: boolean = false
+
+  @Prop({required: true})
+  example!: Example 
+  
+  @Prop({required: true})
+  tweets!: Tweet[]
+
+  @Prop({required: true, default: false})
+  isAdmin!: boolean
 }
 </script>

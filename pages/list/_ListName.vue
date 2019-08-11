@@ -2,19 +2,20 @@
   <div>
     <b-form-group label="Please select a label">
       <b-form-radio-group
-        buttons
         v-model="isNew"
+        buttons
         button-variant="outline-primary"
-        :options="options" />
+        :options="options"
+      />
     </b-form-group>
     <b-card-group columns>
       <example 
         v-for="example in examplesFilterByIsNew(isNew)"
-        v-bind:key="example.Url"
-        v-bind:example="example"
-        v-bind:tweets="example.ReferringTweets"
-        v-bind:isAdmin="isAdmin"
-        ></example>
+        :key="example.Url"
+        :example="example"
+        :tweets="example.ReferringTweets"
+        :is-admin="isAdmin"
+      />
     </b-card-group>
   </div>
 </template>

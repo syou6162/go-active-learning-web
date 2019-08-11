@@ -1,11 +1,11 @@
 <template>
   <img 
     v-b-popover.hover.bottomright="tweet.FullText" 
-    v-bind:alt="twitterId" 
-    v-bind:title="twitterId"
-    style="width: 24px; height: 24px; margin: 2px" 
-    v-lazy="tweet.ProfileImageUrl"
-    />
+    v-lazy="tweet.ProfileImageUrl" 
+    :alt="twitterId"
+    :title="twitterId" 
+    style="width: 24px; height: 24px; margin: 2px"
+  >
 </template>
 
 <script lang="ts">

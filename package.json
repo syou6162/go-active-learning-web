@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/syou6162/go-active-learning-web#readme",
   "devDependencies": {
+    "@typescript-eslint/parser": "^1.13.0",
     "css-loader": "^2.1.1",
     "prettier": "^1.18.2",
     "webpack": "^4.39.1",
@@ -41,6 +42,8 @@
     "cross-env": "^5.2.0",
     "cssnano": "^4.1.10",
     "date-fns": "^2.0.0-beta.4",
+    "eslint": "^6.1.0",
+    "eslint-plugin-vue": "^5.2.3",
     "jquery": "^3.4.1",
     "nuxt": "^2.8.1",
     "regenerator-runtime": "^0.13.3",
