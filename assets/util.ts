@@ -1,8 +1,9 @@
 import { format, formatDistance, formatRelative, subDays, isAfter, toDate, parseISO } from 'date-fns'
 import jaLocale from 'date-fns/locale/ja'
 import Example from '~/models/Example'
+import Bookmark from '~/models/Bookmark'
 
-export function NewExample(e: Example, opts = {}) {
+export function NewExample(e: Example, opts = {}): Example {
   var isNewDayThreshold = subDays(new Date(), opts["IsNewDayThreshold"] || 1);
   var createdAt = toDate(parseISO(e.CreatedAt));
   var updatedAt = toDate(parseISO(e.UpdatedAt));
@@ -15,12 +16,12 @@ export function NewExample(e: Example, opts = {}) {
   return e;
 }
 
-export function getDomain(example: Example) {
+export function getDomain(example: Example): string {
   var url = example.FinalUrl;
   return url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
 }
 
-export function truncate(str, length, omission) {
+export function truncate(str: string, length: number, omission: string): string {
   str = str ? str : '';
   var l = length ? parseInt(length, 10) : 20;
   var omission = omission ? omission.toString() : '...';
@@ -33,8 +34,8 @@ export function truncate(str, length, omission) {
   }
 }
 
-export function filterBookmarksWithComment(example) {
-  return example.HatenaBookmark.bookmarks.filter(function(b) {
+export function filterBookmarksWithComment(example: Example): Bookmark[] {
+  return example.HatenaBookmark.bookmarks.filter(function(b: Bookmark) {
     return b.comment !== "";
   });
 }
