@@ -1,3 +1,7 @@
+var path = require('path')
+var webpack = require('webpack')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+
 module.exports = {
   entry: './src/js/app',
   output: {
@@ -16,14 +20,27 @@ module.exports = {
           'style-loader',
           'css-loader'
         ]
-      }
+      },
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: {
+          appendTsSuffixTo: [/\.vue$/],
+        }        
+      },
     ]
   },
   resolve: {
+    extensions: ['.ts', '.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
     }
   },
+  plugins: [
+    // make sure to include the plugin for the magic
+    new VueLoaderPlugin()
+  ],
   devServer: {
     host: 'localhost',
     port: 7777,
