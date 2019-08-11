@@ -1,9 +1,28 @@
 <template>
   <div>
     Annotate as: 
-    <b-button size="sm" v-bind:variant="tweet.Label == 1 ? 'primary' : 'outline-primary'" :pressed="false" v-on:click="updateLabel(tweet, 1)">Positive</b-button>
-    <b-button size="sm" v-bind:variant="tweet.Label == -1 ? 'danger' : 'outline-danger'" v-on:click="updateLabel(tweet, -1)">Negative</b-button>
-    <b-button size="sm" v-bind:variant="tweet.Label == 0 ? 'secondary' : 'outline-secondary'" v-on:click="updateLabel(tweet, 0)">Unlabeled</b-button>
+    <b-button
+      size="sm"
+      :variant="tweet.Label == 1 ? 'primary' : 'outline-primary'"
+      :pressed="false"
+      @click="updateLabel(tweet, 1)"
+    >
+      Positive
+    </b-button>
+    <b-button
+      size="sm"
+      :variant="tweet.Label == -1 ? 'danger' : 'outline-danger'"
+      @click="updateLabel(tweet, -1)"
+    >
+      Negative
+    </b-button>
+    <b-button
+      size="sm"
+      :variant="tweet.Label == 0 ? 'secondary' : 'outline-secondary'"
+      @click="updateLabel(tweet, 0)"
+    >
+      Unlabeled
+    </b-button>
   </div>
 </template>
 

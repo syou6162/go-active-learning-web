@@ -1,6 +1,10 @@
 <template>
   <div>
-    <input v-model="query" type="text" placeholder="Input search query here"></input>
+    <input
+      v-model="query"
+      type="text"
+      placeholder="Input search query here"
+    >
     <div v-if="loading && query">
       Now loading...
     </div>
@@ -14,29 +18,24 @@
       <b-card-group columns>
         <example 
           v-for="example in results"
-          v-bind:key="example.Url"
-          v-bind:example="example"
-          v-bind:isAdmin="isAdmin"
-          ></example>
+          :key="example.Url"
+          :example="example"
+          :is-admin="isAdmin"
+        />
       </b-card-group>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
 import { Auth } from 'aws-amplify';
 import Example from '~/components/Example.vue';
 import { NewExample } from '~/assets/util';
 
 export default {
   watchQuery: ['query'],
-  mounted() {
-    Auth.currentAuthenticatedUser()
-      .then(user => {
-        this.isAdmin = true;
-      })
-      .catch(err => console.log(err))
+  components: {
+    "example": Example
   },
   data () {
     return {
@@ -72,6 +71,13 @@ export default {
       isAdmin: isAdmin
     }
   },
+  mounted() {
+    Auth.currentAuthenticatedUser()
+      .then(user => {
+        this.isAdmin = true;
+      })
+      .catch(err => console.log(err))
+  },
   head() {
     let query = this.query || '';
     const title = "ML-News - 「" + query + "」に関する検索結果";
@@ -91,9 +97,6 @@ export default {
         }
       ]
     };
-  },
-  components: {
-    "example": Example
   }
 }
 </script>

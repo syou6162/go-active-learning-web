@@ -4,11 +4,27 @@
     <p>{{ status }}</p>
     <p>{{ message_text }} </p>
     <label>ユーザー名</label>
-    <input type="text" v-model="userInfo.username"/>
+    <input
+      v-model="userInfo.username"
+      type="text"
+    >
     <label>パスワード</label>
-    <input type="password" v-model="userInfo.password"/>
-    <button class="btn btn-primary" @click="signIn()">ログイン</button>
-    <button class="btn btn-primary" @click="signOut()">ログアウト</button>
+    <input
+      v-model="userInfo.password"
+      type="password"
+    >
+    <button
+      class="btn btn-primary"
+      @click="signIn()"
+    >
+      ログイン
+    </button>
+    <button
+      class="btn btn-primary"
+      @click="signOut()"
+    >
+      ログアウト
+    </button>
   </div>
 </template>
 

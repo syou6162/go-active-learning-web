@@ -2,31 +2,33 @@
   <div>
     <b-form-group label="Please select a label">
       <b-form-radio-group
-        buttons
         v-model="label"
+        buttons
         button-variant="outline-primary"
-        :options="options" />
+        :options="options"
+      />
     </b-form-group>
     <b-card-group columns>
       <example 
         v-for="example in searchExamplesByLabel(label)"
-        v-bind:key="getKey(example, label)"
-        v-bind:example="example"
-        v-bind:tweets="example.ReferringTweets"
-        v-bind:isAdmin="isAdmin"
-        ></example>
+        :key="getKey(example, label)"
+        :example="example"
+        :tweets="example.ReferringTweets"
+        :is-admin="isAdmin"
+      />
     </b-card-group>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
 import AdminAnnotateTweet from '~/components/AdminAnnotateTweets.vue';
-import TweetAnnotateButtons from '~/components/TweetAnnotateButtons.vue';
 import { NewExample } from '~/assets/util';
 import { Auth } from 'aws-amplify';
 
 export default {
+  components: {
+    "example": AdminAnnotateTweet,
+  },
   data () {
     return {
       label: 0,
@@ -76,10 +78,6 @@ export default {
     return {
       title: "最近追加されたTweet一覧",
     };
-  },
-  components: {
-    "example": AdminAnnotateTweet,
-    "tweet-annotate-buttons": TweetAnnotateButtons
   }
 }
 </script>

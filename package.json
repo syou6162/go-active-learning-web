@@ -8,6 +8,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "DEBUG=nuxt:*,app:* nuxt",
+    "lint": "eslint --ext .vue,.ts,.js components pages assets plugins layouts",
     "build": "nuxt build",
     "start": "nuxt start"
   },
@@ -23,6 +24,8 @@
   },
   "homepage": "https://github.com/syou6162/go-active-learning-web#readme",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
     "css-loader": "^2.1.1",
     "prettier": "^1.18.2",
     "webpack": "^4.39.1",
@@ -41,6 +44,8 @@
     "cross-env": "^5.2.0",
     "cssnano": "^4.1.10",
     "date-fns": "^2.0.0-beta.4",
+    "eslint": "^6.1.0",
+    "eslint-plugin-vue": "^5.2.3",
     "jquery": "^3.4.1",
     "nuxt": "^2.8.1",
     "regenerator-runtime": "^0.13.3",

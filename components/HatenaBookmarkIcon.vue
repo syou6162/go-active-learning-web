@@ -1,11 +1,11 @@
 <template>
   <img 
     v-b-popover.hover.bottomright="tags_and_comment" 
-    v-bind:alt="user_id" 
-    v-bind:title="user_id"
-    style="width: 24px; height: 24px; margin: 2px" 
     v-lazy="'https://cdn.profile-image.st-hatena.com/users/' + bookmark.user+ '/profile.png'" 
-    />
+    :alt="user_id"
+    :title="user_id" 
+    style="width: 24px; height: 24px; margin: 2px" 
+  >
 </template>
 
 <script lang="ts">

@@ -19,6 +19,7 @@ jobs:
     steps:
       - checkout
       - run: npm install
+      - run: npm run-script lint
       - run: npm run-script build
   setup_build_backend:
     <<: *defaults

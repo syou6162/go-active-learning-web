@@ -2,19 +2,20 @@
   <div>
     <b-form-group label="Please select a label">
       <b-form-radio-group
-        buttons
         v-model="isNew"
+        buttons
         button-variant="outline-primary"
-        :options="options" />
+        :options="options"
+      />
     </b-form-group>
     <b-card-group columns>
       <example 
         v-for="example in examplesFilterByIsNew(isNew)"
-        v-bind:key="example.Url"
-        v-bind:example="example"
-        v-bind:tweets="example.ReferringTweets"
-        v-bind:isAdmin="isAdmin"
-        ></example>
+        :key="example.Url"
+        :example="example"
+        :tweets="example.ReferringTweets"
+        :is-admin="isAdmin"
+      />
     </b-card-group>
   </div>
 </template>
@@ -23,13 +24,8 @@
 import { Component, Vue } from 'vue-property-decorator';
 import Example from '~/models/Example'
 
-import axios from 'axios';
 import { Auth } from 'aws-amplify';
 import { NewExample } from '~/assets/util';
-import { IsAdmin } from '~/plugins/amplify.js';
-import { bool } from 'aws-sdk/clients/signer';
-import { ArrivalDate } from 'aws-sdk/clients/ses';
-import { print } from 'util';
 
 const keywordsByListname: { [key: string]: string[] } = {
   "general": ["機械学習", "Machine Learning", "自然言語処理"],
@@ -108,7 +104,7 @@ export default class ListNamePage extends Vue {
   title: string = "ML-News"
   listname: string = 'general'
   examples: Example[] = []
-  isNew: bool = false
+  isNew: boolean = false
   options: { [key: string]: any }[] = [
     { text: 'All', value: false },
     { text: 'Recent', value: true }
