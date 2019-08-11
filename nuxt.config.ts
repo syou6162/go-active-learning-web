@@ -36,8 +36,8 @@ const config: NuxtConfiguration = {
   */
   plugins: [
     { src: "@/plugins/filters.ts", ssr: true },
-    { src: "@/plugins/lazyload.js", ssr: false },
-    { src: "@/plugins/amplify.js", ssr: false }
+    { src: "@/plugins/lazyload.ts", ssr: false },
+    { src: "@/plugins/amplify.ts", ssr: false }
   ],
 
   /*
