@@ -159,23 +159,7 @@ import { NewExample, filterBookmarksWithComment } from '~/assets/util';
           message: err.response.data.error
         });
       })
-  }
-})
-
-export default class ExamplePage extends Vue {
-  title: string = "ML-News"
-  example: Example | null = null
-  similarExamples: Example[] = []
-  keywords: string[] = []
-  isAdmin: boolean = false
-
-  mounted() {
-    Auth.currentAuthenticatedUser()
-      .then(user => {
-        this.isAdmin = true;
-      })
-      .catch(err => console.log(err))
-  }
+  },
   head() {
     const tweets = this.example.ReferringTweets.map(t => "@" + t.ScreenName + "「" + t.FullText.substr(0, 100) + "...」").slice(0, 3);
     const bookmarks = filterBookmarksWithComment(this.example).map(b => "id:" + b.user + "「"+ b.comment + "」").slice(0, 3);
@@ -213,6 +197,22 @@ export default class ExamplePage extends Vue {
         }
       ]
     };
+  }
+})
+
+export default class ExamplePage extends Vue {
+  title: string = "ML-News"
+  example: Example | null = null
+  similarExamples: Example[] = []
+  keywords: string[] = []
+  isAdmin: boolean = false
+
+  mounted() {
+    Auth.currentAuthenticatedUser()
+      .then(user => {
+        this.isAdmin = true;
+      })
+      .catch(err => console.log(err))
   }
   get hasBookmarksWithComment(): boolean {
     return filterBookmarksWithComment(this.example).length > 0;

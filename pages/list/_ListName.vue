@@ -95,29 +95,7 @@ const isNewDayThresholdByListname: { [key: string]: number }= {
       examples: examples,
       loading: false
     };
-  }
-})
-
-export default class ListNamePage extends Vue {
-  layout: string = 'default'
-
-  title: string = "ML-News"
-  listname: string = 'general'
-  examples: Example[] = []
-  isNew: boolean = false
-  options: { [key: string]: any }[] = [
-    { text: 'All', value: false },
-    { text: 'Recent', value: true }
-  ]
-  isAdmin: bool = false
-
-  mounted() {
-    Auth.currentAuthenticatedUser()
-      .then(user => {
-        this.isAdmin = true;
-      })
-      .catch(err => console.log(err))
-  }
+  },
   head() {
     return {
       title: this.title,
@@ -144,6 +122,28 @@ export default class ListNamePage extends Vue {
         }
       ]
     };
+  }
+})
+
+export default class ListNamePage extends Vue {
+  layout: string = 'default'
+
+  title: string = "ML-News"
+  listname: string = 'general'
+  examples: Example[] = []
+  isNew: boolean = false
+  options: { [key: string]: any }[] = [
+    { text: 'All', value: false },
+    { text: 'Recent', value: true }
+  ]
+  isAdmin: bool = false
+
+  mounted() {
+    Auth.currentAuthenticatedUser()
+      .then(user => {
+        this.isAdmin = true;
+      })
+      .catch(err => console.log(err))
   }
   examplesFilterByIsNew(isNew: boolean): Example[] {
     return this.examples.filter(function(e: Example) {
