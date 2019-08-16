@@ -15,14 +15,13 @@
           <img
             v-if="example.OgImage"
             v-lazy="example.OgImage"
-            class="img-thumbnail img-responsive"
-            style="width: 128px; height: 96px; margin: 3px; float: right;"
+            class="img-thumbnail img-responsive ogimage"
             onerror="this.style.display='none'"
           >
           <img
             v-if="tweet.ProfileImageUrl"
             v-lazy="tweet.ProfileImageUrl"
-            style="width: 24px; height: 24px;"
+            class="tweet-profile-img"
             onerror="this.style.display='none'"
           >
           <a :href="'https://twitter.com/' + tweet.ScreenName + '/status/' + tweet.IdStr">@{{ tweet.ScreenName }}</a>
@@ -45,7 +44,7 @@
             <img
               v-if="example.Favicon"
               v-lazy="example.Favicon"
-              style="width: 16px; height: 16px;"
+              class="example-favicon-img"
               onerror="this.style.display='none'"
             >
             <a :href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
@@ -80,3 +79,21 @@ export default class AdminAnnotateTweets extends Vue {
   isAdmin!: boolean
 }
 </script>
+
+<style scoped>
+.example-favicon-img {
+  width: 16px;
+  height: 16px;
+}
+.tweet-profile-img {
+  width: 24px;
+  height: 24px;
+  margin: 2px;
+}
+.ogimage {
+  width: 128px;
+  height: 96px;
+  margin: 3px;
+  float: right;
+}
+</style>
