@@ -13,34 +13,21 @@
         v-for="example in searchExamplesByLabel(label)"
         :key="example.Url"
         :example="example"
-        :is-admin="isAdmin"
+        :isAdmin="isAdmin"
       />
     </b-card-group>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import Example from '~/components/Example.vue';
 import { NewExample } from '~/assets/util';
 import { Auth } from 'aws-amplify';
 
-export default {
+@Component({
   components: {
-    "example": Example
-  },
-  data () {
-    return {
-      label: 0,
-      options: [
-        { text: 'Unlabeled', value: 0 },
-        { text: 'Positive', value: 1 },
-        { text: 'Negative', value: -1 },
-      ],
-      positive: [],
-      negative: [],
-      unlabeled: [],
-      isAdmin: false,
-    }
+    Example: () => import('~/components/Example.vue')
   },
   async asyncData(context) {
     let data = await context.app.$axios.$get("/api/recent_added_examples");
@@ -48,26 +35,6 @@ export default {
       positive: data.PositiveExamples.map(e => NewExample(e)),
       negative: data.NegativeExamples.map(e => NewExample(e)),
       unlabeled: data.UnlabeledExamples.map(e => NewExample(e))
-    }
-  },
-  mounted() {
-    Auth.currentAuthenticatedUser()
-      .then(user => {
-        this.isAdmin = true;
-      })
-      .catch(err => console.log(err))
-  },
-  methods: {
-    searchExamplesByLabel: function(label) {
-      if (label == 1) {
-        return this.positive;
-      } else if (label == -1) {
-        return this.negative;
-      } else if (label == 0) {
-        return this.unlabeled;
-      } else {
-        return [];
-      }
     }
   },
   head() {
@@ -86,6 +53,37 @@ export default {
         }
       ]
     };
+  }
+})
+
+export default class AdminAnnotationExample extends Vue {
+  label: number = 0
+  options: { [key: string]: any}[] = [
+    { text: 'Unlabeled', value: 0 },
+    { text: 'Positive', value: 1 },
+    { text: 'Negative', value: -1 },
+  ]
+  positive: Example[] = []
+  negative: Example[] = []
+  unlabeled: Example[] = []
+  isAdmin: boolean = false
+  mounted() {
+    Auth.currentAuthenticatedUser()
+      .then(user => {
+        this.isAdmin = true;
+      })
+      .catch(err => console.log(err))
+  }
+  searchExamplesByLabel(label: number): Example[] {
+    if (label == 1) {
+      return this.positive;
+    } else if (label == -1) {
+      return this.negative;
+    } else if (label == 0) {
+      return this.unlabeled;
+    } else {
+      return [];
+    }
   }
 }
 </script>
