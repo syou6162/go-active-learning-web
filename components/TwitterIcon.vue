@@ -4,7 +4,7 @@
     v-lazy="tweet.ProfileImageUrl" 
     :alt="twitterId"
     :title="twitterId" 
-    style="width: 24px; height: 24px; margin: 2px"
+    class="tweet-icon-img"
   >
 </template>
 
@@ -22,3 +22,11 @@ export default class TwitterIcon extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.tweet-icon-img {
+  width: 24px;
+  height: 24px;
+  margin: 2px;
+}
+</style>

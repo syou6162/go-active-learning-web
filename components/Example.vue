@@ -9,7 +9,7 @@
         <div v-if="example.HatenaBookmark.count > 0">
           <a
             :href="example.HatenaBookmark.entry_url"
-            style="color: #ff4166;"
+            class="hatena-bookmark-link"
           >{{ example.HatenaBookmark.count }} users</a>:
           <hatena-bookmark-icon 
             v-for="b in example.HatenaBookmark.bookmarks.slice(0, 9)"
@@ -18,7 +18,7 @@
           />
         </div>
         <div v-if="tweets !== undefined && tweets !== null && tweets.length > 0">
-          <span style="color: #ff4166;">{{ tweets.length }} mentions</span>:
+          <span class="tweets-count">{{ tweets.length }} mentions</span>:
           <twitter-icon
             v-for="tweet in tweets.slice(0, 8)"
             :key="tweet.ScreenName"
@@ -41,7 +41,7 @@
           <img
             v-if="example.Favicon"
             v-lazy="example.Favicon"
-            style="width: 16px; height: 16px;"
+            class="example-favicon-img"
             onerror="this.style.display='none'"
           >
           <a :href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
@@ -77,3 +77,16 @@ export default class ExampleComponent extends Vue {
   isAdmin!: Boolean
 }
 </script>
+
+<style scoped>
+.example-favicon-img {
+  width: 16px; 
+  height: 16px;
+}
+.hatena-bookmark-link {
+  color: #ff4166;
+}
+.tweets-count {
+  color: #ff4166;
+}
+</style>

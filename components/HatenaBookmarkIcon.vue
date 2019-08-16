@@ -3,8 +3,8 @@
     v-b-popover.hover.bottomright="tags_and_comment" 
     v-lazy="'https://cdn.profile-image.st-hatena.com/users/' + bookmark.user+ '/profile.png'" 
     :alt="user_id"
-    :title="user_id" 
-    style="width: 24px; height: 24px; margin: 2px" 
+    :title="user_id"
+    class="hatena-bookmark-user-icon-img"
   >
 </template>
 
@@ -25,3 +25,11 @@ export default class HatenaBookmarkIcon extends Vue {
   bookmark!: Bookmark;
 }
 </script>
+
+<style scoped>
+.hatena-bookmark-user-icon-img {
+  width: 24px;
+  height: 24px;
+  margin: 2px;
+}
+</style>

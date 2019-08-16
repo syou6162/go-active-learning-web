@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="mx-auto"
-    style="max-width: 40rem;"
-  >
+  <div class="mx-auto example">
     <b-card
       v-if="example"
       :title="example | getTitle(1000, '...')"
@@ -11,8 +8,7 @@
       <img
         v-if="example.OgImage"
         v-lazy="example.OgImage"
-        class="img-thumbnail img-responsive"
-        style="width: 128px; height: 96px; margin: 3px; float: right;"
+        class="img-thumbnail img-responsive ogimage"
         onerror="this.style.display='none'"
       >
       <p class="card-text">
@@ -21,7 +17,7 @@
       <div v-if="example.HatenaBookmark.count > 0">
         <a
           :href="example.HatenaBookmark.entry_url"
-          style="color: #ff4166;"
+          class="hatena-bookmark-link"
         >{{ example.HatenaBookmark.count }} users</a>:
         <hatena-bookmark-icon 
           v-for="b in example.HatenaBookmark.bookmarks.slice(0, 9)"
@@ -30,7 +26,7 @@
         />
       </div>
       <div v-if="example.ReferringTweets && example.ReferringTweets.length > 0">
-        <span style="color: #ff4166;">{{ example.ReferringTweets.length }} mentions</span>:
+        <span class="tweets-count">{{ example.ReferringTweets.length }} mentions</span>:
         <twitter-icon
           v-for="tweet in example.ReferringTweets.slice(0, 8)"
           :key="tweet.ScreenName"
@@ -56,7 +52,7 @@
         <img
           v-if="example.Favicon"
           v-lazy="example.Favicon"
-          style="width: 16px; height: 16px;"
+          class="example-favicon-img"
           onerror="this.style.display='none'"
         >
         <a :href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
@@ -72,7 +68,7 @@
           <img
             v-if="t.ProfileImageUrl"
             v-lazy="t.ProfileImageUrl"
-            style="width: 24px; height: 24px;"
+            class="tweet-icon-img"
             onerror="this.style.display='none'"
           >
           <a :href="'https://twitter.com/' + t.ScreenName + '/status/' + t.IdStr">@{{ t.ScreenName }}</a>
@@ -93,7 +89,7 @@
         >
           <img
             v-lazy="'https://cdn.profile-image.st-hatena.com/users/' + b.user+ '/profile.png'"
-            style="width: 24px; height: 24px; margin: 2px"
+            class="hatena-bookmark-user-icon-img"
           >
           <a :href="'http://b.hatena.ne.jp/' + b.user">id:{{ b.user }}</a>
           {{ b.comment }}
@@ -118,7 +114,7 @@
         <img
           v-if="example.Favicon"
           v-lazy="example.Favicon"
-          style="width: 16px; height: 16px;"
+          class="example-favicon-img"
           onerror="this.style.display='none'"
         >
         {{ example | getTitle(100, '...') }}
@@ -222,3 +218,35 @@ export default class ExamplePage extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.example {
+  max-width: 40rem;
+}
+.ogimage {
+  width: 128px; 
+  height: 96px; 
+  margin: 3px; 
+  float: right;
+}
+.example-favicon-img {
+  width: 16px;
+  height: 16px;
+}
+.hatena-bookmark-link {
+  color: #ff4166;
+}
+.hatena-bookmark-user-icon-img {
+  width: 24px;
+  height: 24px;
+  margin: 2px;
+}
+.tweets-count {
+  color: #ff4166;
+}
+.tweet-icon-img {
+  width: 24px;
+  height: 24px;
+  margin: 2px;
+}
+</style>
