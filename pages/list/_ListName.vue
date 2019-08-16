@@ -136,7 +136,7 @@ export default class ListNamePage extends Vue {
     { text: 'All', value: false },
     { text: 'Recent', value: true }
   ]
-  isAdmin: bool = false
+  isAdmin: boolean = false
 
   mounted() {
     Auth.currentAuthenticatedUser()
