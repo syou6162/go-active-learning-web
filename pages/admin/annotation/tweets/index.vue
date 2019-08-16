@@ -9,7 +9,7 @@
       />
     </b-form-group>
     <b-card-group columns>
-      <example 
+      <admin-annotate-tweets
         v-for="example in searchExamplesByLabel(label)"
         :key="getKey(example, label)"
         :example="example"
@@ -28,7 +28,7 @@ import { Auth } from 'aws-amplify';
 
 @Component({
   components: {
-    Example: () => import('~/components/AdminAnnotateTweets.vue')
+    AdminAnnotateTweets: () => import('~/components/AdminAnnotateTweets.vue')
   },
   async asyncData(context) {
     let data = await context.app.$axios.$get("/api/recent_added_tweets");
