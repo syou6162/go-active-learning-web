@@ -13,7 +13,7 @@
         v-for="example in searchExamplesByLabel(label)"
         :key="example.Url"
         :example="example"
-        :isAdmin="isAdmin"
+        :is-admin="isAdmin"
       />
     </b-card-group>
   </div>
