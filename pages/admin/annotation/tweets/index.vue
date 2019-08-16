@@ -14,7 +14,7 @@
         :key="getKey(example, label)"
         :example="example"
         :tweets="example.ReferringTweets"
-        :isAdmin="isAdmin"
+        :is-admin="isAdmin"
       />
     </b-card-group>
   </div>
