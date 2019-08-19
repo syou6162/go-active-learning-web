@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-form-group label="Please select a label">
+    <b-form-group v-if="isAdmin" label="Please select a label">
       <b-form-radio-group
         v-model="isNew"
         buttons
