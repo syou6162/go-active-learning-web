@@ -44,7 +44,7 @@
     "cross-env": "^5.2.0",
     "cssnano": "^4.1.10",
     "date-fns": "^2.0.0-beta.5",
-    "eslint": "^6.1.0",
+    "eslint": "^6.2.0",
     "eslint-plugin-vue": "^5.2.3",
     "jquery": "^3.4.1",
     "nuxt": "^2.8.1",
