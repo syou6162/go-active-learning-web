@@ -1,6 +1,7 @@
 import { format, subDays, isAfter, toDate, parseISO } from 'date-fns'
 import Example from '~/models/Example'
 import Bookmark from '~/models/Bookmark'
+import Tweet from '~/models/Tweet'
 
 export function NewExample(e: Example, opts = {}): Example {
   var isNewDayThreshold = subDays(new Date(), opts["IsNewDayThreshold"] || 1);
@@ -11,6 +12,12 @@ export function NewExample(e: Example, opts = {}): Example {
   e.IsNew = isAfter(createdAt, isNewDayThreshold);
   if (e.HatenaBookmark) {
     e.HatenaBookmark.bookmarks = (e.HatenaBookmark.bookmarks || []).reverse();
+  }
+  if (e.ReferringTweets) {
+    e.ReferringTweets = e.ReferringTweets.map(function(t: Tweet) {
+      t.CreatedAt = format(parseISO(t.CreatedAt), "yyyy/MM/dd HH:mm");
+      return t;
+    });
   }
   return e;
 }

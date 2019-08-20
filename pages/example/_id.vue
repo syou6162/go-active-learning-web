@@ -73,6 +73,10 @@
           >
           <a :href="'https://twitter.com/' + t.ScreenName + '/status/' + t.IdStr">@{{ t.ScreenName }}</a>
           {{ t.FullText }}
+          <div class="tweet-footer">
+            <span class="tweet-retweet-count">{{t.RetweetCount}} RT</span>, <span class="tweet-favorite-count"> {{t.FavoriteCount}} Fav</span>
+            <span class="tweet-created-at">{{t.CreatedAt}}</span>
+          </div>
           <tweet-annotate-buttons
             v-if="isAdmin"
             :tweet="t"
@@ -241,12 +245,16 @@ export default class ExamplePage extends Vue {
   height: 24px;
   margin: 2px;
 }
-.tweets-count {
+.tweets-count, .tweet-retweet-count, .tweet-favorite-count {
   color: #ff4166;
 }
 .tweet-icon-img {
   width: 24px;
   height: 24px;
   margin: 2px;
+}
+.tweet-created-at {
+  color: #999;
+  float: right;
 }
 </style>
