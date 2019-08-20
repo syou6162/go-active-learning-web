@@ -30,6 +30,7 @@ var keywords = []string{
 
 	"言語モデル",
 	"language model",
+	"language generation",
 
 	"機械翻訳",
 	"machine translation",
@@ -55,6 +56,9 @@ var keywords = []string{
 
 	"コンピュータビジョン",
 	"computer vision",
+	"画像生成",
+	"image generation",
+	"fashion",
 
 	"異常検知",
 	"anomaly detection",
@@ -138,6 +142,7 @@ var keywords = []string{
 	"aaai",
 	"wsdm",
 	"siggraph",
+	"icra",
 
 	"ロジステック回帰",
 	"logistic regression",
@@ -156,6 +161,7 @@ var keywords = []string{
 
 	"ベイズ",
 	"bayesian",
+	"変分ベイズ",
 
 	"ベイズ最適化",
 	"bayesian optimization",
@@ -183,6 +189,7 @@ var keywords = []string{
 	"coreml",
 	"sagemaker",
 	"colab",
+	"numpy",
 	"scikit-learn",
 	"sklearn",
 	"pandas",
@@ -203,6 +210,9 @@ var keywords = []string{
 	"openpose",
 	"pytext",
 	"scdv",
+	"tslearn",
+	"econml",
+	"deepgbm",
 
 	"cnn",
 	"rnn",
@@ -216,8 +226,12 @@ var keywords = []string{
 	"generative adversarial network",
 	"u-net",
 	"transformer",
+	"xlnet",
 	"stylegan",
+	"octave",
 	"noise2void",
+	"adam",
+	"early stopping",
 
 	"埋め込み",
 	"embedding",
@@ -225,6 +239,7 @@ var keywords = []string{
 	"word2vec",
 
 	"gke",
+	"gae",
 	"gcp",
 	"aws",
 	"docker",
@@ -233,15 +248,20 @@ var keywords = []string{
 	"kubeflow",
 	"sagemaker",
 	"s3",
+	"elasticsearch",
 	"splunk",
 	"mlops",
 	"automl",
+	"機械学習工学",
 
 	"kaggle",
 	"signate",
 	"コンペ",
 	"competition",
 	"bagging",
+
+	"self driving",
+	"自動運転",
 }
 
 func Init() error {
