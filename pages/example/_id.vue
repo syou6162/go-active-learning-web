@@ -1,10 +1,7 @@
 <template>
   <div class="mx-auto example">
-    <b-card
-      v-if="example"
-      :title="example | getTitle(1000, '...')"
-      tag="article"
-    >
+    <b-card v-if="example" tag="article">
+      <h1 class="h4">{{ example | getTitle(1000, '...') }}</h1>
       <img
         v-if="example.OgImage"
         v-lazy="example.OgImage"
