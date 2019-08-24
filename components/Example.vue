@@ -41,6 +41,7 @@
           <img
             v-if="example.Favicon"
             v-lazy="example.Favicon"
+            :alt="example.Title"
             class="example-favicon-img"
             onerror="this.style.display='none'"
           >
