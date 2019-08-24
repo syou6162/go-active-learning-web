@@ -57,7 +57,7 @@
         <a :href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
       </b-card-footer>
     </b-card>
-    <div v-if="example.ReferringTweets && example.ReferringTweets.length > 0">
+    <div v-if="example.ReferringTweets && tweetsWithPositiveLabelOrPositiveScore.length > 0">
       <h2 class="h4">Referring Tweets</h2>
       <b-list-group>
         <b-list-group-item
