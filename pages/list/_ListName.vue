@@ -42,7 +42,7 @@ const descriptionByListname: { [key: string]: string } = {
   "article": "機械学習に関連する人気のエントリを読むことができます",
   "github": "GitHub上で話題の機械学習に関連するリポジトリを見ることができます",
   "arxiv": "arXiv上で話題の機械学習に関連する論文を読むことができます",
-  "slide": "SlideShareやSpeaker Deck上で話題の機械学習に関連する発表資料を読むことができます",
+  "slide": "SlideShareやSpeaker DeckやGoogle Slides上で話題の機械学習に関連する発表資料を読むことができます",
   "video": "YouTube上で話題の機械学習に関連する発表を見ることができます",
   "event": "connpassやTECH PLAY上で話題の機械学習に関連する勉強会を探すことができます",
 };

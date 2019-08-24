@@ -24,7 +24,7 @@ var listName2Rule = map[string]*regexp.Regexp{
 	"general": regexp.MustCompile(`.+`),
 	"article": regexp.MustCompile(`.+`),                              // あとでog:typeで絞り込む
 	"github":  regexp.MustCompile(`https://github.com/[^/]+/[^/]+$`), // リポジトリのトップのみ
-	"slide":   regexp.MustCompile(`https://(www.slideshare.net|speakerdeck.com)/.+`),
+	"slide":   regexp.MustCompile(`https://(www.slideshare.net|speakerdeck.com|docs.google.com/presentation/d)/.+$`),
 	"arxiv":   regexp.MustCompile(`https://(arxiv.org/abs/.+$|openreview.net/forum\?id=.+$)`),
 	"video":   regexp.MustCompile(`https?://(www.youtube.com/watch\?v=.+$|videolectures.net/.+$|vimeo.com/.+$)`),
 	"event":   regexp.MustCompile(`https://(.*?\.?connpass.com/event/.+/$|techplay.jp/event/.+)$`),
