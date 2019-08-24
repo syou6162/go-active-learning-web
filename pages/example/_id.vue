@@ -62,7 +62,7 @@
       <h4>Referring Tweets</h4>
       <b-list-group>
         <b-list-group-item
-          v-for="t in example.ReferringTweets.slice(0, 3)"
+          v-for="t in example.ReferringTweets.slice(0, 9)"
           :key="t.ScreenName"
         >
           <img
@@ -88,7 +88,7 @@
       <h4>Bookmark Comments</h4>
       <b-list-group>
         <b-list-group-item
-          v-for="b in bookmarksWithComment.slice(0, 3)"
+          v-for="b in bookmarksWithComment.slice(0, 9)"
           :key="b.user"
         >
           <img
