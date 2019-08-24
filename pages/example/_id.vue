@@ -1,13 +1,12 @@
 <template>
   <div class="mx-auto example">
-    <b-card
-      v-if="example"
-      :title="example | getTitle(1000, '...')"
-      tag="article"
-    >
+    <b-card v-if="example" tag="article">
+      <h1 class="h4">{{ example | getTitle(1000, '...') }}</h1>
       <img
         v-if="example.OgImage"
         v-lazy="example.OgImage"
+        :alt="example.Title"
+        :title="example.Title" 
         class="img-thumbnail img-responsive ogimage"
         onerror="this.style.display='none'"
       >
@@ -52,14 +51,15 @@
         <img
           v-if="example.Favicon"
           v-lazy="example.Favicon"
+          :alt="example.Title"
           class="example-favicon-img"
           onerror="this.style.display='none'"
         >
         <a :href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
       </b-card-footer>
     </b-card>
-    <div v-if="example.ReferringTweets && example.ReferringTweets.length > 0">
-      <h4>Referring Tweets</h4>
+    <div v-if="example.ReferringTweets && tweetsWithPositiveLabelOrPositiveScore.length > 0">
+      <h2 class="h4">Referring Tweets</h2>
       <b-list-group>
         <b-list-group-item
           v-for="t in tweetsWithPositiveLabelOrPositiveScore.slice(0, 9)"
@@ -85,7 +85,7 @@
       </b-list-group>
     </div>
     <div v-if="hasBookmarksWithComment">
-      <h4>Bookmark Comments</h4>
+      <h2 class="h4">Bookmark Comments</h2>
       <b-list-group>
         <b-list-group-item
           v-for="b in bookmarksWithComment.slice(0, 9)"
@@ -100,9 +100,9 @@
         </b-list-group-item>
       </b-list-group>
     </div>
-    <h4 v-if="similarExamples.length > 0">
+    <h2 class="h4" v-if="similarExamples.length > 0">
       Related Entries
-    </h4>
+    </h2>
     <b-list-group>
       <b-list-group-item
         v-for="example in similarExamples"
@@ -179,8 +179,20 @@ import { NewExample, filterBookmarksWithComment } from '~/assets/util';
           content: description
         },
         {
+          name: "og:title",
+          content: this.title
+        },
+        {
           name: "og:type",
           content: "article"
+        },
+        {
+          name: "og:description",
+          content: description 
+        },
+        {
+          name: "og:url",
+          content: `https://www.machine-learning.news/example/${this.example.Id}`
         },
         {
           name: "og:image",
