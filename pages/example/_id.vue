@@ -6,7 +6,6 @@
         v-if="example.OgImage"
         v-lazy="example.OgImage"
         :alt="example.Title"
-        :title="example.Title" 
         class="img-thumbnail img-responsive ogimage"
         onerror="this.style.display='none'"
       >

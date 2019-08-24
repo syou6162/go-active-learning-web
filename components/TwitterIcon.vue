@@ -3,7 +3,6 @@
     v-b-popover.hover.bottomright="tweet.FullText" 
     v-lazy="tweet.ProfileImageUrl" 
     :alt="twitterId"
-    :title="twitterId" 
     class="tweet-icon-img"
   >
 </template>

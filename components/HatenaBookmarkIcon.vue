@@ -3,7 +3,6 @@
     v-b-popover.hover.bottomright="tags_and_comment" 
     v-lazy="'https://cdn.profile-image.st-hatena.com/users/' + bookmark.user+ '/profile.png'" 
     :alt="user_id"
-    :title="user_id"
     class="hatena-bookmark-user-icon-img"
   >
 </template>
