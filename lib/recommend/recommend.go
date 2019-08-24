@@ -27,7 +27,7 @@ var listName2Rule = map[string]*regexp.Regexp{
 	"slide":   regexp.MustCompile(`https://(www.slideshare.net|speakerdeck.com)/.+`),
 	"arxiv":   regexp.MustCompile(`https://(arxiv.org/abs/.+$|openreview.net/forum\?id=.+$)`),
 	"video":   regexp.MustCompile(`https?://(www.youtube.com/watch\?v=.+$|videolectures.net/.+$|vimeo.com/.+$)`),
-	"event":   regexp.MustCompile(`https://.*?\.?connpass.com/event/.+/$`),
+	"event":   regexp.MustCompile(`https://(.*?\.?connpass.com/event/.+/$|techplay.jp/event/.+)$`),
 }
 
 var listName2Hosts = map[string][]string{
