@@ -44,7 +44,7 @@ const descriptionByListname: { [key: string]: string } = {
   "arxiv": "arXiv上で話題の機械学習に関連する論文を読むことができます",
   "slide": "SlideShareやSpeaker Deck上で話題の機械学習に関連する発表資料を読むことができます",
   "video": "YouTube上で話題の機械学習に関連する発表を見ることができます",
-  "event": "connpass上で話題の機械学習に関連する勉強会を探すことができます",
+  "event": "connpassやTECH PLAY上で話題の機械学習に関連する勉強会を探すことができます",
 };
 
 const isNewDayThresholdByListname: { [key: string]: number }= {
