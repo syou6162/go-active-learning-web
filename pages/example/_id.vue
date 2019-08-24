@@ -162,7 +162,7 @@ import { NewExample, filterBookmarksWithComment } from '~/assets/util';
       })
   },
   head() {
-    const tweets = this.example.ReferringTweets.map(t => "@" + t.ScreenName + "「" + t.FullText.substr(0, 100) + "...」").slice(0, 3);
+    const tweets = this.tweetsWithPositiveLabelOrPositiveScore.map(t => "@" + t.ScreenName + "「" + t.FullText + "」").slice(0, 3);
     const bookmarks = filterBookmarksWithComment(this.example).map(b => "id:" + b.user + "「"+ b.comment + "」").slice(0, 3);
     const description = tweets.join("\n") + bookmarks.join("\n");
     const robotsContent = this.example.Label == -1 ? "noindex, nofollow" : "index, follow";
