@@ -56,7 +56,7 @@
       </b-card-footer>
     </b-card>
     <div v-if="example.ReferringTweets && example.ReferringTweets.length > 0">
-      <h4>Referring Tweets</h4>
+      <h2 class="h4">Referring Tweets</h2>
       <b-list-group>
         <b-list-group-item
           v-for="t in tweetsWithPositiveLabelOrPositiveScore.slice(0, 9)"
@@ -82,7 +82,7 @@
       </b-list-group>
     </div>
     <div v-if="hasBookmarksWithComment">
-      <h4>Bookmark Comments</h4>
+      <h2 class="h4">Bookmark Comments</h2>
       <b-list-group>
         <b-list-group-item
           v-for="b in bookmarksWithComment.slice(0, 9)"
@@ -97,9 +97,9 @@
         </b-list-group-item>
       </b-list-group>
     </div>
-    <h4 v-if="similarExamples.length > 0">
+    <h2 class="h4" v-if="similarExamples.length > 0">
       Related Entries
-    </h4>
+    </h2>
     <b-list-group>
       <b-list-group-item
         v-for="example in similarExamples"
