@@ -179,8 +179,16 @@ import { NewExample, filterBookmarksWithComment } from '~/assets/util';
           content: description
         },
         {
+          name: "og:title",
+          content: this.title
+        },
+        {
           name: "og:type",
           content: "article"
+        },
+        {
+          name: "og:description",
+          content: description 
         },
         {
           name: "og:image",
