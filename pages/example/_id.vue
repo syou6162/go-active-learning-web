@@ -188,6 +188,10 @@ import { NewExample, filterBookmarksWithComment } from '~/assets/util';
           content: description 
         },
         {
+          name: "og:url",
+          content: `https://www.machine-learning.news/example/${this.example.Id}`
+        },
+        {
           name: "og:image",
           content: this.example.OgImage 
         },
