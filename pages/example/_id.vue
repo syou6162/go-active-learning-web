@@ -62,7 +62,7 @@
       <h4>Referring Tweets</h4>
       <b-list-group>
         <b-list-group-item
-          v-for="t in example.ReferringTweets.slice(0, 9)"
+          v-for="t in tweetsWithPositiveLabelOrPositiveScore.slice(0, 9)"
           :key="t.ScreenName"
         >
           <img
@@ -131,6 +131,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { Auth } from 'aws-amplify';
 import Example from '~/components/Example.vue';
+import Tweet from '~/components/Tweet.vue';
 import { NewExample, filterBookmarksWithComment } from '~/assets/util';
 
 @Component({
@@ -219,6 +220,19 @@ export default class ExamplePage extends Vue {
   }
   get bookmarksWithComment() {
     return filterBookmarksWithComment(this.example);
+  }
+  get tweetsWithPositiveLabelOrPositiveScore(): Tweet[] {
+    return this.example.ReferringTweets.filter(function(t: Tweet) {
+      return t.Label == 1 || t.Score > 0.0;
+    }).sort(function(a: Tweet, b: Tweet) {
+      if (a.Score > b.Score) {
+        return -1;
+      } else if (a.Score < b.Score) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
   }
 }
 </script>
