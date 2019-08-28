@@ -8,7 +8,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "DEBUG=nuxt:*,app:* nuxt",
-    "lint": "eslint --ext .vue,.ts,.js components pages assets plugins layouts",
+    "lint": "eslint --ext .vue,.ts,.js components pages plugins layouts",
     "build": "nuxt build",
     "start": "nuxt start"
   },

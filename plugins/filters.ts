@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { truncate, getDomain, filterBookmarksWithComment } from '~/assets/util';
+import { truncate, getDomain, filterBookmarksWithComment } from '~/plugins/util';
 import Example from '~/models/Example'
 
 Vue.filter('getTitle', function(example: Example, length: number, omission: string) {
