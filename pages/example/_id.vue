@@ -132,7 +132,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { Auth } from 'aws-amplify';
 import Example from '~/components/Example.vue';
 import Tweet from '~/components/Tweet.vue';
-import { NewExample, filterBookmarksWithComment } from '~/assets/util';
+import { NewExample, filterBookmarksWithComment } from '~/plugins/util';
 
 @Component({
   components: {

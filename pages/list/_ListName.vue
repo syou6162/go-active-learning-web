@@ -25,7 +25,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import Example from '~/models/Example'
 
 import { Auth } from 'aws-amplify';
-import { NewExample } from '~/assets/util';
+import { NewExample } from '~/plugins/util';
 
 const keywordsByListname: { [key: string]: string[] } = {
   "general": ["機械学習", "Machine Learning", "自然言語処理"],

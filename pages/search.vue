@@ -30,7 +30,7 @@
 <script>
 import { Auth } from 'aws-amplify';
 import Example from '~/components/Example.vue';
-import { NewExample } from '~/assets/util';
+import { NewExample } from '~/plugins/util';
 
 export default {
   watchQuery: ['query'],
