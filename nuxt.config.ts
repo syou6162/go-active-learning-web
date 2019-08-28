@@ -50,10 +50,6 @@ const config: NuxtConfiguration = {
     ['@nuxtjs/google-analytics', {
       id: 'UA-591180-8'
     }],
-    ['@nuxtjs/google-adsense', {
-      id: 'ca-pub-3611136298489092',
-      pageLevelAds: true
-    }],
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt'
   ],
