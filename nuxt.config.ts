@@ -51,8 +51,14 @@ const config: NuxtConfiguration = {
       id: 'UA-591180-8'
     }],
     // Doc: https://bootstrap-vue.js.org/docs/
-    'bootstrap-vue/nuxt'
+    'bootstrap-vue/nuxt',
+    'nuxt-logrocket'
   ],
+  // https://github.com/nuxt-community/nuxt-logrocket
+  logRocket: {
+    logRocketId: '7atsfy/ml-news',
+    devModeAllowed: true,
+  },
   /*
   ** Axios module configuration
   */
