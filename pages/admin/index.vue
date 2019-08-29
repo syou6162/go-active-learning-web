@@ -12,6 +12,7 @@
     <input
       v-model="userInfo.password"
       type="password"
+      data-private="lipsum"
     >
     <button
       class="btn btn-primary"
