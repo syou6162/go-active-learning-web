@@ -57,7 +57,7 @@ const config: NuxtConfiguration = {
   // https://github.com/nuxt-community/nuxt-logrocket
   logRocket: {
     logRocketId: '7atsfy/ml-news',
-    devModeAllowed: true,
+    devModeAllowed: false,
   },
   /*
   ** Axios module configuration
