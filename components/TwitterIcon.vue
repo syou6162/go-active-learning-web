@@ -5,6 +5,7 @@
     :alt="twitterId"
     :title="twitterId" 
     class="tweet-icon-img"
+    target="_blank" rel="noopener"
   >
 </template>
 

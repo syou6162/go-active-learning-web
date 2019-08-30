@@ -17,6 +17,7 @@
         <a
           :href="example.HatenaBookmark.entry_url"
           class="hatena-bookmark-link"
+          target="_blank" rel="noopener"
         >{{ example.HatenaBookmark.count }} users</a>:
         <hatena-bookmark-icon 
           v-for="b in example.HatenaBookmark.bookmarks.slice(0, 9)"
@@ -55,7 +56,7 @@
           class="example-favicon-img"
           onerror="this.style.display='none'"
         >
-        <a :href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
+        <a :href="example.FinalUrl" target="_blank" rel="noopener">{{ example | getDomain }} {{ example | getUserName }}</a>
       </b-card-footer>
     </b-card>
     <div v-if="example.ReferringTweets && tweetsWithPositiveLabelOrPositiveScore.length > 0">
@@ -71,7 +72,7 @@
             class="tweet-icon-img"
             onerror="this.style.display='none'"
           >
-          <a :href="'https://twitter.com/' + t.ScreenName + '/status/' + t.IdStr">@{{ t.ScreenName }}</a>
+          <a :href="'https://twitter.com/' + t.ScreenName + '/status/' + t.IdStr" target="_blank" rel="noopener">@{{ t.ScreenName }}</a>
           {{ t.FullText }}
           <div class="tweet-footer">
             <span class="tweet-retweet-count">{{t.RetweetCount}} RT</span>, <span class="tweet-favorite-count"> {{t.FavoriteCount}} Fav</span>
@@ -95,7 +96,7 @@
             v-lazy="'https://cdn.profile-image.st-hatena.com/users/' + b.user+ '/profile.png'"
             class="hatena-bookmark-user-icon-img"
           >
-          <a :href="'http://b.hatena.ne.jp/' + b.user">id:{{ b.user }}</a>
+          <a :href="'http://b.hatena.ne.jp/' + b.user" target="_blank" rel="noopener">id:{{ b.user }}</a>
           {{ b.comment }}
         </b-list-group-item>
       </b-list-group>
