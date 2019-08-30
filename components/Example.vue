@@ -7,7 +7,7 @@
         class="m-1 p-2"
       >
         <p class="example-description">
-          {{ example | getDescription(50, '...') }}
+          {{ example | getDescription(100, '...') }}
         </p>
         <div 
           v-if="example.HatenaBookmark.count > 0"
