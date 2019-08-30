@@ -6,7 +6,13 @@
         title-tag="h5"
         class="m-1 p-2"
       >
-        <div v-if="example.HatenaBookmark.count > 0">
+        <p class="example-description">
+          {{ example | getDescription(50, '...') }}
+        </p>
+        <div 
+          v-if="example.HatenaBookmark.count > 0"
+          class="hatena-bookmarks"
+          >
           <a
             :href="example.HatenaBookmark.entry_url"
             class="hatena-bookmark-link"
@@ -17,7 +23,10 @@
             :bookmark="b"
           />
         </div>
-        <div v-if="tweets !== undefined && tweets !== null && tweets.length > 0">
+        <div 
+          v-if="tweets !== undefined && tweets !== null && tweets.length > 0"
+          class="tweets"
+          >
           <span class="tweets-count">{{ tweets.length }} mentions</span>:
           <twitter-icon
             v-for="tweet in tweets.slice(0, 8)"
@@ -25,7 +34,7 @@
             :tweet="tweet"
           />
         </div>
-        Date: {{ example.CreatedAt }}
+        <div class="example-created-at">{{ example.CreatedAt }}</div>
         <annotate-buttons
           v-if="isAdmin"
           :example="example"
@@ -84,8 +93,26 @@ export default class ExampleComponent extends Vue {
   width: 16px; 
   height: 16px;
 }
+.example-description {
+  font-size: 14px;
+  line-height: 16px;
+  margin: 0 0 4px;
+  color: #55606a;
+}
+.example-created-at {
+  color: #999;
+  text-align: right;
+  margin: 0 0 4px;
+  line-height: 16px;
+}
+.hatena-bookmarks {
+  margin: 0 0 4px;
+}
 .hatena-bookmark-link {
   color: #ff4166;
+}
+.tweets {
+  margin: 0 0 4px;
 }
 .tweets-count {
   color: #ff4166;
