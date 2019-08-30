@@ -45,7 +45,7 @@
             class="example-favicon-img"
             onerror="this.style.display='none'"
           >
-          <a :href="example.FinalUrl">{{ example | getDomain }} {{ example | getUserName }}</a>
+          <a :href="example.FinalUrl" target="_blank" rel="noopener">{{ example | getDomain }} {{ example | getUserName }}</a>
         </b-card-footer>
       </b-card-body>
     </b-card>
