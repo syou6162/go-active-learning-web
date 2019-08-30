@@ -94,8 +94,8 @@ export default class ExampleComponent extends Vue {
   height: 16px;
 }
 .example-description {
-  font-size: 14px;
-  line-height: 16px;
+  font-size: 16px;
+  line-height: 18px;
   margin: 0 0 4px;
   color: #55606a;
 }
