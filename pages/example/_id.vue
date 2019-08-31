@@ -91,13 +91,28 @@
         <b-list-group-item
           v-for="b in bookmarksWithComment.slice(0, 9)"
           :key="b.user"
+          class="hatena-bookmark-item"
         >
           <img
             v-lazy="'https://cdn.profile-image.st-hatena.com/users/' + b.user+ '/profile.png'"
-            class="hatena-bookmark-user-icon-img"
+            class="hatena-bookmark-comment-user-icon-img"
           >
-          <a :href="'http://b.hatena.ne.jp/' + b.user" target="_blank" rel="noopener">id:{{ b.user }}</a>
-          {{ b.comment }}
+          <div class="hatena-bookmark-user-link-and-comment-container">
+            <a 
+              :href="'http://b.hatena.ne.jp/' + b.user"
+              target="_blank"
+              rel="noopener"
+              class="hatena-bookmark-user-link"
+            >
+              id:{{ b.user }}
+            </a>
+            <span class="hatena-bookmark-comment">
+              {{ b.comment }}
+            </span>
+            <span class="hatena-bookmark-timestamp">
+              {{ b.timestamp }}
+            </span>
+          </div>
         </b-list-group-item>
       </b-list-group>
     </div>
@@ -264,13 +279,31 @@ export default class ExamplePage extends Vue {
   width: 16px;
   height: 16px;
 }
+.hatena-bookmark-item {
+  padding: 10px 10px;
+}
 .hatena-bookmark-link {
   color: #ff4166;
 }
-.hatena-bookmark-user-icon-img {
-  width: 24px;
-  height: 24px;
-  margin: 2px;
+.hatena-bookmark-comment-user-icon-img {
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin: 0 10px 0 0;
+}
+.hatena-bookmark-user-link-and-comment-container {
+  overflow: hidden;
+}
+.hatena-bookmark-user-link {
+  margin: 0 0 0 0;
+}
+.hatena-bookmark-comment {
+  margin: 0 4px 0 0;
+}
+.hatena-bookmark-timestamp {
+  display: block;
+  color: #999;
+  float: right;
 }
 .tweets-count, .tweet-retweet-count, .tweet-favorite-count {
   color: #ff4166;
