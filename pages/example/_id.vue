@@ -65,23 +65,26 @@
         <b-list-group-item
           v-for="t in tweetsWithPositiveLabelOrPositiveScore.slice(0, 9)"
           :key="t.ScreenName"
+          class="tweet-item"
         >
           <img
             v-if="t.ProfileImageUrl"
             v-lazy="t.ProfileImageUrl"
-            class="tweet-icon-img"
+            class="tweet-full-text-icon-img"
             onerror="this.style.display='none'"
           >
-          <a :href="'https://twitter.com/' + t.ScreenName + '/status/' + t.IdStr" target="_blank" rel="noopener">@{{ t.ScreenName }}</a>
-          {{ t.FullText }}
-          <div class="tweet-footer">
-            <span class="tweet-retweet-count">{{t.RetweetCount}} RT</span>, <span class="tweet-favorite-count"> {{t.FavoriteCount}} Fav</span>
-            <span class="tweet-created-at">{{t.CreatedAt}}</span>
+          <div class="tweet-screen-name-and-full-text-container">
+            <a :href="'https://twitter.com/' + t.ScreenName + '/status/' + t.IdStr" target="_blank" rel="noopener">@{{ t.ScreenName }}</a>
+            {{ t.FullText }}
+            <div class="tweet-footer">
+              <span class="tweet-retweet-count">{{t.RetweetCount}} RT</span>, <span class="tweet-favorite-count"> {{t.FavoriteCount}} Fav</span>
+              <span class="tweet-created-at">{{t.CreatedAt}}</span>
+            </div>
+            <tweet-annotate-buttons
+              v-if="isAdmin"
+              :tweet="t"
+            />
           </div>
-          <tweet-annotate-buttons
-            v-if="isAdmin"
-            :tweet="t"
-          />
         </b-list-group-item>
       </b-list-group>
     </div>
@@ -279,7 +282,7 @@ export default class ExamplePage extends Vue {
   width: 16px;
   height: 16px;
 }
-.hatena-bookmark-item {
+.tweet-item, .hatena-bookmark-item {
   padding: 10px 10px;
 }
 .hatena-bookmark-link {
@@ -291,7 +294,7 @@ export default class ExamplePage extends Vue {
   height: 32px;
   margin: 0 10px 0 0;
 }
-.hatena-bookmark-user-link-and-comment-container {
+.tweet-screen-name-and-full-text-container, .hatena-bookmark-user-link-and-comment-container {
   overflow: hidden;
 }
 .hatena-bookmark-user-link {
@@ -308,10 +311,11 @@ export default class ExamplePage extends Vue {
 .tweets-count, .tweet-retweet-count, .tweet-favorite-count {
   color: #ff4166;
 }
-.tweet-icon-img {
-  width: 24px;
-  height: 24px;
-  margin: 2px;
+.tweet-full-text-icon-img {
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin: 0 10px 0 0;
 }
 .tweet-created-at {
   color: #999;
