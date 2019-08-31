@@ -80,11 +80,11 @@
               <span class="tweet-retweet-count">{{t.RetweetCount}} RT</span>, <span class="tweet-favorite-count"> {{t.FavoriteCount}} Fav</span>
               <span class="tweet-created-at">{{t.CreatedAt}}</span>
             </div>
-            <tweet-annotate-buttons
-              v-if="isAdmin"
-              :tweet="t"
-            />
           </div>
+          <tweet-annotate-buttons
+            v-if="isAdmin"
+            :tweet="t"
+          />
         </b-list-group-item>
       </b-list-group>
     </div>
