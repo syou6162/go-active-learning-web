@@ -9,32 +9,13 @@
         <p class="example-description">
           {{ example | getDescription(100, '...') }}
         </p>
-        <div 
-          v-if="example.HatenaBookmark.count > 0"
-          class="hatena-bookmarks"
-          >
-          <a
-            :href="example.HatenaBookmark.entry_url"
-            class="hatena-bookmark-link"
-          >{{ example.HatenaBookmark.count }} users</a>:
-          <hatena-bookmark-icon 
-            v-for="b in example.HatenaBookmark.bookmarks.slice(0, 9)"
-            :key="b.user"
-            :bookmark="b"
-          />
-        </div>
-        <div 
-          v-if="tweets !== undefined && tweets !== null && tweets.length > 0"
-          class="tweets"
-          >
-          <span class="tweets-count">{{ tweets.length }} mentions</span>:
-          <twitter-icon
-            v-for="tweet in tweets.slice(0, 8)"
-            :key="tweet.ScreenName"
-            :tweet="tweet"
-          />
-        </div>
-        <div class="example-created-at">{{ example.CreatedAt }}</div>
+        <a
+          :href="example.HatenaBookmark.entry_url"
+          target="_blank" rel="noopener"
+          class="hatena-bookmark-link"
+        >{{ example.HatenaBookmark.count }} users</a>,
+        <span class="tweets-count">{{ tweets.length }} mentions</span>
+        <span class="example-created-at">{{ example.CreatedAt }}</span>
         <annotate-buttons
           v-if="isAdmin"
           :example="example"
@@ -68,8 +49,6 @@ import Tweet from '~/models/Tweet'
 
 @Component({
   components: {
-    HatenaBookmarkIcon: () => import('./HatenaBookmarkIcon.vue'),
-    TwitterIcon: () => import('./TwitterIcon.vue'),
     AnnotateButtons: () => import('./AnnotateButtons.vue'),
   }
 })
@@ -101,18 +80,12 @@ export default class ExampleComponent extends Vue {
 }
 .example-created-at {
   color: #999;
-  text-align: right;
+  float: right;
   margin: 0 0 4px;
   line-height: 16px;
 }
-.hatena-bookmarks {
-  margin: 0 0 4px;
-}
 .hatena-bookmark-link {
   color: #ff4166;
-}
-.tweets {
-  margin: 0 0 4px;
 }
 .tweets-count {
   color: #ff4166;
