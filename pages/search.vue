@@ -28,33 +28,18 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import Example from '~/models/Example'
 import URLSearchParams from '@ungap/url-search-params'
 import { Auth } from 'aws-amplify';
-import Example from '~/components/Example.vue';
 import { NewExample } from '~/plugins/util';
 
-export default {
-  watchQuery: ['query'],
+@Component({
   components: {
-    "example": Example
+    Example: () => import('~/components/Example.vue')
   },
-  data () {
-    return {
-      query: this.$route.query.query,
-      results: [],
-      error: null,
-      loading: true,
-      isAdmin: false,
-    }
-  },
-  watch: {
-    query: function(newSearchQuery, oldSearchQuery) {
-      // https://router.vuejs.org/ja/guide/essentials/navigation.html
-      this.$router.push({ query: { query: newSearchQuery }})
-      this.loading = true;
-    },
-  },
+  watchQuery: ['query'],
   async asyncData(context) {
     let params = new URLSearchParams();
     params.append('query', context.route.query.query);
@@ -68,17 +53,11 @@ export default {
         .catch(err => console.log(err))
     }
     return {
+      query: context.route.query.query,
       results: data.Examples.map(e => NewExample(e)),
       loading: false,
       isAdmin: isAdmin
     }
-  },
-  mounted() {
-    Auth.currentAuthenticatedUser()
-      .then(user => {
-        this.isAdmin = true;
-      })
-      .catch(err => console.log(err))
   },
   head() {
     let query = this.query || '';
@@ -99,6 +78,28 @@ export default {
         }
       ]
     };
+  }
+})
+
+export default class SearchPage extends Vue {
+  query: string | null = null;
+  results: Example[] = [];
+  error: string | null = null;
+  loading: boolean = true;
+  isAdmin: boolean = false;
+
+  @Watch('query')
+  onQueryChange(newSearchQuery, oldSearchQuery): void {
+    // https://router.vuejs.org/ja/guide/essentials/navigation.html
+    this.$router.push({ query: { query: newSearchQuery }});
+    this.loading = true;
+  }
+  mounted() {
+    Auth.currentAuthenticatedUser()
+      .then(user => {
+        this.isAdmin = true;
+      })
+      .catch(err => console.log(err))
   }
 }
 </script>
