@@ -13,6 +13,7 @@
         v-for="example in searchExamplesByLabel(label)"
         :key="example.Url"
         :example="example"
+        :tweets="example.ReferringTweets"
         :is-admin="isAdmin"
       />
     </b-card-group>
