@@ -98,7 +98,7 @@ func doRecommend(c *cli.Context) error {
 	}
 
 	okExamples := util.FilterStatusCodeOkExamples(targetExamples)
-	if err = app.AttachMetadata(okExamples); err != nil {
+	if err = app.AttachMetadataIncludingFeatureVector(okExamples); err != nil {
 		return err
 	}
 

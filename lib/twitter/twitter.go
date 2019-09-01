@@ -107,7 +107,7 @@ func setReferringTweets(app service.GoActiveLearningApp, listName string, blackl
 	if err != nil {
 		return err
 	}
-	app.AttachMetadata(examples)
+	app.AttachMetadataIncludingFeatureVector(examples)
 
 	m, err := app.FindLatestMIRAModel(classifier.TWITTER)
 	if err != nil {
