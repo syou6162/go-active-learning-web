@@ -41,6 +41,7 @@ var keywords = []string{
 	"parsing",
 
 	"固有表現抽出",
+	"固有表現認識",
 	"named entity recognition",
 
 	"テキストマイニング",
@@ -105,6 +106,8 @@ var keywords = []string{
 	"データ分析",
 	"redash",
 	"re:dash",
+	"data studio",
+	"google analytics",
 	"athena",
 	"bigquery",
 	"embulk",
@@ -158,6 +161,9 @@ var keywords = []string{
 	"svd",
 	"lda",
 	"トピックモデル",
+	"topic model",
+	"混合ガウス分布",
+	"gaussian mixture model",
 
 	"ベイズ",
 	"bayesian",
@@ -229,6 +235,7 @@ var keywords = []string{
 	"xlnet",
 	"stylegan",
 	"octave",
+	"gcn",
 	"noise2void",
 	"adam",
 	"early stopping",
@@ -237,6 +244,8 @@ var keywords = []string{
 	"embedding",
 	"glove",
 	"word2vec",
+	"ナレッジグラフ",
+	"knowledge graph",
 
 	"gke",
 	"gae",
@@ -259,6 +268,7 @@ var keywords = []string{
 	"コンペ",
 	"competition",
 	"bagging",
+	"abテスト",
 
 	"self driving",
 	"自動運転",
