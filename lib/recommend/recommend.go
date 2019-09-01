@@ -93,7 +93,7 @@ func doRecommend(c *cli.Context) error {
 
 	targetExamples = util.RemoveNegativeExamples(targetExamples)
 	log.Println("Started to attach metadata to positive or unlabeled...")
-	if err = app.AttachLightMetadata(targetExamples); err != nil {
+	if err = app.AttachMetadata(targetExamples); err != nil {
 		return err
 	}
 
