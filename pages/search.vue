@@ -20,6 +20,7 @@
           v-for="example in results"
           :key="example.Url"
           :example="example"
+          :tweets="example.ReferringTweets"
           :is-admin="isAdmin"
         />
       </b-card-group>
@@ -28,6 +29,7 @@
 </template>
 
 <script>
+import URLSearchParams from '@ungap/url-search-params'
 import { Auth } from 'aws-amplify';
 import Example from '~/components/Example.vue';
 import { NewExample } from '~/plugins/util';
