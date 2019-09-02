@@ -219,6 +219,8 @@ var keywords = []string{
 	"tslearn",
 	"econml",
 	"deepgbm",
+	"sudachi",
+	"mecab",
 
 	"cnn",
 	"rnn",
@@ -241,6 +243,7 @@ var keywords = []string{
 	"early stopping",
 
 	"埋め込み",
+	"分散表現",
 	"embedding",
 	"glove",
 	"word2vec",
