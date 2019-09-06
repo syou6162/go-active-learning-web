@@ -40,6 +40,10 @@ var keywords = []string{
 
 	"parsing",
 
+	"structure learning",
+	"structured learning",
+	"構造学習",
+
 	"固有表現抽出",
 	"固有表現認識",
 	"named entity recognition",
@@ -107,6 +111,12 @@ var keywords = []string{
 
 	"データ基盤",
 	"データ分析",
+	"データウェアハウス",
+	"データレイク",
+	"data lake",
+	"data warehouse",
+	"データマート",
+	"data mart",
 	"redash",
 	"re:dash",
 	"data studio",
@@ -115,6 +125,7 @@ var keywords = []string{
 	"bigquery",
 	"embulk",
 	"spark",
+	"sql",
 	"fluentd",
 	"digdag",
 	"airflow",
