@@ -26,7 +26,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
-    "css-loader": "^2.1.1",
+    "css-loader": "^3.2.0",
     "prettier": "^1.18.2",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.8"
