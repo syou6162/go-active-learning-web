@@ -48,7 +48,7 @@ func GetScreenNameList(path string) ([]string, error) {
 	return screenNameList, nil
 }
 
-func GetReferringTweets(url string, blacklist []string) (model.ReferringTweets, error) {
+func GetReferringTweets(url string, blacklist []string) (*model.ReferringTweets, error) {
 	client := getClient()
 	search, resp, err := client.Search.Tweets(&twitter.SearchTweetParams{
 		Query:     fmt.Sprintf("%s -filter:retweets", url),
@@ -63,7 +63,7 @@ func GetReferringTweets(url string, blacklist []string) (model.ReferringTweets, 
 		return nil, errors.New(resp.Status)
 	}
 
-	tweets := model.ReferringTweets{}
+	tweets := make([]*model.Tweet, 0)
 	for _, t := range search.Statuses {
 		belongsToBlacklist := false
 		for _, name := range blacklist {
@@ -94,7 +94,7 @@ func GetReferringTweets(url string, blacklist []string) (model.ReferringTweets, 
 			tweets = append(tweets, &tweet)
 		}
 	}
-	return tweets, nil
+	return &model.ReferringTweets{Tweets: tweets, Count: len(tweets)}, nil
 }
 
 func setReferringTweets(app service.GoActiveLearningApp, listName string, blacklistFilename string) error {
@@ -107,7 +107,7 @@ func setReferringTweets(app service.GoActiveLearningApp, listName string, blackl
 	if err != nil {
 		return err
 	}
-	app.AttachMetadataIncludingFeatureVector(examples)
+	app.AttachMetadataIncludingFeatureVector(examples, 10000)
 
 	m, err := app.FindLatestMIRAModel(classifier.TWITTER)
 	if err != nil {
@@ -128,11 +128,11 @@ func setReferringTweets(app service.GoActiveLearningApp, listName string, blackl
 			fmt.Printf("cannot retrieve %s: %s", u, err.Error())
 			continue
 		}
-		for _, t := range tweets {
+		for _, t := range tweets.Tweets {
 			et := tweet_feature.GetExampleAndTweet(e, t)
 			t.Score = m.PredictScore(et.GetFeatureVector())
 		}
-		e.ReferringTweets = &tweets
+		e.ReferringTweets = tweets
 		if err = app.UpdateOrCreateReferringTweets(e); err != nil {
 			fmt.Printf("cannot update %s: %s", e.Url, err.Error())
 		}

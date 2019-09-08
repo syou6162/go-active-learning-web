@@ -20,7 +20,7 @@ func Search(app service.GoActiveLearningApp, query string) (model.Examples, erro
 	if err != nil {
 		return nil, err
 	}
-	app.AttachMetadata(examples)
+	app.AttachMetadata(examples, 10)
 	return examples, nil
 }
 
@@ -30,6 +30,6 @@ func SearchSimilarExamples(app service.GoActiveLearningApp, query string, maxOut
 	if err != nil {
 		return nil, make([]string, 0), err
 	}
-	app.AttachMetadata(examples)
+	app.AttachMetadata(examples, 10)
 	return examples, keywords, nil
 }
