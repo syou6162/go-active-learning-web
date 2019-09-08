@@ -1,5 +1,5 @@
 import HatenaBookmark from '~/models/HatenaBookmark'
-import Tweet from '~/models/Tweet'
+import ReferringTweets from '~/models/Tweet'
 
 export default interface Example {
     Id: number
@@ -19,6 +19,6 @@ export default interface Example {
     ErrorCount: number
     CreatedAt: string
     UpdatedAt: string
-    ReferringTweets: Tweet[]
+    ReferringTweets: ReferringTweets
     HatenaBookmark: HatenaBookmark
 }

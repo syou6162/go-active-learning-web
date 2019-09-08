@@ -13,8 +13,8 @@ export function NewExample(e: Example, opts = {}): Example {
   if (e.HatenaBookmark) {
     e.HatenaBookmark.bookmarks = (e.HatenaBookmark.bookmarks || []).reverse();
   }
-  if (e.ReferringTweets) {
-    e.ReferringTweets = e.ReferringTweets.map(function(t: Tweet) {
+  if (e.ReferringTweets.Tweets) {
+    e.ReferringTweets.Tweets = e.ReferringTweets.Tweets.map(function(t: Tweet) {
       t.CreatedAt = format(parseISO(t.CreatedAt), "yyyy/MM/dd HH:mm");
       return t;
     });

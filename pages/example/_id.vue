@@ -25,14 +25,14 @@
           :bookmark="b"
         />
       </div>
-      <div v-if="example.ReferringTweets && example.ReferringTweets.length > 0">
-        <span class="tweets-count">{{ example.ReferringTweets.length }} mentions</span>:
+      <span class="tweets-count">{{ example.ReferringTweets.Count }} mentions</span>:
+      <span v-if="example.ReferringTweets.Tweets && example.ReferringTweets.Tweets.length > 0">
         <twitter-icon
-          v-for="tweet in example.ReferringTweets.slice(0, 8)"
-          :key="tweet.ScreenName"
+          v-for="tweet in example.ReferringTweets.Tweets.slice(0, 8)"
+          :key="tweet.IdStr"
           :tweet="tweet"
         />
-      </div>
+      </span>
       <div v-if="keywords.length > 0">
         Keywords: 
         <b-link 
@@ -64,7 +64,7 @@
       <b-list-group>
         <b-list-group-item
           v-for="t in tweetsWithPositiveLabelOrPositiveScore.slice(0, 9)"
-          :key="t.ScreenName"
+          :key="t.IdStr"
           class="tweet-item"
         >
           <img
@@ -253,7 +253,7 @@ export default class ExamplePage extends Vue {
     return filterBookmarksWithComment(this.example);
   }
   get tweetsWithPositiveLabelOrPositiveScore(): Tweet[] {
-    return this.example.ReferringTweets.filter(function(t: Tweet) {
+    return this.example.ReferringTweets.Tweets.filter(function(t: Tweet) {
       return t.Label == 1 || t.Score > 0.0;
     }).sort(function(a: Tweet, b: Tweet) {
       if (a.Score > b.Score) {

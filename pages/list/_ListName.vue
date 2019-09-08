@@ -72,15 +72,9 @@ const isNewDayThresholdByListname: { [key: string]: number }= {
       var aHatebuCount = a.HatenaBookmark.count;
       var bHatebuCount = b.HatenaBookmark.count;
 
-      var aTweetsCount = 0;
-      var bTweetsCount = 0;
-      if (a.ReferringTweets) {
-        aTweetsCount = a.ReferringTweets.length;
-      }
-      if (b.ReferringTweets) {
-        bTweetsCount = b.ReferringTweets.length;
-      }
-
+      var aTweetsCount = a.ReferringTweets.Count;
+      var bTweetsCount = b.ReferringTweets.Count;
+      
       if (aHatebuCount + aTweetsCount > bHatebuCount + bTweetsCount) {
         return -1;
       } else if (aHatebuCount +aTweetsCount < bHatebuCount + bTweetsCount) {
