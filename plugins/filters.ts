@@ -38,7 +38,7 @@ Vue.filter('getDescription', function(example: Example, length: number, omission
 })
 
 Vue.filter('getDescriptionForSearchEngine', function(example: Example) {
-  var tweets = example.ReferringTweets.map(t => "@" + t.ScreenName + "「" + t.FullText.substr(0, 100) + "...」").slice(0, 3);
+  var tweets = example.ReferringTweets.Tweets.map(t => "@" + t.ScreenName + "「" + t.FullText.substr(0, 100) + "...」").slice(0, 3);
   var bookmarks = filterBookmarksWithComment(example).map(b => "id:" + b.user + "「"+ b.comment + "」").slice(0, 3);
   return tweets.join("\n") + bookmarks.join("\n");
 })

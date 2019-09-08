@@ -14,7 +14,7 @@
           target="_blank" rel="noopener"
           class="hatena-bookmark-link"
         >{{ example.HatenaBookmark.count }} users</a>,
-        <span class="tweets-count">{{ tweets.length }} mentions</span>
+        <span class="tweets-count">{{ tweets.Count }} mentions</span>
         <span class="example-created-at">{{ example.CreatedAt }}</span>
         <annotate-buttons
           v-if="isAdmin"

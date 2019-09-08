@@ -13,7 +13,7 @@
         v-for="example in searchExamplesByLabel(label)"
         :key="getKey(example, label)"
         :example="example"
-        :tweets="example.ReferringTweets"
+        :tweets="example.ReferringTweets.Tweets"
         :is-admin="isAdmin"
       />
     </b-card-group>
@@ -75,7 +75,7 @@ export default class AdminAnnotationTweet extends Vue {
     }
   }
   getKey(example: Example, label: number) {
-    return String(label) + ":" + example.Url + ":" + example.ReferringTweets[0].IdStr;
+    return String(label) + ":" + example.Url + ":" + example.ReferringTweets.Tweets[0].IdStr;
   }
 }
 </script>
