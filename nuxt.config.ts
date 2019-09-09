@@ -1,7 +1,7 @@
-import NuxtConfiguration from '@nuxt/config'
+import { Configuration } from '@nuxt/types'
 import pkg from './package.json'
 
-const config: NuxtConfiguration = {
+const nuxtConfig: Configuration = {
   mode: 'universal',
 
   /*
@@ -79,7 +79,8 @@ const config: NuxtConfiguration = {
     */
     extend(config, ctx) {
     }
-  }
+  },
+  buildModules: ['@nuxt/typescript-build'],
 }
 
-export default config
+export default nuxtConfig
