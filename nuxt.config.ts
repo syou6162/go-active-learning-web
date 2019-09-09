@@ -74,8 +74,6 @@ const config: NuxtConfiguration = {
   ** Build configuration
   */
   build: {
-    // https://github.com/bootstrap-vue/bootstrap-vue/issues/3397#issuecomment-496835985
-    transpile: ['bootstrap-vue'],
     /*
     ** You can extend webpack config here
     */
