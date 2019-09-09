@@ -20,7 +20,7 @@ func doUpdateTweetModel(c *cli.Context) error {
 		return err
 	}
 	exampleIds := make([]int, 0)
-	for _, t := range tweets {
+	for _, t := range tweets.Tweets {
 		exampleIds = append(exampleIds, t.ExampleId)
 	}
 
@@ -34,7 +34,7 @@ func doUpdateTweetModel(c *cli.Context) error {
 	}
 
 	instances := classifier.LearningInstances{}
-	for _, t := range tweets {
+	for _, t := range tweets.Tweets {
 		e := exampleById[t.ExampleId]
 		et := tweet_feature.GetExampleAndTweet(e, t)
 		instances = append(instances, &et)

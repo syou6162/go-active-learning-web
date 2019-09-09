@@ -21,7 +21,7 @@ func doUpdateExampleModel(c *cli.Context) error {
 	}
 
 	okExamples := util.FilterStatusCodeOkExamples(examples)
-	if err = app.AttachMetadataIncludingFeatureVector(okExamples); err != nil {
+	if err = app.AttachMetadataIncludingFeatureVector(okExamples, 0); err != nil {
 		return err
 	}
 

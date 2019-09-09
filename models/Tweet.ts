@@ -14,3 +14,8 @@ export default interface Tweet {
     Label: number
     Score: number
 }
+
+export default interface ReferringTweets {
+    Tweets: Tweet[]
+    Count: number
+}

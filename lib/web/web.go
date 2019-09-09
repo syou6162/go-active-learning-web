@@ -78,7 +78,7 @@ func (s *server) RecentAddedExamples() http.Handler {
 			fmt.Fprintln(w, err.Error())
 			return
 		}
-		s.app.AttachMetadata(positiveExamples)
+		s.app.AttachMetadata(positiveExamples, 0)
 
 		negativeExamples, err := s.app.SearchNegativeExamples(30)
 		if err != nil {
@@ -86,7 +86,7 @@ func (s *server) RecentAddedExamples() http.Handler {
 			fmt.Fprintln(w, err.Error())
 			return
 		}
-		s.app.AttachMetadata(negativeExamples)
+		s.app.AttachMetadata(negativeExamples, 0)
 
 		unlabeledExamples, err := s.app.SearchUnlabeledExamples(30)
 		if err != nil {
@@ -94,7 +94,7 @@ func (s *server) RecentAddedExamples() http.Handler {
 			fmt.Fprintln(w, err.Error())
 			return
 		}
-		s.app.AttachMetadata(unlabeledExamples)
+		s.app.AttachMetadata(unlabeledExamples, 0)
 		unlabeledExamples = util.FilterStatusCodeOkExamples(unlabeledExamples)
 
 		JSON(w, http.StatusOK, RecentAddedExamplesResult{
@@ -107,7 +107,7 @@ func (s *server) RecentAddedExamples() http.Handler {
 
 func (s *server) getListOfExampleWithTweet(tweets model.ReferringTweets) (model.Examples, error) {
 	exampleIds := make([]int, 0)
-	for _, t := range tweets {
+	for _, t := range tweets.Tweets {
 		exampleIds = append(exampleIds, t.ExampleId)
 	}
 	examples, err := s.app.SearchExamplesByIds(exampleIds)
@@ -115,13 +115,16 @@ func (s *server) getListOfExampleWithTweet(tweets model.ReferringTweets) (model.
 		return nil, err
 	}
 
-	tweetsByExampleId := make(map[int]model.ReferringTweets)
-	for _, t := range tweets {
+	tweetsByExampleId := make(map[int][]*model.Tweet)
+	for _, t := range tweets.Tweets {
 		tweetsByExampleId[t.ExampleId] = append(tweetsByExampleId[t.ExampleId], t)
 	}
 	for _, e := range examples {
 		tmp := tweetsByExampleId[e.Id]
-		e.ReferringTweets = &tmp
+		e.ReferringTweets = &model.ReferringTweets{
+			Tweets: tmp,
+			Count:  len(tmp),
+		}
 	}
 	return examples, nil
 }
@@ -175,7 +178,7 @@ func (s *server) getUrlsFromList(listName string) (model.Examples, error) {
 	if err != nil {
 		return nil, err
 	}
-	s.app.AttachMetadata(examples)
+	s.app.AttachMetadata(examples, 0)
 	sort.Sort(sort.Reverse(examples))
 	result := util.RemoveNegativeExamples(examples)
 	return result, nil
@@ -227,7 +230,7 @@ func (s *server) GetExampleById() http.Handler {
 			return
 		}
 
-		s.app.AttachMetadata(model.Examples{ex})
+		s.app.AttachMetadata(model.Examples{ex}, 10)
 		if err != nil {
 			BadRequest(w, err.Error())
 			fmt.Fprintln(w, err.Error())
