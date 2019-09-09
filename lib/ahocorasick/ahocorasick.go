@@ -256,6 +256,10 @@ var keywords = []string{
 	"gcn",
 	"cyclegan",
 	"noise2void",
+	"snorkel",
+	"yolact",
+	"kelpnet",
+	"vgg",
 	"adam",
 	"early stopping",
 
