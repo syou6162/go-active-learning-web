@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"github.com/syou6162/go-active-learning-web/lib/ahocorasick"
+	web_util "github.com/syou6162/go-active-learning-web/lib/util"
 	"github.com/syou6162/go-active-learning/lib/model"
 	"github.com/syou6162/go-active-learning/lib/service"
 )
@@ -20,7 +21,8 @@ func Search(app service.GoActiveLearningApp, query string) (model.Examples, erro
 	if err != nil {
 		return nil, err
 	}
-	app.AttachMetadata(examples, 10)
+	app.AttachMetadata(examples, 0)
+	web_util.LightenExamples(examples)
 	return examples, nil
 }
 
@@ -30,6 +32,7 @@ func SearchSimilarExamples(app service.GoActiveLearningApp, query string, maxOut
 	if err != nil {
 		return nil, make([]string, 0), err
 	}
-	app.AttachMetadata(examples, 10)
+	app.AttachMetadata(examples, 0)
+	web_util.LightenExamples(examples)
 	return examples, keywords, nil
 }

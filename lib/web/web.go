@@ -20,6 +20,7 @@ import (
 	"github.com/gorilla/feeds"
 	"github.com/syou6162/go-active-learning-web/lib/ahocorasick"
 	"github.com/syou6162/go-active-learning-web/lib/search"
+	web_util "github.com/syou6162/go-active-learning-web/lib/util"
 	"github.com/syou6162/go-active-learning-web/lib/version"
 	"github.com/syou6162/go-active-learning/lib/model"
 	"github.com/syou6162/go-active-learning/lib/service"
@@ -47,21 +48,6 @@ func NewServer(app service.GoActiveLearningApp) Server {
 
 type server struct {
 	app service.GoActiveLearningApp
-}
-
-func Min(x, y int) int {
-	if x < y {
-		return x
-	}
-	return y
-}
-
-func lightenExamples(examples model.Examples) {
-	for _, example := range examples {
-		example.Fv = make([]string, 0)
-		r := []rune(example.Body)
-		example.Body = string(r[0:Min(500, len(r))])
-	}
 }
 
 type RecentAddedExamplesResult struct {
@@ -201,7 +187,7 @@ func (s *server) GetExamplesFromList() http.Handler {
 		}
 
 		examples = util.FilterStatusCodeOkExamples(examples)
-		lightenExamples(examples)
+		web_util.LightenExamples(examples)
 		JSON(w, http.StatusOK, ExamplesFromList{
 			Examples: examples,
 		})
@@ -236,6 +222,7 @@ func (s *server) GetExampleById() http.Handler {
 			fmt.Fprintln(w, err.Error())
 			return
 		}
+		web_util.LightenExamples(model.Examples{ex})
 
 		similarExamples, keywords, err := search.SearchSimilarExamples(s.app, ex.Title, 5)
 		if err != nil {
@@ -281,7 +268,7 @@ func (s *server) Search() http.Handler {
 		}
 
 		examples = util.FilterStatusCodeOkExamples(examples)
-		lightenExamples(examples)
+		web_util.LightenExamples(examples)
 
 		JSON(w, http.StatusOK, SearchResult{
 			Examples: examples,
@@ -304,7 +291,7 @@ func (s *server) GetFeed() http.Handler {
 		}
 
 		examples = util.FilterStatusCodeOkExamples(examples)
-		lightenExamples(examples)
+		web_util.LightenExamples(examples)
 
 		now := time.Now()
 		feed := &feeds.Feed{
