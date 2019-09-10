@@ -62,7 +62,7 @@
         <a :href="example.FinalUrl" target="_blank" rel="noopener">{{ example | getDomain }} {{ example | getUserName }}</a>
       </b-card-footer>
     </b-card>
-    <div v-if="example.ReferringTweets && tweetsWithPositiveLabelOrPositiveScore.length > 0">
+    <div v-if="tweetsWithPositiveLabelOrPositiveScore.length > 0">
       <h2 class="h4">Referring Tweets</h2>
       <b-list-group>
         <b-list-group-item
@@ -129,21 +129,30 @@
       <b-list-group-item
         v-for="example in similarExamples"
         :key="example.FinalUrl"
+        class="similar-example"
       >
-        <b-button
-          :href="example | getExampleUrl"
-          class="float-right"
-          size="sm"
-        >
-          Read more
-        </b-button>
         <img
           v-if="example.Favicon"
           v-lazy="example.Favicon"
-          class="example-favicon-img"
+          class="similar-example-favicon-img"
           onerror="this.style.display='none'"
         >
-        {{ example | getTitle(100, '...') }}
+        <div class="similar-example-title-container">
+          <b-button
+            :href="example | getExampleUrl"
+            class="float-right"
+            size="sm"
+          >
+            Read more
+          </b-button>
+          {{ example | getTitle(100, '...') }}
+          <div>
+            <span class="hatena-bookmark-link">{{ example.HatenaBookmark.count }} users</span>,
+            <span class="tweets-count">{{ example.ReferringTweets.Count }} mentions</span>
+            <a :href="example.FinalUrl" target="_blank" rel="noopener">{{ example | getDomain }} {{ example | getUserName }}</a>
+            <span class="example-created-at">{{ example.CreatedAt }}</span>
+          </div>
+        </div>
       </b-list-group-item>
     </b-list-group>
   </div>
@@ -171,6 +180,8 @@ import { NewExample, filterBookmarksWithComment } from '~/plugins/util';
           example: NewExample(data.Example),
           similarExamples: data.SimilarExamples.filter(function(e) {
             return e.Label === 1 || e.Score > 0.0;
+          }).map(function(e) {
+            return NewExample(e)
           }),
           keywords: data.Keywords,
         }
@@ -285,7 +296,7 @@ export default class ExamplePage extends Vue {
   width: 16px;
   height: 16px;
 }
-.tweet-item, .hatena-bookmark-item {
+.tweet-item, .hatena-bookmark-item, .similar-example {
   padding: 10px 10px;
 }
 .hatena-bookmark-link {
@@ -297,7 +308,7 @@ export default class ExamplePage extends Vue {
   height: 32px;
   margin: 0 10px 0 0;
 }
-.tweet-screen-name-and-full-text-container, .hatena-bookmark-user-link-and-comment-container {
+.tweet-screen-name-and-full-text-container, .hatena-bookmark-user-link-and-comment-container, .similar-example-title-container {
   overflow: hidden;
 }
 .hatena-bookmark-user-link {
@@ -324,8 +335,20 @@ export default class ExamplePage extends Vue {
   color: #999;
   float: right;
 }
+.example-created-at {
+  color: #999;
+  float: right;
+  margin: 0 0 4px;
+  line-height: 16px;
+}
 .keyword {
   padding: 3px 6px;
   margin: 0 4px 0 0;
+}
+.similar-example-favicon-img {
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin: 0 10px 0 0;
 }
 </style>
