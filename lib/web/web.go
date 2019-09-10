@@ -64,7 +64,7 @@ func (s *server) RecentAddedExamples() http.Handler {
 			fmt.Fprintln(w, err.Error())
 			return
 		}
-		s.app.AttachMetadata(positiveExamples, 0)
+		s.app.AttachMetadata(positiveExamples, 0, 0)
 
 		negativeExamples, err := s.app.SearchNegativeExamples(30)
 		if err != nil {
@@ -72,7 +72,7 @@ func (s *server) RecentAddedExamples() http.Handler {
 			fmt.Fprintln(w, err.Error())
 			return
 		}
-		s.app.AttachMetadata(negativeExamples, 0)
+		s.app.AttachMetadata(negativeExamples, 0, 0)
 
 		unlabeledExamples, err := s.app.SearchUnlabeledExamples(30)
 		if err != nil {
@@ -80,7 +80,7 @@ func (s *server) RecentAddedExamples() http.Handler {
 			fmt.Fprintln(w, err.Error())
 			return
 		}
-		s.app.AttachMetadata(unlabeledExamples, 0)
+		s.app.AttachMetadata(unlabeledExamples, 0, 0)
 		unlabeledExamples = util.FilterStatusCodeOkExamples(unlabeledExamples)
 
 		JSON(w, http.StatusOK, RecentAddedExamplesResult{
@@ -164,7 +164,7 @@ func (s *server) getUrlsFromList(listName string) (model.Examples, error) {
 	if err != nil {
 		return nil, err
 	}
-	s.app.AttachMetadata(examples, 0)
+	s.app.AttachMetadata(examples, 0, 0)
 	sort.Sort(sort.Reverse(examples))
 	result := util.RemoveNegativeExamples(examples)
 	return result, nil
@@ -216,7 +216,7 @@ func (s *server) GetExampleById() http.Handler {
 			return
 		}
 
-		s.app.AttachMetadata(model.Examples{ex}, 10)
+		s.app.AttachMetadata(model.Examples{ex}, 10, 10)
 		if err != nil {
 			BadRequest(w, err.Error())
 			fmt.Fprintln(w, err.Error())
