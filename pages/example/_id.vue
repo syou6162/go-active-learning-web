@@ -35,13 +35,16 @@
       </div>
       <div v-if="keywords.length > 0">
         Keywords: 
-        <b-link 
+        <b-button
           v-for="k in keywords" 
           :key="k"
           :href="'/search?query=' + k"
+          variant="outline-primary"
+          size="sm"
+          class="keyword"
         >
           {{ k }}
-        </b-link>
+        </b-button>
       </div>
       Date: {{ example.CreatedAt }}
       <annotate-buttons
@@ -320,5 +323,9 @@ export default class ExamplePage extends Vue {
 .tweet-created-at {
   color: #999;
   float: right;
+}
+.keyword {
+  padding: 3px 6px;
+  margin: 0 4px 0 0;
 }
 </style>
