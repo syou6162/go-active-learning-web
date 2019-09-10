@@ -25,14 +25,14 @@
           :bookmark="b"
         />
       </div>
-      <span class="tweets-count">{{ example.ReferringTweets.Count }} mentions</span>:
-      <span v-if="example.ReferringTweets.Tweets && example.ReferringTweets.Tweets.length > 0">
+      <div v-if="example.ReferringTweets.Tweets.length > 0">
+        <span class="tweets-count">{{ example.ReferringTweets.Count }} mentions</span>:
         <twitter-icon
           v-for="tweet in example.ReferringTweets.Tweets.slice(0, 8)"
           :key="tweet.IdStr"
           :tweet="tweet"
         />
-      </span>
+      </div>
       <div v-if="keywords.length > 0">
         Keywords: 
         <b-link 
