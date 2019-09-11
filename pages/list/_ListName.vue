@@ -1,13 +1,21 @@
 <template>
   <div>
-    <b-form-group label="Please select a label">
-      <b-form-radio-group
-        v-model="isNew"
-        buttons
-        button-variant="outline-primary"
-        :options="options"
-      />
-    </b-form-group>
+    <div>
+      <a :href="rssLink(listname)">
+        <img 
+          src="/img/rss_icon.png"
+          class="rss-icon"
+        >
+      </a>
+      <b-form-group label="Please select a label">
+        <b-form-radio-group
+          v-model="isNew"
+          buttons
+          button-variant="outline-primary"
+          :options="options"
+        />
+      </b-form-group>
+    </div>
     <b-card-group columns>
       <example 
         v-for="example in examplesFilterByIsNew(isNew)"
@@ -112,7 +120,7 @@ const isNewDayThresholdByListname: { [key: string]: number }= {
           rel: "alternate",
           type: "application/atom+xml",
           title: `ML-News - ${this.listname}`,
-          href: `https://www.machine-learning.news/rss?listName=${this.listname}`
+          href: this.rssLink(this.listname),
         }
       ]
     };
@@ -157,5 +165,17 @@ export default class ListNamePage extends Vue {
   url(listname: string): string {
     return "https://www.machine-learning.news/list/" + listname;
   }
+  rssLink(listname: string): string {
+    return "https://www.machine-learning.news/rss?listName=" + listname;
+  }
 }
 </script>
+
+<style>
+.rss-icon {
+  float: right;
+  width: 32px;
+  height: 32px;
+  margin: 10px;
+}
+</style>
