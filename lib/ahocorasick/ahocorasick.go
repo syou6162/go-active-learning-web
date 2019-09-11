@@ -18,6 +18,7 @@ var keywords = []string{
 	"deep learning",
 	"深層学習",
 	"end-to-end",
+	"データサイエンス",
 
 	"強化学習",
 	"深層強化学習",
@@ -50,14 +51,19 @@ var keywords = []string{
 	"relation extraction",
 	"関係抽出",
 	"distant supervision",
+	"情報検索",
+	"information retrieval",
+	"画像検索",
 
 	"テキストマイニング",
 	"text mining",
 	"差分プライバシー",
 	"differential privacy",
+	"暗号化",
 
 	"対話",
 	"dialogue",
+	"dialog",
 
 	"アノテーション",
 	"annotation",
@@ -105,6 +111,7 @@ var keywords = []string{
 
 	"医療",
 	"medical",
+	"fairness",
 
 	"線形代数",
 	"linear algebra",
@@ -139,6 +146,7 @@ var keywords = []string{
 
 	"論文",
 	"survey",
+	"サーベイ",
 	"チュートリアル",
 	"tutorial",
 
@@ -182,6 +190,7 @@ var keywords = []string{
 	"ベイズ",
 	"bayesian",
 	"変分ベイズ",
+	"生成モデル",
 
 	"ベイズ最適化",
 	"bayesian optimization",
@@ -195,6 +204,7 @@ var keywords = []string{
 
 	"圧縮",
 	"高速化",
+	"可視化",
 
 	"open source",
 	"オープンソース",
@@ -221,6 +231,7 @@ var keywords = []string{
 	"jupyter",
 	"lightgbm",
 	"xgboost",
+	"決定木",
 	"random forest",
 	"ランダムフォレスト",
 	"optuna",
@@ -235,6 +246,7 @@ var keywords = []string{
 	"deepgbm",
 	"sudachi",
 	"mecab",
+	"continuous delivery",
 
 	"cnn",
 	"rnn",
@@ -270,6 +282,7 @@ var keywords = []string{
 	"word2vec",
 	"ナレッジグラフ",
 	"knowledge graph",
+	"embedrank",
 
 	"gke",
 	"gae",
@@ -282,6 +295,7 @@ var keywords = []string{
 	"sagemaker",
 	"s3",
 	"elasticsearch",
+	"amazon forecast",
 	"splunk",
 	"mlops",
 	"automl",
