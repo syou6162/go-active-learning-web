@@ -72,9 +72,9 @@
         >
           <img
             v-if="t.ProfileImageUrl"
-            v-lazy="t.ProfileImageUrl"
+            :src="t.ProfileImageUrl"
             class="tweet-full-text-icon-img"
-            onerror="this.style.display='none'"
+            onerror="this.src='/img/twitter_icon.png'"
           >
           <div class="tweet-screen-name-and-full-text-container">
             <a :href="'https://twitter.com/' + t.ScreenName + '/status/' + t.IdStr" target="_blank" rel="noopener">@{{ t.ScreenName }}</a>
@@ -133,9 +133,14 @@
       >
         <img
           v-if="example.Favicon"
-          v-lazy="example.Favicon"
+          :src="example.Favicon"
           class="similar-example-favicon-img"
-          onerror="this.style.display='none'"
+          onerror="this.src='/img/website_icon.png'"
+        >
+        <img
+          v-else
+          src="/img/website_icon.png"
+          class="similar-example-favicon-img"
         >
         <div class="similar-example-title-container">
           <b-button
