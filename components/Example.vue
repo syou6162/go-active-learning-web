@@ -30,10 +30,16 @@
           </b-button>
           <img
             v-if="example.Favicon"
-            v-lazy="example.Favicon"
+            :src="example.Favicon"
             :alt="example.Title"
             class="example-favicon-img"
-            onerror="this.style.display='none'"
+            onerror="this.src='/img/website_icon.png'"
+          >
+          <img
+            v-else
+            :alt="example.Title"
+            src="/img/website_icon.png"
+            class="example-favicon-img"
           >
           <a :href="example.FinalUrl" target="_blank" rel="noopener">{{ example | getDomain }} {{ example | getUserName }}</a>
         </b-card-footer>
