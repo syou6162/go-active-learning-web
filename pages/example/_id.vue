@@ -147,9 +147,11 @@
           </b-button>
           {{ example | getTitle(100, '...') }}
           <div>
+            <a :href="example.FinalUrl" target="_blank" rel="noopener">{{ example | getDomain }} {{ example | getUserName }}</a>
+          </div>
+          <div>
             <span class="hatena-bookmark-link">{{ example.HatenaBookmark.count }} users</span>,
             <span class="tweets-count">{{ example.ReferringTweets.Count }} mentions</span>
-            <a :href="example.FinalUrl" target="_blank" rel="noopener">{{ example | getDomain }} {{ example | getUserName }}</a>
             <span class="example-created-at">{{ example.CreatedAt }}</span>
           </div>
         </div>
