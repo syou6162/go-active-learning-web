@@ -16,7 +16,7 @@ require (
 	github.com/ikeikeikeike/go-sitemap-generator v2.0.1+incompatible
 	github.com/jessevdk/go-assets v0.0.0-20160921144138-4f4301a06e15
 	github.com/kr/pretty v0.1.0 // indirect
-	github.com/mackerelio/mackerel-client-go v0.7.0
+	github.com/mackerelio/mackerel-client-go v0.8.0
 	github.com/pbnjay/clustering v0.0.0-20180426023255-34a8f36cd397
 	github.com/syou6162/go-active-learning v0.1.3
 	github.com/urfave/cli v1.21.0
