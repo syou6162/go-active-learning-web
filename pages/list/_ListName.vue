@@ -56,12 +56,12 @@ const descriptionByListname: { [key: string]: string } = {
 };
 
 const isNewDayThresholdByListname: { [key: string]: number }= {
-  "general": 2.5,
-  "article": 3,
-  "github": 10,
-  "arxiv": 5,
-  "slide": 10,
-  "video": 10,
+  "general": 1,
+  "article": 1.5,
+  "github": 5,
+  "arxiv": 2.5,
+  "slide": 5,
+  "video": 5,
   "event": 5,
 };
 
