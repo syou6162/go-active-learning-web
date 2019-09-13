@@ -32,6 +32,7 @@ var keywords = []string{
 	"言語モデル",
 	"language model",
 	"language generation",
+	"text generation",
 
 	"機械翻訳",
 	"machine translation",
@@ -60,6 +61,8 @@ var keywords = []string{
 	"差分プライバシー",
 	"differential privacy",
 	"暗号化",
+	"anonymization",
+	"匿名化",
 
 	"対話",
 	"dialogue",
@@ -74,6 +77,10 @@ var keywords = []string{
 	"image generation",
 	"fashion",
 
+	"信号処理",
+	"音声認識",
+	"音声合成",
+
 	"異常検知",
 	"anomaly detection",
 	"外れ値検出",
@@ -82,8 +89,11 @@ var keywords = []string{
 	"変化検知",
 	"change point detection",
 
+	"community detection",
+
 	"metric learning",
 	"距離学習",
+	"双曲空間",
 
 	"物体検出",
 	"semantic segmentation",
@@ -96,6 +106,7 @@ var keywords = []string{
 	"imagenet",
 
 	"レコメンド",
+	"レコメンデーション",
 	"recommender",
 	"recommendation",
 	"協調フィルタリング",
@@ -186,6 +197,8 @@ var keywords = []string{
 	"topic model",
 	"混合ガウス分布",
 	"gaussian mixture model",
+	"clustering",
+	"クラスタリング",
 
 	"ベイズ",
 	"bayesian",
@@ -205,6 +218,7 @@ var keywords = []string{
 	"圧縮",
 	"高速化",
 	"可視化",
+	"visualizer",
 
 	"open source",
 	"オープンソース",
@@ -214,6 +228,7 @@ var keywords = []string{
 	"tensorflow",
 	"keras",
 	"chainer",
+	"chainerrl",
 	"pytorch",
 	"allennlp",
 	"coreml",
@@ -245,6 +260,15 @@ var keywords = []string{
 	"econml",
 	"deepgbm",
 	"sudachi",
+	"fairseq",
+	"tensor2tensor",
+	"stacknet",
+	"fsgan",
+	"deepfake",
+	"molgan",
+	"scibert",
+	"fastspeech",
+	"ncrfpp",
 	"mecab",
 	"continuous delivery",
 
@@ -274,6 +298,12 @@ var keywords = []string{
 	"vgg",
 	"adam",
 	"early stopping",
+	"分散学習",
+	"勾配法",
+	"hsic",
+	"biggan",
+	"bertsum",
+	"irgan",
 
 	"埋め込み",
 	"分散表現",
@@ -302,14 +332,17 @@ var keywords = []string{
 	"機械学習工学",
 
 	"kaggle",
+	"前処理",
 	"signate",
 	"コンペ",
 	"competition",
 	"bagging",
 	"abテスト",
+	"検定",
 
 	"self driving",
 	"自動運転",
+	"robotics",
 }
 
 func Init() error {
