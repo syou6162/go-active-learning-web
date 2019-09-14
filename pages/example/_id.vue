@@ -350,7 +350,7 @@ export default class ExamplePage extends Vue {
 }
 .keyword {
   padding: 3px 6px;
-  margin: 0 4px 0 0;
+  margin: 1px 4px 1px 0;
 }
 .similar-example-favicon-img {
   float: left;
