@@ -200,6 +200,29 @@ type ExampleWithSimilarExamples struct {
 	Keywords        []string
 }
 
+func removeByFinalUrl(examples model.Examples, ex model.Example) model.Examples {
+	result := model.Examples{}
+	for _, e := range examples {
+		if e.FinalUrl != ex.FinalUrl {
+			result = append(result, e)
+		}
+	}
+	return result
+}
+
+func bodyLikeStr(e model.Example) string {
+	str := ""
+	if e.OgDescription != "" {
+		str = e.OgDescription
+	} else if e.Description != "" {
+		str = e.Description
+	} else if e.Body != "" {
+		str = e.Body
+	}
+	r := []rune(str)
+	return string(r[0:web_util.Min(200, len(r))])
+}
+
 func (s *server) GetExampleById() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		queryValues := r.URL.Query()
@@ -229,13 +252,17 @@ func (s *server) GetExampleById() http.Handler {
 			BadRequest(w, err.Error())
 			return
 		}
-		similarExamplesWithoutOriginal := model.Examples{}
-		for _, e := range similarExamples {
-			if e.FinalUrl != ex.FinalUrl {
-				similarExamplesWithoutOriginal = append(similarExamplesWithoutOriginal, e)
+		similarExamplesWithoutOriginal := util.FilterStatusCodeOkExamples(removeByFinalUrl(similarExamples, *ex))
+
+		// タイトル中に主要キーワードが存在しなかった場合にbodyなどを使ってフォールバックする
+		if len(similarExamplesWithoutOriginal) == 0 {
+			similarExamples, _, err = search.SearchSimilarExamples(s.app, bodyLikeStr(*ex), 5)
+			if err != nil {
+				BadRequest(w, err.Error())
+				return
 			}
+			similarExamplesWithoutOriginal = util.FilterStatusCodeOkExamples(removeByFinalUrl(similarExamples, *ex))
 		}
-		similarExamplesWithoutOriginal = util.FilterStatusCodeOkExamples(similarExamplesWithoutOriginal)
 
 		JSON(w, http.StatusOK, ExampleWithSimilarExamples{
 			Example:         ex,
