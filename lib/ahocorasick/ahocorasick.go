@@ -19,10 +19,15 @@ var keywords = []string{
 	"深層学習",
 	"end-to-end",
 	"データサイエンス",
+	"データサイエンティスト",
 
 	"強化学習",
 	"深層強化学習",
 	"reinforcement learning",
+	"neural net",
+	"neural network",
+	"ニューラルネット",
+	"ディープラーニング",
 
 	"自然言語処理",
 	"言語処理",
@@ -48,6 +53,7 @@ var keywords = []string{
 
 	"固有表現抽出",
 	"固有表現認識",
+	"seq2seq",
 	"named entity recognition",
 	"relation extraction",
 	"関係抽出",
@@ -67,6 +73,8 @@ var keywords = []string{
 	"対話",
 	"dialogue",
 	"dialog",
+	"マルチモーダル",
+	"multimodal",
 
 	"アノテーション",
 	"annotation",
@@ -119,6 +127,7 @@ var keywords = []string{
 	"bandit",
 
 	"時系列",
+	"time series",
 
 	"医療",
 	"medical",
@@ -179,6 +188,10 @@ var keywords = []string{
 	"wsdm",
 	"siggraph",
 	"icra",
+	"eccv",
+
+	"miru",
+	"yans",
 
 	"ロジステック回帰",
 	"logistic regression",
@@ -214,6 +227,9 @@ var keywords = []string{
 	"ドメイン適用",
 	"domain adaptation",
 	"data augmentation",
+	"事前学習",
+	"学習済みモデル",
+	"pretrain",
 
 	"圧縮",
 	"高速化",
@@ -269,6 +285,7 @@ var keywords = []string{
 	"scibert",
 	"fastspeech",
 	"ncrfpp",
+	"blazeface",
 	"mecab",
 	"continuous delivery",
 
@@ -291,6 +308,7 @@ var keywords = []string{
 	"octave",
 	"gcn",
 	"cyclegan",
+	"mobilenet",
 	"noise2void",
 	"snorkel",
 	"yolact",
