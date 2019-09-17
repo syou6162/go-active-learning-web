@@ -28,6 +28,8 @@ var keywords = []string{
 	"neural network",
 	"ニューラルネット",
 	"ディープラーニング",
+	"tpu",
+	"gpu",
 
 	"自然言語処理",
 	"言語処理",
@@ -44,6 +46,7 @@ var keywords = []string{
 
 	"要約",
 	"summarization",
+	"attention",
 
 	"parsing",
 
@@ -57,6 +60,7 @@ var keywords = []string{
 	"named entity recognition",
 	"relation extraction",
 	"関係抽出",
+	"系列ラベリング",
 	"distant supervision",
 	"情報検索",
 	"information retrieval",
@@ -174,6 +178,8 @@ var keywords = []string{
 	"emnlp",
 	"naacl",
 	"coling",
+	"conll",
+	"semeval",
 
 	"nips",
 	"neurips",
@@ -192,6 +198,7 @@ var keywords = []string{
 
 	"miru",
 	"yans",
+	"pycon",
 
 	"ロジステック回帰",
 	"logistic regression",
@@ -230,6 +237,8 @@ var keywords = []string{
 	"事前学習",
 	"学習済みモデル",
 	"pretrain",
+
+	"pagerank",
 
 	"圧縮",
 	"高速化",
@@ -287,6 +296,7 @@ var keywords = []string{
 	"ncrfpp",
 	"blazeface",
 	"mecab",
+	"neo4j",
 	"continuous delivery",
 
 	"cnn",
