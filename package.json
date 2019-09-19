@@ -33,7 +33,7 @@
     "webpack-cli": "^3.3.9"
   },
   "dependencies": {
-    "@nuxt/types": "^0.2.11",
+    "@nuxt/types": "^0.2.14",
     "@nuxt/typescript-runtime": "^0.1.5",
     "@nuxtjs/axios": "^5.6.0",
     "@nuxtjs/google-analytics": "^2.2.0",
