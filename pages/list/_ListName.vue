@@ -9,16 +9,16 @@
       </a>
       <b-form-group label="Please select a label">
         <b-form-radio-group
-          v-model="isNew"
+          v-model="filterType"
           buttons
           button-variant="outline-primary"
-          :options="options"
+          :options="getFilterOptions(isAdmin)"
         />
       </b-form-group>
     </div>
     <b-card-group columns>
       <example 
-        v-for="example in examplesFilterByIsNew(isNew)"
+        v-for="example in examplesFilterByFilterType(filterType)"
         :key="example.Url"
         :example="example"
         :tweets="example.ReferringTweets"
@@ -64,6 +64,12 @@ const isNewDayThresholdByListname: { [key: string]: number }= {
   "video": 5,
   "event": 5,
 };
+
+enum FilterType {
+  All,
+  Recent,
+  Unlabeled
+}
 
 @Component({
   components: {
@@ -133,11 +139,7 @@ export default class ListNamePage extends Vue {
   title: string = "ML-News"
   listname: string = 'general'
   examples: Example[] = []
-  isNew: boolean = false
-  options: { [key: string]: any }[] = [
-    { text: 'All', value: false },
-    { text: 'Recent', value: true }
-  ]
+  filterType: FilterType = FilterType.All
   isAdmin: boolean = false
 
   mounted() {
@@ -147,14 +149,27 @@ export default class ListNamePage extends Vue {
       })
       .catch(err => console.log(err))
   }
-  examplesFilterByIsNew(isNew: boolean): Example[] {
+  examplesFilterByFilterType(filterType: FilterType): Example[] {
     return this.examples.filter(function(e: Example) {
-      if (!isNew) {
-        return true;
-      } else {
-        return e.IsNew == isNew;
+      switch(filterType) {
+        case FilterType.All:
+          return true
+        case FilterType.Recent:
+          return e.IsNew
+        case FilterType.Unlabeled:
+          return e.Label == 0;
       }
     })
+  }
+  getFilterOptions(isAdmin: boolean): { [key: string]: any }[] {
+    let filterOptions: { [key: string]: any }[] = [
+      { text: 'All', value: FilterType.All },
+      { text: 'Recent', value: FilterType.Recent }
+    ];
+    if (isAdmin) {
+      filterOptions.push({ text: 'Unlabeled', value: FilterType.Unlabeled })
+    }
+    return filterOptions;
   }
   keywords(listname: string): string[] {
     return keywordsByListname[listname] || []; 
