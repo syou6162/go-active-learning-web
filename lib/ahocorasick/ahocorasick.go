@@ -20,10 +20,13 @@ var keywords = []string{
 	"end-to-end",
 	"データサイエンス",
 	"データサイエンティスト",
+	"データエンジニアリング",
 
 	"強化学習",
 	"深層強化学習",
 	"reinforcement learning",
+	"ベルマン方程式",
+	"active learning",
 	"neural net",
 	"neural network",
 	"ニューラルネット",
@@ -57,6 +60,7 @@ var keywords = []string{
 	"固有表現抽出",
 	"固有表現認識",
 	"seq2seq",
+	"conditional random field",
 	"named entity recognition",
 	"relation extraction",
 	"関係抽出",
@@ -65,6 +69,8 @@ var keywords = []string{
 	"情報検索",
 	"information retrieval",
 	"画像検索",
+	"質問応答",
+	"question answering",
 
 	"テキストマイニング",
 	"text mining",
@@ -127,6 +133,7 @@ var keywords = []string{
 	"learning to rank",
 	"ランキング学習",
 	"lambdamart",
+	"approximate nearest neighbor",
 
 	"bandit",
 
@@ -195,6 +202,7 @@ var keywords = []string{
 	"siggraph",
 	"icra",
 	"eccv",
+	"interspeech",
 
 	"miru",
 	"yans",
@@ -224,9 +232,12 @@ var keywords = []string{
 	"bayesian",
 	"変分ベイズ",
 	"生成モデル",
+	"fisher information",
 
 	"ベイズ最適化",
 	"bayesian optimization",
+	"凸最適化",
+	"convex optimization",
 
 	"半教師あり学習",
 	"転移学習",
@@ -251,8 +262,10 @@ var keywords = []string{
 	"julia",
 	"c++",
 	"tensorflow",
+	"tensorboard",
 	"keras",
 	"chainer",
+	"onnx",
 	"chainerrl",
 	"pytorch",
 	"allennlp",
@@ -297,6 +310,9 @@ var keywords = []string{
 	"blazeface",
 	"mecab",
 	"neo4j",
+	"leam",
+	"spacy",
+	"flair",
 	"continuous delivery",
 
 	"cnn",
@@ -311,6 +327,7 @@ var keywords = []string{
 	"generative adversarial network",
 	"敵対的生成ネットワーク",
 	"generative adversarial training",
+	"adversarial example",
 	"u-net",
 	"transformer",
 	"xlnet",
@@ -352,12 +369,17 @@ var keywords = []string{
 	"kubeflow",
 	"sagemaker",
 	"s3",
+	"kafka",
+	"kinesis",
 	"elasticsearch",
 	"amazon forecast",
 	"splunk",
 	"mlops",
 	"automl",
 	"機械学習工学",
+	"reproducibility",
+	"cookiecutter",
+	"datarobot",
 
 	"kaggle",
 	"前処理",
@@ -367,10 +389,15 @@ var keywords = []string{
 	"bagging",
 	"abテスト",
 	"検定",
+	"statistics",
+	"統計学",
 
 	"self driving",
 	"自動運転",
 	"robotics",
+
+	"音声変換",
+	"link prediction",
 }
 
 func Init() error {
