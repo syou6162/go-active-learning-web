@@ -11,7 +11,8 @@
         </p>
         <a
           :href="example.HatenaBookmark.entry_url"
-          target="_blank" rel="noopener"
+          target="_blank"
+          rel="noopener"
           class="hatena-bookmark-link"
         >{{ example.HatenaBookmark.count }} users</a>,
         <span class="tweets-count">{{ tweets.Count }} mentions</span>
@@ -41,7 +42,11 @@
             src="/img/website_icon.png"
             class="example-favicon-img"
           >
-          <a :href="example.FinalUrl" target="_blank" rel="noopener">{{ example | getDomain }} {{ example | getUserName }}</a>
+          <a
+            :href="example.FinalUrl"
+            target="_blank"
+            rel="noopener"
+          >{{ example | getDomain }} {{ example | getUserName }}</a>
         </b-card-footer>
       </b-card-body>
     </b-card>

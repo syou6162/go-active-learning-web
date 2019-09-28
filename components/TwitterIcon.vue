@@ -6,7 +6,8 @@
     :title="twitterId" 
     class="tweet-icon-img"
     onerror="this.src='/img/twitter_icon.png'"
-    target="_blank" rel="noopener"
+    target="_blank"
+    rel="noopener"
   >
 </template>
 

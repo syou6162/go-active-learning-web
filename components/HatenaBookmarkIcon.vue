@@ -5,7 +5,8 @@
     :alt="user_id"
     :title="user_id"
     class="hatena-bookmark-user-icon-img"
-    target="_blank" rel="noopener"
+    target="_blank"
+    rel="noopener"
   >
 </template>
 

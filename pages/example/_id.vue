@@ -1,7 +1,12 @@
 <template>
   <div class="mx-auto example">
-    <b-card v-if="example" tag="article">
-      <h1 class="h4">{{ example | getTitle(1000, '...') }}</h1>
+    <b-card
+      v-if="example"
+      tag="article"
+    >
+      <h1 class="h4">
+        {{ example | getTitle(1000, '...') }}
+      </h1>
       <img
         v-if="example.OgImage"
         v-lazy="example.OgImage"
@@ -17,7 +22,8 @@
         <a
           :href="example.HatenaBookmark.entry_url"
           class="hatena-bookmark-link"
-          target="_blank" rel="noopener"
+          target="_blank"
+          rel="noopener"
         >{{ example.HatenaBookmark.count }} users</a>:
         <hatena-bookmark-icon 
           v-for="b in example.HatenaBookmark.bookmarks.slice(0, 9)"
@@ -59,11 +65,17 @@
           class="example-favicon-img"
           onerror="this.style.display='none'"
         >
-        <a :href="example.FinalUrl" target="_blank" rel="noopener">{{ example | getDomain }} {{ example | getUserName }}</a>
+        <a
+          :href="example.FinalUrl"
+          target="_blank"
+          rel="noopener"
+        >{{ example | getDomain }} {{ example | getUserName }}</a>
       </b-card-footer>
     </b-card>
     <div v-if="tweetsWithPositiveLabelOrPositiveScore.length > 0">
-      <h2 class="h4">Referring Tweets</h2>
+      <h2 class="h4">
+        Referring Tweets
+      </h2>
       <b-list-group>
         <b-list-group-item
           v-for="t in tweetsWithPositiveLabelOrPositiveScore.slice(0, 9)"
@@ -77,11 +89,15 @@
             onerror="this.src='/img/twitter_icon.png'"
           >
           <div class="tweet-screen-name-and-full-text-container">
-            <a :href="'https://twitter.com/' + t.ScreenName + '/status/' + t.IdStr" target="_blank" rel="noopener">@{{ t.ScreenName }}</a>
-            <span v-html="fullTextWithLinks(t.FullText)"></span>
+            <a
+              :href="'https://twitter.com/' + t.ScreenName + '/status/' + t.IdStr"
+              target="_blank"
+              rel="noopener"
+            >@{{ t.ScreenName }}</a>
+            <span v-html="fullTextWithLinks(t.FullText)" />
             <div class="tweet-footer">
-              <span class="tweet-retweet-count">{{t.RetweetCount}} RT</span>, <span class="tweet-favorite-count"> {{t.FavoriteCount}} Fav</span>
-              <span class="tweet-created-at">{{t.CreatedAt}}</span>
+              <span class="tweet-retweet-count">{{ t.RetweetCount }} RT</span>, <span class="tweet-favorite-count"> {{ t.FavoriteCount }} Fav</span>
+              <span class="tweet-created-at">{{ t.CreatedAt }}</span>
             </div>
           </div>
           <tweet-annotate-buttons
@@ -92,7 +108,9 @@
       </b-list-group>
     </div>
     <div v-if="hasBookmarksWithComment">
-      <h2 class="h4">Bookmark Comments</h2>
+      <h2 class="h4">
+        Bookmark Comments
+      </h2>
       <b-list-group>
         <b-list-group-item
           v-for="b in bookmarksWithComment.slice(0, 9)"
@@ -122,7 +140,10 @@
         </b-list-group-item>
       </b-list-group>
     </div>
-    <h2 class="h4" v-if="similarExamples.length > 0">
+    <h2
+      v-if="similarExamples.length > 0"
+      class="h4"
+    >
       Related Entries
     </h2>
     <b-list-group>
@@ -152,7 +173,11 @@
           </b-button>
           {{ example | getTitle(100, '...') }}
           <div>
-            <a :href="example.FinalUrl" target="_blank" rel="noopener">{{ example | getDomain }} {{ example | getUserName }}</a>
+            <a
+              :href="example.FinalUrl"
+              target="_blank"
+              rel="noopener"
+            >{{ example | getDomain }} {{ example | getUserName }}</a>
           </div>
           <div>
             <span class="hatena-bookmark-link">{{ example.HatenaBookmark.count }} users</span>,
