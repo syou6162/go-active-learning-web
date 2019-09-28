@@ -78,7 +78,7 @@
           >
           <div class="tweet-screen-name-and-full-text-container">
             <a :href="'https://twitter.com/' + t.ScreenName + '/status/' + t.IdStr" target="_blank" rel="noopener">@{{ t.ScreenName }}</a>
-            {{ t.FullText }}
+            <span v-html="fullTextWithLinks(t.FullText)"></span>
             <div class="tweet-footer">
               <span class="tweet-retweet-count">{{t.RetweetCount}} RT</span>, <span class="tweet-favorite-count"> {{t.FavoriteCount}} Fav</span>
               <span class="tweet-created-at">{{t.CreatedAt}}</span>
@@ -168,6 +168,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { Auth } from 'aws-amplify';
+import Autolinker from 'autolinker';
 import Example from '~/components/Example.vue';
 import Tweet from '~/components/Tweet.vue';
 import { NewExample, filterBookmarksWithComment } from '~/plugins/util';
@@ -266,6 +267,13 @@ export default class ExamplePage extends Vue {
         this.isAdmin = true;
       })
       .catch(err => console.log(err))
+  }
+  fullTextWithLinks(fullText: string): string {
+    const opts = { 
+      mention: 'twitter',
+      hashtag: 'twitter'
+      };
+    return Autolinker.link(fullText, opts);
   }
   get hasBookmarksWithComment(): boolean {
     return filterBookmarksWithComment(this.example).length > 0;
