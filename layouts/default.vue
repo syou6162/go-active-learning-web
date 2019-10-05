@@ -22,6 +22,9 @@
           <b-nav-item to="/list/article">
             Article
           </b-nav-item>
+          <b-nav-item to="/list/twitter">
+            Twitter
+          </b-nav-item>
           <b-nav-item to="/list/github">
             Github
           </b-nav-item>
