@@ -73,18 +73,11 @@ import Example from '~/models/Example'
 import { Auth } from 'aws-amplify';
 import { NewExample } from '~/plugins/util';
 
-enum FilterType {
-  All,
-  Recent,
-  Unlabeled
-}
-
 @Component({
   components: {
     TweetAnnotateButtons: () => import('~/components/TweetAnnotateButtons.vue')
   },
   async asyncData(context) {
-    const listname = context.route.params.ListName;
     let data = await context.app.$axios.$get(`/api/tweets`);
     const examples = data.Examples.map(function(e) {
       return NewExample(e)
