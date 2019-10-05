@@ -37,6 +37,7 @@ type Server interface {
 	RecentAddedReferringTweets() http.Handler
 	GetExamplesFromList() http.Handler
 	GetExampleById() http.Handler
+	GetTweets() http.Handler
 	Search() http.Handler
 	GetFeed() http.Handler
 	ServerAvail() http.Handler
@@ -352,6 +353,30 @@ func (s *server) GetFeed() http.Handler {
 	})
 }
 
+type ExamplesWithTweets struct {
+	Examples model.Examples
+}
+
+func (s *server) GetTweets() http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		now := time.Now()
+		limit := 30
+		tweets, err := s.app.SearchRecentReferringTweetsWithHighScore(now.Add(time.Duration(-10*24)*time.Hour), 0.0, limit)
+		if err != nil {
+			ServerError(w, err.Error())
+			return
+		}
+		examples, err := s.getListOfExampleWithTweet(tweets)
+		if err != nil {
+			ServerError(w, err.Error())
+			return
+		}
+		JSON(w, http.StatusOK, ExamplesWithTweets{
+			Examples: examples,
+		})
+	})
+}
+
 func (s *server) ServerAvail() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/plain; charset=UTF-8")
@@ -376,6 +401,7 @@ func (s *server) Handler() http.Handler {
 	mux.Handle("/api/recent_added_tweets", s.RecentAddedReferringTweets())
 	mux.Handle("/api/examples", s.GetExamplesFromList())
 	mux.Handle("/api/example", s.GetExampleById())
+	mux.Handle("/api/tweets", s.GetTweets())
 	mux.Handle("/api/search", s.Search())
 	mux.Handle("/api/server_avail", s.ServerAvail())
 	mux.HandleFunc("/api/stats", stats_api.Handler)
