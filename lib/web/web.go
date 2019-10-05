@@ -360,8 +360,8 @@ type ExamplesWithTweets struct {
 func (s *server) GetTweets() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		now := time.Now()
-		limit := 30
-		tweets, err := s.app.SearchRecentReferringTweetsWithHighScore(now.Add(time.Duration(-10*24)*time.Hour), 0.0, limit)
+		limit := 50
+		tweets, err := s.app.SearchRecentReferringTweetsWithHighScore(now.Add(time.Duration(-1*24)*time.Hour), 0.5, limit)
 		if err != nil {
 			ServerError(w, err.Error())
 			return
