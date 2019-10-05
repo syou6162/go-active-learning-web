@@ -70,6 +70,16 @@
           target="_blank"
           rel="noopener"
         >{{ example | getDomain }} {{ example | getUserName }}</a>
+        <b-button
+          :href="tweetShareLink()"
+          target="_blank"
+          rel="noopener"
+          class="float-right"
+          variant="primary"
+          size="sm"
+        >
+          Tweet
+        </b-button>
       </b-card-footer>
     </b-card>
     <div v-if="tweetsWithPositiveLabelOrPositiveScore.length > 0">
@@ -299,6 +309,12 @@ export default class ExamplePage extends Vue {
       hashtag: 'twitter'
       };
     return Autolinker.link(fullText, opts);
+  }
+  tweetShareLink(): string {
+    const txt = "👀";
+    const hashtag = "ml_news";
+    const url = `https://www.machine-learning.news/example/${this.example.Id}`;
+    return `https://twitter.com/intent/tweet?text=${txt}&hashtags=${hashtag}&url=${url}`;
   }
   get hasBookmarksWithComment(): boolean {
     return filterBookmarksWithComment(this.example).length > 0;
