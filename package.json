@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/syou6162/go-active-learning-web#readme",
   "devDependencies": {
-    "@nuxt/typescript-build": "^0.2.10",
+    "@nuxt/typescript-build": "^0.3.0",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
     "css-loader": "^3.2.0",
