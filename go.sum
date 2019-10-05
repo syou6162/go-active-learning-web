@@ -127,6 +127,8 @@ github.com/syou6162/go-active-learning v0.1.2 h1:c5Vah+jaiL23z1k8YGDpYYAgTqZQEsR
 github.com/syou6162/go-active-learning v0.1.2/go.mod h1:Lu+TcKodEz9Ho2qkTjRXGIwbFmBgIW67RymEzWikDGQ=
 github.com/syou6162/go-active-learning v0.1.3 h1:LgDJfm7g5zwHWfzB1iBL8LzM/E463dE6LIoZXOWR0yc=
 github.com/syou6162/go-active-learning v0.1.3/go.mod h1:Lu+TcKodEz9Ho2qkTjRXGIwbFmBgIW67RymEzWikDGQ=
+github.com/syou6162/go-active-learning v0.1.4 h1:XuNkpR0XLBL+sME1orVFpqR5MSFGXmOrBimVvJlYp58=
+github.com/syou6162/go-active-learning v0.1.4/go.mod h1:2Qy/DHCVUTKmV7+ggl8FseE5esoMO5gJ2IoMBHb95lY=
 github.com/urfave/cli v1.21.0 h1:wYSSj06510qPIzGSua9ZqsncMmWE3Zr55KBERygyrxE=
 github.com/urfave/cli v1.21.0/go.mod h1:lxDj6qX9Q6lWQxIrbrT0nwecwUtRnhVZAJjJZrVUZZQ=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
