@@ -51,7 +51,7 @@
     "eslint-plugin-vue": "^5.2.3",
     "jquery": "^3.4.1",
     "logrocket": "^1.0.3",
-    "nuxt": "^2.9.2",
+    "nuxt": "^2.10.1",
     "nuxt-logrocket": "^1.2.5",
     "regenerator-runtime": "^0.13.3",
     "ts-loader": "^6.2.0",
