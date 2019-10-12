@@ -42,7 +42,7 @@
     "@ungap/url-search-params": "^0.1.2",
     "autolinker": "^3.11.1",
     "aws-amplify": "^1.2.2",
-    "aws-amplify-vue": "^0.2.17",
+    "aws-amplify-vue": "^0.3.2",
     "bootstrap-vue": "^2.0.4",
     "cross-env": "^6.0.3",
     "cssnano": "^4.1.10",
