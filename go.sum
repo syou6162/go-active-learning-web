@@ -48,6 +48,8 @@ github.com/ikawaha/kagome v1.10.0 h1:1cy/LhnxURvq6vIo558QagpaAGEPo3aFpSywR+eVf04
 github.com/ikawaha/kagome v1.10.0/go.mod h1:eEV1yEy8Hm2eJRMz6nU1OlbrafRqXTECbsmm9aUMX2s=
 github.com/ikawaha/kagome v1.11.0 h1:mJ3W/SSDaDnmx1W2PaJsdTpab/mCeRgp586jXuYoh3Y=
 github.com/ikawaha/kagome v1.11.0/go.mod h1:eEV1yEy8Hm2eJRMz6nU1OlbrafRqXTECbsmm9aUMX2s=
+github.com/ikawaha/kagome v1.11.1 h1:lCpczGLx/aWwXUQ0+aHd7Sq4fiHWW9hSAMtO2Rm3HBs=
+github.com/ikawaha/kagome v1.11.1/go.mod h1:lHwhkGuuWqKWTxeQMppD0EmQAfKbc39QKx9qoWqgo+A=
 github.com/ikeikeikeike/go-sitemap-generator v2.0.1+incompatible h1:Ry3DcY2hILVzZiaE3IOYyU5/oSTfgsFmOHuPg+WfYX4=
 github.com/ikeikeikeike/go-sitemap-generator v2.0.1+incompatible/go.mod h1:QI+zWsz6yQyxkG9LWNcnu0f7aiAE5tPdsZOsICgmd1c=
 github.com/jaytaylor/html2text v0.0.0-20190408195923-01ec452cbe43 h1:jTkyeF7NZ5oIr0ESmcrpiDgAfoidCBF4F5kJhjtaRwE=
@@ -129,6 +131,8 @@ github.com/syou6162/go-active-learning v0.1.3 h1:LgDJfm7g5zwHWfzB1iBL8LzM/E463dE
 github.com/syou6162/go-active-learning v0.1.3/go.mod h1:Lu+TcKodEz9Ho2qkTjRXGIwbFmBgIW67RymEzWikDGQ=
 github.com/syou6162/go-active-learning v0.1.4 h1:XuNkpR0XLBL+sME1orVFpqR5MSFGXmOrBimVvJlYp58=
 github.com/syou6162/go-active-learning v0.1.4/go.mod h1:2Qy/DHCVUTKmV7+ggl8FseE5esoMO5gJ2IoMBHb95lY=
+github.com/syou6162/go-active-learning v0.1.5 h1:HXCe0FGbq6bKuce2MlsirbxoqdzlQKnhcCSCBG1dD9k=
+github.com/syou6162/go-active-learning v0.1.5/go.mod h1:4tqkgejk767TSoBbe3XM/NxXQePMRzAOFny2M0OEUVg=
 github.com/urfave/cli v1.21.0 h1:wYSSj06510qPIzGSua9ZqsncMmWE3Zr55KBERygyrxE=
 github.com/urfave/cli v1.21.0/go.mod h1:lxDj6qX9Q6lWQxIrbrT0nwecwUtRnhVZAJjJZrVUZZQ=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
