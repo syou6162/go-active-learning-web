@@ -10,12 +10,11 @@ require (
 	github.com/clbanning/mxj v1.8.4 // indirect
 	github.com/dghubble/go-twitter v0.0.0-20190719072343-39e5462e111f
 	github.com/dghubble/oauth1 v0.6.0
-	github.com/fatih/structs v1.1.0 // indirect
 	github.com/fukata/golang-stats-api-handler v0.0.0-20160325105040-ab9f90f16caa
+	github.com/getsentry/sentry-go v0.3.0
 	github.com/gorilla/feeds v1.1.1
 	github.com/ikeikeikeike/go-sitemap-generator v2.0.1+incompatible
 	github.com/jessevdk/go-assets v0.0.0-20160921144138-4f4301a06e15
-	github.com/kr/pretty v0.1.0 // indirect
 	github.com/mackerelio/mackerel-client-go v0.8.0
 	github.com/pbnjay/clustering v0.0.0-20180426023255-34a8f36cd397
 	github.com/syou6162/go-active-learning v0.1.6

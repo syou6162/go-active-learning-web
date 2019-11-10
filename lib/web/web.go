@@ -16,6 +16,8 @@ import (
 
 	"strconv"
 
+	"github.com/getsentry/sentry-go"
+
 	stats_api "github.com/fukata/golang-stats-api-handler"
 	"github.com/gorilla/feeds"
 	"github.com/syou6162/go-active-learning-web/lib/ahocorasick"
@@ -427,14 +429,22 @@ func doServe(c *cli.Context) error {
 		Addr:    addr,
 		Handler: NewServer(app).Handler(),
 	}
+	ahocorasick.Init()
+
+	sentryDNS := os.Getenv("SENTRY_DNS")
+	if err := sentry.Init(sentry.ClientOptions{
+		Dsn: sentryDNS,
+	}); err != nil {
+		log.Println(err.Error())
+	}
 
 	go func() {
 		if err := srv.ListenAndServe(); err != nil {
 			log.Println(err.Error())
+			sentry.CaptureException(err)
+			sentry.Flush(time.Second * 5)
 		}
 	}()
-
-	ahocorasick.Init()
 
 	// SIGINTとSYSTERMが飛んできたらgraceful shutdown
 	stopChan := make(chan os.Signal, 1)
