@@ -52,7 +52,8 @@ const nuxtConfig: Configuration = {
     }],
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
-    'nuxt-logrocket'
+    'nuxt-logrocket',
+    '@nuxtjs/sentry',
   ],
   // https://github.com/nuxt-community/nuxt-logrocket
   logRocket: {
@@ -68,6 +69,12 @@ const nuxtConfig: Configuration = {
   },
   proxy: {
     '/api/': 'http://localhost:7778',
+  },
+  sentry: {
+    dsn: process.env.SENTRY_DNS || "",
+    config: {
+      disabled: process.env.NODE_ENV != "production"
+    }
   },
 
   /*
