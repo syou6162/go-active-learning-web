@@ -71,7 +71,7 @@ const nuxtConfig: Configuration = {
     '/api/': 'http://localhost:7778',
   },
   sentry: {
-    dsn: process.env.SENTRY_DNS || "",
+    dsn: process.env.SENTRY_DSN || "",
     config: {
       disabled: process.env.NODE_ENV != "production"
     }
