@@ -431,9 +431,9 @@ func doServe(c *cli.Context) error {
 	}
 	ahocorasick.Init()
 
-	sentryDNS := os.Getenv("SENTRY_DNS")
+	sentryDSN := os.Getenv("SENTRY_DSN")
 	if err := sentry.Init(sentry.ClientOptions{
-		Dsn: sentryDNS,
+		Dsn: sentryDSN,
 	}); err != nil {
 		log.Println(err.Error())
 	}
