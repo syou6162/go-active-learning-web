@@ -230,11 +230,14 @@ import { NewExample, filterBookmarksWithComment } from '~/plugins/util';
         }
       })
       .catch((err) => {
-        const statusCode = err.response.status;
-        error({ 
-          statusCode: statusCode,
-          message: err.response.data.error
-        });
+        let errObj = {};
+        if (!err.response) {
+          errObj["message"] = "Network error";
+        } else {
+          errObj["statusCode"] = err.response.status;
+          errObj["message"] = err.response.data;
+        }
+        return error(errObj);
       })
   },
   head() {
