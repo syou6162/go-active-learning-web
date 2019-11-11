@@ -203,6 +203,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { Auth } from 'aws-amplify';
+import * as Sentry from '@sentry/browser';
 import Autolinker from 'autolinker';
 import Example from '~/components/Example.vue';
 import Tweet from '~/components/Tweet.vue';
@@ -237,6 +238,7 @@ import { NewExample, filterBookmarksWithComment } from '~/plugins/util';
           errObj["statusCode"] = err.response.status;
           errObj["message"] = err.response.data;
         }
+        Sentry.captureException(err);
         return error(errObj);
       })
   },
