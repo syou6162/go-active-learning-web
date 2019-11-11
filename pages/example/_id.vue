@@ -216,7 +216,7 @@ import { NewExample, filterBookmarksWithComment } from '~/plugins/util';
     TweetAnnotateButtons: () => import('~/components/TweetAnnotateButtons.vue')
   },
   asyncData({ app, params, error }) {
-    return app.$axios.$get(`/api/example?id=${params.id}`)
+    return app.$axios.$get(`/api/example?id=${params.id}`, {timeout: 5000})
       .then((data) => {
         return {
           title: `[ML-News] ${data.Example.Title}`,
