@@ -72,8 +72,10 @@ const nuxtConfig: Configuration = {
   },
   sentry: {
     dsn: process.env.SENTRY_DSN || "",
+    publishRelease: true,
+    disabled: process.env.NODE_ENV != "production",
     config: {
-      disabled: process.env.NODE_ENV != "production"
+      release: process.env.VERSION,
     }
   },
 
