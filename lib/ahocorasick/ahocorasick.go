@@ -324,7 +324,9 @@ var keywords = []string{
 	"オートエンコーダー",
 	"vae",
 	"bert",
+	"albert",
 	"elmo",
+	"electra",
 	"gan",
 	"generative adversarial network",
 	"敵対的生成ネットワーク",
@@ -354,6 +356,7 @@ var keywords = []string{
 	"dialogpt",
 	"tinyvideonet",
 	"blazeface",
+	"singan",
 
 	"埋め込み",
 	"分散表現",
@@ -387,6 +390,7 @@ var keywords = []string{
 	"datarobot",
 
 	"kaggle",
+	"kaggle days",
 	"kaggle days tokyo",
 	"前処理",
 	"signate",
