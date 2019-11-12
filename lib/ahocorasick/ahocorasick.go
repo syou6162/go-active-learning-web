@@ -103,6 +103,7 @@ var keywords = []string{
 	"anomaly detection",
 	"外れ値検出",
 	"outlier detection",
+	"特異スペクトル変換法",
 
 	"変化検知",
 	"change point detection",
@@ -284,6 +285,7 @@ var keywords = []string{
 	"jupyter",
 	"lightgbm",
 	"xgboost",
+	"ngboost",
 	"決定木",
 	"random forest",
 	"ランダムフォレスト",
@@ -349,6 +351,9 @@ var keywords = []string{
 	"biggan",
 	"bertsum",
 	"irgan",
+	"dialogpt",
+	"tinyvideonet",
+	"blazeface",
 
 	"埋め込み",
 	"分散表現",
@@ -382,6 +387,7 @@ var keywords = []string{
 	"datarobot",
 
 	"kaggle",
+	"kaggle days tokyo",
 	"前処理",
 	"signate",
 	"コンペ",
