@@ -16,6 +16,8 @@ jobs:
   build_frontend:
     docker:
       - image: circleci/node:10.15.3-jessie
+    environment:
+      NODE_ENV: development
     steps:
       - checkout
       - run: npm install
