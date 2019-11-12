@@ -75,6 +75,7 @@ const nuxtConfig: Configuration = {
     publishRelease: process.env.NODE_ENV === "production",
     disabled: process.env.NODE_ENV != "production",
     config: {
+      environment: process.env.NODE_ENV === "production" ? "production" : "development",
       release: process.env.VERSION,
     }
   },
