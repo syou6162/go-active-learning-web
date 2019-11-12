@@ -52,7 +52,8 @@ const nuxtConfig: Configuration = {
     }],
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
-    'nuxt-logrocket'
+    'nuxt-logrocket',
+    '@nuxtjs/sentry',
   ],
   // https://github.com/nuxt-community/nuxt-logrocket
   logRocket: {
@@ -69,6 +70,14 @@ const nuxtConfig: Configuration = {
   proxy: {
     '/api/': 'http://localhost:7778',
   },
+  sentry: {
+    dsn: process.env.SENTRY_DSN || "",
+    publishRelease: true,
+    disabled: process.env.NODE_ENV != "production",
+    config: {
+      release: process.env.VERSION,
+    }
+  },
 
   /*
   ** Build configuration
@@ -78,6 +87,7 @@ const nuxtConfig: Configuration = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
+      config.devtool = ctx.isClient ? 'eval-source-map' : 'inline-source-map'
     }
   },
   buildModules: ['@nuxt/typescript-build'],

@@ -203,6 +203,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { Auth } from 'aws-amplify';
+import * as Sentry from '@sentry/browser';
 import Autolinker from 'autolinker';
 import Example from '~/components/Example.vue';
 import Tweet from '~/components/Tweet.vue';
@@ -216,7 +217,7 @@ import { NewExample, filterBookmarksWithComment } from '~/plugins/util';
     TweetAnnotateButtons: () => import('~/components/TweetAnnotateButtons.vue')
   },
   asyncData({ app, params, error }) {
-    return app.$axios.$get(`/api/example?id=${params.id}`)
+    return app.$axios.$get(`/api/example?id=${params.id}`, {timeout: 5000})
       .then((data) => {
         return {
           title: `[ML-News] ${data.Example.Title}`,
@@ -230,11 +231,15 @@ import { NewExample, filterBookmarksWithComment } from '~/plugins/util';
         }
       })
       .catch((err) => {
-        const statusCode = err.response.status;
-        error({ 
-          statusCode: statusCode,
-          message: err.response.data.error
-        });
+        let errObj = {};
+        if (!err.response) {
+          errObj["message"] = "Network error";
+        } else {
+          errObj["statusCode"] = err.response.status;
+          errObj["message"] = err.response.data;
+        }
+        Sentry.captureException(err);
+        return error(errObj);
       })
   },
   head() {
