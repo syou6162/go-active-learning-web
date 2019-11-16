@@ -28,9 +28,12 @@ func Search(app service.GoActiveLearningApp, query string) (model.Examples, erro
 
 func SearchSimilarExamples(app service.GoActiveLearningApp, query string, maxOutputs int) (model.Examples, []string, error) {
 	keywords := ahocorasick.SearchKeywords(strings.ToLower(query))
+	if len(keywords) == 0 {
+		return nil, keywords, nil
+	}
 	examples, err := app.SearchExamplesByKeywords(keywords, "ANY", maxOutputs)
 	if err != nil {
-		return nil, make([]string, 0), err
+		return nil, keywords, err
 	}
 	app.AttachMetadata(examples, 0, 0)
 	web_util.LightenExamples(examples)
