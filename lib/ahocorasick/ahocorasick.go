@@ -439,7 +439,6 @@ var keywordsPriorityLow = []string{
 }
 
 func build(machine *goahocorasick.Machine, keywords []string) error {
-	machine = new(goahocorasick.Machine)
 	ks := make([][]rune, 0)
 	for _, k := range keywords {
 		ks = append(ks, []rune(k))
@@ -454,14 +453,17 @@ func build(machine *goahocorasick.Machine, keywords []string) error {
 func Init() error {
 	var finalErr error
 	once.Do(func() {
+		machinePriorityHigh = new(goahocorasick.Machine)
 		if err := build(machinePriorityHigh, keywordsPriorityHigh); err != nil {
 			finalErr = err
 			return
 		}
+		machinePriorityMedium = new(goahocorasick.Machine)
 		if err := build(machinePriorityMedium, keywordsPriorityMedium); err != nil {
 			finalErr = err
 			return
 		}
+		machinePriorityLow = new(goahocorasick.Machine)
 		if err := build(machinePriorityLow, keywordsPriorityLow); err != nil {
 			finalErr = err
 			return
