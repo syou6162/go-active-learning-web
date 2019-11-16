@@ -31,7 +31,7 @@ func SearchSimilarExamples(app service.GoActiveLearningApp, query string, maxOut
 	if len(keywords) == 0 {
 		return nil, keywords, nil
 	}
-	examples, err := app.SearchExamplesByKeywords(keywords, "ANY", maxOutputs)
+	examples, err := app.SearchExamplesByKeywords(keywords[0:1], "ANY", maxOutputs)
 	if err != nil {
 		return nil, keywords, err
 	}
