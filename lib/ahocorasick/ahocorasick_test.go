@@ -7,7 +7,9 @@ import (
 )
 
 func TestSearchKeywords(t *testing.T) {
-	ahocorasick.Init()
+	if err := ahocorasick.Init(); err != nil {
+		t.Error(err)
+	}
 	keywords := ahocorasick.SearchKeywords("yoloを使った機械学習")
 	if len(keywords) != 1 {
 		t.Errorf("wrong len(keywords): got %v want %v", len(keywords), 1)
