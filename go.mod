@@ -18,5 +18,5 @@ require (
 	github.com/mackerelio/mackerel-client-go v0.8.0
 	github.com/pbnjay/clustering v0.0.0-20180426023255-34a8f36cd397
 	github.com/syou6162/go-active-learning v0.1.6
-	github.com/urfave/cli v1.21.0
+	github.com/urfave/cli v1.22.1
 )
