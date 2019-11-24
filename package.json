@@ -48,7 +48,7 @@
     "cross-env": "^6.0.3",
     "cssnano": "^4.1.10",
     "date-fns": "^2.8.1",
-    "eslint": "^6.6.0",
+    "eslint": "^6.7.0",
     "eslint-plugin-vue": "^6.0.0",
     "jquery": "^3.4.1",
     "logrocket": "^1.0.3",
