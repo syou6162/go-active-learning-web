@@ -24,7 +24,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import Example from '~/models/Example'
 import { NewExample } from '~/plugins/util';
-import { Auth } from 'aws-amplify';
+import Auth from '@aws-amplify/auth';
 
 @Component({
   components: {
