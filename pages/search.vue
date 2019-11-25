@@ -32,7 +32,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import Example from '~/models/Example'
 import URLSearchParams from '@ungap/url-search-params'
-import { Auth } from 'aws-amplify';
+import Auth from '@aws-amplify/auth';
 import { NewExample } from '~/plugins/util';
 
 @Component({
