@@ -44,7 +44,7 @@
     "autolinker": "^3.11.1",
     "aws-amplify": "^1.2.4",
     "aws-amplify-vue": "^0.3.3",
-    "bootstrap-vue": "^2.0.4",
+    "bootstrap-vue": "^2.1.0",
     "cross-env": "^6.0.3",
     "cssnano": "^4.1.10",
     "date-fns": "^2.8.1",
