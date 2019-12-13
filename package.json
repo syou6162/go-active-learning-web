@@ -35,7 +35,7 @@
   "dependencies": {
     "@aws-amplify/auth": "^1.5.0",
     "@aws-amplify/core": "^1.2.4",
-    "@nuxt/types": "^0.3.4",
+    "@nuxt/types": "^0.5.6",
     "@nuxt/typescript-runtime": "^0.3.2",
     "@nuxtjs/axios": "^5.8.0",
     "@nuxtjs/google-analytics": "^2.2.2",
