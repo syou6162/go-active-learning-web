@@ -10,7 +10,7 @@ import (
 )
 
 func postEvaluatedMetricsToMackerel(metricNamePrefix string, accuracy float64, precision float64, recall float64, fvalue float64) error {
-	apiKey := os.Getenv("MACKEREL_API_KEY")
+	apiKey := os.Getenv("MACKEREL_APIKEY")
 	serviceName := os.Getenv("MACKEREL_SERVICE_NAME")
 	if apiKey == "" || serviceName == "" {
 		return nil
