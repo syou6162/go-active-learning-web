@@ -29,7 +29,7 @@
     "@typescript-eslint/parser": "^1.13.0",
     "css-loader": "^3.3.2",
     "prettier": "^1.19.1",
-    "webpack": "^4.41.2",
+    "webpack": "^4.41.3",
     "webpack-cli": "^3.3.10"
   },
   "dependencies": {
