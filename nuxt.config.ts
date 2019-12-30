@@ -47,9 +47,6 @@ const nuxtConfig: Configuration = {
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
-    ['@nuxtjs/google-analytics', {
-      id: 'UA-591180-8'
-    }],
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
     'nuxt-logrocket',
