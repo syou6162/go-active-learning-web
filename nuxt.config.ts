@@ -47,13 +47,11 @@ const nuxtConfig: Configuration = {
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
-    ['@nuxtjs/google-analytics', {
-      id: 'UA-591180-8'
-    }],
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
     'nuxt-logrocket',
     '@nuxtjs/sentry',
+    '@nuxtjs/google-gtag',
   ],
   // https://github.com/nuxt-community/nuxt-logrocket
   logRocket: {
@@ -78,6 +76,9 @@ const nuxtConfig: Configuration = {
       environment: process.env.NODE_ENV === "production" ? "production" : "development",
       release: process.env.VERSION,
     }
+  },
+  'google-gtag': {
+    id: 'UA-591180-8'
   },
 
   /*
