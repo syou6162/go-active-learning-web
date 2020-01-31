@@ -166,6 +166,8 @@ github.com/mackerelio/mackerel-client-go v0.7.0 h1:iccCwvdDArIoXj6sdpdGMw5qhidFh
 github.com/mackerelio/mackerel-client-go v0.7.0/go.mod h1:/FVnUK7nsg/MEBpIVOCZLYzdIwY5mg/SyAlXDnxVcAI=
 github.com/mackerelio/mackerel-client-go v0.8.0 h1:qN3g3JVVNqh7lkXCU6xMshZq5wqUPDYvAK7UrRJyLB0=
 github.com/mackerelio/mackerel-client-go v0.8.0/go.mod h1:/FVnUK7nsg/MEBpIVOCZLYzdIwY5mg/SyAlXDnxVcAI=
+github.com/mackerelio/mackerel-client-go v0.9.0 h1:pBPiB1qghZlv2oyDSmial+9qWwOEUbJ4ew3Fe4SyE4M=
+github.com/mackerelio/mackerel-client-go v0.9.0/go.mod h1:/FVnUK7nsg/MEBpIVOCZLYzdIwY5mg/SyAlXDnxVcAI=
 github.com/magiconair/properties v1.8.0/go.mod h1:PppfXfuXeibc/6YijjN8zIbojt8czPbwD3XqdrwzmxQ=
 github.com/mattn/go-colorable v0.1.2/go.mod h1:U0ppj6V5qS13XJ6of8GYAs25YV2eR4EVcfRqFIhoBtE=
 github.com/mattn/go-isatty v0.0.7/go.mod h1:Iq45c/XA43vh69/j3iqttzPXn0bhXyGjM0Hdxcsrc5s=
