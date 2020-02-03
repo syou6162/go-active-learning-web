@@ -40,7 +40,7 @@
     "@nuxtjs/axios": "^5.9.3",
     "@nuxtjs/google-gtag": "^1.0.4",
     "@nuxtjs/proxy": "^1.3.3",
-    "@nuxtjs/sentry": "^3.1.0",
+    "@nuxtjs/sentry": "^3.2.2",
     "@ungap/url-search-params": "^0.1.4",
     "autolinker": "^3.11.1",
     "bootstrap-vue": "^2.2.2",
