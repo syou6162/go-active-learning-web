@@ -224,6 +224,8 @@ github.com/pkg/browser v0.0.0-20180916011732-0a3d74bf9ce4/go.mod h1:4OwLy04Bl9Ef
 github.com/pkg/errors v0.8.0/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
+github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
+github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/russross/blackfriday v1.5.2 h1:HyvC0ARfnZBqnXwABFeSZHpKvJHJJfPz81GNueLj0oo=
@@ -274,6 +276,8 @@ github.com/syou6162/go-active-learning v0.1.7 h1:82u4T8RPSWY+aEPKm53My5zLlX2dCdW
 github.com/syou6162/go-active-learning v0.1.7/go.mod h1:B9kO7HoTKlR9UFjkCRGOIMRaL5zmAuURnPXBhCKKN40=
 github.com/syou6162/go-active-learning v0.1.8 h1:O2jsdxteBaqievvt9pJCJSlsLX2T2Ctu7TMX70jHuNk=
 github.com/syou6162/go-active-learning v0.1.8/go.mod h1:FQm+S5AB54prlMgaVtdDcUA7iat75IP+VC8SesNU3Gc=
+github.com/syou6162/go-active-learning v0.1.9 h1:PS96L5dXuGzo0zWOk2pIC0Aolyhwx+D0JiFKAQGOOps=
+github.com/syou6162/go-active-learning v0.1.9/go.mod h1:iaa6EwJrPsmJMWtCxNlJnbz0noNeCsigKO5a6x9mHKA=
 github.com/ugorji/go v1.1.4/go.mod h1:uQMGLiO92mf5W77hV/PUCpI3pbzQx3CRekS0kk+RGrc=
 github.com/ugorji/go v1.1.7/go.mod h1:kZn38zHttfInRq0xu/PH0az30d+z6vm202qpg1oXVMw=
 github.com/ugorji/go/codec v0.0.0-20181204163529-d75b2dcb6bc8/go.mod h1:VFNgLljTbGfSG7qAOspJ7OScBnGdDN/yBr0sguwnwf0=

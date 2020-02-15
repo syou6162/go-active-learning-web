@@ -17,6 +17,6 @@ require (
 	github.com/jessevdk/go-assets v0.0.0-20160921144138-4f4301a06e15
 	github.com/mackerelio/mackerel-client-go v0.9.1
 	github.com/pbnjay/clustering v0.0.0-20180426023255-34a8f36cd397
-	github.com/syou6162/go-active-learning v0.1.8
+	github.com/syou6162/go-active-learning v0.1.9
 	github.com/urfave/cli v1.22.2
 )
