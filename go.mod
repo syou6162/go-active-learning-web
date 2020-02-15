@@ -11,7 +11,7 @@ require (
 	github.com/dghubble/go-twitter v0.0.0-20190719072343-39e5462e111f
 	github.com/dghubble/oauth1 v0.6.0
 	github.com/fukata/golang-stats-api-handler v0.0.0-20160325105040-ab9f90f16caa
-	github.com/getsentry/sentry-go v0.4.0
+	github.com/getsentry/sentry-go v0.5.1
 	github.com/gorilla/feeds v1.1.1
 	github.com/ikeikeikeike/go-sitemap-generator v2.0.1+incompatible
 	github.com/jessevdk/go-assets v0.0.0-20160921144138-4f4301a06e15
