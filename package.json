@@ -30,7 +30,7 @@
     "css-loader": "^3.4.2",
     "prettier": "^1.19.1",
     "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.11"
   },
   "dependencies": {
     "@aws-amplify/auth": "^2.1.0",
