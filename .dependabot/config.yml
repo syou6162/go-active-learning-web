@@ -7,6 +7,6 @@ update_configs:
       - "syou6162"
   - package_manager: javascript
     directory: /
-    update_schedule: daily
+    update_schedule: weekly
     default_reviewers:
       - "syou6162"
