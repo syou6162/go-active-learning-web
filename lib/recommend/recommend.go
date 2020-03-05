@@ -157,6 +157,9 @@ func doRecommend(c *cli.Context) error {
 
 	for _, e := range result {
 		if bookmark, err := hatena_bookmark.GetHatenaBookmark(e.FinalUrl); err == nil {
+			if e.HatenaBookmark.Count > bookmark.Count {
+				continue
+			}
 			e.HatenaBookmark = bookmark
 			if err = app.UpdateHatenaBookmark(e); err != nil {
 				log.Println(fmt.Sprintf("Error to update bookmark info %s %s", e.Url, err.Error()))
