@@ -165,6 +165,7 @@ func doRecommend(c *cli.Context) error {
 				log.Println(fmt.Sprintf("Error to update bookmark info %s %s", e.Url, err.Error()))
 			}
 		}
+		time.Sleep(time.Second)
 		fmt.Println(fmt.Sprintf("%0.03f\t%s", e.Score, e.Url))
 	}
 
