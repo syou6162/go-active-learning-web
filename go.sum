@@ -278,6 +278,8 @@ github.com/syou6162/go-active-learning v0.1.8 h1:O2jsdxteBaqievvt9pJCJSlsLX2T2Ct
 github.com/syou6162/go-active-learning v0.1.8/go.mod h1:FQm+S5AB54prlMgaVtdDcUA7iat75IP+VC8SesNU3Gc=
 github.com/syou6162/go-active-learning v0.1.9 h1:PS96L5dXuGzo0zWOk2pIC0Aolyhwx+D0JiFKAQGOOps=
 github.com/syou6162/go-active-learning v0.1.9/go.mod h1:iaa6EwJrPsmJMWtCxNlJnbz0noNeCsigKO5a6x9mHKA=
+github.com/syou6162/go-active-learning v0.2.0 h1:9FgUEdAdfDrCuphWOJERbZ+FZGNWlladWCjoI+lBLsM=
+github.com/syou6162/go-active-learning v0.2.0/go.mod h1:iaa6EwJrPsmJMWtCxNlJnbz0noNeCsigKO5a6x9mHKA=
 github.com/ugorji/go v1.1.4/go.mod h1:uQMGLiO92mf5W77hV/PUCpI3pbzQx3CRekS0kk+RGrc=
 github.com/ugorji/go v1.1.7/go.mod h1:kZn38zHttfInRq0xu/PH0az30d+z6vm202qpg1oXVMw=
 github.com/ugorji/go/codec v0.0.0-20181204163529-d75b2dcb6bc8/go.mod h1:VFNgLljTbGfSG7qAOspJ7OScBnGdDN/yBr0sguwnwf0=
