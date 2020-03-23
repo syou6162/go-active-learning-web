@@ -54,7 +54,7 @@
     "nuxt": "^2.11.0",
     "nuxt-logrocket": "^1.2.7",
     "regenerator-runtime": "^0.13.5",
-    "ts-loader": "^6.2.1",
+    "ts-loader": "^6.2.2",
     "ts-node": "^8.6.2",
     "typescript": "^3.8.3",
     "vue": "^2.6.11",
