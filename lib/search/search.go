@@ -26,12 +26,20 @@ func Search(app service.GoActiveLearningApp, query string) (model.Examples, erro
 	return examples, nil
 }
 
-func SearchSimilarExamples(app service.GoActiveLearningApp, query string, maxOutputs int) (model.Examples, []string, error) {
+func SearchSimilarExamples(app service.GoActiveLearningApp, example *model.Example, maxOutputs int) (model.Examples, []string, error) {
+	query := example.Title
 	keywords := ahocorasick.SearchKeywords(strings.ToLower(query))
-	if len(keywords) == 0 {
-		return nil, keywords, nil
+	examples, err := app.SearchRelatedExamples(example)
+	if err != nil {
+		return nil, keywords, err
 	}
-	examples, err := app.SearchExamplesByKeywords(keywords[0:1], "ANY", maxOutputs)
+	if len(examples) != 0 {
+		app.AttachMetadata(examples, 0, 0)
+		web_util.LightenExamples(examples)
+		return examples, keywords, nil
+	}
+
+	examples, err = app.SearchTopAccessedExamples()
 	if err != nil {
 		return nil, keywords, err
 	}
