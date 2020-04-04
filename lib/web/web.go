@@ -250,22 +250,12 @@ func (s *server) GetExampleById() http.Handler {
 		}
 		web_util.LightenExamples(model.Examples{ex})
 
-		similarExamples, keywords, err := search.SearchSimilarExamples(s.app, ex.Title, 5)
+		similarExamples, keywords, err := search.SearchSimilarExamples(s.app, ex, 5)
 		if err != nil {
 			BadRequest(w, err.Error())
 			return
 		}
 		similarExamplesWithoutOriginal := util.FilterStatusCodeOkExamples(removeByFinalUrl(similarExamples, *ex))
-
-		// タイトル中に主要キーワードが存在しなかった場合にbodyなどを使ってフォールバックする
-		if len(similarExamplesWithoutOriginal) == 0 {
-			similarExamples, _, err = search.SearchSimilarExamples(s.app, bodyLikeStr(*ex), 5)
-			if err != nil {
-				BadRequest(w, err.Error())
-				return
-			}
-			similarExamplesWithoutOriginal = util.FilterStatusCodeOkExamples(removeByFinalUrl(similarExamples, *ex))
-		}
 
 		JSON(w, http.StatusOK, ExampleWithSimilarExamples{
 			Example:         ex,
