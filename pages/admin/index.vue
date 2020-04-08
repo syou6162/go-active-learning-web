@@ -28,8 +28,8 @@
     </button>
     <div id="annotation-links">
       <ul>
-        <li><a href="annotation/examples">Exampleのアノテーション</a></li>
-        <li><a href="annotation/tweets">Tweetのアノテーション</a></li>
+        <li><a href="/admin/annotation/examples">Exampleのアノテーション</a></li>
+        <li><a href="/admin/annotation/tweets">Tweetのアノテーション</a></li>
       </ul>
     </div>
   </div>

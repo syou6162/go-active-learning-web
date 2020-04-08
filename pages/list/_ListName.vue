@@ -32,7 +32,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import Example from '~/models/Example'
 
-import Auth from '@aws-amplify/auth';
+import { Auth } from 'aws-amplify';
 import { NewExample } from '~/plugins/util';
 
 const keywordsByListname: { [key: string]: string[] } = {

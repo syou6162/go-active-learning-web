@@ -33,8 +33,6 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "@aws-amplify/auth": "^3.2.1",
-    "@aws-amplify/core": "^3.2.1",
     "@nuxt/types": "^0.7.1",
     "@nuxt/typescript-runtime": "^0.4.2",
     "@nuxtjs/axios": "^5.9.7",
@@ -43,6 +41,7 @@
     "@nuxtjs/sentry": "^4.0.0",
     "@ungap/url-search-params": "^0.1.4",
     "autolinker": "^3.14.0",
+    "aws-amplify": "^3.0.6",
     "bootstrap-vue": "^2.10.1",
     "cross-env": "^7.0.2",
     "cssnano": "^4.1.10",
