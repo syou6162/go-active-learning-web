@@ -202,7 +202,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import Auth from '@aws-amplify/auth';
+import { Auth } from 'aws-amplify';
 import * as Sentry from '@sentry/browser';
 import Autolinker from 'autolinker';
 import Example from '~/components/Example.vue';
