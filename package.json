@@ -45,7 +45,7 @@
     "bootstrap-vue": "^2.13.0",
     "cross-env": "^7.0.2",
     "cssnano": "^4.1.10",
-    "date-fns": "^2.12.0",
+    "date-fns": "^2.13.0",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^6.2.2",
     "jquery": "^3.5.0",
