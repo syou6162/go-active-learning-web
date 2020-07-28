@@ -38,7 +38,7 @@
     "@nuxtjs/axios": "^5.12.0",
     "@nuxtjs/google-gtag": "^1.0.4",
     "@nuxtjs/proxy": "^2.0.1",
-    "@nuxtjs/sentry": "^4.1.3",
+    "@nuxtjs/sentry": "^4.2.1",
     "@ungap/url-search-params": "^0.2.2",
     "autolinker": "^3.14.1",
     "aws-amplify": "^3.0.21",
