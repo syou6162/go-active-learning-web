@@ -27,7 +27,7 @@
     "@nuxt/typescript-build": "^2.0.2",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
-    "css-loader": "^3.6.0",
+    "css-loader": "^4.2.2",
     "prettier": "^2.0.5",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
