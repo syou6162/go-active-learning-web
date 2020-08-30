@@ -15,7 +15,7 @@ defaults: &defaults
 jobs:
   build_frontend:
     docker:
-      - image: circleci/node:10.15.3-jessie
+      - image: circleci/node:13.11.0-buster
     environment:
       NODE_ENV: development
     steps:
