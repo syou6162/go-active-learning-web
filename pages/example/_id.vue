@@ -216,6 +216,23 @@ import { NewExample, filterBookmarksWithComment } from '~/plugins/util';
     AnnotateButtons: () => import('~/components/AnnotateButtons.vue'),
     TweetAnnotateButtons: () => import('~/components/TweetAnnotateButtons.vue')
   },
+  filters: {
+    getTitle(example: Example, length: number, omission: string): string {
+      return getTitle(example, length, omission)
+    },
+    getDescription(example: Example, length: number, omission: string): string {
+      return getDescription(example, length, omission)
+    },
+    getDomain(example: Example): string {
+      return getDomain(example)
+    },
+    getUserName(example: Example): string {
+      return getUserName(example)
+    },
+    getExampleUrl(example: Example): string {
+      return getExampleUrl(example)
+    },
+  },
   asyncData({ app, params, error }) {
     return app.$axios.$get(`/api/example?id=${params.id}`, {timeout: 5000})
       .then((data) => {
