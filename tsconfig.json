@@ -60,6 +60,6 @@
     "experimentalDecorators": true        /* Enables experimental support for ES7 decorators. */
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
   },
-  "include": ["components/*.vue", "components/**/*.vue", "models/*", "plugins/*", "src/**/*", "*", "~/*"],
+  "include": ["components/*.vue", "components/*.ts", "components/**/*.ts", "components/**/*.vue", "models/*", "plugins/*", "src/**/*", "*", "~/*"],
   "exclude": ["node_modules"]
 }
