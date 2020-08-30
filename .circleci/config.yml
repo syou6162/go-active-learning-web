@@ -23,6 +23,7 @@ jobs:
       - run: npm install
       - run: npm run-script lint
       - run: npm run-script build
+      - run: npm test
   setup_build_backend:
     <<: *defaults
     steps:
