@@ -6,7 +6,7 @@ const localVue = createLocalVue();
 localVue.use(ButtonPlugin)
 
 describe('AnnotateButtons', () => {
-  test('ラベルが0のときはunlabeldが有効になっている', async () => {
+  test('ラベルが0のときはunlabeldが有効になっている', () => {
     const wrapper = mount(AnnotateButtons, {
       localVue,
       propsData: {
