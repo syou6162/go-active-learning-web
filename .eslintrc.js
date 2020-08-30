@@ -5,7 +5,13 @@ module.exports = {
   globals: {
     process: true
   },
-  plugins: ["@typescript-eslint"],
+  env: {
+    "jest/globals": true
+  },  
+  plugins: [
+    "@typescript-eslint",
+    "jest"
+  ],
   extends: [
     // add more generic rulesets here, such as:
     'eslint:recommended',
