@@ -7,3 +7,4 @@ go-active-learning-web
 vendor
 .nuxt/*
 npm-debug.log
+coverage/*
