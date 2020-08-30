@@ -326,10 +326,10 @@ export default class ExamplePage extends Vue {
       .catch(err => console.log(err))
   }
   fullTextWithLinks(fullText: string): string {
-    const opts = { 
+    const opts: AutolinkerConfig = { 
       mention: 'twitter',
       hashtag: 'twitter'
-      };
+    };
     return Autolinker.link(fullText, opts);
   }
   tweetShareLink(): string {
