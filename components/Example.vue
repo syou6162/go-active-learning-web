@@ -55,12 +55,29 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import Example from '~/models/Example'
+import { Example, getTitle, getDescription, getDomain, getUserName, getExampleUrl } from '~/models/Example'
 import Tweet from '~/models/Tweet'
 
 @Component({
   components: {
     AnnotateButtons: () => import('./AnnotateButtons.vue'),
+  },
+  filters: {
+    getTitle(example: Example, length: number, omission: string): string {
+      return getTitle(example, length, omission)
+    },
+    getDescription(example: Example, length: number, omission: string): string {
+      return getDescription(example, length, omission)
+    },
+    getDomain(example: Example): string {
+      return getDomain(example)
+    },
+    getUserName(example: Example): string {
+      return getUserName(example)
+    },
+    getExampleUrl(example: Example): string {
+      return getExampleUrl(example)
+    },
   }
 })
 
@@ -75,6 +92,7 @@ export default class ExampleComponent extends Vue {
 
   @Prop({required: true, default: false})
   isAdmin!: Boolean
+
 }
 </script>
 

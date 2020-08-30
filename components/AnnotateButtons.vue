@@ -29,7 +29,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import axios from 'axios';
-import Example from '~/models/Example'
+import { Example } from '~/models/Example'
 
 @Component
 export default class AnnotateButtons extends Vue {

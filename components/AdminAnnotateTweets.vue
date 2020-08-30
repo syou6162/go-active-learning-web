@@ -57,7 +57,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import Example from '~/models/Example'
+import { Example } from '~/models/Example'
 import Tweet from '~/models/Tweet'
 
 @Component({
