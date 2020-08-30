@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HatenaBookmarkIcon はてブのアイコンが正しく表示される 1`] = `
+<img
+  alt="id:syou6162"
+  class="hatena-bookmark-user-icon-img"
+  rel="noopener"
+  target="_blank"
+  title="id:syou6162"
+/>
+`;
+
+exports[`HatenaBookmarkIcon はてブのアイコンが正しく表示される 2`] = `
+<img
+  alt="id:syou6162"
+  class="hatena-bookmark-user-icon-img"
+  data-src="https://cdn.profile-image.st-hatena.com/users/syou6162/profile.png"
+  lazy="loading"
+  rel="noopener"
+  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+  target="_blank"
+  title="id:syou6162"
+/>
+`;

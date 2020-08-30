@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AnnotateButtons ラベルが0のときはunlabeldが有効になっている 1`] = `
+<div>
+  
+  Annotate as: 
+  
+  <button
+    aria-pressed="false"
+    autocomplete="off"
+    class="btn btn-outline-primary btn-sm"
+    type="button"
+  >
+    
+    Positive
+  
+  </button>
+   
+  <button
+    class="btn btn-outline-danger btn-sm"
+    type="button"
+  >
+    
+    Negative
+  
+  </button>
+   
+  <button
+    class="btn btn-secondary btn-sm"
+    type="button"
+  >
+    
+    Unlabeled
+  
+  </button>
+</div>
+`;
