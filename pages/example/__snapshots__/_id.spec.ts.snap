@@ -1,0 +1,1432 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExamplePage Twitterの項目が出ている 1`] = `
+<div
+  class="mx-auto example"
+>
+  <b-card-stub
+    bodytag="div"
+    footertag="div"
+    headertag="div"
+    subtitletag="h6"
+    subtitletextvariant="muted"
+    tag="article"
+    titletag="h4"
+  >
+    <h1
+      class="h4"
+    >
+      
+      Embulk & Digdag Online Meetup 2020【イベントレポート】 | trocco(トロッコ)
+    
+    </h1>
+     
+    <!---->
+     
+    <p
+      class="card-text"
+    >
+      
+      Embulk & Digdag Online Meetup 2020【イベントレポート】 | trocco(トロッコ)
+    
+    </p>
+     
+    <div>
+      <a
+        class="hatena-bookmark-link"
+        href="https://b.hatena.ne.jp/entry/s/blog.trocco.io/dev-articles/embulk-digdag-meetup-2020"
+        rel="noopener"
+        target="_blank"
+      >
+        5 users
+      </a>
+      :
+      
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+    </div>
+     
+    <div>
+      <span
+        class="tweets-count"
+      >
+        2 mentions
+      </span>
+      :
+      
+      <twitter-icon-stub
+        tweet="[object Object]"
+      />
+      <twitter-icon-stub
+        tweet="[object Object]"
+      />
+    </div>
+     
+    <div>
+      
+      Keywords: 
+      
+      <b-button-stub
+        class="keyword"
+        href="/search?query=embulk"
+        size="sm"
+        tag="button"
+        target="_self"
+        type="button"
+        variant="outline-primary"
+      >
+        
+        embulk
+      
+      </b-button-stub>
+      <b-button-stub
+        class="keyword"
+        href="/search?query=digdag"
+        size="sm"
+        tag="button"
+        target="_self"
+        type="button"
+        variant="outline-primary"
+      >
+        
+        digdag
+      
+      </b-button-stub>
+    </div>
+    
+    Date: 
+    
+    <annotate-buttons-stub
+      example="[object Object]"
+    />
+     
+    <b-card-footer-stub
+      footertag="div"
+    >
+      <!---->
+       
+      <a
+        href="https://blog.trocco.io/dev-articles/embulk-digdag-meetup-2020"
+        rel="noopener"
+        target="_blank"
+      >
+        blog.trocco.io 
+      </a>
+       
+      <b-button-stub
+        class="float-right"
+        href="https://twitter.com/intent/tweet?text=👀&hashtags=ml_news&url=https://www.machine-learning.news/example/11111"
+        rel="noopener"
+        size="sm"
+        tag="button"
+        target="_blank"
+        type="button"
+        variant="primary"
+      >
+        
+        Tweet
+      
+      </b-button-stub>
+    </b-card-footer-stub>
+  </b-card-stub>
+   
+  <div
+    id="referring-tweet"
+  >
+    <h2
+      class="h4"
+    >
+      
+      Referring Tweets
+    
+    </h2>
+     
+    <b-list-group-stub
+      tag="div"
+    >
+      <b-list-group-item-stub
+        class="tweet-item"
+        tag="div"
+        target="_self"
+      >
+        <img
+          class="tweet-full-text-icon-img"
+          onerror="this.src='/img/twitter_icon.png'"
+          src="https://pbs.twimg.com/profile_images/1051692644311556096/WmDcCj4Z_normal.jpg"
+        />
+         
+        <div
+          class="tweet-screen-name-and-full-text-container"
+        >
+          <a
+            href="https://twitter.com/trocco_jp/status/1298458422581448704"
+            rel="noopener"
+            target="_blank"
+          >
+            @trocco_jp
+          </a>
+           
+          <span>
+            【イベント情報】先月開催された「Embulk & DigDag Online Meetup 2020」のレポート記事を公開しました。
+EmbulkとDigdagをプロダクション環境で利用している事例や、Embulk開発者による発表が盛り沢山です！是非ご一読下さい。
+
+            <a
+              href="https://t.co/gdtRuoyJtY"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              t.co/gdtRuoyJtY
+            </a>
+          </span>
+           
+          <div
+            class="tweet-footer"
+          >
+            <span
+              class="tweet-retweet-count"
+            >
+              4 RT
+            </span>
+            , 
+            <span
+              class="tweet-favorite-count"
+            >
+               6 Fav
+            </span>
+             
+            <span
+              class="tweet-created-at"
+            >
+              2020-08-26T03:13:06Z
+            </span>
+          </div>
+        </div>
+         
+        <tweet-annotate-buttons-stub
+          tweet="[object Object]"
+        />
+      </b-list-group-item-stub>
+    </b-list-group-stub>
+  </div>
+   
+  <div
+    id="bookmark-comments"
+  >
+    <h2
+      class="h4"
+    >
+      
+      Bookmark Comments
+    
+    </h2>
+     
+    <b-list-group-stub
+      tag="div"
+    >
+      <b-list-group-item-stub
+        class="hatena-bookmark-item"
+        tag="div"
+        target="_self"
+      >
+        <img
+          class="hatena-bookmark-comment-user-icon-img"
+          data-src="https://cdn.profile-image.st-hatena.com/users/polamjag/profile.png"
+          lazy="loading"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        />
+         
+        <div
+          class="hatena-bookmark-user-link-and-comment-container"
+        >
+          <a
+            class="hatena-bookmark-user-link"
+            href="http://b.hatena.ne.jp/polamjag"
+            rel="noopener"
+            target="_blank"
+          >
+            
+            id:polamjag
+          
+          </a>
+           
+          <span
+            class="hatena-bookmark-comment"
+          >
+            
+            “統合”
+          
+          </span>
+           
+          <span
+            class="hatena-bookmark-timestamp"
+          >
+            
+            2020/08/26 14:29
+          
+          </span>
+        </div>
+      </b-list-group-item-stub>
+    </b-list-group-stub>
+  </div>
+   
+  <!---->
+   
+  <b-list-group-stub
+    tag="div"
+  />
+</div>
+`;
+
+exports[`ExamplePage はてなブックマークの項目が出ている 1`] = `
+<div
+  class="mx-auto example"
+>
+  <b-card-stub
+    bodytag="div"
+    footertag="div"
+    headertag="div"
+    subtitletag="h6"
+    subtitletextvariant="muted"
+    tag="article"
+    titletag="h4"
+  >
+    <h1
+      class="h4"
+    >
+      
+      Embulk & Digdag Online Meetup 2020【イベントレポート】 | trocco(トロッコ)
+    
+    </h1>
+     
+    <!---->
+     
+    <p
+      class="card-text"
+    >
+      
+      Embulk & Digdag Online Meetup 2020【イベントレポート】 | trocco(トロッコ)
+    
+    </p>
+     
+    <div>
+      <a
+        class="hatena-bookmark-link"
+        href="https://b.hatena.ne.jp/entry/s/blog.trocco.io/dev-articles/embulk-digdag-meetup-2020"
+        rel="noopener"
+        target="_blank"
+      >
+        5 users
+      </a>
+      :
+      
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+    </div>
+     
+    <div>
+      <span
+        class="tweets-count"
+      >
+        2 mentions
+      </span>
+      :
+      
+      <twitter-icon-stub
+        tweet="[object Object]"
+      />
+      <twitter-icon-stub
+        tweet="[object Object]"
+      />
+    </div>
+     
+    <div>
+      
+      Keywords: 
+      
+      <b-button-stub
+        class="keyword"
+        href="/search?query=embulk"
+        size="sm"
+        tag="button"
+        target="_self"
+        type="button"
+        variant="outline-primary"
+      >
+        
+        embulk
+      
+      </b-button-stub>
+      <b-button-stub
+        class="keyword"
+        href="/search?query=digdag"
+        size="sm"
+        tag="button"
+        target="_self"
+        type="button"
+        variant="outline-primary"
+      >
+        
+        digdag
+      
+      </b-button-stub>
+    </div>
+    
+    Date: 
+    
+    <annotate-buttons-stub
+      example="[object Object]"
+    />
+     
+    <b-card-footer-stub
+      footertag="div"
+    >
+      <!---->
+       
+      <a
+        href="https://blog.trocco.io/dev-articles/embulk-digdag-meetup-2020"
+        rel="noopener"
+        target="_blank"
+      >
+        blog.trocco.io 
+      </a>
+       
+      <b-button-stub
+        class="float-right"
+        href="https://twitter.com/intent/tweet?text=👀&hashtags=ml_news&url=https://www.machine-learning.news/example/11111"
+        rel="noopener"
+        size="sm"
+        tag="button"
+        target="_blank"
+        type="button"
+        variant="primary"
+      >
+        
+        Tweet
+      
+      </b-button-stub>
+    </b-card-footer-stub>
+  </b-card-stub>
+   
+  <div
+    id="referring-tweet"
+  >
+    <h2
+      class="h4"
+    >
+      
+      Referring Tweets
+    
+    </h2>
+     
+    <b-list-group-stub
+      tag="div"
+    >
+      <b-list-group-item-stub
+        class="tweet-item"
+        tag="div"
+        target="_self"
+      >
+        <img
+          class="tweet-full-text-icon-img"
+          onerror="this.src='/img/twitter_icon.png'"
+          src="https://pbs.twimg.com/profile_images/1051692644311556096/WmDcCj4Z_normal.jpg"
+        />
+         
+        <div
+          class="tweet-screen-name-and-full-text-container"
+        >
+          <a
+            href="https://twitter.com/trocco_jp/status/1298458422581448704"
+            rel="noopener"
+            target="_blank"
+          >
+            @trocco_jp
+          </a>
+           
+          <span>
+            【イベント情報】先月開催された「Embulk & DigDag Online Meetup 2020」のレポート記事を公開しました。
+EmbulkとDigdagをプロダクション環境で利用している事例や、Embulk開発者による発表が盛り沢山です！是非ご一読下さい。
+
+            <a
+              href="https://t.co/gdtRuoyJtY"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              t.co/gdtRuoyJtY
+            </a>
+          </span>
+           
+          <div
+            class="tweet-footer"
+          >
+            <span
+              class="tweet-retweet-count"
+            >
+              4 RT
+            </span>
+            , 
+            <span
+              class="tweet-favorite-count"
+            >
+               6 Fav
+            </span>
+             
+            <span
+              class="tweet-created-at"
+            >
+              2020-08-26T03:13:06Z
+            </span>
+          </div>
+        </div>
+         
+        <tweet-annotate-buttons-stub
+          tweet="[object Object]"
+        />
+      </b-list-group-item-stub>
+    </b-list-group-stub>
+  </div>
+   
+  <div
+    id="bookmark-comments"
+  >
+    <h2
+      class="h4"
+    >
+      
+      Bookmark Comments
+    
+    </h2>
+     
+    <b-list-group-stub
+      tag="div"
+    >
+      <b-list-group-item-stub
+        class="hatena-bookmark-item"
+        tag="div"
+        target="_self"
+      >
+        <img
+          class="hatena-bookmark-comment-user-icon-img"
+          data-src="https://cdn.profile-image.st-hatena.com/users/polamjag/profile.png"
+          lazy="loading"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        />
+         
+        <div
+          class="hatena-bookmark-user-link-and-comment-container"
+        >
+          <a
+            class="hatena-bookmark-user-link"
+            href="http://b.hatena.ne.jp/polamjag"
+            rel="noopener"
+            target="_blank"
+          >
+            
+            id:polamjag
+          
+          </a>
+           
+          <span
+            class="hatena-bookmark-comment"
+          >
+            
+            “統合”
+          
+          </span>
+           
+          <span
+            class="hatena-bookmark-timestamp"
+          >
+            
+            2020/08/26 14:29
+          
+          </span>
+        </div>
+      </b-list-group-item-stub>
+    </b-list-group-stub>
+  </div>
+   
+  <!---->
+   
+  <b-list-group-stub
+    tag="div"
+  />
+</div>
+`;
+
+exports[`ExamplePage#Amplify amplifyを通っていないときはアノテーションボタンを出さない 1`] = `
+<div
+  class="mx-auto example"
+>
+  <b-card-stub
+    bodytag="div"
+    footertag="div"
+    headertag="div"
+    subtitletag="h6"
+    subtitletextvariant="muted"
+    tag="article"
+    titletag="h4"
+  >
+    <h1
+      class="h4"
+    >
+      
+      Embulk & Digdag Online Meetup 2020【イベントレポート】 | trocco(トロッコ)
+    
+    </h1>
+     
+    <!---->
+     
+    <p
+      class="card-text"
+    >
+      
+      Embulk & Digdag Online Meetup 2020【イベントレポート】 | trocco(トロッコ)
+    
+    </p>
+     
+    <div>
+      <a
+        class="hatena-bookmark-link"
+        href="https://b.hatena.ne.jp/entry/s/blog.trocco.io/dev-articles/embulk-digdag-meetup-2020"
+        rel="noopener"
+        target="_blank"
+      >
+        5 users
+      </a>
+      :
+      
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+    </div>
+     
+    <div>
+      <span
+        class="tweets-count"
+      >
+        2 mentions
+      </span>
+      :
+      
+      <twitter-icon-stub
+        tweet="[object Object]"
+      />
+      <twitter-icon-stub
+        tweet="[object Object]"
+      />
+    </div>
+     
+    <div>
+      
+      Keywords: 
+      
+      <b-button-stub
+        class="keyword"
+        href="/search?query=embulk"
+        size="sm"
+        tag="button"
+        target="_self"
+        type="button"
+        variant="outline-primary"
+      >
+        
+        embulk
+      
+      </b-button-stub>
+      <b-button-stub
+        class="keyword"
+        href="/search?query=digdag"
+        size="sm"
+        tag="button"
+        target="_self"
+        type="button"
+        variant="outline-primary"
+      >
+        
+        digdag
+      
+      </b-button-stub>
+    </div>
+    
+    Date: 
+    
+    <!---->
+     
+    <b-card-footer-stub
+      footertag="div"
+    >
+      <!---->
+       
+      <a
+        href="https://blog.trocco.io/dev-articles/embulk-digdag-meetup-2020"
+        rel="noopener"
+        target="_blank"
+      >
+        blog.trocco.io 
+      </a>
+       
+      <b-button-stub
+        class="float-right"
+        href="https://twitter.com/intent/tweet?text=👀&hashtags=ml_news&url=https://www.machine-learning.news/example/11111"
+        rel="noopener"
+        size="sm"
+        tag="button"
+        target="_blank"
+        type="button"
+        variant="primary"
+      >
+        
+        Tweet
+      
+      </b-button-stub>
+    </b-card-footer-stub>
+  </b-card-stub>
+   
+  <div
+    id="referring-tweet"
+  >
+    <h2
+      class="h4"
+    >
+      
+      Referring Tweets
+    
+    </h2>
+     
+    <b-list-group-stub
+      tag="div"
+    >
+      <b-list-group-item-stub
+        class="tweet-item"
+        tag="div"
+        target="_self"
+      >
+        <img
+          class="tweet-full-text-icon-img"
+          onerror="this.src='/img/twitter_icon.png'"
+          src="https://pbs.twimg.com/profile_images/1051692644311556096/WmDcCj4Z_normal.jpg"
+        />
+         
+        <div
+          class="tweet-screen-name-and-full-text-container"
+        >
+          <a
+            href="https://twitter.com/trocco_jp/status/1298458422581448704"
+            rel="noopener"
+            target="_blank"
+          >
+            @trocco_jp
+          </a>
+           
+          <span>
+            【イベント情報】先月開催された「Embulk & DigDag Online Meetup 2020」のレポート記事を公開しました。
+EmbulkとDigdagをプロダクション環境で利用している事例や、Embulk開発者による発表が盛り沢山です！是非ご一読下さい。
+
+            <a
+              href="https://t.co/gdtRuoyJtY"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              t.co/gdtRuoyJtY
+            </a>
+          </span>
+           
+          <div
+            class="tweet-footer"
+          >
+            <span
+              class="tweet-retweet-count"
+            >
+              4 RT
+            </span>
+            , 
+            <span
+              class="tweet-favorite-count"
+            >
+               6 Fav
+            </span>
+             
+            <span
+              class="tweet-created-at"
+            >
+              2020-08-26T03:13:06Z
+            </span>
+          </div>
+        </div>
+         
+        <!---->
+      </b-list-group-item-stub>
+    </b-list-group-stub>
+  </div>
+   
+  <div
+    id="bookmark-comments"
+  >
+    <h2
+      class="h4"
+    >
+      
+      Bookmark Comments
+    
+    </h2>
+     
+    <b-list-group-stub
+      tag="div"
+    >
+      <b-list-group-item-stub
+        class="hatena-bookmark-item"
+        tag="div"
+        target="_self"
+      >
+        <img
+          class="hatena-bookmark-comment-user-icon-img"
+          data-src="https://cdn.profile-image.st-hatena.com/users/polamjag/profile.png"
+          lazy="loading"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        />
+         
+        <div
+          class="hatena-bookmark-user-link-and-comment-container"
+        >
+          <a
+            class="hatena-bookmark-user-link"
+            href="http://b.hatena.ne.jp/polamjag"
+            rel="noopener"
+            target="_blank"
+          >
+            
+            id:polamjag
+          
+          </a>
+           
+          <span
+            class="hatena-bookmark-comment"
+          >
+            
+            “統合”
+          
+          </span>
+           
+          <span
+            class="hatena-bookmark-timestamp"
+          >
+            
+            2020/08/26 14:29
+          
+          </span>
+        </div>
+      </b-list-group-item-stub>
+    </b-list-group-stub>
+  </div>
+   
+  <!---->
+   
+  <b-list-group-stub
+    tag="div"
+  />
+</div>
+`;
+
+exports[`ExamplePage#Amplify amplifyを通っていないときはアノテーションボタンを出さない 2`] = `
+<div
+  class="mx-auto example"
+>
+  <b-card-stub
+    bodytag="div"
+    footertag="div"
+    headertag="div"
+    subtitletag="h6"
+    subtitletextvariant="muted"
+    tag="article"
+    titletag="h4"
+  >
+    <h1
+      class="h4"
+    >
+      
+      Embulk & Digdag Online Meetup 2020【イベントレポート】 | trocco(トロッコ)
+    
+    </h1>
+     
+    <!---->
+     
+    <p
+      class="card-text"
+    >
+      
+      Embulk & Digdag Online Meetup 2020【イベントレポート】 | trocco(トロッコ)
+    
+    </p>
+     
+    <div>
+      <a
+        class="hatena-bookmark-link"
+        href="https://b.hatena.ne.jp/entry/s/blog.trocco.io/dev-articles/embulk-digdag-meetup-2020"
+        rel="noopener"
+        target="_blank"
+      >
+        5 users
+      </a>
+      :
+      
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+    </div>
+     
+    <div>
+      <span
+        class="tweets-count"
+      >
+        2 mentions
+      </span>
+      :
+      
+      <twitter-icon-stub
+        tweet="[object Object]"
+      />
+      <twitter-icon-stub
+        tweet="[object Object]"
+      />
+    </div>
+     
+    <div>
+      
+      Keywords: 
+      
+      <b-button-stub
+        class="keyword"
+        href="/search?query=embulk"
+        size="sm"
+        tag="button"
+        target="_self"
+        type="button"
+        variant="outline-primary"
+      >
+        
+        embulk
+      
+      </b-button-stub>
+      <b-button-stub
+        class="keyword"
+        href="/search?query=digdag"
+        size="sm"
+        tag="button"
+        target="_self"
+        type="button"
+        variant="outline-primary"
+      >
+        
+        digdag
+      
+      </b-button-stub>
+    </div>
+    
+    Date: 
+    
+    <annotate-buttons-stub
+      example="[object Object]"
+    />
+     
+    <b-card-footer-stub
+      footertag="div"
+    >
+      <!---->
+       
+      <a
+        href="https://blog.trocco.io/dev-articles/embulk-digdag-meetup-2020"
+        rel="noopener"
+        target="_blank"
+      >
+        blog.trocco.io 
+      </a>
+       
+      <b-button-stub
+        class="float-right"
+        href="https://twitter.com/intent/tweet?text=👀&hashtags=ml_news&url=https://www.machine-learning.news/example/11111"
+        rel="noopener"
+        size="sm"
+        tag="button"
+        target="_blank"
+        type="button"
+        variant="primary"
+      >
+        
+        Tweet
+      
+      </b-button-stub>
+    </b-card-footer-stub>
+  </b-card-stub>
+   
+  <div
+    id="referring-tweet"
+  >
+    <h2
+      class="h4"
+    >
+      
+      Referring Tweets
+    
+    </h2>
+     
+    <b-list-group-stub
+      tag="div"
+    >
+      <b-list-group-item-stub
+        class="tweet-item"
+        tag="div"
+        target="_self"
+      >
+        <img
+          class="tweet-full-text-icon-img"
+          onerror="this.src='/img/twitter_icon.png'"
+          src="https://pbs.twimg.com/profile_images/1051692644311556096/WmDcCj4Z_normal.jpg"
+        />
+         
+        <div
+          class="tweet-screen-name-and-full-text-container"
+        >
+          <a
+            href="https://twitter.com/trocco_jp/status/1298458422581448704"
+            rel="noopener"
+            target="_blank"
+          >
+            @trocco_jp
+          </a>
+           
+          <span>
+            【イベント情報】先月開催された「Embulk & DigDag Online Meetup 2020」のレポート記事を公開しました。
+EmbulkとDigdagをプロダクション環境で利用している事例や、Embulk開発者による発表が盛り沢山です！是非ご一読下さい。
+
+            <a
+              href="https://t.co/gdtRuoyJtY"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              t.co/gdtRuoyJtY
+            </a>
+          </span>
+           
+          <div
+            class="tweet-footer"
+          >
+            <span
+              class="tweet-retweet-count"
+            >
+              4 RT
+            </span>
+            , 
+            <span
+              class="tweet-favorite-count"
+            >
+               6 Fav
+            </span>
+             
+            <span
+              class="tweet-created-at"
+            >
+              2020-08-26T03:13:06Z
+            </span>
+          </div>
+        </div>
+         
+        <tweet-annotate-buttons-stub
+          tweet="[object Object]"
+        />
+      </b-list-group-item-stub>
+    </b-list-group-stub>
+  </div>
+   
+  <div
+    id="bookmark-comments"
+  >
+    <h2
+      class="h4"
+    >
+      
+      Bookmark Comments
+    
+    </h2>
+     
+    <b-list-group-stub
+      tag="div"
+    >
+      <b-list-group-item-stub
+        class="hatena-bookmark-item"
+        tag="div"
+        target="_self"
+      >
+        <img
+          class="hatena-bookmark-comment-user-icon-img"
+          data-src="https://cdn.profile-image.st-hatena.com/users/polamjag/profile.png"
+          lazy="loading"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        />
+         
+        <div
+          class="hatena-bookmark-user-link-and-comment-container"
+        >
+          <a
+            class="hatena-bookmark-user-link"
+            href="http://b.hatena.ne.jp/polamjag"
+            rel="noopener"
+            target="_blank"
+          >
+            
+            id:polamjag
+          
+          </a>
+           
+          <span
+            class="hatena-bookmark-comment"
+          >
+            
+            “統合”
+          
+          </span>
+           
+          <span
+            class="hatena-bookmark-timestamp"
+          >
+            
+            2020/08/26 14:29
+          
+          </span>
+        </div>
+      </b-list-group-item-stub>
+    </b-list-group-stub>
+  </div>
+   
+  <!---->
+   
+  <b-list-group-stub
+    tag="div"
+  />
+</div>
+`;
+
+exports[`ExamplePage#Amplify amplifyを通っているときはアノテーションボタンを出す 1`] = `
+<div
+  class="mx-auto example"
+>
+  <b-card-stub
+    bodytag="div"
+    footertag="div"
+    headertag="div"
+    subtitletag="h6"
+    subtitletextvariant="muted"
+    tag="article"
+    titletag="h4"
+  >
+    <h1
+      class="h4"
+    >
+      
+      Embulk & Digdag Online Meetup 2020【イベントレポート】 | trocco(トロッコ)
+    
+    </h1>
+     
+    <!---->
+     
+    <p
+      class="card-text"
+    >
+      
+      Embulk & Digdag Online Meetup 2020【イベントレポート】 | trocco(トロッコ)
+    
+    </p>
+     
+    <div>
+      <a
+        class="hatena-bookmark-link"
+        href="https://b.hatena.ne.jp/entry/s/blog.trocco.io/dev-articles/embulk-digdag-meetup-2020"
+        rel="noopener"
+        target="_blank"
+      >
+        5 users
+      </a>
+      :
+      
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+      <hatena-bookmark-icon-stub
+        bookmark="[object Object]"
+      />
+    </div>
+     
+    <div>
+      <span
+        class="tweets-count"
+      >
+        2 mentions
+      </span>
+      :
+      
+      <twitter-icon-stub
+        tweet="[object Object]"
+      />
+      <twitter-icon-stub
+        tweet="[object Object]"
+      />
+    </div>
+     
+    <div>
+      
+      Keywords: 
+      
+      <b-button-stub
+        class="keyword"
+        href="/search?query=embulk"
+        size="sm"
+        tag="button"
+        target="_self"
+        type="button"
+        variant="outline-primary"
+      >
+        
+        embulk
+      
+      </b-button-stub>
+      <b-button-stub
+        class="keyword"
+        href="/search?query=digdag"
+        size="sm"
+        tag="button"
+        target="_self"
+        type="button"
+        variant="outline-primary"
+      >
+        
+        digdag
+      
+      </b-button-stub>
+    </div>
+    
+    Date: 
+    
+    <annotate-buttons-stub
+      example="[object Object]"
+    />
+     
+    <b-card-footer-stub
+      footertag="div"
+    >
+      <!---->
+       
+      <a
+        href="https://blog.trocco.io/dev-articles/embulk-digdag-meetup-2020"
+        rel="noopener"
+        target="_blank"
+      >
+        blog.trocco.io 
+      </a>
+       
+      <b-button-stub
+        class="float-right"
+        href="https://twitter.com/intent/tweet?text=👀&hashtags=ml_news&url=https://www.machine-learning.news/example/11111"
+        rel="noopener"
+        size="sm"
+        tag="button"
+        target="_blank"
+        type="button"
+        variant="primary"
+      >
+        
+        Tweet
+      
+      </b-button-stub>
+    </b-card-footer-stub>
+  </b-card-stub>
+   
+  <div
+    id="referring-tweet"
+  >
+    <h2
+      class="h4"
+    >
+      
+      Referring Tweets
+    
+    </h2>
+     
+    <b-list-group-stub
+      tag="div"
+    >
+      <b-list-group-item-stub
+        class="tweet-item"
+        tag="div"
+        target="_self"
+      >
+        <img
+          class="tweet-full-text-icon-img"
+          onerror="this.src='/img/twitter_icon.png'"
+          src="https://pbs.twimg.com/profile_images/1051692644311556096/WmDcCj4Z_normal.jpg"
+        />
+         
+        <div
+          class="tweet-screen-name-and-full-text-container"
+        >
+          <a
+            href="https://twitter.com/trocco_jp/status/1298458422581448704"
+            rel="noopener"
+            target="_blank"
+          >
+            @trocco_jp
+          </a>
+           
+          <span>
+            【イベント情報】先月開催された「Embulk & DigDag Online Meetup 2020」のレポート記事を公開しました。
+EmbulkとDigdagをプロダクション環境で利用している事例や、Embulk開発者による発表が盛り沢山です！是非ご一読下さい。
+
+            <a
+              href="https://t.co/gdtRuoyJtY"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              t.co/gdtRuoyJtY
+            </a>
+          </span>
+           
+          <div
+            class="tweet-footer"
+          >
+            <span
+              class="tweet-retweet-count"
+            >
+              4 RT
+            </span>
+            , 
+            <span
+              class="tweet-favorite-count"
+            >
+               6 Fav
+            </span>
+             
+            <span
+              class="tweet-created-at"
+            >
+              2020-08-26T03:13:06Z
+            </span>
+          </div>
+        </div>
+         
+        <tweet-annotate-buttons-stub
+          tweet="[object Object]"
+        />
+      </b-list-group-item-stub>
+    </b-list-group-stub>
+  </div>
+   
+  <div
+    id="bookmark-comments"
+  >
+    <h2
+      class="h4"
+    >
+      
+      Bookmark Comments
+    
+    </h2>
+     
+    <b-list-group-stub
+      tag="div"
+    >
+      <b-list-group-item-stub
+        class="hatena-bookmark-item"
+        tag="div"
+        target="_self"
+      >
+        <img
+          class="hatena-bookmark-comment-user-icon-img"
+          data-src="https://cdn.profile-image.st-hatena.com/users/polamjag/profile.png"
+          lazy="loading"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        />
+         
+        <div
+          class="hatena-bookmark-user-link-and-comment-container"
+        >
+          <a
+            class="hatena-bookmark-user-link"
+            href="http://b.hatena.ne.jp/polamjag"
+            rel="noopener"
+            target="_blank"
+          >
+            
+            id:polamjag
+          
+          </a>
+           
+          <span
+            class="hatena-bookmark-comment"
+          >
+            
+            “統合”
+          
+          </span>
+           
+          <span
+            class="hatena-bookmark-timestamp"
+          >
+            
+            2020/08/26 14:29
+          
+          </span>
+        </div>
+      </b-list-group-item-stub>
+    </b-list-group-stub>
+  </div>
+   
+  <!---->
+   
+  <b-list-group-stub
+    tag="div"
+  />
+</div>
+`;
