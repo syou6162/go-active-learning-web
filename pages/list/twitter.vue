@@ -28,7 +28,7 @@
                   :href="'https://twitter.com/' + tweet.ScreenName + '/status/' + tweet.IdStr"
                   target="_blank"
                   rel="noopener"
-                  >
+                >
                   @{{ tweet.ScreenName }}
                 </a>
                 <span class="tweet-full-text" v-html="fullTextWithLinks(tweet.FullText)" />
@@ -60,7 +60,7 @@
                   target="_blank"
                   rel="noopener"
                 >
-                {{ example | getDomain }} {{ example | getUserName }}
+                  {{ example | getDomain }} {{ example | getUserName }}
                 </a>
               </b-card-footer>
             </b-card-body>
@@ -75,7 +75,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { Autolinker, AutolinkerConfig } from 'autolinker';
 import { MetaInfo } from 'vue-meta'
-import { Example } from '~/models/Example'
+import { Example, getTitle, getDescription, getDomain, getUserName, getExampleUrl } from '~/models/Example'
 
 import { Auth } from 'aws-amplify';
 import { NewExample } from '~/plugins/util';
@@ -95,6 +95,23 @@ import { NewExample } from '~/plugins/util';
       loading: false
     };
   },
+  filters: {
+    getTitle(example: Example, length: number, omission: string): string {
+      return getTitle(example, length, omission)
+    },
+    getDescription(example: Example, length: number, omission: string): string {
+      return getDescription(example, length, omission)
+    },
+    getDomain(example: Example): string {
+      return getDomain(example)
+    },
+    getUserName(example: Example): string {
+      return getUserName(example)
+    },
+    getExampleUrl(example: Example): string {
+      return getExampleUrl(example)
+    },
+  }  
 })
 
 export default class ListNamePage extends Vue {
