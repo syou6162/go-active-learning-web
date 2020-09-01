@@ -2,6 +2,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils'
 import { Auth } from 'aws-amplify';
 import { BButton, BCard, BCardBody, BCardFooter, BListGroup, BListGroupItem } from 'bootstrap-vue'
 import VueLazyLoad from 'vue-lazyload'
+import VueMeta from 'vue-meta'
 import ExamplePage from './_id.vue'
 
 const localVue = createLocalVue();
@@ -12,6 +13,8 @@ localVue.component('b-card-body', BCardBody)
 localVue.component('b-card-footer', BCardFooter)
 localVue.component('b-list-group', BListGroup)
 localVue.component('b-list-group-item', BListGroupItem)
+// ref: https://stackoverflow.com/questions/59964001/how-to-test-head-in-nuxt-js-using-jest
+localVue.use(VueMeta, { keyName: 'head' })
 
 const hatenaBookmark = {
   title: "Embulk & Digdag Online Meetup 2020【イベントレポート】 | trocco(トロッコ)",
@@ -119,6 +122,38 @@ describe('ExamplePage', () => {
   const wrapper = shallowMount(ExamplePage, {
     localVue,
   });
+
+  test('メタタグが正しく出ている', async () => {
+    await wrapper.setData({
+      title: example.Title,
+      example: example,
+      keywords: keywords,
+    })
+
+    expect(wrapper.exists()).toBeTruthy()
+    // ref: https://stackoverflow.com/questions/59964001/how-to-test-head-in-nuxt-js-using-jest
+    // @ts-ignore
+    expect(wrapper.vm.$metaInfo.meta.find((item) => item.name === 'robots').content).toBe('index, follow')
+  })
+  
+  test('負例は検索エンジンから無視してもらう', async () => {
+    await wrapper.setData({
+      title: example.Title,
+      example: {
+        Label: -1
+      },
+      keywords: keywords,
+    })
+
+    expect(wrapper.exists()).toBeTruthy()
+    // ref: https://stackoverflow.com/questions/59964001/how-to-test-head-in-nuxt-js-using-jest
+    // @ts-ignore
+    expect(wrapper.vm.$metaInfo.meta.find((item) => item.name === 'robots').content).toBe('noindex, nofollow')
+    // @ts-ignore
+    expect(wrapper.vm.$metaInfo.meta.find((item) => item.name === 'description').content).toBeDefined()
+    // @ts-ignore
+    expect(wrapper.vm.$metaInfo.meta.find((item) => item.name === 'og:title').content).toBeDefined()
+  })
 
   test('Twitterの項目が出ている', async () => {
     await wrapper.setData({
