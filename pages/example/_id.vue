@@ -82,7 +82,10 @@
         </b-button>
       </b-card-footer>
     </b-card>
-    <div v-if="tweetsWithPositiveLabelOrPositiveScore.length > 0">
+    <div
+      v-if="tweetsWithPositiveLabelOrPositiveScore.length > 0"
+      id="referring-tweet"
+    >
       <h2 class="h4">
         Referring Tweets
       </h2>
@@ -117,7 +120,10 @@
         </b-list-group-item>
       </b-list-group>
     </div>
-    <div v-if="hasBookmarksWithComment">
+    <div
+      v-if="hasBookmarksWithComment"
+      id="bookmark-comments"
+    >
       <h2 class="h4">
         Bookmark Comments
       </h2>
