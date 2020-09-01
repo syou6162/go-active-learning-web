@@ -28,7 +28,7 @@ import { Auth } from 'aws-amplify';
 
 @Component({
   components: {
-    Example: () => import('~/components/Example.vue')
+    Example,
   },
   async asyncData(context) {
     let data = await context.app.$axios.$get("/api/recent_added_examples");
