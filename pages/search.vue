@@ -42,7 +42,7 @@ import { NewExample } from '~/plugins/util';
   watchQuery: ['query'],
   async asyncData(context) {
     let params = new URLSearchParams();
-    params.append('query', context.route.query.query);
+    params.append('query', context.route.query.query as string);
     let data = await context.app.$axios.$post("/api/search", params);
     let isAdmin = false;
     if (process.browser) {
