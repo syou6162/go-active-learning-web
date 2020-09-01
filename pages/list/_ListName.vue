@@ -30,7 +30,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import Example from '~/models/Example'
+import { MetaInfo } from 'vue-meta'
+import { Example } from '~/models/Example'
 
 import { Auth } from 'aws-amplify';
 import { NewExample } from '~/plugins/util';
@@ -104,33 +105,6 @@ enum FilterType {
       loading: false
     };
   },
-  head() {
-    return {
-      title: this.title,
-      meta: [
-        {
-          name: "keywords",
-          content: this.keywords(this.listname).join(",")
-        },
-        {
-          name: "description",
-          content: this.description(this.listname),
-        }
-      ],
-      link: [
-        {
-          rel: "canonical",
-          href: `https://www.machine-learning.news/list/${this.listname}`
-        },
-        {
-          rel: "alternate",
-          type: "application/atom+xml",
-          title: `ML-News - ${this.listname}`,
-          href: this.rssLink(this.listname),
-        }
-      ]
-    };
-  }
 })
 
 export default class ListNamePage extends Vue {
@@ -182,6 +156,33 @@ export default class ListNamePage extends Vue {
   }
   rssLink(listname: string): string {
     return "https://www.machine-learning.news/rss?listName=" + listname;
+  }
+  head(): MetaInfo {
+    return {
+      title: this.title,
+      meta: [
+        {
+          name: "keywords",
+          content: this.keywords(this.listname).join(",")
+        },
+        {
+          name: "description",
+          content: this.description(this.listname),
+        }
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: `https://www.machine-learning.news/list/${this.listname}`
+        },
+        {
+          rel: "alternate",
+          type: "application/atom+xml",
+          title: `ML-News - ${this.listname}`,
+          href: this.rssLink(this.listname),
+        }
+      ]
+    };
   }
 }
 </script>

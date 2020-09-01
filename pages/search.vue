@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import Example from '~/models/Example'
+import { Example } from '~/models/Example'
 import URLSearchParams from '@ungap/url-search-params'
 import { Auth } from 'aws-amplify';
 import { NewExample } from '~/plugins/util';
@@ -42,7 +42,7 @@ import { NewExample } from '~/plugins/util';
   watchQuery: ['query'],
   async asyncData(context) {
     let params = new URLSearchParams();
-    params.append('query', context.route.query.query);
+    params.append('query', context.route.query.query as string);
     let data = await context.app.$axios.$post("/api/search", params);
     let isAdmin = false;
     if (process.browser) {
@@ -59,26 +59,6 @@ import { NewExample } from '~/plugins/util';
       isAdmin: isAdmin
     }
   },
-  head() {
-    let query = this.query || '';
-    const title = "ML-News - 「" + query + "」に関する検索結果";
-
-    return {
-      title: title,
-      meta: [
-        {
-          name: "description",
-          content: this.results.map(e => e.Title).join("\n")
-        }
-      ],
-      link: [
-        {
-          rel: "canonical",
-          href: "https://www.machine-learning.news/search?query=" + this.query
-        }
-      ]
-    };
-  }
 })
 
 export default class SearchPage extends Vue {
@@ -100,6 +80,26 @@ export default class SearchPage extends Vue {
         this.isAdmin = true;
       })
       .catch(err => console.log(err))
+  }
+  head() {
+    let query = this.query || '';
+    const title = "ML-News - 「" + query + "」に関する検索結果";
+
+    return {
+      title: title,
+      meta: [
+        {
+          name: "description",
+          content: this.results.map(e => e.Title).join("\n")
+        }
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: "https://www.machine-learning.news/search?query=" + this.query
+        }
+      ]
+    };
   }
 }
 </script>

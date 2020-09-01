@@ -38,6 +38,7 @@
     "prettier": "^2.0.5",
     "ts-jest": "^26.3.0",
     "vue-jest": "^3.0.6",
+    "vue-meta": "^2.4.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
   },
@@ -59,6 +60,7 @@
     "logrocket": "^1.0.10",
     "nuxt": "^2.14.3",
     "nuxt-logrocket": "^1.2.10",
+    "nuxt-property-decorator": "^2.7.2",
     "regenerator-runtime": "^0.13.7",
     "ts-loader": "^8.0.2",
     "ts-node": "^8.10.2",

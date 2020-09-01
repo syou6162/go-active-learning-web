@@ -73,8 +73,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import Autolinker from 'autolinker';
-import Example from '~/models/Example'
+import { Autolinker, AutolinkerConfig } from 'autolinker';
+import { MetaInfo } from 'vue-meta'
+import { Example } from '~/models/Example'
 
 import { Auth } from 'aws-amplify';
 import { NewExample } from '~/plugins/util';
@@ -94,23 +95,6 @@ import { NewExample } from '~/plugins/util';
       loading: false
     };
   },
-  head() {
-    return {
-      title: this.title,
-      meta: [
-        {
-          name: "description",
-          content: `機械学習に関するTweetを見れます`,
-        }
-      ],
-      link: [
-        {
-          rel: "canonical",
-          href: `https://www.machine-learning.news/list/twitter`
-        },
-      ]
-    };
-  }
 })
 
 export default class ListNamePage extends Vue {
@@ -126,11 +110,28 @@ export default class ListNamePage extends Vue {
       .catch(err => console.log(err))
   }
   fullTextWithLinks(fullText: string): string {
-    const opts = { 
+    const opts: AutolinkerConfig = { 
       mention: 'twitter',
       hashtag: 'twitter'
       };
     return Autolinker.link(fullText, opts);
+  }
+  head(): MetaInfo {
+    return {
+      title: this.title,
+      meta: [
+        {
+          name: "description",
+          content: `機械学習に関するTweetを見れます`,
+        }
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: `https://www.machine-learning.news/list/twitter`
+        },
+      ]
+    };
   }
 }
 </script>

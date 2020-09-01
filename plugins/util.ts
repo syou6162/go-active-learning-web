@@ -1,6 +1,5 @@
 import { format, subDays, isAfter, toDate, parseISO } from 'date-fns'
-import Example from '~/models/Example'
-import Bookmark from '~/models/Bookmark'
+import { Example } from '~/models/Example'
 import Tweet from '~/models/Tweet'
 
 export function NewExample(e: Example, opts = {}): Example {
@@ -20,25 +19,4 @@ export function NewExample(e: Example, opts = {}): Example {
     });
   }
   return e;
-}
-
-export function getDomain(example: Example): string {
-  var url = example.FinalUrl;
-  return url.replace('http://','').replace('https://','').split(/[/?#]/)[0];
-}
-
-export function truncate(str: string, length: number, omission: string): string {
-  str = str ? str : '';
-  if (str.length <= length) {
-    return str;
-  }
-  else {
-    return str.substring(0, length) + omission;
-  }
-}
-
-export function filterBookmarksWithComment(example: Example): Bookmark[] {
-  return example.HatenaBookmark.bookmarks.filter(function(b: Bookmark) {
-    return b.comment !== "";
-  });
 }

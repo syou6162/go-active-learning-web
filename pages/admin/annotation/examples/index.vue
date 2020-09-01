@@ -22,13 +22,14 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { MetaInfo } from 'vue-meta'
 import Example from '~/components/Example.vue';
 import { NewExample } from '~/plugins/util';
 import { Auth } from 'aws-amplify';
 
 @Component({
   components: {
-    Example: () => import('~/components/Example.vue')
+    Example,
   },
   async asyncData(context) {
     let data = await context.app.$axios.$get("/api/recent_added_examples");
@@ -38,23 +39,6 @@ import { Auth } from 'aws-amplify';
       unlabeled: data.UnlabeledExamples.map(e => NewExample(e))
     }
   },
-  head() {
-    return {
-      title: "最近追加された事例一覧",
-      meta: [
-        {
-          name: "keywords",
-          context: "最近追加された事例一覧"
-        }
-      ],
-      link: [
-        {
-          rel: "canonical",
-          href: "https://www.machine-learning.news/recent-added-examples"
-        }
-      ]
-    };
-  }
 })
 
 export default class AdminAnnotationExample extends Vue {
@@ -85,6 +69,23 @@ export default class AdminAnnotationExample extends Vue {
     } else {
       return [];
     }
+  }
+  head(): MetaInfo {
+    return {
+      title: "最近追加された事例一覧",
+      meta: [
+        {
+          name: "keywords",
+          content: "最近追加された事例一覧"
+        }
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: "https://www.machine-learning.news/recent-added-examples"
+        }
+      ]
+    };
   }
 }
 </script>

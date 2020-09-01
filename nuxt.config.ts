@@ -35,7 +35,6 @@ const nuxtConfig: Configuration = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: "@/plugins/filters.ts", ssr: true },
     { src: "@/plugins/lazyload.ts", mode: 'client' },
     { src: "@/plugins/amplify.ts", mode: 'client' },
   ],

@@ -82,7 +82,10 @@
         </b-button>
       </b-card-footer>
     </b-card>
-    <div v-if="tweetsWithPositiveLabelOrPositiveScore.length > 0">
+    <div
+      v-if="tweetsWithPositiveLabelOrPositiveScore.length > 0"
+      id="referring-tweet"
+    >
       <h2 class="h4">
         Referring Tweets
       </h2>
@@ -117,7 +120,10 @@
         </b-list-group-item>
       </b-list-group>
     </div>
-    <div v-if="hasBookmarksWithComment">
+    <div
+      v-if="hasBookmarksWithComment"
+      id="bookmark-comments"
+    >
       <h2 class="h4">
         Bookmark Comments
       </h2>
@@ -201,20 +207,43 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'nuxt-property-decorator'
 import { Auth } from 'aws-amplify';
 import * as Sentry from '@sentry/browser';
-import Autolinker from 'autolinker';
-import Example from '~/components/Example.vue';
-import Tweet from '~/components/Tweet.vue';
-import { NewExample, filterBookmarksWithComment } from '~/plugins/util';
+import { Autolinker, AutolinkerConfig } from 'autolinker';
+import { MetaInfo } from 'vue-meta'
+import { Example, getTitle, getDescription, getDomain, getUserName, getExampleUrl, filterBookmarksWithComment } from '~/models/Example'
+import Tweet from '~/models/Tweet';
+import { NewExample } from '~/plugins/util';
+
+import HatenaBookmarkIcon from '~/components/HatenaBookmarkIcon.vue'
+import TwitterIcon from '~/components/TwitterIcon.vue'
+import AnnotateButtons from '~/components/AnnotateButtons.vue'
+import TweetAnnotateButtons from '~/components/TweetAnnotateButtons.vue'
 
 @Component({
   components: {
-    HatenaBookmarkIcon: () => import('~/components/HatenaBookmarkIcon.vue'),
-    TwitterIcon: () => import('~/components/TwitterIcon.vue'),
-    AnnotateButtons: () => import('~/components/AnnotateButtons.vue'),
-    TweetAnnotateButtons: () => import('~/components/TweetAnnotateButtons.vue')
+    HatenaBookmarkIcon,
+    TwitterIcon,
+    AnnotateButtons,
+    TweetAnnotateButtons,
+  },
+  filters: {
+    getTitle(example: Example, length: number, omission: string): string {
+      return getTitle(example, length, omission)
+    },
+    getDescription(example: Example, length: number, omission: string): string {
+      return getDescription(example, length, omission)
+    },
+    getDomain(example: Example): string {
+      return getDomain(example)
+    },
+    getUserName(example: Example): string {
+      return getUserName(example)
+    },
+    getExampleUrl(example: Example): string {
+      return getExampleUrl(example)
+    },
   },
   asyncData({ app, params, error }) {
     return app.$axios.$get(`/api/example?id=${params.id}`, {timeout: 5000})
@@ -240,13 +269,64 @@ import { NewExample, filterBookmarksWithComment } from '~/plugins/util';
         }
         Sentry.captureException(err);
         return error(errObj);
+      });
+  }
+})
+
+export default class ExamplePage extends Vue {
+  title: string = "ML-News"
+  example: Example | null = null
+  similarExamples: Example[] = []
+  keywords: string[] = []
+  isAdmin: boolean = false
+
+  mounted() {
+    Auth.currentAuthenticatedUser()
+      .then(user => {
+        this.isAdmin = true;
       })
-  },
-  head() {
+      .catch(err => console.log(err))
+  }
+  fullTextWithLinks(fullText: string): string {
+    const opts: AutolinkerConfig = { 
+      mention: 'twitter',
+      hashtag: 'twitter'
+    };
+    return Autolinker.link(fullText, opts);
+  }
+  tweetShareLink(): string {
+    const txt = "👀";
+    const hashtag = "ml_news";
+    const url = this.example ? `https://www.machine-learning.news/example/${this.example.Id}` : "https://www.machine-learning.news";
+    return `https://twitter.com/intent/tweet?text=${txt}&hashtags=${hashtag}&url=${url}`;
+  }
+  get hasBookmarksWithComment(): boolean {
+    if (this.example === null) return false;
+    return filterBookmarksWithComment(this.example).length > 0;
+  }
+  get bookmarksWithComment() {
+    if (this.example === null) return [];
+    return filterBookmarksWithComment(this.example);
+  }
+  get tweetsWithPositiveLabelOrPositiveScore(): Tweet[] {
+    if (this.example === null) return [];
+    return this.example.ReferringTweets.Tweets.filter(function(t: Tweet) {
+      return t.Label == 1 || t.Score > 0.0;
+    }).sort(function(a: Tweet, b: Tweet) {
+      if (a.Score > b.Score) {
+        return -1;
+      } else if (a.Score < b.Score) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+  }
+  head(): MetaInfo {
     const tweets = this.tweetsWithPositiveLabelOrPositiveScore.map(t => "@" + t.ScreenName + "「" + t.FullText + "」").slice(0, 3);
-    const bookmarks = filterBookmarksWithComment(this.example).map(b => "id:" + b.user + "「"+ b.comment + "」").slice(0, 3);
+    const bookmarks = this.example ? filterBookmarksWithComment(this.example).map(b => "id:" + b.user + "「"+ b.comment + "」").slice(0, 3) : [];
     const description = tweets.join("\n") + bookmarks.join("\n");
-    const robotsContent = this.example.Label == -1 ? "noindex, nofollow" : "index, follow";
+    const robotsContent = this.example === null || this.example.Label == -1 ? "noindex, nofollow" : "index, follow";
 
     return {
       title: this.title,
@@ -273,11 +353,11 @@ import { NewExample, filterBookmarksWithComment } from '~/plugins/util';
         },
         {
           name: "og:url",
-          content: `https://www.machine-learning.news/example/${this.example.Id}`
+          content: this.example ? `https://www.machine-learning.news/example/${this.example.Id}` : "https://www.machine-learning.news"
         },
         {
           name: "og:image",
-          content: this.example.OgImage 
+          content: this.example ? this.example.OgImage : ""
         },
         {
           name: "robots",
@@ -287,58 +367,10 @@ import { NewExample, filterBookmarksWithComment } from '~/plugins/util';
       link: [
         {
           rel: "canonical",
-          href: `https://www.machine-learning.news/example/${this.example.Id}`
+          href: this.example ? `https://www.machine-learning.news/example/${this.example.Id}` : "https://www.machine-learning.news"
         }
       ]
-    };
-  }
-})
-
-export default class ExamplePage extends Vue {
-  title: string = "ML-News"
-  example: Example | null = null
-  similarExamples: Example[] = []
-  keywords: string[] = []
-  isAdmin: boolean = false
-
-  mounted() {
-    Auth.currentAuthenticatedUser()
-      .then(user => {
-        this.isAdmin = true;
-      })
-      .catch(err => console.log(err))
-  }
-  fullTextWithLinks(fullText: string): string {
-    const opts = { 
-      mention: 'twitter',
-      hashtag: 'twitter'
-      };
-    return Autolinker.link(fullText, opts);
-  }
-  tweetShareLink(): string {
-    const txt = "👀";
-    const hashtag = "ml_news";
-    const url = `https://www.machine-learning.news/example/${this.example.Id}`;
-    return `https://twitter.com/intent/tweet?text=${txt}&hashtags=${hashtag}&url=${url}`;
-  }
-  get hasBookmarksWithComment(): boolean {
-    return filterBookmarksWithComment(this.example).length > 0;
-  }
-  get bookmarksWithComment() {
-    return filterBookmarksWithComment(this.example);
-  }
-  get tweetsWithPositiveLabelOrPositiveScore(): Tweet[] {
-    return this.example.ReferringTweets.Tweets.filter(function(t: Tweet) {
-      return t.Label == 1 || t.Score > 0.0;
-    }).sort(function(a: Tweet, b: Tweet) {
-      if (a.Score > b.Score) {
-        return -1;
-      } else if (a.Score < b.Score) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
+    }
   }
 }
 </script>

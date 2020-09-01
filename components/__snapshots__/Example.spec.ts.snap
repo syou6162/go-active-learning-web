@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Example ラベルが0のときはunlabeldが有効になっている 1`] = `
+<div>
+  <div
+    class="card"
+  >
+    <!---->
+    <!---->
+    <div
+      class="card-body m-1 p-2"
+    >
+      <h5
+        class="card-title"
+      >
+        Embulk & Digdag Online Meetup 2020【イベントレポート】 | trocco(トロッコ)
+      </h5>
+      <!---->
+      <p
+        class="example-description"
+      >
+        
+        Embulk & Digdag Online Meetup 2020【イベントレポート】 | trocco(トロッコ)
+      
+      </p>
+       
+      <a
+        class="hatena-bookmark-link"
+        href="https://b.hatena.ne.jp/entry/s/blog.trocco.io/dev-articles/embulk-digdag-meetup-2020"
+        rel="noopener"
+        target="_blank"
+      >
+        5 users
+      </a>
+      ,
+      
+      <span
+        class="tweets-count"
+      >
+        0 mentions
+      </span>
+       
+      <span
+        class="example-created-at"
+      >
+        
+      </span>
+       
+      <!---->
+       
+      <div
+        class="card-footer"
+      >
+        <a
+          class="btn float-right btn-secondary btn-sm"
+          href="/example/11111"
+          target="_self"
+        >
+          
+          Read more
+        
+        </a>
+         
+        <img
+          alt="Embulk & Digdag Online Meetup 2020【イベントレポート】 | trocco(トロッコ)"
+          class="example-favicon-img"
+          src="/img/website_icon.png"
+        />
+         
+        <a
+          href="https://blog.trocco.io/dev-articles/embulk-digdag-meetup-2020"
+          rel="noopener"
+          target="_blank"
+        >
+          blog.trocco.io 
+        </a>
+      </div>
+    </div>
+    <!---->
+    <!---->
+  </div>
+</div>
+`;
