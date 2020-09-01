@@ -73,7 +73,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import Autolinker from 'autolinker';
+import { Autolinker, AutolinkerConfig } from 'autolinker';
 import { MetaInfo } from 'vue-meta'
 import { Example } from '~/models/Example'
 
@@ -110,7 +110,7 @@ export default class ListNamePage extends Vue {
       .catch(err => console.log(err))
   }
   fullTextWithLinks(fullText: string): string {
-    const opts = { 
+    const opts: AutolinkerConfig = { 
       mention: 'twitter',
       hashtag: 'twitter'
       };
