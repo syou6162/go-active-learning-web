@@ -69,7 +69,7 @@
     "vue-loader": "^15.9.3",
     "vue-property-decorator": "^8.5.1",
     "vue-router": "^3.4.3",
-    "vue-server-renderer": "^2.6.11",
+    "vue-server-renderer": "^2.6.12",
     "vue-template-compiler": "^2.6.11",
     "webpack-node-externals": "^2.5.2"
   },
