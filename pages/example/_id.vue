@@ -308,7 +308,7 @@ export default class ExamplePage extends Vue {
     if (this.example === null) return [];
     return filterBookmarksWithComment(this.example);
   }
-  tweetsWithPositiveLabelOrPositiveScore(): Tweet[] {
+  get tweetsWithPositiveLabelOrPositiveScore(): Tweet[] {
     if (this.example === null) return [];
     return this.example.ReferringTweets.Tweets.filter(function(t: Tweet) {
       return t.Label == 1 || t.Score > 0.0;
@@ -323,7 +323,7 @@ export default class ExamplePage extends Vue {
     });
   }
   head(): MetaInfo {
-    const tweets = this.tweetsWithPositiveLabelOrPositiveScore().map(t => "@" + t.ScreenName + "「" + t.FullText + "」").slice(0, 3);
+    const tweets = this.tweetsWithPositiveLabelOrPositiveScore.map(t => "@" + t.ScreenName + "「" + t.FullText + "」").slice(0, 3);
     const bookmarks = this.example ? filterBookmarksWithComment(this.example).map(b => "id:" + b.user + "「"+ b.comment + "」").slice(0, 3) : [];
     const description = tweets.join("\n") + bookmarks.join("\n");
     const robotsContent = this.example === null || this.example.Label == -1 ? "noindex, nofollow" : "index, follow";
