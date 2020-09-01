@@ -74,7 +74,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import Autolinker from 'autolinker';
-import Example from '~/models/Example'
+import { Example } from '~/models/Example'
 
 import { Auth } from 'aws-amplify';
 import { NewExample } from '~/plugins/util';

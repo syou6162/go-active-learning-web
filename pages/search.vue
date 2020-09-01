@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import Example from '~/models/Example'
+import { Example } from '~/models/Example'
 import URLSearchParams from '@ungap/url-search-params'
 import { Auth } from 'aws-amplify';
 import { NewExample } from '~/plugins/util';
