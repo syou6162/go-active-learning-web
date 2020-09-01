@@ -59,26 +59,6 @@ import { NewExample } from '~/plugins/util';
       isAdmin: isAdmin
     }
   },
-  head() {
-    let query = this.query || '';
-    const title = "ML-News - 「" + query + "」に関する検索結果";
-
-    return {
-      title: title,
-      meta: [
-        {
-          name: "description",
-          content: this.results.map(e => e.Title).join("\n")
-        }
-      ],
-      link: [
-        {
-          rel: "canonical",
-          href: "https://www.machine-learning.news/search?query=" + this.query
-        }
-      ]
-    };
-  }
 })
 
 export default class SearchPage extends Vue {
@@ -100,6 +80,26 @@ export default class SearchPage extends Vue {
         this.isAdmin = true;
       })
       .catch(err => console.log(err))
+  }
+  head() {
+    let query = this.query || '';
+    const title = "ML-News - 「" + query + "」に関する検索結果";
+
+    return {
+      title: title,
+      meta: [
+        {
+          name: "description",
+          content: this.results.map(e => e.Title).join("\n")
+        }
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: "https://www.machine-learning.news/search?query=" + this.query
+        }
+      ]
+    };
   }
 }
 </script>
