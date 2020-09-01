@@ -210,12 +210,17 @@ import { Example, getTitle, getDescription, getDomain, getUserName, getExampleUr
 import Tweet from '~/models/Tweet';
 import { NewExample } from '~/plugins/util';
 
+import HatenaBookmarkIcon from '~/components/HatenaBookmarkIcon.vue'
+import TwitterIcon from '~/components/TwitterIcon.vue'
+import AnnotateButtons from '~/components/AnnotateButtons.vue'
+import TweetAnnotateButtons from '~/components/TweetAnnotateButtons.vue'
+
 @Component({
   components: {
-    HatenaBookmarkIcon: () => import('~/components/HatenaBookmarkIcon.vue'),
-    TwitterIcon: () => import('~/components/TwitterIcon.vue'),
-    AnnotateButtons: () => import('~/components/AnnotateButtons.vue'),
-    TweetAnnotateButtons: () => import('~/components/TweetAnnotateButtons.vue')
+    HatenaBookmarkIcon,
+    TwitterIcon,
+    AnnotateButtons,
+    TweetAnnotateButtons,
   },
   filters: {
     getTitle(example: Example, length: number, omission: string): string {
