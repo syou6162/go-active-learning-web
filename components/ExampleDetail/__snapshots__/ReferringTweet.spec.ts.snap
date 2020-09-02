@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReferringTweet adminの場合はアノテーションボタンが表示される 1`] = `
+<b-list-group-item-stub
+  class="tweet-item"
+  tag="div"
+  target="_self"
+>
+  <img
+    class="tweet-full-text-icon-img"
+    onerror="this.src='/img/twitter_icon.png'"
+    src="https://pbs.twimg.com/profile_images/1051692644311556096/WmDcCj4Z_normal.jpg"
+  />
+   
+  <div
+    class="tweet-screen-name-and-full-text-container"
+  >
+    <a
+      href="https://twitter.com/trocco_jp/status/1298458422581448704"
+      rel="noopener"
+      target="_blank"
+    >
+      @trocco_jp
+    </a>
+     
+    <span>
+      【イベント情報】先月開催された「Embulk & DigDag Online Meetup 2020」のレポート記事を公開しました。
+EmbulkとDigdagをプロダクション環境で利用している事例や、Embulk開発者による発表が盛り沢山です！是非ご一読下さい。
+
+      <a
+        href="https://t.co/gdtRuoyJtY"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        t.co/gdtRuoyJtY
+      </a>
+    </span>
+     
+    <div
+      class="tweet-footer"
+    >
+      <span
+        class="tweet-retweet-count"
+      >
+        4 RT
+      </span>
+      , 
+      <span
+        class="tweet-favorite-count"
+      >
+         6 Fav
+      </span>
+       
+      <span
+        class="tweet-created-at"
+      >
+        2020-08-26T03:13:06Z
+      </span>
+    </div>
+  </div>
+   
+  <tweet-annotate-buttons-stub
+    tweet="[object Object]"
+  />
+</b-list-group-item-stub>
+`;
+
+exports[`ReferringTweet 個別事例ページの中のtweetが正しく表示できる 1`] = `
+<b-list-group-item-stub
+  class="tweet-item"
+  tag="div"
+  target="_self"
+>
+  <img
+    class="tweet-full-text-icon-img"
+    onerror="this.src='/img/twitter_icon.png'"
+    src="https://pbs.twimg.com/profile_images/1051692644311556096/WmDcCj4Z_normal.jpg"
+  />
+   
+  <div
+    class="tweet-screen-name-and-full-text-container"
+  >
+    <a
+      href="https://twitter.com/trocco_jp/status/1298458422581448704"
+      rel="noopener"
+      target="_blank"
+    >
+      @trocco_jp
+    </a>
+     
+    <span>
+      【イベント情報】先月開催された「Embulk & DigDag Online Meetup 2020」のレポート記事を公開しました。
+EmbulkとDigdagをプロダクション環境で利用している事例や、Embulk開発者による発表が盛り沢山です！是非ご一読下さい。
+
+      <a
+        href="https://t.co/gdtRuoyJtY"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        t.co/gdtRuoyJtY
+      </a>
+    </span>
+     
+    <div
+      class="tweet-footer"
+    >
+      <span
+        class="tweet-retweet-count"
+      >
+        4 RT
+      </span>
+      , 
+      <span
+        class="tweet-favorite-count"
+      >
+         6 Fav
+      </span>
+       
+      <span
+        class="tweet-created-at"
+      >
+        2020-08-26T03:13:06Z
+      </span>
+    </div>
+  </div>
+   
+  <!---->
+</b-list-group-item-stub>
+`;

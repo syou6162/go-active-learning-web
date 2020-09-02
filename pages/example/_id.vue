@@ -90,34 +90,12 @@
         Referring Tweets
       </h2>
       <b-list-group>
-        <b-list-group-item
+        <referring-tweet
           v-for="t in tweetsWithPositiveLabelOrPositiveScore.slice(0, 9)"
           :key="t.IdStr"
-          class="tweet-item"
-        >
-          <img
-            v-if="t.ProfileImageUrl"
-            :src="t.ProfileImageUrl"
-            class="tweet-full-text-icon-img"
-            onerror="this.src='/img/twitter_icon.png'"
-          >
-          <div class="tweet-screen-name-and-full-text-container">
-            <a
-              :href="'https://twitter.com/' + t.ScreenName + '/status/' + t.IdStr"
-              target="_blank"
-              rel="noopener"
-            >@{{ t.ScreenName }}</a>
-            <span v-html="fullTextWithLinks(t.FullText)" />
-            <div class="tweet-footer">
-              <span class="tweet-retweet-count">{{ t.RetweetCount }} RT</span>, <span class="tweet-favorite-count"> {{ t.FavoriteCount }} Fav</span>
-              <span class="tweet-created-at">{{ t.CreatedAt }}</span>
-            </div>
-          </div>
-          <tweet-annotate-buttons
-            v-if="isAdmin"
-            :tweet="t"
-          />
-        </b-list-group-item>
+          :tweet="t"
+          :is-admin="isAdmin"
+        />
       </b-list-group>
     </div>
     <div
@@ -219,14 +197,14 @@ import { NewExample } from '~/plugins/util';
 import HatenaBookmarkIcon from '~/components/HatenaBookmarkIcon.vue'
 import TwitterIcon from '~/components/TwitterIcon.vue'
 import AnnotateButtons from '~/components/AnnotateButtons.vue'
-import TweetAnnotateButtons from '~/components/TweetAnnotateButtons.vue'
+import ReferringTweet from '~/components/ExampleDetail/ReferringTweet.vue'
 
 @Component({
   components: {
     HatenaBookmarkIcon,
     TwitterIcon,
     AnnotateButtons,
-    TweetAnnotateButtons,
+    ReferringTweet,
   },
   filters: {
     getTitle(example: Example, length: number, omission: string): string {
@@ -389,7 +367,7 @@ export default class ExamplePage extends Vue {
   width: 16px;
   height: 16px;
 }
-.tweet-item, .hatena-bookmark-item, .similar-example {
+.hatena-bookmark-item, .similar-example {
   padding: 10px 10px;
 }
 .hatena-bookmark-link {
@@ -401,7 +379,7 @@ export default class ExamplePage extends Vue {
   height: 32px;
   margin: 0 10px 0 0;
 }
-.tweet-screen-name-and-full-text-container, .hatena-bookmark-user-link-and-comment-container, .similar-example-title-container {
+.hatena-bookmark-user-link-and-comment-container, .similar-example-title-container {
   overflow: hidden;
 }
 .hatena-bookmark-user-link {
@@ -412,19 +390,6 @@ export default class ExamplePage extends Vue {
 }
 .hatena-bookmark-timestamp {
   display: block;
-  color: #999;
-  float: right;
-}
-.tweets-count, .tweet-retweet-count, .tweet-favorite-count {
-  color: #ff4166;
-}
-.tweet-full-text-icon-img {
-  float: left;
-  width: 32px;
-  height: 32px;
-  margin: 0 10px 0 0;
-}
-.tweet-created-at {
   color: #999;
   float: right;
 }
