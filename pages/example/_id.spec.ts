@@ -207,7 +207,6 @@ describe('ExamplePage#Amplify', () => {
       isAdmin: true
     })
     expect(wrapper.find('annotate-buttons-stub').exists()).toBe(true)
-    expect(wrapper.find('tweet-annotate-buttons-stub').exists()).toBe(true)
     expect(wrapper.element).toMatchSnapshot()
   })
   test('amplifyを通っているときはアノテーションボタンを出す', async () => {
@@ -234,7 +233,6 @@ describe('ExamplePage#Amplify', () => {
     })
     expect(wrapper.exists()).toBeTruthy()
     expect(wrapper.find('annotate-buttons-stub').exists()).toBe(true)
-    expect(wrapper.find('tweet-annotate-buttons-stub').exists()).toBe(true)
     expect(wrapper.element).toMatchSnapshot()
   })
 })
