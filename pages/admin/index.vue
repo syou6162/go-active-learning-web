@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'nuxt-property-decorator';
 import { IsAdmin, signIn, signOut } from '~/plugins/amplify';
 
 @Component
@@ -77,6 +77,11 @@ export default class AdminIndexPage extends Vue {
     }).catch((err) => {
       this.messageText = 'ログインできませんでした';
     });
+  }
+  head() {
+    return {
+      title: `${this.title}: 管理画面`,
+    };
   }
 }
 </script>

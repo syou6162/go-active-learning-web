@@ -21,14 +21,15 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'nuxt-property-decorator';
 import { Example } from '~/models/Example'
 import { NewExample } from '~/plugins/util';
 import { Auth } from 'aws-amplify';
+import AdminAnnotateTweets from '~/components/AdminAnnotateTweets.vue'
 
 @Component({
   components: {
-    AdminAnnotateTweets: () => import('~/components/AdminAnnotateTweets.vue')
+    AdminAnnotateTweets,
   },
   async asyncData(context) {
     let data = await context.app.$axios.$get("/api/recent_added_tweets");
@@ -38,11 +39,6 @@ import { Auth } from 'aws-amplify';
       unlabeled: data.UnlabeledExamples.map(e => NewExample(e))
     }
   },
-  head() {
-    return {
-      title: "最近追加されたTweet一覧",
-    };
-  }
 })
 
 export default class AdminAnnotationTweet extends Vue {
@@ -76,6 +72,11 @@ export default class AdminAnnotationTweet extends Vue {
   }
   getKey(example: Example, label: number) {
     return String(label) + ":" + example.Url + ":" + example.ReferringTweets.Tweets[0].IdStr;
+  }
+  head() {
+    return {
+      title: "最近追加されたTweet一覧",
+    };
   }
 }
 </script>

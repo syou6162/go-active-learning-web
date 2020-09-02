@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'nuxt-property-decorator';
 import { MetaInfo } from 'vue-meta'
 import Example from '~/components/Example.vue';
 import { NewExample } from '~/plugins/util';

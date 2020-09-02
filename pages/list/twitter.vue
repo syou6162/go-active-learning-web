@@ -72,17 +72,18 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue } from 'nuxt-property-decorator';
 import { Autolinker, AutolinkerConfig } from 'autolinker';
 import { MetaInfo } from 'vue-meta'
 import { Example, getTitle, getDescription, getDomain, getUserName, getExampleUrl } from '~/models/Example'
 
 import { Auth } from 'aws-amplify';
 import { NewExample } from '~/plugins/util';
+import TweetAnnotateButtons from '~/components/TweetAnnotateButtons.vue'
 
 @Component({
   components: {
-    TweetAnnotateButtons: () => import('~/components/TweetAnnotateButtons.vue')
+    TweetAnnotateButtons,
   },
   async asyncData(context) {
     let data = await context.app.$axios.$get(`/api/tweets`);
