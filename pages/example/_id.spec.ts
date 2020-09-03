@@ -176,7 +176,6 @@ describe('ExamplePage', () => {
 
     expect(wrapper.exists()).toBeTruthy()
     expect(wrapper.find('div#bookmark-comments').exists()).toBe(true)
-    expect(wrapper.find('div#bookmark-comments').findAll('.hatena-bookmark-item')).toHaveLength(1)
     expect(wrapper.element).toMatchSnapshot()
   })
 })
