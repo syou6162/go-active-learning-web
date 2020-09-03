@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookmarkComment 個別事例ページの中のはてなブックマークコメントが正しく表示できる 1`] = `
+<b-list-group-item-stub
+  class="hatena-bookmark-item"
+  tag="div"
+  target="_self"
+>
+  <img
+    class="hatena-bookmark-comment-user-icon-img"
+  />
+   
+  <div
+    class="hatena-bookmark-user-link-and-comment-container"
+  >
+    <a
+      class="hatena-bookmark-user-link"
+      href="http://b.hatena.ne.jp/syou6162"
+      rel="noopener"
+      target="_blank"
+    >
+      
+      id:syou6162
+    
+    </a>
+     
+    <span
+      class="hatena-bookmark-comment"
+    >
+      
+      ブックマークのテストです
+    
+    </span>
+     
+    <span
+      class="hatena-bookmark-timestamp"
+    >
+      
+      2020/08/26 14:29
+    
+    </span>
+  </div>
+</b-list-group-item-stub>
+`;
