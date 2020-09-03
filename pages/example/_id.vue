@@ -370,6 +370,9 @@ export default class ExamplePage extends Vue {
 .hatena-bookmark-item, .similar-example {
   padding: 10px 10px;
 }
+.tweets-count {
+  color: #ff4166;
+}
 .hatena-bookmark-link {
   color: #ff4166;
 }
