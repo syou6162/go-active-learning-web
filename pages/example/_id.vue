@@ -106,32 +106,11 @@
         Bookmark Comments
       </h2>
       <b-list-group>
-        <b-list-group-item
+        <bookmark-comment
           v-for="b in bookmarksWithComment.slice(0, 9)"
           :key="b.user"
-          class="hatena-bookmark-item"
-        >
-          <img
-            v-lazy="'https://cdn.profile-image.st-hatena.com/users/' + b.user+ '/profile.png'"
-            class="hatena-bookmark-comment-user-icon-img"
-          >
-          <div class="hatena-bookmark-user-link-and-comment-container">
-            <a 
-              :href="'http://b.hatena.ne.jp/' + b.user"
-              target="_blank"
-              rel="noopener"
-              class="hatena-bookmark-user-link"
-            >
-              id:{{ b.user }}
-            </a>
-            <span class="hatena-bookmark-comment">
-              {{ b.comment }}
-            </span>
-            <span class="hatena-bookmark-timestamp">
-              {{ b.timestamp }}
-            </span>
-          </div>
-        </b-list-group-item>
+          :bookmark="b"
+        />
       </b-list-group>
     </div>
     <h2
@@ -198,6 +177,7 @@ import HatenaBookmarkIcon from '~/components/HatenaBookmarkIcon.vue'
 import TwitterIcon from '~/components/TwitterIcon.vue'
 import AnnotateButtons from '~/components/AnnotateButtons.vue'
 import ReferringTweet from '~/components/ExampleDetail/ReferringTweet.vue'
+import BookmarkComment from '~/components/ExampleDetail/BookmarkComment.vue'
 
 @Component({
   components: {
@@ -205,6 +185,7 @@ import ReferringTweet from '~/components/ExampleDetail/ReferringTweet.vue'
     TwitterIcon,
     AnnotateButtons,
     ReferringTweet,
+    BookmarkComment,
   },
   filters: {
     getTitle(example: Example, length: number, omission: string): string {
@@ -367,7 +348,7 @@ export default class ExamplePage extends Vue {
   width: 16px;
   height: 16px;
 }
-.hatena-bookmark-item, .similar-example {
+.similar-example {
   padding: 10px 10px;
 }
 .tweets-count {
@@ -376,25 +357,8 @@ export default class ExamplePage extends Vue {
 .hatena-bookmark-link {
   color: #ff4166;
 }
-.hatena-bookmark-comment-user-icon-img {
-  float: left;
-  width: 32px;
-  height: 32px;
-  margin: 0 10px 0 0;
-}
-.hatena-bookmark-user-link-and-comment-container, .similar-example-title-container {
+.similar-example-title-container {
   overflow: hidden;
-}
-.hatena-bookmark-user-link {
-  margin: 0 0 0 0;
-}
-.hatena-bookmark-comment {
-  margin: 0 4px 0 0;
-}
-.hatena-bookmark-timestamp {
-  display: block;
-  color: #999;
-  float: right;
 }
 .example-created-at {
   color: #999;
