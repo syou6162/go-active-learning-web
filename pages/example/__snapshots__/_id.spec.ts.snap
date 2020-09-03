@@ -175,49 +175,9 @@ exports[`ExamplePage Twitterの項目が出ている 1`] = `
     <b-list-group-stub
       tag="div"
     >
-      <b-list-group-item-stub
-        class="hatena-bookmark-item"
-        tag="div"
-        target="_self"
-      >
-        <img
-          class="hatena-bookmark-comment-user-icon-img"
-          data-src="https://cdn.profile-image.st-hatena.com/users/polamjag/profile.png"
-          lazy="loading"
-          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-        />
-         
-        <div
-          class="hatena-bookmark-user-link-and-comment-container"
-        >
-          <a
-            class="hatena-bookmark-user-link"
-            href="http://b.hatena.ne.jp/polamjag"
-            rel="noopener"
-            target="_blank"
-          >
-            
-            id:polamjag
-          
-          </a>
-           
-          <span
-            class="hatena-bookmark-comment"
-          >
-            
-            “統合”
-          
-          </span>
-           
-          <span
-            class="hatena-bookmark-timestamp"
-          >
-            
-            2020/08/26 14:29
-          
-          </span>
-        </div>
-      </b-list-group-item-stub>
+      <bookmark-comment-stub
+        bookmark="[object Object]"
+      />
     </b-list-group-stub>
   </div>
    
@@ -404,49 +364,9 @@ exports[`ExamplePage はてなブックマークの項目が出ている 1`] = `
     <b-list-group-stub
       tag="div"
     >
-      <b-list-group-item-stub
-        class="hatena-bookmark-item"
-        tag="div"
-        target="_self"
-      >
-        <img
-          class="hatena-bookmark-comment-user-icon-img"
-          data-src="https://cdn.profile-image.st-hatena.com/users/polamjag/profile.png"
-          lazy="loading"
-          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-        />
-         
-        <div
-          class="hatena-bookmark-user-link-and-comment-container"
-        >
-          <a
-            class="hatena-bookmark-user-link"
-            href="http://b.hatena.ne.jp/polamjag"
-            rel="noopener"
-            target="_blank"
-          >
-            
-            id:polamjag
-          
-          </a>
-           
-          <span
-            class="hatena-bookmark-comment"
-          >
-            
-            “統合”
-          
-          </span>
-           
-          <span
-            class="hatena-bookmark-timestamp"
-          >
-            
-            2020/08/26 14:29
-          
-          </span>
-        </div>
-      </b-list-group-item-stub>
+      <bookmark-comment-stub
+        bookmark="[object Object]"
+      />
     </b-list-group-stub>
   </div>
    
@@ -630,49 +550,9 @@ exports[`ExamplePage#Amplify amplifyを通っていないときはアノテー�
     <b-list-group-stub
       tag="div"
     >
-      <b-list-group-item-stub
-        class="hatena-bookmark-item"
-        tag="div"
-        target="_self"
-      >
-        <img
-          class="hatena-bookmark-comment-user-icon-img"
-          data-src="https://cdn.profile-image.st-hatena.com/users/polamjag/profile.png"
-          lazy="loading"
-          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-        />
-         
-        <div
-          class="hatena-bookmark-user-link-and-comment-container"
-        >
-          <a
-            class="hatena-bookmark-user-link"
-            href="http://b.hatena.ne.jp/polamjag"
-            rel="noopener"
-            target="_blank"
-          >
-            
-            id:polamjag
-          
-          </a>
-           
-          <span
-            class="hatena-bookmark-comment"
-          >
-            
-            “統合”
-          
-          </span>
-           
-          <span
-            class="hatena-bookmark-timestamp"
-          >
-            
-            2020/08/26 14:29
-          
-          </span>
-        </div>
-      </b-list-group-item-stub>
+      <bookmark-comment-stub
+        bookmark="[object Object]"
+      />
     </b-list-group-stub>
   </div>
    
@@ -859,49 +739,9 @@ exports[`ExamplePage#Amplify amplifyを通っていないときはアノテー�
     <b-list-group-stub
       tag="div"
     >
-      <b-list-group-item-stub
-        class="hatena-bookmark-item"
-        tag="div"
-        target="_self"
-      >
-        <img
-          class="hatena-bookmark-comment-user-icon-img"
-          data-src="https://cdn.profile-image.st-hatena.com/users/polamjag/profile.png"
-          lazy="loading"
-          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-        />
-         
-        <div
-          class="hatena-bookmark-user-link-and-comment-container"
-        >
-          <a
-            class="hatena-bookmark-user-link"
-            href="http://b.hatena.ne.jp/polamjag"
-            rel="noopener"
-            target="_blank"
-          >
-            
-            id:polamjag
-          
-          </a>
-           
-          <span
-            class="hatena-bookmark-comment"
-          >
-            
-            “統合”
-          
-          </span>
-           
-          <span
-            class="hatena-bookmark-timestamp"
-          >
-            
-            2020/08/26 14:29
-          
-          </span>
-        </div>
-      </b-list-group-item-stub>
+      <bookmark-comment-stub
+        bookmark="[object Object]"
+      />
     </b-list-group-stub>
   </div>
    
@@ -1088,49 +928,9 @@ exports[`ExamplePage#Amplify amplifyを通っているときはアノテーシ�
     <b-list-group-stub
       tag="div"
     >
-      <b-list-group-item-stub
-        class="hatena-bookmark-item"
-        tag="div"
-        target="_self"
-      >
-        <img
-          class="hatena-bookmark-comment-user-icon-img"
-          data-src="https://cdn.profile-image.st-hatena.com/users/polamjag/profile.png"
-          lazy="loading"
-          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-        />
-         
-        <div
-          class="hatena-bookmark-user-link-and-comment-container"
-        >
-          <a
-            class="hatena-bookmark-user-link"
-            href="http://b.hatena.ne.jp/polamjag"
-            rel="noopener"
-            target="_blank"
-          >
-            
-            id:polamjag
-          
-          </a>
-           
-          <span
-            class="hatena-bookmark-comment"
-          >
-            
-            “統合”
-          
-          </span>
-           
-          <span
-            class="hatena-bookmark-timestamp"
-          >
-            
-            2020/08/26 14:29
-          
-          </span>
-        </div>
-      </b-list-group-item-stub>
+      <bookmark-comment-stub
+        bookmark="[object Object]"
+      />
     </b-list-group-stub>
   </div>
    
