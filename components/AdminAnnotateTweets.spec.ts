@@ -29,24 +29,27 @@ const tweets = [
   }
 ]
 
+const example = {
+  Id: 11111,
+  Label: 0,
+  Url: "https://blog.trocco.io/dev-articles/embulk-digdag-meetup-2020",
+  FinalUrl: "https://blog.trocco.io/dev-articles/embulk-digdag-meetup-2020",
+  Title: "Embulk & Digdag Online Meetup 2020【イベントレポート】 | trocco(トロッコ)",
+  Description: "",
+}
+
 describe('AdminAnnotateTweets', () => {
   test('管理者用のtweetアノテーション画面が表示される', () => {
     const wrapper = mount(AdminAnnotateTweets, {
       localVue,
       propsData: {
-        example: {
-          Id: 11111,
-          Label: 0,
-          Url: "https://blog.trocco.io/dev-articles/embulk-digdag-meetup-2020",
-          FinalUrl: "https://blog.trocco.io/dev-articles/embulk-digdag-meetup-2020",
-          Title: "Embulk & Digdag Online Meetup 2020【イベントレポート】 | trocco(トロッコ)",
-          Description: "",
-        },
+        example: example,
         tweets: tweets,
         isAdmin: true
       },
     })
     expect(wrapper.exists()).toBeTruthy()
+    expect(wrapper.find('.card-title').text()).toBe(`${example.Title}`)
     expect(wrapper.element).toMatchSnapshot()
   })
 })
