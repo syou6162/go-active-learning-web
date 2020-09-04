@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdminAnnotateTweets 管理者用のtweetアノテーション画面が表示される 1`] = `
+<div>
+  <div
+    isadmin="true"
+    tweet="[object Object]"
+  >
+    <div
+      class="card"
+    >
+      <!---->
+      <!---->
+      <div
+        class="card-body m-1 p-2"
+      >
+        <h5
+          class="card-title"
+        >
+          Embulk & Digdag Online Meetup 2020【イベントレポート】 | trocco(トロッコ)
+        </h5>
+        <!---->
+        <!---->
+         
+        <img
+          class="tweet-profile-img"
+          onerror="this.style.display='none'"
+        />
+         
+        <a
+          href="https://twitter.com/trocco_jp/status/1298458422581448704"
+        >
+          @trocco_jp
+        </a>
+         
+        <p
+          class="card-text"
+        >
+          
+          【イベント情報】先月開催された「Embulk &amp; DigDag Online Meetup 2020」のレポート記事を公開しました。
+EmbulkとDigdagをプロダクション環境で利用している事例や、Embulk開発者による発表が盛り沢山です！是非ご一読下さい。
+https://t.co/gdtRuoyJtY
+        
+        </p>
+        
+        Fav: 6, RT: 4, Score: 0.5
+        
+        <div>
+          
+  Annotate as: 
+  
+          <button
+            aria-pressed="false"
+            autocomplete="off"
+            class="btn btn-primary btn-sm"
+            type="button"
+          >
+            
+    Positive
+  
+          </button>
+           
+          <button
+            class="btn btn-outline-danger btn-sm"
+            type="button"
+          >
+            
+    Negative
+  
+          </button>
+           
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            type="button"
+          >
+            
+    Unlabeled
+  
+          </button>
+        </div>
+         
+        <div
+          class="card-footer"
+        >
+          <a
+            class="btn float-right btn-secondary btn-sm"
+            href="/example/11111"
+            target="_self"
+          >
+            
+            Read more
+          
+          </a>
+           
+          <!---->
+           
+          <a
+            href="https://blog.trocco.io/dev-articles/embulk-digdag-meetup-2020"
+          >
+            blog.trocco.io 
+          </a>
+        </div>
+      </div>
+      <!---->
+      <!---->
+    </div>
+  </div>
+</div>
+`;

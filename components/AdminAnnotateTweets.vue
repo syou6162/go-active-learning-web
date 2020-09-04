@@ -57,13 +57,28 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { Example } from '~/models/Example'
+import { Example, getTitle, getDomain, getUserName, getExampleUrl } from '~/models/Example'
+import TweetAnnotateButtons from '~/components/TweetAnnotateButtons.vue'
 import Tweet from '~/models/Tweet'
 
 @Component({
   components: {
-    TweetAnnotateButtons: () => import('~/components/TweetAnnotateButtons.vue')
-  }
+    TweetAnnotateButtons,
+  },
+  filters: {
+    getTitle(example: Example, length: number, omission: string): string {
+      return getTitle(example, length, omission)
+    },
+    getDomain(example: Example): string {
+      return getDomain(example)
+    },
+    getUserName(example: Example): string {
+      return getUserName(example)
+    },
+    getExampleUrl(example: Example): string {
+      return getExampleUrl(example)
+    },
+  }  
 })
 
 export default class AdminAnnotateTweets extends Vue {
