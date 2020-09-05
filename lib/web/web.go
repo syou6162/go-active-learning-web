@@ -121,38 +121,58 @@ func (s *server) getListOfExampleWithTweet(tweets model.ReferringTweets) (model.
 func (s *server) RecentAddedReferringTweets() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		limit := 30
-		positiveTweets, err := s.app.SearchPositiveReferringTweets(limit)
-		if err != nil {
-			ServerError(w, err.Error())
-			return
-		}
-		positiveExamples, err := s.getListOfExampleWithTweet(positiveTweets)
-		if err != nil {
-			ServerError(w, err.Error())
-			return
-		}
+		positive_finished := make(chan bool)
+		negative_finished := make(chan bool)
+		unlabeled_finished := make(chan bool)
+		positiveExamples := model.Examples{}
+		negativeExamples := model.Examples{}
+		unlabeledExamples := model.Examples{}
 
-		negativeTweets, err := s.app.SearchNegativeReferringTweets(limit)
-		if err != nil {
-			ServerError(w, err.Error())
-			return
-		}
-		negativeExamples, err := s.getListOfExampleWithTweet(negativeTweets)
-		if err != nil {
-			ServerError(w, err.Error())
-			return
-		}
+		go func() {
+			positiveTweets, err := s.app.SearchPositiveReferringTweets(limit)
+			if err != nil {
+				ServerError(w, err.Error())
+				return
+			}
+			positiveExamples, err = s.getListOfExampleWithTweet(positiveTweets)
+			if err != nil {
+				ServerError(w, err.Error())
+				return
+			}
+			positive_finished <- true
+		}()
 
-		unlabeledTweets, err := s.app.SearchUnlabeledReferringTweets(50)
-		if err != nil {
-			ServerError(w, err.Error())
-			return
-		}
-		unlabeledExamples, err := s.getListOfExampleWithTweet(unlabeledTweets)
-		if err != nil {
-			ServerError(w, err.Error())
-			return
-		}
+		go func() {
+			negativeTweets, err := s.app.SearchNegativeReferringTweets(limit)
+			if err != nil {
+				ServerError(w, err.Error())
+				return
+			}
+			negativeExamples, err = s.getListOfExampleWithTweet(negativeTweets)
+			if err != nil {
+				ServerError(w, err.Error())
+				return
+			}
+			negative_finished <- true
+		}()
+
+		go func() {
+			unlabeledTweets, err := s.app.SearchUnlabeledReferringTweets(50)
+			if err != nil {
+				ServerError(w, err.Error())
+				return
+			}
+			unlabeledExamples, err = s.getListOfExampleWithTweet(unlabeledTweets)
+			if err != nil {
+				ServerError(w, err.Error())
+				return
+			}
+			unlabeled_finished <- true
+		}()
+
+		<-positive_finished
+		<-negative_finished
+		<-unlabeled_finished
 
 		JSON(w, http.StatusOK, RecentAddedExamplesResult{
 			PositiveExamples:  positiveExamples,
