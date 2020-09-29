@@ -60,7 +60,7 @@
     "logrocket": "^1.0.13",
     "nuxt": "^2.14.6",
     "nuxt-logrocket": "^1.2.10",
-    "nuxt-property-decorator": "^2.7.2",
+    "nuxt-property-decorator": "^2.8.8",
     "regenerator-runtime": "^0.13.7",
     "ts-loader": "^8.0.3",
     "ts-node": "^9.0.0",
