@@ -127,9 +127,11 @@ func (s *server) RecentAddedReferringTweets() http.Handler {
 		positiveExamples := model.Examples{}
 		negativeExamples := model.Examples{}
 		unlabeledExamples := model.Examples{}
+		scoreThreshold := -1.0
+		tweetsLimitInSameExample := 3
 
 		go func() {
-			positiveTweets, err := s.app.SearchPositiveReferringTweets(limit)
+			positiveTweets, err := s.app.SearchPositiveReferringTweets(scoreThreshold, tweetsLimitInSameExample, limit)
 			if err != nil {
 				ServerError(w, err.Error())
 				return
@@ -143,7 +145,7 @@ func (s *server) RecentAddedReferringTweets() http.Handler {
 		}()
 
 		go func() {
-			negativeTweets, err := s.app.SearchNegativeReferringTweets(limit)
+			negativeTweets, err := s.app.SearchNegativeReferringTweets(scoreThreshold, tweetsLimitInSameExample, limit)
 			if err != nil {
 				ServerError(w, err.Error())
 				return
@@ -157,7 +159,7 @@ func (s *server) RecentAddedReferringTweets() http.Handler {
 		}()
 
 		go func() {
-			unlabeledTweets, err := s.app.SearchUnlabeledReferringTweets(50)
+			unlabeledTweets, err := s.app.SearchUnlabeledReferringTweets(scoreThreshold, tweetsLimitInSameExample, 50)
 			if err != nil {
 				ServerError(w, err.Error())
 				return
