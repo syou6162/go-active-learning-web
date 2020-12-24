@@ -47,7 +47,7 @@
     "@nuxt/typescript-runtime": "^2.0.0",
     "@nuxtjs/axios": "^5.12.4",
     "@nuxtjs/google-gtag": "^1.0.4",
-    "@nuxtjs/proxy": "^2.0.1",
+    "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/sentry": "^4.5.0",
     "@ungap/url-search-params": "^0.2.2",
     "autolinker": "^3.14.2",
