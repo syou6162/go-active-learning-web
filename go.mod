@@ -9,7 +9,7 @@ require (
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/clbanning/mxj v1.8.4 // indirect
 	github.com/dghubble/go-twitter v0.0.0-20190719072343-39e5462e111f
-	github.com/dghubble/oauth1 v0.6.0
+	github.com/dghubble/oauth1 v0.7.0
 	github.com/fukata/golang-stats-api-handler v0.0.0-20160325105040-ab9f90f16caa
 	github.com/getsentry/sentry-go v0.9.0
 	github.com/gorilla/feeds v1.1.1
