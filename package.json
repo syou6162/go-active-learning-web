@@ -51,7 +51,7 @@
     "@nuxtjs/sentry": "^4.5.0",
     "@ungap/url-search-params": "^0.2.2",
     "autolinker": "^3.14.2",
-    "aws-amplify": "^3.3.7",
+    "aws-amplify": "^3.3.17",
     "bootstrap-vue": "^2.21.2",
     "cross-env": "^7.0.3",
     "cssnano": "^4.1.10",
