@@ -58,7 +58,7 @@
     "date-fns": "^2.16.1",
     "jquery": "^3.5.1",
     "logrocket": "^1.0.14",
-    "nuxt": "^2.14.12",
+    "nuxt": "^2.15.2",
     "nuxt-logrocket": "^1.5.2",
     "nuxt-property-decorator": "^2.8.8",
     "regenerator-runtime": "^0.13.7",
