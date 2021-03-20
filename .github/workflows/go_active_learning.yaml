@@ -1,4 +1,4 @@
-name: CI
+name: Push to ECR api
 
 on: [push]
 
