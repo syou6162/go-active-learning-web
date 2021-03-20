@@ -2,7 +2,7 @@ version: 2
 
 defaults: &defaults
   docker:
-    - image: circleci/golang:1.12.4
+    - image: circleci/golang:1.16-stretch
       user: root
     - image: circleci/postgres:9.6-alpine
   working_directory: /workspace
