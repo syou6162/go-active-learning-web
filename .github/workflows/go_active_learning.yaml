@@ -1,0 +1,31 @@
+name: Push to ECR api
+
+on: [push]
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_BUILDKIT: 1
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Build image
+      run: docker build -f Dockerfile.api -t ${{ secrets.AWS_ECR_REPOSITORY_NAME }} .
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ECR_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_ECR_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+    - name: Login to ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+      env:
+        AWS_REGION: ${{ secrets.AWS_REGION }}
+    - name: Push to ECR
+      run: |
+        docker tag ${{ secrets.AWS_ECR_REPOSITORY_NAME }}:latest ${{ steps.login-ecr.outputs.registry }}/${{ secrets.AWS_ECR_REPOSITORY_NAME }}:latest
+        docker push ${{ steps.login-ecr.outputs.registry }}/${{ secrets.AWS_ECR_REPOSITORY_NAME }}:latest
+      if: github.ref == 'refs/heads/master'
