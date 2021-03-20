@@ -1,6 +1,6 @@
 module github.com/syou6162/go-active-learning-web
 
-go 1.12
+go 1.16
 
 require (
 	github.com/anknown/ahocorasick v0.0.0-20170415101647-0c5fc0283558
