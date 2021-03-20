@@ -50,7 +50,7 @@
     "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/sentry": "^5.0.1",
     "@ungap/url-search-params": "^0.2.2",
-    "autolinker": "^3.14.2",
+    "autolinker": "^3.14.3",
     "aws-amplify": "^3.3.24",
     "bootstrap-vue": "^2.21.2",
     "cross-env": "^7.0.3",
