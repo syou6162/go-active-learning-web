@@ -28,3 +28,4 @@ jobs:
       run: |
         docker tag ${{ secrets.AWS_ECR_REPOSITORY_NAME }}:latest ${{ steps.login-ecr.outputs.registry }}/${{ secrets.AWS_ECR_REPOSITORY_NAME }}:latest
         docker push ${{ steps.login-ecr.outputs.registry }}/${{ secrets.AWS_ECR_REPOSITORY_NAME }}:latest
+      if: github.ref == 'refs/heads/master'
