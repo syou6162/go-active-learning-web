@@ -32,7 +32,10 @@ jobs:
           keys:
             - go-module-cache-v1-{{ checksum "/workspace/go.sum" }}
             - go-module-cache-v1-
-      - run: go mod download
+      - run:
+          command: |
+            go mod download
+            go mod tidy
       - save_cache:
           key: go-module-cache-v1-{{ checksum "/workspace/go.sum" }}
           paths:
