@@ -40,7 +40,7 @@
     "vue-jest": "^3.0.7",
     "vue-meta": "^2.4.0",
     "webpack": "^4.46.0",
-    "webpack-cli": "^4.5.0"
+    "webpack-cli": "^4.6.0"
   },
   "dependencies": {
     "@nuxt/types": "^2.15.3",
