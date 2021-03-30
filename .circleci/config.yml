@@ -104,7 +104,7 @@ jobs:
       - run: git clone https://github.com/syou6162/go-active-learning.git && cd go-active-learning && psql -U postgres -f script/create_database.sql && sql-migrate up -env=test && cd ../ && rm -rf go-active-learning
       - run:
           command: |
-            git diff --quiet master -- lib go.mod go.sum
+            git diff master -- lib go.mod go.sum
             if ! git diff --quiet master -- lib go.mod go.sum; then
               make cover COVERAGE='/home/circleci/coverage.out'
               goveralls -coverprofile=/home/circleci/coverage.out -service=circle-ci -repotoken=$COVERALLS_TOKEN
