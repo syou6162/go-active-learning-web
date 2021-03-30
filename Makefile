@@ -5,7 +5,6 @@ all: build
 
 .PHONY: deps
 deps:
-	go mod download
 	go install github.com/mattn/goveralls@latest
 	go install github.com/haya14busa/goverage@latest
 	go install github.com/rubenv/sql-migrate/sql-migrate@latest
