@@ -1,6 +1,5 @@
 COMMIT ?= $$(git describe --always 2>/dev/null)
 COVERAGE = coverage.out
-export GO111MODULE := on
 
 all: build
 

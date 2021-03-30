@@ -9,7 +9,6 @@ defaults: &defaults
   environment:
     GOPATH: /
     GOCACHE: /.cache/go-build
-    GO111MODULE: "on"
     PGHOST: 127.0.0.1
 
 jobs:
