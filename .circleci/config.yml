@@ -103,8 +103,12 @@ jobs:
             - go-module-cache-v1-
       - run: make deps
       - run: git clone https://github.com/syou6162/go-active-learning.git && cd go-active-learning && psql -U postgres -f script/create_database.sql && sql-migrate up -env=test && cd ../ && rm -rf go-active-learning
-      - run: make cover COVERAGE='/home/circleci/coverage.out'
-      - run: goveralls -coverprofile=/home/circleci/coverage.out -service=circle-ci -repotoken=$COVERALLS_TOKEN
+      - run:
+          command: |
+            if git diff --quiet master; then
+              make cover COVERAGE='/home/circleci/coverage.out'
+              goveralls -coverprofile=/home/circleci/coverage.out -service=circle-ci -repotoken=$COVERALLS_TOKEN
+            fi
 workflows:
   version: 2
   build-and-deploy:
