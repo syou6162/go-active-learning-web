@@ -106,6 +106,7 @@ jobs:
       - run:
           command: |
             if ! git diff --quiet master; then
+              echo "testだよ"
               make cover COVERAGE='/home/circleci/coverage.out'
               goveralls -coverprofile=/home/circleci/coverage.out -service=circle-ci -repotoken=$COVERALLS_TOKEN
             fi
