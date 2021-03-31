@@ -15,12 +15,10 @@ require (
 	github.com/gorilla/feeds v1.1.1
 	github.com/ikeikeikeike/go-sitemap-generator v2.0.1+incompatible
 	github.com/mackerelio/mackerel-client-go v0.16.0
-	github.com/mattn/go-sqlite3 v1.12.0 // indirect
 	github.com/olekukonko/tablewriter v0.0.2 // indirect
 	github.com/pbnjay/clustering v0.0.0-20180426023255-34a8f36cd397
-	github.com/syou6162/go-active-learning v0.4.3
+	github.com/syou6162/go-active-learning v0.4.5
 	github.com/urfave/cli v1.22.5
 	golang.org/x/sys v0.0.0-20191220142924-d4481acd189f // indirect
-	google.golang.org/appengine v1.6.5 // indirect
 	gopkg.in/yaml.v2 v2.2.5 // indirect
 )
